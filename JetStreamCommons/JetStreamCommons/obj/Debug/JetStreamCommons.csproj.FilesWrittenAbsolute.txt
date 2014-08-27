@@ -1,0 +1,14 @@
+/Volumes/Sitecore/GitHub/Mobile.Apps.Win8.Demo.Jetstream/JetStreamCommons/JetStreamCommons/obj/Debug/.NETPortable,Version=v4.5,Profile=Profile78.AssemblyAttribute.cs
+/Volumes/Sitecore/GitHub/Mobile.Apps.Win8.Demo.Jetstream/JetStreamCommons/JetStreamCommons/bin/Debug/JetStreamCommons.dll.mdb
+/Volumes/Sitecore/GitHub/Mobile.Apps.Win8.Demo.Jetstream/JetStreamCommons/JetStreamCommons/bin/Debug/JetStreamCommons.dll
+/Volumes/Sitecore/GitHub/Mobile.Apps.Win8.Demo.Jetstream/JetStreamCommons/JetStreamCommons/obj/Debug/JetStreamCommons.dll
+/Volumes/Sitecore/GitHub/Mobile.Apps.Win8.Demo.Jetstream/JetStreamCommons/JetStreamCommons/obj/Debug/JetStreamCommons.dll.mdb
+/Volumes/Sitecore/GitHub/Mobile.Apps.Win8.Demo.Jetstream/JetStreamCommons/JetStreamCommons/bin/Debug/Sitecore.MobileSDK.dll
+/Volumes/Sitecore/GitHub/Mobile.Apps.Win8.Demo.Jetstream/JetStreamCommons/JetStreamCommons/bin/Debug/System.Net.Http.dll
+/Volumes/Sitecore/GitHub/Mobile.Apps.Win8.Demo.Jetstream/JetStreamCommons/JetStreamCommons/bin/Debug/Newtonsoft.Json.dll
+/Volumes/Sitecore/GitHub/Mobile.Apps.Win8.Demo.Jetstream/JetStreamCommons/JetStreamCommons/bin/Debug/crypto.dll
+/Volumes/Sitecore/GitHub/Mobile.Apps.Win8.Demo.Jetstream/JetStreamCommons/JetStreamCommons/bin/Debug/System.Threading.Tasks.dll
+/Volumes/Sitecore/GitHub/Mobile.Apps.Win8.Demo.Jetstream/JetStreamCommons/JetStreamCommons/bin/Debug/Microsoft.Threading.Tasks.dll
+/Volumes/Sitecore/GitHub/Mobile.Apps.Win8.Demo.Jetstream/JetStreamCommons/JetStreamCommons/bin/Debug/System.Runtime.dll
+/Volumes/Sitecore/GitHub/Mobile.Apps.Win8.Demo.Jetstream/JetStreamCommons/JetStreamCommons/bin/Debug/System.Net.Http.Primitives.dll
+/Volumes/Sitecore/GitHub/Mobile.Apps.Win8.Demo.Jetstream/JetStreamCommons/JetStreamCommons/bin/Debug/System.IO.dll

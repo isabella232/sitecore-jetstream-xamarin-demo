@@ -1,0 +1,29 @@
+# Version: 7.2.6.28 (606f31a)
+# [first argument, ignore] # /Volumes/Sitecore/GitHub/Mobile.Apps.Win8.Demo.Jetstream/JetStreamIOS/JetStreamIOS/bin/iPhoneSimulator/Debug/mtouch.exe
+/Developer/MonoTouch/usr/bin/mtouch \
+	-sdkroot \
+	/Applications/Xcode.app/Contents/Developer \
+	--cache \
+	/Volumes/Sitecore/GitHub/Mobile.Apps.Win8.Demo.Jetstream/JetStreamIOS/JetStreamIOS/obj/iPhoneSimulator/Debug/mtouch-cache \
+	--nomanifest \
+	--nosign \
+	-sim \
+	/Volumes/Sitecore/GitHub/Mobile.Apps.Win8.Demo.Jetstream/JetStreamIOS/JetStreamIOS/bin/iPhoneSimulator/Debug/JetStreamIOS.app \
+	-r \
+	/Volumes/Sitecore/GitHub/Mobile.Apps.Win8.Demo.Jetstream/JetStreamCommons/JetStreamCommons/bin/Debug/JetStreamCommons.dll \
+	-r \
+	/Developer/MonoTouch/usr/lib/mono/2.1/System.dll \
+	-r \
+	/Developer/MonoTouch/usr/lib/mono/2.1/System.Xml.dll \
+	-r \
+	/Developer/MonoTouch/usr/lib/mono/2.1/System.Core.dll \
+	-r \
+	/Developer/MonoTouch/usr/lib/mono/2.1/monotouch.dll \
+	-debug \
+	-nolink \
+	-sdk \
+	7.1 \
+	-targetver \
+	7.0 \
+	--abi=i386 \
+	/Volumes/Sitecore/GitHub/Mobile.Apps.Win8.Demo.Jetstream/JetStreamIOS/JetStreamIOS/bin/iPhoneSimulator/Debug/JetStreamIOS.exe \
