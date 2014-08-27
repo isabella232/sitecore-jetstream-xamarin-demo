@@ -7,6 +7,11 @@ namespace JetStreamCommons
     public MyClass()
     {
     }
+
+    public static string Bla()
+    {
+      return "bla";
+    }
   }
 }
 

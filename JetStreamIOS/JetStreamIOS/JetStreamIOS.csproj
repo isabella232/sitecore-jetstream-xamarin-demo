@@ -84,6 +84,9 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="monotouch" />
+    <Reference Include="Sitecore.MobileSDK">
+      <HintPath>..\..\SitecoreMobileSDK-Full\Sitecore.MobileSDK.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -112,4 +115,10 @@
     <BundleResource Include="Resources\second%402x.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
+  <ItemGroup>
+    <ProjectReference Include="..\..\JetStreamCommons\JetStreamCommons\JetStreamCommons.csproj">
+      <Project>{040C24CF-4B83-4917-B837-ED8157960B5F}</Project>
+      <Name>JetStreamCommons</Name>
+    </ProjectReference>
+  </ItemGroup>
 </Project>

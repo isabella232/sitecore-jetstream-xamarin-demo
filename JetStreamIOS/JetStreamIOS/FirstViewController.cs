@@ -3,6 +3,7 @@ using System.Drawing;
 
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
+using JetStreamCommons;
 
 namespace JetStreamIOS
 {
@@ -13,7 +14,7 @@ namespace JetStreamIOS
       Title = NSBundle.MainBundle.LocalizedString ("First", "First");
       TabBarItem.Image = UIImage.FromBundle ("first");
     }
-
+      
     public override void DidReceiveMemoryWarning()
     {
       // Releases the view if it doesn't have a superview.
@@ -27,7 +28,8 @@ namespace JetStreamIOS
     public override void ViewDidLoad()
     {
       base.ViewDidLoad ();
-      
+
+      this.TitleLabel.Text = MyClass.Bla ();
       // Perform any additional setup after loading the view, typically from a nib.
     }
 
