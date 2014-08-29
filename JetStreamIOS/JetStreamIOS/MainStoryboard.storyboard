@@ -4,11 +4,11 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
-        <!--Navigation Controller - Item-->
+        <!--Navigation Controller-->
         <scene sceneID="kS8-wH-ASY">
             <objects>
                 <navigationController definesPresentationContext="YES" id="vD8-VE-1jS" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="HqJ-l7-07Y"/>
+                    <tabBarItem key="tabBarItem" systemItem="search" id="HqJ-l7-07Y"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="APq-Wb-bHc">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -65,6 +65,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
+                                    <action selector="OnDepartDateButtonTouched:" destination="CZ4-MO-1fc" eventType="touchUpInside" id="d6L-yi-Lh3"/>
                                     <segue destination="N2G-Hc-7Ll" kind="modal" id="HHs-bX-XQV"/>
                                 </connections>
                             </button>
@@ -82,6 +83,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
+                                    <action selector="OnReturnDateButtonTouched:" destination="CZ4-MO-1fc" eventType="touchUpInside" id="f9a-Gw-4Zg"/>
                                     <segue destination="N2G-Hc-7Ll" kind="modal" id="vpZ-3n-SIU"/>
                                 </connections>
                             </button>
@@ -95,6 +97,9 @@
                             <stepper opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="uvD-Eo-tTD">
                                 <rect key="frame" x="206" y="307" width="94" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <connections>
+                                    <action selector="CountValueChanged:" destination="CZ4-MO-1fc" eventType="valueChanged" id="hgI-cg-9eo"/>
+                                </connections>
                             </stepper>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0A0-Q4-cJn">
                                 <rect key="frame" x="133" y="311" width="55" height="21"/>
@@ -139,12 +144,30 @@
                                 <state key="normal" title="Search Fllights">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="OnSearchButtonTouched:" destination="CZ4-MO-1fc" eventType="touchUpInside" id="CVH-ZA-kQI"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="First" image="first" id="u1e-5L-l1D"/>
                     <navigationItem key="navigationItem" id="8gz-zS-VwR"/>
+                    <connections>
+                        <outlet property="ClassSegmentedControl" destination="91k-4G-fex" id="HWM-u4-Rvc"/>
+                        <outlet property="ClassTitleLabel" destination="CzN-yc-qqC" id="eJy-k9-Lxv"/>
+                        <outlet property="CountTitleLabel" destination="H3q-Zl-kzO" id="CHn-hC-MDk"/>
+                        <outlet property="DepartDateButton" destination="0wh-Hk-kWR" id="UTx-pm-uGg"/>
+                        <outlet property="DepartTitleLabel" destination="ktj-jo-mZC" id="urR-y3-cOU"/>
+                        <outlet property="FromLocationTextField" destination="qB0-Ys-Ihy" id="tSa-JA-VTY"/>
+                        <outlet property="ResultCountLabel" destination="0A0-Q4-cJn" id="7at-8T-6ct"/>
+                        <outlet property="ReturnDateButton" destination="qNa-CO-Hhk" id="l7P-wK-aZB"/>
+                        <outlet property="ReturnTitleLabel" destination="MBx-UW-SaA" id="Kp8-dg-w6a"/>
+                        <outlet property="RoundtripSwitch" destination="7gC-yw-tIs" id="2rl-fM-hf1"/>
+                        <outlet property="RoundtripTitleLabel" destination="y5f-4B-TNd" id="sbd-T8-zxB"/>
+                        <outlet property="SearchButton" destination="HzJ-Tx-TZ0" id="h0H-eO-VY2"/>
+                        <outlet property="ToLocationTextField" destination="gNV-pn-53Q" id="LwW-mC-Ckp"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qh2-T1-AhA" sceneMemberID="firstResponder"/>
             </objects>

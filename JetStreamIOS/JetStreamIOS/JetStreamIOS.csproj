@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -97,18 +97,24 @@
     <Compile Include="AppDelegate.cs" />
     <Compile Include="Helpers\AlertHelper.cs" />
     <Compile Include="ViewControllers\AboutViewController.cs" />
+    <Compile Include="ViewControllers\AboutViewController.designer.cs">
+      <DependentUpon>AboutViewController.cs</DependentUpon>
+    </Compile>
     <Compile Include="ViewControllers\SearchViewController.cs" />
+    <Compile Include="ViewControllers\SearchViewController.designer.cs">
+      <DependentUpon>SearchViewController.cs</DependentUpon>
+    </Compile>
     <Compile Include="ViewControllers\SettingsViewController.cs" />
+    <Compile Include="ViewControllers\SettingsViewController.designer.cs">
+      <DependentUpon>SettingsViewController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard.storyboard" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Default-568h%402x.png" />
-    <BundleResource Include="Resources\first.png" />
-    <BundleResource Include="Resources\first%402x.png" />
-    <BundleResource Include="Resources\second.png" />
-    <BundleResource Include="Resources\second%402x.png" />
+    <BundleResource Include="Resources\en.lproj\Localizable.strings" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
   <ItemGroup>
@@ -120,5 +126,6 @@
   <ItemGroup>
     <Folder Include="Helpers\" />
     <Folder Include="ViewControllers\" />
+    <Folder Include="Resources\en.lproj\" />
   </ItemGroup>
 </Project>
