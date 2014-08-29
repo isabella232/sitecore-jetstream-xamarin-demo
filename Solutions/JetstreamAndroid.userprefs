@@ -1,0 +1,13 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Android.SelectDevice" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="..\JetstreamAndroid\Jetstream\MainActivity.cs">
+    <Files>
+      <File FileName="..\JetStreamCommons\JetStreamCommons\RestManager.cs" Line="31" Column="31" />
+      <File FileName="..\JetstreamAndroid\Jetstream\MainActivity.cs" Line="41" Column="41" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
