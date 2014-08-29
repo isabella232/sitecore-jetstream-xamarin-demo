@@ -40,3 +40,6 @@ UpgradeLog.htm
 packages
 *.exe
 *.dgml
+
+JetStreamCommons/JetStreamCommons/bin/*
+JetStreamIOS/JetStreamIOS/bin/*
