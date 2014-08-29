@@ -7,6 +7,11 @@ namespace JetStreamCommons
     public QueryHelpers()
     {
     }
+
+    public static string QueryToGetAllFlights()
+    {
+      return "/sitecore/content/Global/Airports//*";
+    }
   }
 }
 

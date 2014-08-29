@@ -4,6 +4,7 @@ using System.Drawing;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using JetStreamCommons;
+using Sitecore.MobileSDK.API.Items;
 
 namespace JetStreamIOS
 {
@@ -23,14 +24,21 @@ namespace JetStreamIOS
       // Release any cached data, images, etc that aren't in use.
     }
 
+   
+
     #region View lifecycle
 
     public override void ViewDidLoad()
     {
       base.ViewDidLoad ();
+      this.LoadAirports ();
+    }
 
-      this.TitleLabel.Text = MyClass.Bla ();
-      // Perform any additional setup after loading the view, typically from a nib.
+    private async void LoadAirports()
+    {
+      RestManager restManager = new RestManager ();
+      ScItemsResponse airports = await restManager.GetFullAirportsList ();
+      this.TitleLabel.Text = airports.ResultCount.ToString();
     }
 
     public override void ViewWillAppear(bool animated)

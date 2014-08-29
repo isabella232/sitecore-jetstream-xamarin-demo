@@ -19,6 +19,8 @@
 	/Developer/MonoTouch/usr/lib/mono/2.1/System.Core.dll \
 	-r \
 	/Developer/MonoTouch/usr/lib/mono/2.1/monotouch.dll \
+	-r \
+	/Volumes/Sitecore/GitHub/Mobile.Apps.Win8.Demo.Jetstream/SitecoreMobileSDK-Full/Sitecore.MobileSDK.dll \
 	-debug \
 	-nolink \
 	-sdk \

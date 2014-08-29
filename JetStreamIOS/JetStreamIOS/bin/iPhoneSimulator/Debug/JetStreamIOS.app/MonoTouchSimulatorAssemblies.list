@@ -6,3 +6,11 @@ Mono.Dynamic.Interpreter.dll
 JetStreamCommons.dll
 System.Runtime.dll
 System.ComponentModel.Composition.dll
+Sitecore.MobileSDK.dll
+System.Net.Http.dll
+Newtonsoft.Json.dll
+System.Runtime.Serialization.dll
+crypto.dll
+System.Threading.Tasks.dll
+Microsoft.Threading.Tasks.dll
+System.Diagnostics.Debug.dll
