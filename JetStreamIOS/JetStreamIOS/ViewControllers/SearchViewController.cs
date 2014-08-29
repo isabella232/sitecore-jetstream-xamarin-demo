@@ -4,6 +4,9 @@ using System;
 
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
+using JetStreamCommons;
+using System.Collections;
+using Sitecore.MobileSDK.API.Items;
 
 namespace JetStreamIOS
 {
@@ -12,5 +15,19 @@ namespace JetStreamIOS
 		public SearchViewController (IntPtr handle) : base (handle)
 		{
 		}
+
+    public override void ViewDidLoad()
+    {
+      base.ViewDidLoad ();
+      this.GetAirports ();
+    }
+
+    private async void GetAirports()
+    {
+//      this.TitleLabel.Text = "*";
+//      RestManager restManager = new RestManager ();
+//      ScItemsResponse result = await restManager.GetFullAirportsList ();
+//      this.TitleLabel.Text = result.TotalCount.ToString();
+    }
 	}
 }
