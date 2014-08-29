@@ -41,5 +41,5 @@ packages
 *.exe
 *.dgml
 
-JetStreamCommons/JetStreamCommons/bin/*
-JetStreamIOS/JetStreamIOS/bin/*
+JetStreamCommons/JetStreamCommons/bin/
+JetStreamIOS/JetStreamIOS/bin/
