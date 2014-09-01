@@ -14,6 +14,15 @@ namespace JetStreamCommons
     {
     }
 
+    ~RestManager()
+    {
+      if (null != this.session)
+      {
+        this.session.Dispose ();
+        this.session = null;
+      }
+    }
+
     public ISitecoreWebApiSession GetSession()
     {
       if (null == this.session)
@@ -34,24 +43,38 @@ namespace JetStreamCommons
           this.session = result;
         }
       }
-
+        
       return this.session;
     }
       
     public async Task<ScItemsResponse> GetFullAirportsList()
     {
-      using ( var session = this.GetSession() )
-      {
-        string testQuery = QueryHelpers.QueryToGetAllFlights(); 
+      var session = this.GetSession ();
 
-        var request = ItemWebApiRequestBuilder.ReadItemsRequestWithSitecoreQuery(testQuery)
-          .Build();
-        
-        ScItemsResponse responce = await session.ReadItemAsync(request);
+      string testQuery = QueryHelpers.QueryToGetAllFlights(); 
 
-        return responce;
-      }
+      var request = ItemWebApiRequestBuilder.ReadItemsRequestWithSitecoreQuery(testQuery)
+        .Build();
+
+      ScItemsResponse responce = await session.ReadItemAsync(request);
+
+      return responce;
     }
+
+    public async Task<ScItemsResponse> SearchTicketsWith(SearchTicketsRequest request)
+    {
+      var session = this.GetSession ();
+
+      string testQuery = QueryHelpers.QueryToGetAllFlights(); 
+
+      var readRequest = ItemWebApiRequestBuilder.ReadItemsRequestWithSitecoreQuery(testQuery)
+        .Build();
+
+      ScItemsResponse responce = await session.ReadItemAsync(readRequest);
+
+      return responce;
+    }
+
 
     private ISitecoreWebApiSession session;
   }

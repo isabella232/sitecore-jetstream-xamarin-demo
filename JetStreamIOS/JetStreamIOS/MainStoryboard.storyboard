@@ -42,7 +42,7 @@
                                 <rect key="frame" x="278" y="77" width="22" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
-                                    <segue destination="D0g-X0-YHq" kind="push" id="zO5-9g-qYU"/>
+                                    <segue destination="D0g-X0-YHq" kind="push" identifier="ToAirportQuickSearch" id="zO5-9g-qYU"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gNV-pn-53Q">
@@ -55,7 +55,7 @@
                                 <rect key="frame" x="278" y="115" width="22" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
-                                    <segue destination="D0g-X0-YHq" kind="push" id="yk4-tX-bqx"/>
+                                    <segue destination="D0g-X0-YHq" kind="push" identifier="FromAirportQuickSearch" id="yk4-tX-bqx"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0wh-Hk-kWR">
@@ -66,7 +66,6 @@
                                 </state>
                                 <connections>
                                     <action selector="OnDepartDateButtonTouched:" destination="CZ4-MO-1fc" eventType="touchUpInside" id="d6L-yi-Lh3"/>
-                                    <segue destination="N2G-Hc-7Ll" kind="modal" id="HHs-bX-XQV"/>
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Depart" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ktj-jo-mZC">
@@ -84,7 +83,6 @@
                                 </state>
                                 <connections>
                                     <action selector="OnReturnDateButtonTouched:" destination="CZ4-MO-1fc" eventType="touchUpInside" id="f9a-Gw-4Zg"/>
-                                    <segue destination="N2G-Hc-7Ll" kind="modal" id="vpZ-3n-SIU"/>
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Return" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MBx-UW-SaA">
@@ -166,6 +164,7 @@
                         <outlet property="RoundtripSwitch" destination="7gC-yw-tIs" id="2rl-fM-hf1"/>
                         <outlet property="RoundtripTitleLabel" destination="y5f-4B-TNd" id="sbd-T8-zxB"/>
                         <outlet property="SearchButton" destination="HzJ-Tx-TZ0" id="h0H-eO-VY2"/>
+                        <outlet property="TicketCountStepper" destination="uvD-Eo-tTD" id="ytf-4n-uJq"/>
                         <outlet property="ToLocationTextField" destination="gNV-pn-53Q" id="LwW-mC-Ckp"/>
                     </connections>
                 </viewController>
@@ -354,7 +353,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="yk4-tX-bqx"/>
-        <segue reference="HHs-bX-XQV"/>
+        <segue reference="zO5-9g-qYU"/>
     </inferredMetricsTieBreakers>
 </document>

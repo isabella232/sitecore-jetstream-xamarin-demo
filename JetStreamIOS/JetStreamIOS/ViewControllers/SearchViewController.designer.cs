@@ -49,6 +49,9 @@ namespace JetStreamIOS
 		MonoTouch.UIKit.UIButton SearchButton { get; set; }
 
 		[Outlet]
+		MonoTouch.UIKit.UIStepper TicketCountStepper { get; set; }
+
+		[Outlet]
 		MonoTouch.UIKit.UITextField ToLocationTextField { get; set; }
 
 		[Action ("CountValueChanged:")]
@@ -80,6 +83,11 @@ namespace JetStreamIOS
 				CountTitleLabel = null;
 			}
 
+			if (DepartDateButton != null) {
+				DepartDateButton.Dispose ();
+				DepartDateButton = null;
+			}
+
 			if (DepartTitleLabel != null) {
 				DepartTitleLabel.Dispose ();
 				DepartTitleLabel = null;
@@ -93,6 +101,11 @@ namespace JetStreamIOS
 			if (ResultCountLabel != null) {
 				ResultCountLabel.Dispose ();
 				ResultCountLabel = null;
+			}
+
+			if (ReturnDateButton != null) {
+				ReturnDateButton.Dispose ();
+				ReturnDateButton = null;
 			}
 
 			if (ReturnTitleLabel != null) {
@@ -110,24 +123,19 @@ namespace JetStreamIOS
 				RoundtripTitleLabel = null;
 			}
 
+			if (SearchButton != null) {
+				SearchButton.Dispose ();
+				SearchButton = null;
+			}
+
 			if (ToLocationTextField != null) {
 				ToLocationTextField.Dispose ();
 				ToLocationTextField = null;
 			}
 
-			if (DepartDateButton != null) {
-				DepartDateButton.Dispose ();
-				DepartDateButton = null;
-			}
-
-			if (ReturnDateButton != null) {
-				ReturnDateButton.Dispose ();
-				ReturnDateButton = null;
-			}
-
-			if (SearchButton != null) {
-				SearchButton.Dispose ();
-				SearchButton = null;
+			if (TicketCountStepper != null) {
+				TicketCountStepper.Dispose ();
+				TicketCountStepper = null;
 			}
 		}
 	}
