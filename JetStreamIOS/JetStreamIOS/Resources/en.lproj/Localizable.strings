@@ -1,4 +1,5 @@
-﻿"SEARCH_FLIGHTS_BUTTON_TITLE" = "Search Flights";
+﻿//Search screen UI
+"SEARCH_FLIGHTS_BUTTON_TITLE" = "Search Flights";
 "BUSINESS_CLASS_BUTTON_TITLE" = "Business";
 "ECONOMY_CLASS_BUTTON_TITLE" = "Economy";
 "FIRST_CLASS_BUTTON_TITLE" = "First Class";
