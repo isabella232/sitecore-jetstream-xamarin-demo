@@ -47,11 +47,11 @@ namespace JetStreamCommons
       return this.session;
     }
       
-    public async Task<ScItemsResponse> GetFullAirportsList()
+    public async Task<ScItemsResponse> SearchAirportsWithNameContains(string name)
     {
       var session = this.GetSession ();
 
-      string testQuery = QueryHelpers.QueryToGetAllFlights(); 
+      string testQuery = QueryHelpers.QueryToSearchAirportsWithName(name); 
 
       var request = ItemWebApiRequestBuilder.ReadItemsRequestWithSitecoreQuery(testQuery)
         .Build();
@@ -61,11 +61,30 @@ namespace JetStreamCommons
       return responce;
     }
 
-    public async Task<ScItemsResponse> SearchTicketsWith(SearchTicketsRequest request)
+    public async Task<ScItemsResponse> SearchDepartTicketsWithRequest(SearchFlightsRequest request)
+    {
+      return await this.SearchTicketsWithRequest (request, true);
+    }
+
+    public async Task<ScItemsResponse> SearchReturnTicketsWithRequest(SearchFlightsRequest request)
+    {
+      return await this.SearchTicketsWithRequest (request, false);
+    }
+
+    private async Task<ScItemsResponse> SearchTicketsWithRequest(SearchFlightsRequest request, bool isDepart)
     {
       var session = this.GetSession ();
 
-      string testQuery = QueryHelpers.QueryToGetAllFlights(); 
+      string testQuery;
+
+      if (isDepart)
+      {
+        testQuery = QueryHelpers.QueryToSearchDepartFlightsWithRequest (request); 
+      }
+      else
+      {
+        testQuery = QueryHelpers.QueryToSearchReturnFlightsWithRequest (request); 
+      }
 
       var readRequest = ItemWebApiRequestBuilder.ReadItemsRequestWithSitecoreQuery(testQuery)
         .Build();
