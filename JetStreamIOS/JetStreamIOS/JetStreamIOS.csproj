@@ -108,6 +108,11 @@
     <Compile Include="ViewControllers\SettingsViewController.designer.cs">
       <DependentUpon>SettingsViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="ViewControllers\SearchAirports\SearchAirportTableViewController.cs" />
+    <Compile Include="ViewControllers\SearchAirports\SearchAirportTableViewController.designer.cs">
+      <DependentUpon>SearchAirportTableViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewControllers\SearchAirports\SearchAirportsSource.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard.storyboard" />
@@ -127,5 +132,6 @@
     <Folder Include="Helpers\" />
     <Folder Include="ViewControllers\" />
     <Folder Include="Resources\en.lproj\" />
+    <Folder Include="ViewControllers\SearchAirports\" />
   </ItemGroup>
 </Project>

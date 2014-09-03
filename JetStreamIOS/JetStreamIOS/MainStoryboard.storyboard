@@ -42,7 +42,7 @@
                                 <rect key="frame" x="278" y="77" width="22" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
-                                    <segue destination="D0g-X0-YHq" kind="push" identifier="ToAirportQuickSearch" id="zO5-9g-qYU"/>
+                                    <segue destination="D0g-X0-YHq" kind="push" identifier="FromAirportQuickSearch" id="zO5-9g-qYU"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gNV-pn-53Q">
@@ -55,7 +55,7 @@
                                 <rect key="frame" x="278" y="115" width="22" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
-                                    <segue destination="D0g-X0-YHq" kind="push" identifier="FromAirportQuickSearch" id="yk4-tX-bqx"/>
+                                    <segue destination="D0g-X0-YHq" kind="push" identifier="ToAirportQuickSearch" id="yk4-tX-bqx"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0wh-Hk-kWR">
@@ -92,7 +92,7 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <stepper opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="uvD-Eo-tTD">
+                            <stepper opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minimumValue="1" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="uvD-Eo-tTD">
                                 <rect key="frame" x="206" y="307" width="94" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <connections>
@@ -235,10 +235,10 @@
             </objects>
             <point key="canvasLocation" x="653" y="498"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Search Airport Table View Controller-->
         <scene sceneID="TvK-Dk-DIN">
             <objects>
-                <tableViewController id="D0g-X0-YHq" sceneMemberID="viewController">
+                <tableViewController id="D0g-X0-YHq" customClass="SearchAirportTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="zOw-4d-8jd">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -263,7 +263,9 @@
                             <outlet property="delegate" destination="D0g-X0-YHq" id="hT5-PV-w4W"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="sRr-eW-uSl"/>
+                    <navigationItem key="navigationItem" id="sRr-eW-uSl">
+                        <barButtonItem key="backBarButtonItem" title="Cancel" id="QPG-xL-5gB"/>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NfT-wP-idu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -353,6 +355,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="zO5-9g-qYU"/>
+        <segue reference="yk4-tX-bqx"/>
     </inferredMetricsTieBreakers>
 </document>

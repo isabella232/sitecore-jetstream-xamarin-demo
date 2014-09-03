@@ -4,12 +4,14 @@ using System.Drawing;
 
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
+using Sitecore.MobileSDK.API.Items;
+using System.Collections.Generic;
 
 namespace JetStreamIOS
 {
-  public class blaSource : UITableViewSource
+  public class SearchAirportsSource : UITableViewSource
   {
-    public blaSource()
+    public SearchAirportsSource()
     {
     }
 
@@ -21,31 +23,27 @@ namespace JetStreamIOS
 
     public override int RowsInSection(UITableView tableview, int section)
     {
-      // TODO: return the actual number of items in the section
-      return 1;
-    }
+      if (null == this.Items)
+      {
+        return 0;
+      }
 
-    public override string TitleForHeader(UITableView tableView, int section)
-    {
-      return "Header";
-    }
-
-    public override string TitleForFooter(UITableView tableView, int section)
-    {
-      return "Footer";
+      return this.Items.ResultCount;
     }
 
     public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
     {
-      var cell = tableView.DequeueReusableCell (blaCell.Key) as blaCell;
+      var cell = tableView.DequeueReusableCell ("SearchAirportsSourceCell") as UITableViewCell;
       if (cell == null)
-        cell = new blaCell ();
+        cell = new UITableViewCell ();
       
-      // TODO: populate the cell with the appropriate data based on the indexPath
-      cell.DetailTextLabel.Text = "DetailsTextLabel";
+      ISitecoreItem item = Items[indexPath.Row];
+      cell.TextLabel.Text = item.DisplayName;
       
       return cell;
     }
+
+    public ScItemsResponse Items;
   }
 }
 

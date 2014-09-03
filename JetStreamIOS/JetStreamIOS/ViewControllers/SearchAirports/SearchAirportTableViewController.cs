@@ -5,6 +5,7 @@ using System;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using JetStreamCommons;
+using Sitecore.MobileSDK.API.Items;
 
 namespace JetStreamIOS
 {
@@ -18,10 +19,35 @@ namespace JetStreamIOS
     {
       base.ViewDidLoad ();
 
-      // Register the TableView's data source
-      TableView.Source = new blaSource ();
+      this.restManager = new RestManager ();
+
+      this.source = new SearchAirportsSource ();
+      this.TableView.Source = this.source;
     }
 
+    public override void ViewWillAppear(bool animated)
+    {
+      base.ViewWillAppear(animated);
+
+      if (null == searchTicketsBuilder)
+      {
+        //TODO: vse propalo!!!
+      }
+
+      this.SearchAirports ();
+    }
+
+    private async void SearchAirports()
+    {
+      ScItemsResponse items = await restManager.SearchAirportsWithNameContains(this.NameToSearch);
+      this.source.Items = items;
+      this.TableView.ReloadData();
+    }
+
+    private SearchAirportsSource source;
+    private RestManager restManager;
+
+    public string NameToSearch;
     public SearchTicketsRequestBuilder searchTicketsBuilder;
     public bool isDepartAirportSearch = true;
 	}

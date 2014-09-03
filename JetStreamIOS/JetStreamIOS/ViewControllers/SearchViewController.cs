@@ -7,20 +7,25 @@ using MonoTouch.UIKit;
 using JetStreamCommons;
 using System.Collections;
 using Sitecore.MobileSDK.API.Items;
+using System.Threading.Tasks;
 
 namespace JetStreamIOS
 {
 	public partial class SearchViewController : UIViewController
 	{
+    private SearchTicketsRequestBuilder SearchRequestBuilder;
+
 		public SearchViewController (IntPtr handle) : base (handle)
 		{
 		}
-
+      
     public override void ViewDidLoad()
     {
       base.ViewDidLoad();
 
       this.LocalizeUI();
+
+      SearchRequestBuilder = new  SearchTicketsRequestBuilder();
     }
 
     private void LocalizeUI()
@@ -45,34 +50,60 @@ namespace JetStreamIOS
       this.ToLocationTextField.Placeholder = NSBundle.MainBundle.LocalizedString("TO_LOCATION_PLACEHOLDER", null);
     }
 
-    private async void SearchTickets()
+    partial void OnSearchButtonTouched (MonoTouch.UIKit.UIButton sender)
     {
-      //TODO: show loader
-      DateTime departDate = DateTime.Parse(DepartDateButton.TitleLabel.Text);
-      DateTime returnDate = DateTime.Parse(ReturnDateButton.TitleLabel.Text);
-      int castedTicketCounts = Convert.ToInt32(this.TicketCountStepper.Value);
-
-      SearchTicketsRequest request = new SearchTicketsRequestBuilder ()
-        .SetFromAirportName (this.FromLocationTextField.Text)
-        .SetToAirportName (this.ToLocationTextField.Text)
-        .SetDepartDate (departDate)
-        .SetReturnDate (returnDate)
-        .SetTicketClass (this.ClassSegmentedControl.SelectedSegment)
-        .SetTicketsCount (castedTicketCounts)
-        .SetRoundtrip (this.RoundtripSwitch.On)
-        .Build ();
-
-      RestManager restManager = new RestManager ();
-      ScItemsResponse result = await restManager.GetFullAirportsList ();
-      //TODO: hide loader
+//      DateTime departDate = DateTime.Parse(DepartDateButton.TitleLabel.Text);
+//      DateTime returnDate = DateTime.Parse(ReturnDateButton.TitleLabel.Text);
+//      ScItemsResponse departFlights = this.SearchTicketsWithFlightDate(departDate);
+//      ScItemsResponse returnFlights = this.SearchTicketsWithFlightDate(returnDate);
     }
 
-    private async void GetAirports()
+    private async void SearchTicketsWithFlightDate(DateTime date)
     {
-//      this.TitleLabel.Text = "*";
-//      RestManager restManager = new RestManager ();
-//      ScItemsResponse result = await restManager.GetFullAirportsList ();
-//      this.TitleLabel.Text = result.TotalCount.ToString();
+      DateTime departDate = DateTime.Parse(DepartDateButton.TitleLabel.Text);
+      DateTime returnDate = DateTime.Parse(ReturnDateButton.TitleLabel.Text);
+
+      SearchFlightsRequest request = SearchRequestBuilder
+        .SetDepartDate (departDate)
+        .SetReturnDate (returnDate)
+        .Build ();
+
+      if (null == request.FromAirportId)
+      {
+        //please select departure airport
+      }
+
+      if (null == request.ToAirportId)
+      {
+        //please select arrival airport
+      }
+
+      //TODO: show flights list VC here
+      //TODO: move this to flights list VC and make this method sync
+      RestManager restManager = new RestManager();
+      ScItemsResponse result = await restManager.SearchDepartTicketsWithRequest(request);
+    }
+
+    partial void CountValueChanged (MonoTouch.UIKit.UIStepper sender)
+    {
+      ResultCountLabel.Text = sender.Value.ToString();
+    }
+
+    public override void PrepareForSegue(UIStoryboardSegue segue, NSObject sender)
+    {
+      base.PrepareForSegue(segue, sender);
+
+      if ("ToAirportQuickSearch" == segue.Identifier)
+      {
+        var searchAirportsViewController = segue.DestinationViewController as SearchAirportTableViewController;
+        searchAirportsViewController.NameToSearch = this.ToLocationTextField.Text;
+      }
+      else
+        if ("FromAirportQuickSearch" == segue.Identifier)
+        {
+          var searchAirportsViewController = segue.DestinationViewController as SearchAirportTableViewController;
+          searchAirportsViewController.NameToSearch = this.FromLocationTextField.Text;
+        }
     }
 	}
 }
