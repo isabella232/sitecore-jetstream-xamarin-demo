@@ -8,61 +8,45 @@ namespace JetStreamCommons
     {
     }
 
-    public SearchTicketsRequestBuilder SetFromAirportName(string airportName)
+    public SearchTicketsRequestBuilder SetFromAirportItem(string airportId)
     {
-      this.FromAirportName = airportName;
+      this.FromAirportId = airportId;
       return this;
     }
 
-    public SearchTicketsRequestBuilder SetToAirportName(string airportName)
+    public SearchTicketsRequestBuilder SetToAirportItem(string airportId)
     {
-      this.ToAirportName = airportName;
+      this.ToAirportId = airportId;
       return this;
     }
 
-    public SearchTicketsRequestBuilder SetFlightDate(DateTime date)
+    public SearchTicketsRequestBuilder SetDepartDate(DateTime date)
     {
-      this.FlightDate = date;
+      this.DepartDate = date;
       return this;
     }
 
-    public SearchTicketsRequestBuilder SetTicketClass(int ticketClass)
+    public SearchTicketsRequestBuilder SetReturnDate(DateTime date)
     {
-      this.TicketClass = ticketClass;
+      this.ReturnDate = date;
       return this;
     }
 
-    public SearchTicketsRequestBuilder SetTicketsCount(int ticketsCount)
+    public SearchFlightsRequest Build()
     {
-      this.TicketsCount = ticketsCount;
-      return this;
-    }
-
-    public SearchTicketsRequestBuilder SetRoundtrip(bool roundtrip)
-    {
-      this.Roundtrip = roundtrip;
-      return this;
-    }
-
-    public SearchTicketsRequest Build()
-    {
-      SearchTicketsRequest request = new SearchTicketsRequest (
-                                       this.FromAirportName,
-                                       this.ToAirportName,
-                                       this.FlightDate,
-                                       this.TicketClass,
-                                       this.TicketsCount,
-                                       this.Roundtrip
+      SearchFlightsRequest request = new SearchFlightsRequest (
+                                        this.FromAirportId,
+                                        this.ToAirportId,
+                                        this.DepartDate,
+                                        this.ReturnDate
                                      );
       return request;
     }
 
-    private string FromAirportName;
-    private string ToAirportName;
-    private DateTime FlightDate;
-    private int TicketClass;
-    private int TicketsCount; 
-    private bool Roundtrip;
+    private string FromAirportId;
+    private string ToAirportId;
+    private DateTime DepartDate;
+    private DateTime ReturnDate;
   }
 }
 

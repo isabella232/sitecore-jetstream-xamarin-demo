@@ -1,31 +1,30 @@
 ﻿using System;
-using Sitecore.MobileSDK.Items;
 
 namespace JetStreamCommons
 {
   public class SearchFlightsRequest
   {
     public SearchFlightsRequest(
-      ScItem fromAirportName, 
-      ScItem toAirportName, 
+      string fromAirportId, 
+      string toAirportId, 
       DateTime departDate,
-      DateTime returnDate,
-      bool RoundTrip
+      DateTime returnDate
     )
     {
-      this.FromAirportName = fromAirportName; //TODO: must be ID!!!
-      this.ToAirportName   = toAirportName;     //TODO: must be ID!!!
+      this.FromAirportId = fromAirportId;
+      this.ToAirportId   = toAirportId;
       this.DepartDate      = departDate;
       this.ReturnDate      = returnDate;
+      this.RoundTrip = (returnDate != null);  //TODO: do we need this additional option in ui?
     }
 
-    public ScItem FromAirportName
+    public string FromAirportId
     {
       get;
       private set;
     }
 
-    public ScItem ToAirportName
+    public string ToAirportId
     {
       get;
       private set;
