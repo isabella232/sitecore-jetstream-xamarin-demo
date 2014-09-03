@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -34,8 +34,10 @@
     <Compile Include="RestManager.cs" />
     <Compile Include="Helpers\WebApiCredentialsPODInsequredDemo.cs" />
     <Compile Include="Helpers\QueryHelpers.cs" />
-    <Compile Include="SearchTickets\SearchTicketsRequest.cs" />
     <Compile Include="SearchTickets\SearchTicketsRequestBuilder.cs" />
+    <Compile Include="JetStreamOrder.cs" />
+    <Compile Include="JetStreamFlight.cs" />
+    <Compile Include="SearchTickets\SearchFlightsRequest.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
