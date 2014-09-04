@@ -10,7 +10,13 @@ namespace JetStreamCommons
 
     public static string QueryToSearchAirportsWithName(string name)
     {
-      return "/sitecore/content/Global/Airports//*[@@templatename='Airport' and contains(@Airport Name, '" + name + "')]";
+      //NOTE: case sensitive, no way to search @City field using case insensitive option
+      return "/sitecore/content/Global/Airports//*[@@templatename='Airport' and (contains(@Airport Name, '" + name + "') or contains(@City, '" + name + "')]";
+    }
+
+    public static string QueryToSearchAllAirports()
+    {
+      return "/sitecore/content/Global/Airports//*[@@templatename='Airport']";
     }
 
     public static string QueryToSearchDepartFlightsWithRequest(SearchFlightsRequest request)

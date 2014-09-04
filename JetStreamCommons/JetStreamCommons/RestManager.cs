@@ -61,6 +61,20 @@ namespace JetStreamCommons
       return responce;
     }
 
+    public async Task<ScItemsResponse> SearchAllAirports()
+    {
+      var session = this.GetSession ();
+
+      string testQuery = QueryHelpers.QueryToSearchAllAirports(); 
+
+      var request = ItemWebApiRequestBuilder.ReadItemsRequestWithSitecoreQuery(testQuery)
+        .Build();
+
+      ScItemsResponse responce = await session.ReadItemAsync(request);
+
+      return responce;
+    }
+
     public async Task<ScItemsResponse> SearchDepartTicketsWithRequest(SearchFlightsRequest request)
     {
       return await this.SearchTicketsWithRequest (request, true);
