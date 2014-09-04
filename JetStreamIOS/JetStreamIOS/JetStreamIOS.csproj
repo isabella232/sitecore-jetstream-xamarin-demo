@@ -113,6 +113,9 @@
       <DependentUpon>SearchAirportTableViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="ViewControllers\SearchAirports\SearchAirportsSource.cs" />
+    <Compile Include="ViewControllers\SearchAirports\AirportsSearchBarDelegate.cs" />
+    <Compile Include="ViewControllers\SearchAirports\SearchAirportsDelegate.cs" />
+    <Compile Include="Helpers\LoadingOverlay.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard.storyboard" />

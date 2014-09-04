@@ -13,6 +13,7 @@ namespace JetStreamIOS
 {
 	public partial class SearchViewController : UIViewController
 	{
+
     private SearchTicketsRequestBuilder SearchRequestBuilder;
 
 		public SearchViewController (IntPtr handle) : base (handle)
@@ -25,7 +26,7 @@ namespace JetStreamIOS
 
       this.LocalizeUI();
 
-      SearchRequestBuilder = new  SearchTicketsRequestBuilder();
+      this.SearchRequestBuilder = new  SearchTicketsRequestBuilder();
     }
 
     private void LocalizeUI()
@@ -52,13 +53,10 @@ namespace JetStreamIOS
 
     partial void OnSearchButtonTouched (MonoTouch.UIKit.UIButton sender)
     {
-//      DateTime departDate = DateTime.Parse(DepartDateButton.TitleLabel.Text);
-//      DateTime returnDate = DateTime.Parse(ReturnDateButton.TitleLabel.Text);
-//      ScItemsResponse departFlights = this.SearchTicketsWithFlightDate(departDate);
-//      ScItemsResponse returnFlights = this.SearchTicketsWithFlightDate(returnDate);
+      this.SearchTickets();
     }
 
-    private async void SearchTicketsWithFlightDate(DateTime date)
+    private async void SearchTickets()
     {
       DateTime departDate = DateTime.Parse(DepartDateButton.TitleLabel.Text);
       DateTime returnDate = DateTime.Parse(ReturnDateButton.TitleLabel.Text);
@@ -68,20 +66,27 @@ namespace JetStreamIOS
         .SetReturnDate (returnDate)
         .Build ();
 
+
       if (null == request.FromAirportId)
       {
-        //please select departure airport
+        string title = NSBundle.MainBundle.LocalizedString("TITLE", null);
+        string message = NSBundle.MainBundle.LocalizedString("SELECT_FROM_AIRPORT_MESSAGE", null);
+        AlertHelper.ShowAlertWithOkOption (title, message);
+        return;
       }
 
       if (null == request.ToAirportId)
       {
-        //please select arrival airport
+        string title = NSBundle.MainBundle.LocalizedString("TITLE", null);
+        string message = NSBundle.MainBundle.LocalizedString("SELECT_TO_AIRPORT_MESSAGE", null);
+        AlertHelper.ShowAlertWithOkOption (title, message);
+        return;
       }
 
       //TODO: show flights list VC here
       //TODO: move this to flights list VC and make this method sync
-      RestManager restManager = new RestManager();
-      ScItemsResponse result = await restManager.SearchDepartTicketsWithRequest(request);
+//      RestManager restManager = new RestManager();
+//      ScItemsResponse result = await restManager.SearchDepartTicketsWithRequest(request);
     }
 
     partial void CountValueChanged (MonoTouch.UIKit.UIStepper sender)
@@ -92,18 +97,24 @@ namespace JetStreamIOS
     public override void PrepareForSegue(UIStoryboardSegue segue, NSObject sender)
     {
       base.PrepareForSegue(segue, sender);
+      SearchAirportTableViewController searchAirportsViewController = null;
 
       if ("ToAirportQuickSearch" == segue.Identifier)
       {
-        var searchAirportsViewController = segue.DestinationViewController as SearchAirportTableViewController;
-        searchAirportsViewController.NameToSearch = this.ToLocationTextField.Text;
+        searchAirportsViewController = segue.DestinationViewController as SearchAirportTableViewController;
+        searchAirportsViewController.isFromAirportSearch = false;
+        searchAirportsViewController.SourceTextField = this.ToLocationTextField;
       }
       else
         if ("FromAirportQuickSearch" == segue.Identifier)
         {
-          var searchAirportsViewController = segue.DestinationViewController as SearchAirportTableViewController;
-          searchAirportsViewController.NameToSearch = this.FromLocationTextField.Text;
+          searchAirportsViewController = segue.DestinationViewController as SearchAirportTableViewController;
+          searchAirportsViewController.isFromAirportSearch = true;
+          searchAirportsViewController.SourceTextField = this.FromLocationTextField;
         }
+
+
+      searchAirportsViewController.SearchTicketsBuilder = this.SearchRequestBuilder;
     }
 	}
 }

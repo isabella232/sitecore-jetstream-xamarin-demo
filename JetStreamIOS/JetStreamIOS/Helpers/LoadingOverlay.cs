@@ -2,7 +2,7 @@
 using MonoTouch.UIKit;
 using System.Drawing;
 
-namespace WhiteLabeliOS
+namespace JetStreamIOS
 {
 	public class LoadingOverlay : UIView {
 

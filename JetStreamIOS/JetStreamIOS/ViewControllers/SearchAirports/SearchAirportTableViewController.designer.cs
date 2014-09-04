@@ -12,9 +12,15 @@ namespace JetStreamIOS
 	[Register ("SearchAirportTableViewController")]
 	partial class SearchAirportTableViewController
 	{
+		[Outlet]
+		MonoTouch.UIKit.UISearchBar SearchBar { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (SearchBar != null) {
+				SearchBar.Dispose ();
+				SearchBar = null;
+			}
 		}
 	}
 }

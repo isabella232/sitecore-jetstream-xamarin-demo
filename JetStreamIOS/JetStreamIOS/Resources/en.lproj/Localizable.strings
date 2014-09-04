@@ -10,3 +10,8 @@
 "ROUNDTRIP_TITLE" = "Roundtrip";
 "FROM_LOCATION_PLACEHOLDER" = "From location name";
 "TO_LOCATION_PLACEHOLDER" = "Fly to location name";
+
+//Messages
+"TITLE" = "Title";
+"SELECT_FROM_AIRPORT_MESSAGE" = "Please choose 'From' airport";
+"SELECT_TO_AIRPORT_MESSAGE" = "Please choose 'To' airport";

@@ -6,6 +6,8 @@ using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using JetStreamCommons;
 using Sitecore.MobileSDK.API.Items;
+using System.Collections.Generic;
+using Sitecore.MobileSDK.Items;
 
 namespace JetStreamIOS
 {
@@ -19,36 +21,112 @@ namespace JetStreamIOS
     {
       base.ViewDidLoad ();
 
-      this.restManager = new RestManager ();
+      this.tableViewSource = new SearchAirportsSource();
+      this.TableView.Source = this.tableViewSource;
 
-      this.source = new SearchAirportsSource ();
-      this.TableView.Source = this.source;
+      this.tableViewDelegate = new SearchAirportsDelegate();
+      this.tableViewDelegate.AirportsTable = this;
+      this.TableView.Delegate = this.tableViewDelegate;
+
+      this.searchBarDelegate = new AirportsSearchBarDelegate();
+      this.searchBarDelegate.AirportsTable = this;
+      this.SearchBar.Delegate = this.searchBarDelegate;
+
+      this.GetAllAirports();
+    }
+
+    public async void GetAllAirports()
+    {
+      this.ShowLoader();
+      RestManager restManager = new RestManager();
+      this.AllAirportsList = await restManager.SearchAllAirports();
+
+      if (null == this.AllAirportsList || this.AllAirportsList.ResultCount == 0)
+      {
+        throw new ArgumentNullException();
+      }
+      this.HideLoader();
+
+      this.SearchAirports();
     }
 
     public override void ViewWillAppear(bool animated)
     {
       base.ViewWillAppear(animated);
 
-      if (null == searchTicketsBuilder)
+      if (null == SearchTicketsBuilder)
       {
-        //TODO: vse propalo!!!
+        throw new ArgumentNullException();
       }
 
-      this.SearchAirports ();
+      this.SearchBar.Text = this.SourceTextField.Text;
     }
 
-    private async void SearchAirports()
+    public void SearchAirports()
     {
-      ScItemsResponse items = await restManager.SearchAirportsWithNameContains(this.NameToSearch);
-      this.source.Items = items;
+      this.ResultList = new List<ISitecoreItem>();
+
+      foreach (ScItem elem in AllAirportsList)
+      {
+        string AirportName = elem.FieldWithName ("Airport Name").RawValue.ToLowerInvariant();
+        string City = elem.FieldWithName ("City").RawValue.ToLowerInvariant();
+        string StringToSearch = this.SearchBar.Text.ToLowerInvariant();
+
+        bool AirportNameContainSearchedString = AirportName.IndexOf(StringToSearch) >= 0;
+        bool CityContainSearchedString = City.IndexOf(StringToSearch) >= 0;
+
+        if (AirportNameContainSearchedString || CityContainSearchedString)
+        {
+          this.ResultList.Add (elem);
+        }
+      }
+
+      this.tableViewSource.Items = this.ResultList;
       this.TableView.ReloadData();
     }
 
-    private SearchAirportsSource source;
-    private RestManager restManager;
+    public void RowSelected (int row)
+    {
+      ISitecoreItem selectedAirport = ResultList [row];
 
-    public string NameToSearch;
-    public SearchTicketsRequestBuilder searchTicketsBuilder;
-    public bool isDepartAirportSearch = true;
+      string airportId = selectedAirport.Id;
+      if (this.isFromAirportSearch)
+      {
+        SearchTicketsBuilder.SetFromAirportItem(airportId);
+      }
+      else
+      {
+        SearchTicketsBuilder.SetToAirportItem(airportId);
+      }
+
+      this.SourceTextField.Text = selectedAirport.DisplayName;
+      this.NavigationController.PopViewControllerAnimated(true);
+    }
+
+    public void ShowLoader()
+    {
+      this.loadingOverlay = new LoadingOverlay (this.View.Bounds, NSBundle.MainBundle.LocalizedString ("Loading Data", null));
+      this.View.Add (loadingOverlay);
+    }
+
+    public void HideLoader()
+    {
+      if (this.loadingOverlay != null)
+      {
+        this.loadingOverlay.Hide ();
+      }
+    }
+
+    private SearchAirportsSource tableViewSource;
+    private SearchAirportsDelegate tableViewDelegate;
+    private AirportsSearchBarDelegate searchBarDelegate;
+
+    private ScItemsResponse AllAirportsList;
+    private List<ISitecoreItem> ResultList;
+    private LoadingOverlay loadingOverlay;
+
+    public UITextField SourceTextField;
+    public SearchTicketsRequestBuilder SearchTicketsBuilder;
+    public bool isFromAirportSearch = true;
 	}
 }

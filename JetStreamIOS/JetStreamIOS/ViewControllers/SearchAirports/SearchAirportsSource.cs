@@ -28,7 +28,7 @@ namespace JetStreamIOS
         return 0;
       }
 
-      return this.Items.ResultCount;
+      return this.Items.Count;
     }
 
     public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
@@ -43,7 +43,7 @@ namespace JetStreamIOS
       return cell;
     }
 
-    public ScItemsResponse Items;
+    public List<ISitecoreItem> Items;
   }
 }
 
