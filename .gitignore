@@ -1,0 +1,45 @@
+
+deployment
+*.nupkg
+*.log
+
+#Xamarin Store
+Components
+
+# Mac OS X
+.DS_Store
+
+
+# xcode
+*.xccheckout
+*xcuserdata*
+DerivedData
+build
+*xcworkspace*
+*.app
+
+# JetBrains
+.idea
+
+
+# MS Visual Studio
+bin
+obj
+*.pdb
+*.ncb
+*.suo
+*.csproj.user
+*.userprefs
+TestResult.xml
+UpgradeLog.html
+UpgradeLog.htm
+*.VisualState.xml
+*.sln.*
+
+# NuGet
+packages
+*.exe
+*.dgml
+
+JetStreamCommons/JetStreamCommons/bin/
+JetStreamIOS/JetStreamIOS/bin/
