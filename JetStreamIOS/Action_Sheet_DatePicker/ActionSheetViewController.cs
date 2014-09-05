@@ -7,7 +7,7 @@ namespace ActionSheetDatePicker {
 	
 		UIButton showSimpleButton;
 		UILabel dateLabel;
-		ActionSheetDatePicker actionSheetDatePicker;
+		ActionSheetDatePickerView actionSheetDatePicker;
 
 		public ActionSheetViewController ()
 		{
@@ -24,7 +24,7 @@ namespace ActionSheetDatePicker {
 			dateLabel = new UILabel(new RectangleF (10, 130, 300, 40));
 			dateLabel.Text = "(waiting for the date)";
 
-			actionSheetDatePicker = new ActionSheetDatePicker (this.View);
+      actionSheetDatePicker = new ActionSheetDatePickerView (this.View);
 			actionSheetDatePicker.Title = "Choose Date:";
       actionSheetDatePicker.DatePicker.Mode = UIDatePickerMode.Date;
 //			actionSheetDatePicker.DatePicker.MinimumDate = DateTime.Today.AddDays (-7);

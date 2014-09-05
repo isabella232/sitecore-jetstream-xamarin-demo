@@ -6,7 +6,7 @@ using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 
 namespace ActionSheetDatePicker {
-	public class ActionSheetDatePicker {
+	public class ActionSheetDatePickerView {
 		#region -= declarations =-
 		
 		UIActionSheet actionSheet;
@@ -37,6 +37,12 @@ namespace ActionSheetDatePicker {
 			set { titleLabel.Text = value; }
 		}
 		
+    public string DoneButtonTitle
+    {
+      get { return doneButton.TitleLabel.Text; }
+      set { doneButton.SetTitle (value, UIControlState.Normal); }
+    }
+
 		#endregion
 		
 		#region -= constructor =-
@@ -44,18 +50,18 @@ namespace ActionSheetDatePicker {
 		/// <summary>
 		/// 
 		/// </summary>
-		public ActionSheetDatePicker (UIView owner)
+    public ActionSheetDatePickerView (UIView owner)
 		{
 			// save our uiview owner
 			this.owner = owner;
 	
 			// configure the title label
 			titleLabel.BackgroundColor = UIColor.Clear;
-			titleLabel.TextColor = UIColor.LightTextColor;
+      titleLabel.TextColor = UIColor.Black;
 			titleLabel.Font = UIFont.BoldSystemFontOfSize (18);
 			
 			// configure the done button
-			doneButton.SetTitle ("done", UIControlState.Normal);
+			doneButton.SetTitle ("Done", UIControlState.Normal);
 			doneButton.TouchUpInside += (s, e) => { actionSheet.DismissWithClickedButtonIndex (0, true); };
 			
 			// create + configure the action sheet
