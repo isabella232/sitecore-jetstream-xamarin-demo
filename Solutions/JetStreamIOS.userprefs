@@ -1,12 +1,25 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.IPhoneRetina4.7.1" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="../JetStreamCommons/JetStreamCommons/RestManager.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhone" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget.Igor's iPhone" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="../JetStreamIOS/JetStreamIOS/ViewControllers/SearchViewController.cs">
     <Files>
       <File FileName="../JetStreamIOS/JetStreamIOS/FirstViewController.cs" Line="1" Column="1" />
       <File FileName="../JetStreamIOS/JetStreamIOS/FirstViewController.designer.cs" Line="1" Column="1" />
       <File FileName="../JetStreamIOS/JetStreamIOS/Helpers/AlertHelper.cs" Line="1" Column="1" />
       <File FileName="../JetStreamCommons/JetStreamCommons/RestManager.cs" Line="1" Column="1" />
       <File FileName="../JetStreamCommons/JetStreamCommons/Helpers/WebApiCredentialsPODInsequredDemo.cs" Line="1" Column="1" />
+      <File FileName="../JetStreamIOS/JetStreamIOS/ViewControllers/SearchAirports/SearchAirportTableViewController.cs" Line="1" Column="1" />
+      <File FileName="../JetStreamIOS/JetStreamIOS/ViewControllers/SearchAirports/SearchAirportTableViewController.designer.cs" Line="1" Column="1" />
+      <File FileName="../JetStreamIOS/JetStreamIOS/ViewControllers/SearchViewController.cs" Line="9" Column="9" />
+      <File FileName="../JetStreamCommons/JetStreamCommons/SearchTickets/SearchTicketsRequestBuilder.cs" Line="1" Column="1" />
+      <File FileName="../JetStreamIOS/JetStreamIOS/ViewControllers/SearchAirports/SearchAirportsSource.cs" Line="1" Column="1" />
+      <File FileName="../JetStreamIOS/JetStreamIOS/ViewControllers/SearchAirports/AirportsSearchBarDelegate.cs" Line="1" Column="1" />
+      <File FileName="../JetStreamCommons/JetStreamCommons/JetStreamFlight.cs" Line="1" Column="1" />
+      <File FileName="../JetStreamCommons/JetStreamCommons/Helpers/QueryHelpers.cs" Line="1" Column="1" />
+      <File FileName="../JetStreamIOS/JetStreamIOS/ViewControllers/SearchAirports/SearchAirportsDelegate.cs" Line="1" Column="1" />
+      <File FileName="../JetStreamIOS/JetStreamIOS/Resources/en.lproj/Localizable.strings" Line="1" Column="1" />
+      <File FileName="../JetStreamIOS/JetStreamIOS/Helpers/LoadingOverlay.cs" Line="1" Column="1" />
+      <File FileName="../JetStreamIOS/JetStreamIOS/ViewControllers/SearchViewController.designer.cs" Line="1" Column="1" />
+      <File FileName="../JetStreamIOS/Action_Sheet_DatePicker/ActionSheetDatePicker.cs" Line="32" Column="32" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

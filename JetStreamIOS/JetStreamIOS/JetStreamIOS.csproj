@@ -116,6 +116,7 @@
     <Compile Include="ViewControllers\SearchAirports\AirportsSearchBarDelegate.cs" />
     <Compile Include="ViewControllers\SearchAirports\SearchAirportsDelegate.cs" />
     <Compile Include="Helpers\LoadingOverlay.cs" />
+    <Compile Include="Helpers\DateConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard.storyboard" />
@@ -129,6 +130,10 @@
     <ProjectReference Include="..\..\JetStreamCommons\JetStreamCommons\JetStreamCommons.csproj">
       <Project>{040C24CF-4B83-4917-B837-ED8157960B5F}</Project>
       <Name>JetStreamCommons</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Action_Sheet_DatePicker\ActionSheetDatePicker.csproj">
+      <Project>{83F74907-47F6-47A6-8499-436D755BD65A}</Project>
+      <Name>ActionSheetDatePicker</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

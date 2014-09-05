@@ -8,6 +8,7 @@ using JetStreamCommons;
 using System.Collections;
 using Sitecore.MobileSDK.API.Items;
 using System.Threading.Tasks;
+using ActionSheetDatePicker;
 
 namespace JetStreamIOS
 {
@@ -15,6 +16,7 @@ namespace JetStreamIOS
 	{
 
     private SearchTicketsRequestBuilder SearchRequestBuilder;
+    private ActionSheetDatePickerView actionSheetDatePicker;
 
 		public SearchViewController (IntPtr handle) : base (handle)
 		{
@@ -25,8 +27,11 @@ namespace JetStreamIOS
       base.ViewDidLoad();
 
       this.LocalizeUI();
+      this.InitializeDateActionPicker();
 
       this.SearchRequestBuilder = new  SearchTicketsRequestBuilder();
+      this.SearchRequestBuilder.SetReturnDate(DateTime.Now);
+      this.SearchRequestBuilder.SetDepartDate(DateTime.Now);
     }
 
     private void LocalizeUI()
@@ -49,29 +54,31 @@ namespace JetStreamIOS
 
       this.FromLocationTextField.Placeholder = NSBundle.MainBundle.LocalizedString("FROM_LOCATION_PLACEHOLDER", null); 
       this.ToLocationTextField.Placeholder = NSBundle.MainBundle.LocalizedString("TO_LOCATION_PLACEHOLDER", null);
+
+      string date = DateConverter.StringFromDateForUI(DateTime.Now);
+      ReturnDateButton.SetTitle(date, UIControlState.Normal);
+      DepartDateButton.SetTitle(date, UIControlState.Normal);
     }
 
-    partial void OnSearchButtonTouched (MonoTouch.UIKit.UIButton sender)
+    private void InitializeDateActionPicker()
     {
-      this.SearchTickets();
+      actionSheetDatePicker = new ActionSheetDatePickerView (this.View);
+      actionSheetDatePicker.Title = NSBundle.MainBundle.LocalizedString("DATE_PICKER_TITLE", null);
+      actionSheetDatePicker.DoneButtonTitle = NSBundle.MainBundle.LocalizedString("DONE_BUTTON_TITLE", null);
+      actionSheetDatePicker.DatePicker.Mode = UIDatePickerMode.Date;   
     }
 
     private async void SearchTickets()
     {
-      DateTime departDate = DateTime.Parse(DepartDateButton.TitleLabel.Text);
-      DateTime returnDate = DateTime.Parse(ReturnDateButton.TitleLabel.Text);
-
       SearchFlightsRequest request = SearchRequestBuilder
-        .SetDepartDate (departDate)
-        .SetReturnDate (returnDate)
-        .Build ();
+        .Build();
 
 
       if (null == request.FromAirportId)
       {
         string title = NSBundle.MainBundle.LocalizedString("TITLE", null);
         string message = NSBundle.MainBundle.LocalizedString("SELECT_FROM_AIRPORT_MESSAGE", null);
-        AlertHelper.ShowAlertWithOkOption (title, message);
+        AlertHelper.ShowAlertWithOkOption(title, message);
         return;
       }
 
@@ -79,20 +86,64 @@ namespace JetStreamIOS
       {
         string title = NSBundle.MainBundle.LocalizedString("TITLE", null);
         string message = NSBundle.MainBundle.LocalizedString("SELECT_TO_AIRPORT_MESSAGE", null);
-        AlertHelper.ShowAlertWithOkOption (title, message);
+        AlertHelper.ShowAlertWithOkOption(title, message);
         return;
       }
 
       //TODO: show flights list VC here
       //TODO: move this to flights list VC and make this method sync
-//      RestManager restManager = new RestManager();
-//      ScItemsResponse result = await restManager.SearchDepartTicketsWithRequest(request);
+      RestManager restManager = new RestManager();
+      ScItemsResponse result = await restManager.SearchDepartTicketsWithRequest(request);
+      AlertHelper.ShowAlertWithOkOption("result", "flights count: " + result.ResultCount.ToString());
     }
+
+    #region Events
+
+    partial void OnDepartDateButtonTouched (MonoTouch.UIKit.UIButton sender)
+    {
+      actionSheetDatePicker.DatePicker.ValueChanged -= ReturnDateReceived;
+      actionSheetDatePicker.DatePicker.ValueChanged += DepartDateReceived;
+      actionSheetDatePicker.Show();
+    }
+
+    partial void OnReturnDateButtonTouched (MonoTouch.UIKit.UIButton sender)
+    {
+
+      actionSheetDatePicker.DatePicker.ValueChanged -= DepartDateReceived;
+      actionSheetDatePicker.DatePicker.ValueChanged += ReturnDateReceived;
+      actionSheetDatePicker.Show();
+    }
+
 
     partial void CountValueChanged (MonoTouch.UIKit.UIStepper sender)
     {
       ResultCountLabel.Text = sender.Value.ToString();
     }
+
+    private void DepartDateReceived(object sender, EventArgs e)
+    {
+      DateTime date = (sender as UIDatePicker).Date;
+      string formatedDate = DateConverter.StringFromDateForUI(date);
+      this.DepartDateButton.SetTitle(formatedDate, UIControlState.Normal);
+      this.SearchRequestBuilder.SetDepartDate(date);
+    }
+
+    private void ReturnDateReceived(object sender, EventArgs e)
+    {
+      DateTime date = (sender as UIDatePicker).Date;
+      string formatedDate = DateConverter.StringFromDateForUI(date);
+      this.ReturnDateButton.SetTitle(formatedDate, UIControlState.Normal);
+      this.SearchRequestBuilder.SetReturnDate(date);
+    }
+
+    partial void OnSearchButtonTouched(MonoTouch.UIKit.UIButton sender)
+    {
+      this.SearchTickets();
+    }
+
+    #endregion;
+
+    #region Segue
 
     public override void PrepareForSegue(UIStoryboardSegue segue, NSObject sender)
     {
@@ -116,5 +167,7 @@ namespace JetStreamIOS
 
       searchAirportsViewController.SearchTicketsBuilder = this.SearchRequestBuilder;
     }
+
+    #endregion;
 	}
 }

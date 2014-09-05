@@ -10,6 +10,8 @@
 "ROUNDTRIP_TITLE" = "Roundtrip";
 "FROM_LOCATION_PLACEHOLDER" = "From location name";
 "TO_LOCATION_PLACEHOLDER" = "Fly to location name";
+"DATE_PICKER_TITLE" = "Choose date:";
+"DONE_BUTTON_TITLE" = "Done";
 
 //Messages
 "TITLE" = "Title";
