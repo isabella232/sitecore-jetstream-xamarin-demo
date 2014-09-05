@@ -21,26 +21,33 @@ namespace JetStreamCommons
 
     public static string QueryToSearchDepartFlightsWithRequest(SearchFlightsRequest request)
     {
-      return "query=sitecore/content/Global/Flights//*" +
+      string formatedDate = QueryHelpers.StringFromDateForQuery(request.DepartDate);
+
+      return "/sitecore/content/Global/Flights//*" +
         "[" +
         "@@templatename='Flight' " +
         "and contains(@Departure Airport, '" + request.FromAirportId + "') " +
         "and contains(@Arrival Airport, '" + request.ToAirportId + "') " +
-        //TODO: date to string convertion
-        "and contains(@Departure Time, '" + request.DepartDate.ToString() + "') " +
+        "and contains(@Departure Time, '" + formatedDate + "') " +
         "]";
     }
 
     public static string QueryToSearchReturnFlightsWithRequest(SearchFlightsRequest request)
     {
-      return "query=sitecore/content/Global/Flights//*" +
+      string formatedDate = QueryHelpers.StringFromDateForQuery(request.ReturnDate);
+
+      return "/sitecore/content/Global/Flights//*" +
         "[" +
         "@@templatename='Flight' " +
         "and contains(@Departure Airport, '" + request.ToAirportId + "') " +
         "and contains(@Arrival Airport, '" + request.FromAirportId + "') " +
-        //TODO: date to string convertion
-        "and contains(@Departure Time, '" + request.ReturnDate.ToString() + "') " +
+        "and contains(@Departure Time, '" + formatedDate + "') " +
         "]";
+    }
+
+    private static string StringFromDateForQuery(DateTime date)
+    {
+      return string.Format("{0:0000}{1:00}{2:00}", date.Year, date.Month, date.Day );
     }
   }
 }
