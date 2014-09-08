@@ -63,7 +63,6 @@
     <None Include="Info.plist" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppDelegate.cs" />
     <Compile Include="ActionSheetViewController.cs" />
     <Compile Include="ActionSheetDatePickerView.cs" />
   </ItemGroup>
