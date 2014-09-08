@@ -34,7 +34,7 @@ namespace JetStreamCommons
               "admin", 
               "b"))
         {
-          var result = SitecoreWebApiSessionBuilder.AuthenticatedSessionWithHost ("http://jetstream.sc-demo.net/")
+          var result = SitecoreWebApiSessionBuilder.AuthenticatedSessionWithHost ("http://jetstream.test24dk1.dk.sitecore.net/")
           .Credentials (credentials)
           .Site ("/sitecore/shell")
           .DefaultDatabase ("master")
