@@ -1,26 +1,61 @@
-﻿using System;
-using System.Collections;
-using Sitecore.MobileSDK.API.Session;
-using System.Threading.Tasks;
-using Sitecore.MobileSDK.API;
-using Sitecore.MobileSDK.API.Items;
-using System.Linq;
-
-namespace JetStreamCommons
+﻿namespace JetStreamCommons
 {
-  public class RestManager
+  using System;
+  using System.Linq;
+  using System.Collections;
+  using System.Threading.Tasks;
+
+  using Sitecore.MobileSDK.API;
+  using Sitecore.MobileSDK.API.Session;
+  using Sitecore.MobileSDK.API.Items;
+
+
+  public class RestManager : IDisposable
   {
+    #region IDisposable
+    private bool disposed = false;
+
+    public void Dispose()
+    { 
+      Dispose(true);
+      GC.SuppressFinalize(this);           
+    }
+
+    protected virtual void Dispose(bool disposing)
+    {
+      if (disposed)
+      {
+        return; 
+      }
+
+
+      // Free any other managed objects here.
+      if (disposing) 
+      {
+        if (null != this.session)
+        {
+          this.session.Dispose();
+          this.session = null;
+        }
+      }
+
+
+      // Free any unmanaged objects here. 
+      {
+        // IDLE
+      }
+
+      disposed = true;
+    }
+    #endregion
+
     public RestManager()
     {
     }
 
     ~RestManager()
     {
-      if (null != this.session)
-      {
-        this.session.Dispose ();
-        this.session = null;
-      }
+      this.Dispose(false);
     }
 
     private ISitecoreWebApiSession GetAnonymousSession()
