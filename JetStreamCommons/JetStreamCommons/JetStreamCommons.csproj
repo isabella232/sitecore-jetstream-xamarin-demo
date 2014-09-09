@@ -38,6 +38,7 @@
     <Compile Include="JetStreamOrder.cs" />
     <Compile Include="JetStreamFlight.cs" />
     <Compile Include="SearchTickets\SearchFlightsRequest.cs" />
+    <Compile Include="SearchAirports\AirportsSearchEngine.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
@@ -48,5 +49,6 @@
   <ItemGroup>
     <Folder Include="Helpers\" />
     <Folder Include="SearchTickets\" />
+    <Folder Include="SearchAirports\" />
   </ItemGroup>
 </Project>
