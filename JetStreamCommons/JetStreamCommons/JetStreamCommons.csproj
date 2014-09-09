@@ -38,7 +38,7 @@
     <Compile Include="JetStreamOrder.cs" />
     <Compile Include="JetStreamFlight.cs" />
     <Compile Include="SearchTickets\SearchFlightsRequest.cs" />
-    <Compile Include="SearchAirports\AirportsSearchEngine.cs" />
+    <Compile Include="SearchAirports\AirportsCaseInsensitiveSearchEngine.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
