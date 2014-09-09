@@ -2,7 +2,7 @@
 {
   public class AirportsSearchEngine
   {
-    private textToSearch;
+    private string textToSearch;
 
     public AirportsSearchEngine(string textToSearch)
     {
