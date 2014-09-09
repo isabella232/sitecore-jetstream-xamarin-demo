@@ -32,8 +32,8 @@ namespace JetStreamIOS
       this.InitializeDateActionPicker();
 
       this.SearchRequestBuilder = new  SearchTicketsRequestBuilder();
-      this.SearchRequestBuilder.SetReturnDate(DateTime.Now);
-      this.SearchRequestBuilder.SetDepartDate(DateTime.Now);
+      this.SearchRequestBuilder.Set.ReturnDate(DateTime.Now);
+      this.SearchRequestBuilder.Set.DepartureDate(DateTime.Now);
     }
 
     private void LocalizeUI()
@@ -144,7 +144,7 @@ namespace JetStreamIOS
       DateTime date = (sender as UIDatePicker).Date;
       string formatedDate = DateConverter.StringFromDateForUI(date);
       this.DepartDateButton.SetTitle(formatedDate, UIControlState.Normal);
-      this.SearchRequestBuilder.SetDepartDate(date);
+      this.SearchRequestBuilder.Set.DepartureDate(date);
     }
 
     private void ReturnDateReceived(object sender, EventArgs e)
@@ -152,7 +152,7 @@ namespace JetStreamIOS
       DateTime date = (sender as UIDatePicker).Date;
       string formatedDate = DateConverter.StringFromDateForUI(date);
       this.ReturnDateButton.SetTitle(formatedDate, UIControlState.Normal);
-      this.SearchRequestBuilder.SetReturnDate(date);
+      this.SearchRequestBuilder.Set.ReturnDate(date);
     }
 
     partial void OnSearchButtonTouched(MonoTouch.UIKit.UIButton sender)

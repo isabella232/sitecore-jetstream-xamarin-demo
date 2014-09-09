@@ -121,11 +121,11 @@ namespace JetStreamIOS
       string airportId = selectedAirport.Id;
       if (this.isFromAirportSearch)
       {
-        this.SearchTicketsBuilder.SetFromAirportItem(airportId);
+        this.SearchTicketsBuilder.Set.SourceAirport(airportId);
       }
       else
       {
-        this.SearchTicketsBuilder.SetToAirportItem(airportId);
+        this.SearchTicketsBuilder.Set.DestinationAirport(airportId);
       }
 
       this.SourceTextField.Text = selectedAirport.DisplayName;

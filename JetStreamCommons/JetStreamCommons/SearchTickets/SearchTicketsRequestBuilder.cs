@@ -8,25 +8,33 @@ namespace JetStreamCommons
     {
     }
 
-    public SearchTicketsRequestBuilder SetFromAirportItem(string airportId)
+    public SearchTicketsRequestBuilder Set 
+    { 
+      get
+      {
+        return this;
+      }
+    }
+
+    public SearchTicketsRequestBuilder SourceAirport(string airportId)
     {
       this.fromAirportId = airportId;
       return this;
     }
 
-    public SearchTicketsRequestBuilder SetToAirportItem(string airportId)
+    public SearchTicketsRequestBuilder DestinationAirport(string airportId)
     {
       this.toAirportId = airportId;
       return this;
     }
 
-    public SearchTicketsRequestBuilder SetDepartDate(DateTime date)
+    public SearchTicketsRequestBuilder DepartureDate(DateTime date)
     {
       this.departDate = date;
       return this;
     }
 
-    public SearchTicketsRequestBuilder SetReturnDate(DateTime date)
+    public SearchTicketsRequestBuilder ReturnDate(DateTime date)
     {
       this.returnDate = date;
       return this;
