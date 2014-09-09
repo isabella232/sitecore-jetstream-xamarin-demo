@@ -117,6 +117,7 @@
     <Compile Include="ViewControllers\SearchAirports\SearchAirportsDelegate.cs" />
     <Compile Include="Helpers\LoadingOverlay.cs" />
     <Compile Include="Helpers\DateConverter.cs" />
+    <Compile Include="InstanceSettings.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard.storyboard" />

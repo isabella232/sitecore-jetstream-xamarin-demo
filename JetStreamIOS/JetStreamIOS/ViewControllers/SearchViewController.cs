@@ -100,7 +100,12 @@ namespace JetStreamIOS
       //TODO: move this to flights list VC and make this method sync
       try
       {
-        using (var restManager = new RestManager())
+        // It will automatically get values from the NSUserDefaults singleton
+        var endpoint = new InstanceSettings();
+
+        // It will be disposed by RestManager
+        var session = endpoint.GetSession();
+        using (var restManager = new RestManager(session))
         {
           ScItemsResponse result = await restManager.SearchDepartTicketsWithRequest(request);
           AlertHelper.ShowAlertWithOkOption("result", "flights count: " + result.ResultCount.ToString());
