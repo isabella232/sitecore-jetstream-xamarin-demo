@@ -2,7 +2,7 @@
 
 namespace JetStreamCommons
 {
-  public class QueryHelpers
+  public static class QueryHelpers
   {
     public QueryHelpers()
     {
