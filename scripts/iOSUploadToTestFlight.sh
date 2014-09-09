@@ -2,6 +2,10 @@ BUILT_PRODUCTS_DIR=$1
 RELEASE_DIR="$BUILT_PRODUCTS_DIR/JetStreamIOS/JetStreamIOS/bin/iPhone/Release"
 IPA_FILE="$RELEASE_DIR/JetStreamIOS.ipa"
 
+echo "BUILT_PRODUCTS_DIR - $BUILT_PRODUCTS_DIR"
+echo "RELEASE_DIR - $RELEASE_DIR"
+echo "IPA_FILE - $IPA_FILE"
+
 function build_application
 {
 	/Applications/Xamarin\ Studio.app/Contents/MacOS/mdtool -v build "--configuration:Release|iPhone" Solutions/JetStreamIOS.sln
