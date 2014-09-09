@@ -38,8 +38,19 @@ namespace JetStreamIOS
     private async void GetAllAirports()
     {
       this.ShowLoader();
-      RestManager restManager = new RestManager();
-      this.AllAirportsList = await restManager.SearchAllAirports();
+
+      try
+      {
+        using (var restManager = new RestManager())
+        {
+          this.AllAirportsList = await restManager.SearchAllAirports();
+        }
+      }
+      catch
+      {
+        AlertHelper.ShowAlertWithOkOption("Failure", "Unable to download airports");
+        return;
+      }
 
       if (null == this.AllAirportsList || this.AllAirportsList.ResultCount == 0)
       {
@@ -47,6 +58,7 @@ namespace JetStreamIOS
       }
       this.HideLoader();
 
+      // triggers UITableView
       this.SearchAirports();
     }
 
