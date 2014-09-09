@@ -4,18 +4,19 @@ namespace JetStreamCommons
 {
   public class SearchFlightsRequest
   {
+    private DateTime? optionalReturnDate;
+
     public SearchFlightsRequest(
       string fromAirportId, 
       string toAirportId, 
       DateTime departDate,
-      DateTime returnDate
+      DateTime? returnDate
     )
     {
       this.FromAirportId = fromAirportId;
-      this.ToAirportId   = toAirportId;
-      this.DepartDate      = departDate;
-      this.ReturnDate      = returnDate;
-      this.RoundTrip = (returnDate != null);  //TODO: do we need this additional option in ui?
+      this.ToAirportId = toAirportId;
+      this.DepartDate = departDate;
+      this.optionalReturnDate = returnDate;
     }
 
     public string FromAirportId
@@ -38,14 +39,19 @@ namespace JetStreamCommons
 
     public DateTime ReturnDate
     {
-      get;
-      private set;
+      get
+      {
+        return this.optionalReturnDate.Value;
+      }
     }
 
     public bool RoundTrip
     {
-      get;
-      private set;
+      get
+      {
+        bool result = (this.optionalReturnDate != null);
+        return result;
+      }
     }
   }
 }
