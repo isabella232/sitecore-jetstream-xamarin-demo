@@ -57,11 +57,6 @@ namespace JetStreamCommons
         throw new ArgumentNullException("TO_AIRPORT_IS_NULL");
       }
 
-      if (null == this.departDate)
-      {
-        throw new ArgumentNullException("DEPART_DATE_IS_NULL");
-      }
-
       DateTime pastDate = DateTime.Now;
       pastDate = pastDate.AddDays(-1);
 
