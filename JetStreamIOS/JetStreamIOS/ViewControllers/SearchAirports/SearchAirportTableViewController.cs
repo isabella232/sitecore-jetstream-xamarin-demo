@@ -8,6 +8,8 @@ using JetStreamCommons;
 using Sitecore.MobileSDK.API.Items;
 using System.Collections.Generic;
 using Sitecore.MobileSDK.Items;
+using System.Threading.Tasks;
+using System.Linq;
 
 namespace JetStreamIOS
 {
@@ -17,6 +19,7 @@ namespace JetStreamIOS
 		{
 		}
 
+    #region UIViewController
     public override void ViewDidLoad()
     {
       base.ViewDidLoad ();
@@ -35,87 +38,121 @@ namespace JetStreamIOS
       this.GetAllAirports();
     }
 
-    public async void GetAllAirports()
-    {
-      this.ShowLoader();
-      RestManager restManager = new RestManager();
-      this.AllAirportsList = await restManager.SearchAllAirports();
-
-      if (null == this.AllAirportsList || this.AllAirportsList.ResultCount == 0)
-      {
-        throw new ArgumentNullException();
-      }
-      this.HideLoader();
-
-      this.SearchAirports();
-    }
-
     public override void ViewWillAppear(bool animated)
     {
       base.ViewWillAppear(animated);
 
-      if (null == SearchTicketsBuilder)
+      if (null == this.SearchTicketsBuilder)
       {
         throw new ArgumentNullException();
       }
 
       this.SearchBar.Text = this.SourceTextField.Text;
     }
+    #endregion
 
-    public void SearchAirports()
+
+    private async Task<ScItemsResponse> DownloadAllAirportsAnimated()
     {
-      this.ResultList = new List<ISitecoreItem>();
+      this.ShowLoader();
 
-      foreach (ScItem elem in AllAirportsList)
+      try
       {
-        string AirportName = elem.FieldWithName ("Airport Name").RawValue.ToLowerInvariant();
-        string City = elem.FieldWithName ("City").RawValue.ToLowerInvariant();
-        string StringToSearch = this.SearchBar.Text.ToLowerInvariant();
-
-        bool AirportNameContainSearchedString = AirportName.IndexOf(StringToSearch) >= 0;
-        bool CityContainSearchedString = City.IndexOf(StringToSearch) >= 0;
-
-        if (AirportNameContainSearchedString || CityContainSearchedString)
+        using (var restManager = new RestManager())
         {
-          this.ResultList.Add (elem);
+          return await restManager.SearchAllAirports();
         }
       }
+      catch
+      {
+        AlertHelper.ShowAlertWithOkOption("Failure", "Unable to download airports");
+        return null;
+      }
+      finally
+      {
+        this.HideLoader();
+      }
+    }
+
+    private async void GetAllAirports()
+    {
+      this.AllAirportsList = await this.DownloadAllAirportsAnimated();
+
+      if (null == this.AllAirportsList)
+      {
+        return;
+      }
+      else if (this.AllAirportsList.ResultCount == 0)
+      {
+        AlertHelper.ShowAlertWithOkOption("Failure", "No Airports Found");
+        return;
+      }
+
+
+      // triggers UITableView
+      this.SearchAirportsAndUpdateTable();
+    }
+
+    public void SearchAirportsAndUpdateTable()
+    {
+      string stringToSearch = this.SearchBar.Text.ToLowerInvariant();
+
+      Func<ISitecoreItem, bool> filter = 
+        singleAirport =>
+        {
+          string airportName = singleAirport["Airport Name"].RawValue.ToLowerInvariant();
+          string city = singleAirport["City"].RawValue.ToLowerInvariant();
+
+          bool isAirportNameContainsSearchedString = airportName.IndexOf(stringToSearch) >= 0;
+          bool isCityContainsSearchedString = city.IndexOf(stringToSearch) >= 0;
+
+          bool isAirportMatchesSearchPredicate = (isAirportNameContainsSearchedString || isCityContainsSearchedString);
+          return isAirportMatchesSearchPredicate;
+        };
+
+      IEnumerable<ISitecoreItem> searchResult = this.AllAirportsList.Where(filter);
+      this.ResultList = searchResult.ToList();
 
       this.tableViewSource.Items = this.ResultList;
       this.TableView.ReloadData();
     }
 
-    public void RowSelected (int row)
+    #region UITableViewDelegate
+    public void RowSelected(int row)
     {
-      ISitecoreItem selectedAirport = ResultList [row];
+      ISitecoreItem selectedAirport = this.ResultList[row];
 
       string airportId = selectedAirport.Id;
       if (this.isFromAirportSearch)
       {
-        SearchTicketsBuilder.SetFromAirportItem(airportId);
+        this.SearchTicketsBuilder.SetFromAirportItem(airportId);
       }
       else
       {
-        SearchTicketsBuilder.SetToAirportItem(airportId);
+        this.SearchTicketsBuilder.SetToAirportItem(airportId);
       }
 
       this.SourceTextField.Text = selectedAirport.DisplayName;
       this.NavigationController.PopViewControllerAnimated(true);
     }
+    #endregion
 
-    public void ShowLoader()
+    #region Progress indicator
+    private void ShowLoader()
     {
       this.loadingOverlay = new LoadingOverlay (this.View.Bounds, NSBundle.MainBundle.LocalizedString ("Loading Data", null));
       this.View.Add (loadingOverlay);
     }
 
-    public void HideLoader()
+    private void HideLoader()
     {
       if (this.loadingOverlay != null)
       {
         this.loadingOverlay.Hide ();
       }
     }
+    #endregion
+
 
     private SearchAirportsSource tableViewSource;
     private SearchAirportsDelegate tableViewDelegate;

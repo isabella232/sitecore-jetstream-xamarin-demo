@@ -1,47 +1,96 @@
-﻿using System;
-using System.Collections;
-using Sitecore.MobileSDK.API.Session;
-using System.Threading.Tasks;
-using Sitecore.MobileSDK.API;
-using Sitecore.MobileSDK.API.Items;
-using System.Linq;
-
-namespace JetStreamCommons
+﻿namespace JetStreamCommons
 {
-  public class RestManager
+  using System;
+  using System.Linq;
+  using System.Collections;
+  using System.Threading.Tasks;
+
+  using Sitecore.MobileSDK.API;
+  using Sitecore.MobileSDK.API.Session;
+  using Sitecore.MobileSDK.API.Items;
+
+
+  public class RestManager : IDisposable
   {
-    public RestManager()
+    #region IDisposable
+    private bool disposed = false;
+
+    public void Dispose()
+    { 
+      Dispose(true);
+      GC.SuppressFinalize(this);           
+    }
+
+    protected virtual void Dispose(bool disposing)
     {
+      if (disposed)
+      {
+        return; 
+      }
+
+
+      // Free any other managed objects here.
+      if (disposing) 
+      {
+        if (null != this.session)
+        {
+          this.session.Dispose();
+          this.session = null;
+        }
+      }
+
+
+      // Free any unmanaged objects here. 
+      {
+        // IDLE
+      }
+
+      disposed = true;
     }
 
     ~RestManager()
     {
-      if (null != this.session)
+      this.Dispose(false);
+    }
+    #endregion
+
+    public RestManager()
+    {
+    }
+      
+    private ISitecoreWebApiSession GetAnonymousSession()
+    {
+      var result = SitecoreWebApiSessionBuilder.AnonymousSessionWithHost("http://jetstream.test24dk1.dk.sitecore.net/")
+
+        // @adk : does not work with anonymous
+//        .Site ("/sitecore/shell")
+//        .DefaultDatabase("master") // flights are stored in "master" db
+        .BuildSession();
+
+      return result;
+    }
+
+    private ISitecoreWebApiSession GetAdminSession()
+    {
+      using (
+        //TODO: move credentils info to the constructor
+        var credentials = new WebApiCredentialsPODInsequredDemo("admindddd", "b"))
       {
-        this.session.Dispose ();
-        this.session = null;
+        var result = SitecoreWebApiSessionBuilder.AuthenticatedSessionWithHost("http://jetstream.test24dk1.dk.sitecore.net/")
+          .Credentials(credentials)
+          .Site("/sitecore/shell")
+          .DefaultDatabase("master")
+          .BuildSession();
+
+        return result;
       }
     }
 
-    public ISitecoreWebApiSession GetSession()
+    private ISitecoreWebApiSession GetSession()
     {
       if (null == this.session)
       {
-        using (
-          //TODO: move credentils info to the constructor
-          var credentials = 
-            new WebApiCredentialsPODInsequredDemo (
-              "admin", 
-              "b"))
-        {
-          var result = SitecoreWebApiSessionBuilder.AuthenticatedSessionWithHost ("http://jetstream.test24dk1.dk.sitecore.net/")
-          .Credentials (credentials)
-          .Site ("/sitecore/shell")
-          .DefaultDatabase ("master")
-          .BuildSession ();
-
-          this.session = result;
-        }
+        this.session = this.GetAdminSession();
       }
         
       return this.session;
@@ -49,7 +98,7 @@ namespace JetStreamCommons
       
     public async Task<ScItemsResponse> SearchAirportsWithNameContains(string name)
     {
-      var session = this.GetSession ();
+      var session = this.GetSession();
 
       string testQuery = QueryHelpers.QueryToSearchAirportsWithName(name); 
 
@@ -107,7 +156,6 @@ namespace JetStreamCommons
 
       return responce;
     }
-
 
     private ISitecoreWebApiSession session;
   }
