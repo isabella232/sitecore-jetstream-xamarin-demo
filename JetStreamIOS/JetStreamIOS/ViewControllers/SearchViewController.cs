@@ -76,8 +76,7 @@ namespace JetStreamIOS
 
       try
       {
-        request = SearchRequestBuilder
-          .Build();
+        request = SearchRequestBuilder.Build();
       }
       catch(ArgumentException e) 
       {
@@ -85,11 +84,11 @@ namespace JetStreamIOS
         string message;
         if (null != e.ParamName)
         {
-          message = NSBundle.MainBundle.LocalizedString (e.ParamName, null);
+          message = NSBundle.MainBundle.LocalizedString(e.ParamName, null);
         }
         else
         {
-          message = NSBundle.MainBundle.LocalizedString (e.Message, null);
+          message = NSBundle.MainBundle.LocalizedString(e.Message, null);
         }
 
         AlertHelper.ShowLocalizedAlertWithOkOption(title, message);
@@ -181,13 +180,12 @@ namespace JetStreamIOS
         searchAirportsViewController.isFromAirportSearch = false;
         searchAirportsViewController.SourceTextField = this.ToLocationTextField;
       }
-      else
-        if ("FromAirportQuickSearch" == segue.Identifier)
-        {
-          searchAirportsViewController = segue.DestinationViewController as SearchAirportTableViewController;
-          searchAirportsViewController.isFromAirportSearch = true;
-          searchAirportsViewController.SourceTextField = this.FromLocationTextField;
-        }
+      else if ("FromAirportQuickSearch" == segue.Identifier)
+      {
+        searchAirportsViewController = segue.DestinationViewController as SearchAirportTableViewController;
+        searchAirportsViewController.isFromAirportSearch = true;
+        searchAirportsViewController.SourceTextField = this.FromLocationTextField;
+      }
 
 
       searchAirportsViewController.SearchTicketsBuilder = this.SearchRequestBuilder;
