@@ -172,25 +172,6 @@
             </objects>
             <point key="canvasLocation" x="1039" y="-194"/>
         </scene>
-        <!--View Controller - Item-->
-        <scene sceneID="B3Z-lj-0Ni">
-            <objects>
-                <viewController id="id9-ET-O6M" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="WPl-N7-QbZ"/>
-                        <viewControllerLayoutGuide type="bottom" id="shW-Hs-r0R"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="iUk-Md-SNL" customClass="SettingsViewController">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="ED2-QL-tZ4"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="kZZ-ac-iNQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="653" y="1165"/>
-        </scene>
         <!--About View Controller - Second-->
         <scene sceneID="ot8-2e-RuS">
             <objects>
@@ -343,12 +324,135 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                     <connections>
                         <segue destination="vD8-VE-1jS" kind="relationship" relationship="viewControllers" id="2qn-EH-Enl"/>
                         <segue destination="QUy-BD-bpt" kind="relationship" relationship="viewControllers" id="M8t-EP-wfW"/>
-                        <segue destination="id9-ET-O6M" kind="relationship" relationship="viewControllers" id="jUe-33-MVL"/>
+                        <segue destination="UCf-2d-wy0" kind="relationship" relationship="viewControllers" id="WYn-Fe-TaI"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FNP-y4-bzi" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="132" y="180"/>
+        </scene>
+        <!--Settings View Controller - Detail-->
+        <scene sceneID="7Qu-9r-PIQ">
+            <objects>
+                <viewController storyboardIdentifier="configurationViewController" title="Detail" id="UCf-2d-wy0" customClass="SettingsViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="cpD-li-f8F"/>
+                        <viewControllerLayoutGuide type="bottom" id="5a6-9I-ABu"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="aIx-FA-1Yk">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Instance Url" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="iyW-NB-03N">
+                                <rect key="frame" x="20" y="81" width="280" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Mnd-Sa-N4L"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Login" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="x5s-4b-9pl">
+                                <rect key="frame" x="20" y="151" width="280" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="ePG-MY-zIZ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Password" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="3wf-ze-ney">
+                                <rect key="frame" x="20" y="189" width="280" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="KfR-jE-UUs"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Site" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="Zrd-dq-6tN">
+                                <rect key="frame" x="20" y="227" width="280" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="a62-Ef-txR"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="web" borderStyle="line" placeholder="Database" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="egc-RZ-4kP">
+                                <rect key="frame" x="20" y="288" width="97" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="97" id="Q8h-44-mWn"/>
+                                    <constraint firstAttribute="height" constant="30" id="gDj-bB-hJ0"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="en" borderStyle="line" placeholder="language" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="pn7-Sq-lff">
+                                <rect key="frame" x="160" y="288" width="140" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="2Ge-X4-ICq"/>
+                                    <constraint firstAttribute="width" constant="140" id="Uks-YF-Z8y"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ajm-Wo-Hg7">
+                                <rect key="frame" x="20" y="371" width="280" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Lah-TM-nlb"/>
+                                </constraints>
+                                <state key="normal" title="Check Connection">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="OnCheckConnectionButtonTapped:" destination="UCf-2d-wy0" eventType="touchUpInside" id="KZq-KN-2zd"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="iyW-NB-03N" firstAttribute="top" secondItem="cpD-li-f8F" secondAttribute="bottom" constant="17" id="4bg-WF-G30"/>
+                            <constraint firstAttribute="trailing" secondItem="3wf-ze-ney" secondAttribute="trailing" constant="20" id="6pL-yB-e22"/>
+                            <constraint firstAttribute="trailing" secondItem="ajm-Wo-Hg7" secondAttribute="trailing" constant="20" id="7Ll-A4-CYs"/>
+                            <constraint firstItem="pn7-Sq-lff" firstAttribute="top" secondItem="Zrd-dq-6tN" secondAttribute="bottom" constant="31" id="8FX-iW-l7C"/>
+                            <constraint firstItem="3wf-ze-ney" firstAttribute="top" secondItem="x5s-4b-9pl" secondAttribute="bottom" constant="8" id="8fF-f7-uMJ"/>
+                            <constraint firstItem="3wf-ze-ney" firstAttribute="leading" secondItem="aIx-FA-1Yk" secondAttribute="leading" constant="20" id="9Qx-7L-Bn0"/>
+                            <constraint firstItem="ajm-Wo-Hg7" firstAttribute="leading" secondItem="aIx-FA-1Yk" secondAttribute="leading" constant="20" id="BT2-Yq-A2y"/>
+                            <constraint firstItem="Zrd-dq-6tN" firstAttribute="top" secondItem="3wf-ze-ney" secondAttribute="bottom" constant="8" id="FrF-tB-AOE"/>
+                            <constraint firstItem="egc-RZ-4kP" firstAttribute="leading" secondItem="aIx-FA-1Yk" secondAttribute="leading" constant="20" id="Pcq-2H-Ccd"/>
+                            <constraint firstItem="x5s-4b-9pl" firstAttribute="top" secondItem="iyW-NB-03N" secondAttribute="bottom" constant="40" id="QgD-VO-6Dt"/>
+                            <constraint firstItem="Zrd-dq-6tN" firstAttribute="leading" secondItem="aIx-FA-1Yk" secondAttribute="leading" constant="20" id="SLj-Ri-PHh"/>
+                            <constraint firstItem="egc-RZ-4kP" firstAttribute="top" secondItem="Zrd-dq-6tN" secondAttribute="bottom" constant="31" id="TAT-8l-0Pd"/>
+                            <constraint firstItem="x5s-4b-9pl" firstAttribute="leading" secondItem="aIx-FA-1Yk" secondAttribute="leading" constant="20" id="bfd-f3-ijS"/>
+                            <constraint firstItem="ajm-Wo-Hg7" firstAttribute="top" secondItem="pn7-Sq-lff" secondAttribute="bottom" constant="53" id="j5K-QF-Fx0"/>
+                            <constraint firstItem="iyW-NB-03N" firstAttribute="leading" secondItem="aIx-FA-1Yk" secondAttribute="leading" constant="20" id="mT9-pk-rFe"/>
+                            <constraint firstItem="ajm-Wo-Hg7" firstAttribute="top" secondItem="egc-RZ-4kP" secondAttribute="bottom" constant="53" id="nji-Vl-nhX"/>
+                            <constraint firstAttribute="trailing" secondItem="x5s-4b-9pl" secondAttribute="trailing" constant="20" id="pCI-xq-wcF"/>
+                            <constraint firstAttribute="trailing" secondItem="pn7-Sq-lff" secondAttribute="trailing" constant="20" id="qrW-e9-pPo"/>
+                            <constraint firstAttribute="trailing" secondItem="Zrd-dq-6tN" secondAttribute="trailing" constant="20" id="sN1-ws-PnF"/>
+                            <constraint firstAttribute="trailing" secondItem="iyW-NB-03N" secondAttribute="trailing" constant="20" id="zF5-HO-6Ng"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="0ly-QH-BuC"/>
+                    <navigationItem key="navigationItem" title="Detail" id="lNT-Yb-6ma"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="CheckConnectionButton" destination="ajm-Wo-Hg7" id="VFE-mX-lZA"/>
+                        <outlet property="DatabaseField" destination="egc-RZ-4kP" id="J7Q-iS-M2Y"/>
+                        <outlet property="InstanceUrlField" destination="iyW-NB-03N" id="KvX-ZG-rE5"/>
+                        <outlet property="LanguageField" destination="pn7-Sq-lff" id="p1Q-La-HRC"/>
+                        <outlet property="LoginField" destination="x5s-4b-9pl" id="5h8-Y2-1q1"/>
+                        <outlet property="PasswordField" destination="3wf-ze-ney" id="1PB-0h-mHn"/>
+                        <outlet property="SiteField" destination="Zrd-dq-6tN" id="PH5-5R-VlW"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pbm-qF-MqC" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="626" y="-844"/>
         </scene>
     </scenes>
     <resources>

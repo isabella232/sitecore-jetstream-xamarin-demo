@@ -17,3 +17,16 @@
 "TITLE" = "Title";
 "SELECT_FROM_AIRPORT_MESSAGE" = "Please choose 'From' airport";
 "SELECT_TO_AIRPORT_MESSAGE" = "Please choose 'To' airport";
+
+
+//settings screen placeholders
+"Instance Url" = "Instance Url";
+"Password" = "Password";
+"Login" = "Login";
+"Site" = "Site";
+"Database" = "Database";
+"Language" = "Language";
+
+
+///
+

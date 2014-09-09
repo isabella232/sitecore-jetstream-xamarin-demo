@@ -54,10 +54,11 @@
     }
     #endregion
 
-    public RestManager()
+    public RestManager(ISitecoreWebApiSession sessionToConsume)
     {
+      this.session = sessionToConsume;
     }
-      
+
     private ISitecoreWebApiSession GetAnonymousSession()
     {
       var result = SitecoreWebApiSessionBuilder.AnonymousSessionWithHost("http://jetstream.test24dk1.dk.sitecore.net/")
@@ -79,6 +80,7 @@
         var result = SitecoreWebApiSessionBuilder.AuthenticatedSessionWithHost("http://jetstream.test24dk1.dk.sitecore.net/")
           .Credentials(credentials)
           .Site("/sitecore/shell")
+//          .DefaultLanguage("en")
           .DefaultDatabase("master")
           .BuildSession();
 
@@ -88,10 +90,10 @@
 
     private ISitecoreWebApiSession GetSession()
     {
-      if (null == this.session)
-      {
-        this.session = this.GetAdminSession();
-      }
+//      if (null == this.session)
+//      {
+//        this.session = this.GetAdminSession();
+//      }
         
       return this.session;
     }
