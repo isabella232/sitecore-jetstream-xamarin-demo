@@ -9,6 +9,7 @@ using Sitecore.MobileSDK.API.Items;
 using System.Collections.Generic;
 using Sitecore.MobileSDK.Items;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace JetStreamIOS
 {
@@ -36,7 +37,6 @@ namespace JetStreamIOS
 
       this.GetAllAirports();
     }
-
 
     public override void ViewWillAppear(bool animated)
     {
@@ -78,7 +78,11 @@ namespace JetStreamIOS
     {
       this.AllAirportsList = await this.DownloadAllAirportsAnimated();
 
-      if (null == this.AllAirportsList || this.AllAirportsList.ResultCount == 0)
+      if (null == this.AllAirportsList)
+      {
+        return;
+      }
+      else if (this.AllAirportsList.ResultCount == 0)
       {
         AlertHelper.ShowAlertWithOkOption("Failure", "No Airports Found");
         return;
@@ -91,27 +95,29 @@ namespace JetStreamIOS
 
     public void SearchAirportsAndUpdateTable()
     {
-      this.ResultList = new List<ISitecoreItem>();
+      string stringToSearch = this.SearchBar.Text.ToLowerInvariant();
 
-      foreach (ISitecoreItem elem in this.AllAirportsList)
-      {
-        string AirportName = elem["Airport Name"].RawValue.ToLowerInvariant();
-        string City = elem["City"].RawValue.ToLowerInvariant();
-        string StringToSearch = this.SearchBar.Text.ToLowerInvariant();
-
-        bool AirportNameContainSearchedString = AirportName.IndexOf(StringToSearch) >= 0;
-        bool CityContainSearchedString = City.IndexOf(StringToSearch) >= 0;
-
-        if (AirportNameContainSearchedString || CityContainSearchedString)
+      Func<ISitecoreItem, bool> filter = 
+        singleAirport =>
         {
-          this.ResultList.Add (elem);
-        }
-      }
+          string airportName = singleAirport["Airport Name"].RawValue.ToLowerInvariant();
+          string city = singleAirport["City"].RawValue.ToLowerInvariant();
+
+          bool isAirportNameContainsSearchedString = airportName.IndexOf(stringToSearch) >= 0;
+          bool isCityContainsSearchedString = city.IndexOf(stringToSearch) >= 0;
+
+          bool isAirportMatchesSearchPredicate = (isAirportNameContainsSearchedString || isCityContainsSearchedString);
+          return isAirportMatchesSearchPredicate;
+        };
+
+      IEnumerable<ISitecoreItem> searchResult = this.AllAirportsList.Where(filter);
+      this.ResultList = searchResult.ToList();
 
       this.tableViewSource.Items = this.ResultList;
       this.TableView.ReloadData();
     }
 
+    #region UITableViewDelegate
     public void RowSelected(int row)
     {
       ISitecoreItem selectedAirport = this.ResultList[row];
@@ -129,6 +135,7 @@ namespace JetStreamIOS
       this.SourceTextField.Text = selectedAirport.DisplayName;
       this.NavigationController.PopViewControllerAnimated(true);
     }
+    #endregion
 
     #region Progress indicator
     private void ShowLoader()
