@@ -1,8 +1,8 @@
-BUILT_PRODUCTS_DIR=$1
-RELEASE_DIR="$BUILT_PRODUCTS_DIR/JetStreamIOS/JetStreamIOS/bin/iPhone/Release"
+LAUNCH_DIR=$PWD
+RELEASE_DIR="$LAUNCH_DIR/JetStreamIOS/JetStreamIOS/bin/iPhone/Release"
 IPA_FILE="$RELEASE_DIR/JetStreamIOS.ipa"
 
-echo "BUILT_PRODUCTS_DIR - $BUILT_PRODUCTS_DIR"
+echo "LAUNCH_DIR - $LAUNCH_DIR"
 echo "RELEASE_DIR - $RELEASE_DIR"
 echo "IPA_FILE - $IPA_FILE"
 
@@ -19,7 +19,7 @@ function make_ipa_file
 	cp -r  "JetStreamIOS.app" "Payload/JetStreamIOS.app"
 	zip $IPA_FILE -r "Payload"
 	
-	cd "$BUILT_PRODUCTS_DIR"
+	cd "$LAUNCH_DIR"
 }
 
 function upload_ipa_to_testflight 
@@ -35,7 +35,7 @@ function upload_ipa_to_testflight
     -F distribution_lists='Mobile iOS Team' \
     -F dsym=@$DSYM_FILE
 	
-	cd "$BUILT_PRODUCTS_DIR"
+	cd "$LAUNCH_DIR"
 }
 
 build_application
