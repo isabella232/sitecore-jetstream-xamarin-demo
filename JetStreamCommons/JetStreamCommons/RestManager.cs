@@ -74,7 +74,7 @@
     {
       using (
         //TODO: move credentils info to the constructor
-        var credentials = new WebApiCredentialsPODInsequredDemo("admindddd", "b"))
+        var credentials = new WebApiCredentialsPODInsequredDemo("admin", "b"))
       {
         var result = SitecoreWebApiSessionBuilder.AuthenticatedSessionWithHost("http://jetstream.test24dk1.dk.sitecore.net/")
           .Credentials(credentials)
