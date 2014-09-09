@@ -35,7 +35,7 @@ namespace JetStreamIOS
       this.GetAllAirports();
     }
 
-    public async void GetAllAirports()
+    private async void GetAllAirports()
     {
       this.ShowLoader();
       RestManager restManager = new RestManager();
@@ -66,10 +66,10 @@ namespace JetStreamIOS
     {
       this.ResultList = new List<ISitecoreItem>();
 
-      foreach (ScItem elem in AllAirportsList)
+      foreach (ISitecoreItem elem in AllAirportsList)
       {
-        string AirportName = elem.FieldWithName ("Airport Name").RawValue.ToLowerInvariant();
-        string City = elem.FieldWithName ("City").RawValue.ToLowerInvariant();
+        string AirportName = elem["Airport Name"].RawValue.ToLowerInvariant();
+        string City = elem["City"].RawValue.ToLowerInvariant();
         string StringToSearch = this.SearchBar.Text.ToLowerInvariant();
 
         bool AirportNameContainSearchedString = AirportName.IndexOf(StringToSearch) >= 0;
