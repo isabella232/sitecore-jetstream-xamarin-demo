@@ -38,15 +38,15 @@
       this.instanceLanguage       = userDefaults.StringForKey("instanceLanguage");
     }
 
-    public ISitecoreWebApiSession GetSession()
+    private ISitecoreWebApiSession GetAuthenticatedSession()
     {
       using 
-      (
-        var credentials = 
+        (
+          var credentials = 
           new WebApiCredentialsPODInsequredDemo(
             this.InstanceLogin, 
             this.InstancePassword)
-      )
+        )
       {
         var result = SitecoreWebApiSessionBuilder.AuthenticatedSessionWithHost(this.InstanceUrl)
           .Credentials(credentials)
@@ -57,6 +57,11 @@
 
         return result;
       }
+    }
+
+    public ISitecoreWebApiSession GetSession()
+    {
+      return this.GetAuthenticatedSession();
     }
 
     private void SaveValueToStorage(string value, string key)
