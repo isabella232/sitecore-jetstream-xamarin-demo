@@ -1,16 +1,17 @@
-﻿using System;
-using Sitecore.MobileSDK.Items;
-
-namespace JetStreamCommons
+﻿namespace JetStreamCommons
 {
+  using System;
+  using Sitecore.MobileSDK.API.Items;
+
+
   public class JetStreamFlight
   {
-    public JetStreamFlight(ScItem flight)
+    public JetStreamFlight(ISitecoreItem flight)
     {
       this.Flight = flight;
     }
 
-    private ScItem Flight
+    private ISitecoreItem Flight
     {
       get;
       set;
@@ -20,7 +21,7 @@ namespace JetStreamCommons
     {
       get
       {
-        return this.Flight.FieldWithName ("Departure Airport").RawValue;
+        return this.Flight["Departure Airport"].RawValue;
       }
     }
 
@@ -28,7 +29,7 @@ namespace JetStreamCommons
     {
       get
       {
-        return this.Flight.FieldWithName ("Arrival Airport").RawValue;
+        return this.Flight["Arrival Airport"].RawValue;
       }
     }
 
@@ -36,7 +37,7 @@ namespace JetStreamCommons
     {
       get
       {
-        return this.Flight.FieldWithName ("Departure Time").RawValue;
+        return this.Flight["Departure Time"].RawValue;
       }
     }
 
@@ -44,7 +45,7 @@ namespace JetStreamCommons
     {
       get
       {
-        return this.Flight.FieldWithName ("Price").RawValue;
+        return this.Flight["Price"].RawValue;
       }
     }
 
@@ -52,7 +53,7 @@ namespace JetStreamCommons
     {
       get
       {
-        return this.Flight.FieldWithName ("Personal Entertainment").RawValue;
+        return this.Flight["Personal Entertainment"].RawValue;
       }
     }
 
@@ -60,7 +61,7 @@ namespace JetStreamCommons
     {
       get
       {
-        return this.Flight.FieldWithName ("In Flight Wifi").RawValue;
+        return this.Flight["In Flight Wifi"].RawValue;
       }
     }
 
@@ -68,10 +69,9 @@ namespace JetStreamCommons
     {
       get
       {
-        return this.Flight.FieldWithName ("Food Service").RawValue;
+        return this.Flight["Food Service"].RawValue;
       }
     }
-
   }
 }
 
