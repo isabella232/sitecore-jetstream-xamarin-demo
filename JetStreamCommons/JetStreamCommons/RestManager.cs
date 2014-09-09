@@ -47,17 +47,17 @@
 
       disposed = true;
     }
-    #endregion
-
-    public RestManager()
-    {
-    }
 
     ~RestManager()
     {
       this.Dispose(false);
     }
+    #endregion
 
+    public RestManager()
+    {
+    }
+      
     private ISitecoreWebApiSession GetAnonymousSession()
     {
       var result = SitecoreWebApiSessionBuilder.AnonymousSessionWithHost("http://jetstream.test24dk1.dk.sitecore.net/")
