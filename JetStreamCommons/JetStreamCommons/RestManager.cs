@@ -74,13 +74,13 @@
     {
       using (
         //TODO: move credentils info to the constructor
-        var credentials = new WebApiCredentialsPODInsequredDemo("admindddddddd", "b"))
+        var credentials = new WebApiCredentialsPODInsequredDemo("admindddd", "b"))
       {
         var result = SitecoreWebApiSessionBuilder.AuthenticatedSessionWithHost("http://jetstream.test24dk1.dk.sitecore.net/")
           .Credentials(credentials)
-          .Site ("/sitecore/shell")
-          .DefaultDatabase ("master")
-          .BuildSession ();
+          .Site("/sitecore/shell")
+          .DefaultDatabase("master")
+          .BuildSession();
 
         return result;
       }
@@ -98,7 +98,7 @@
       
     public async Task<ScItemsResponse> SearchAirportsWithNameContains(string name)
     {
-      var session = this.GetSession ();
+      var session = this.GetSession();
 
       string testQuery = QueryHelpers.QueryToSearchAirportsWithName(name); 
 
