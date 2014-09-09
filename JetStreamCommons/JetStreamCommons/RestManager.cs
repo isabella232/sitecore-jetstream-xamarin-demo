@@ -59,42 +59,8 @@
       this.session = sessionToConsume;
     }
 
-    private ISitecoreWebApiSession GetAnonymousSession()
-    {
-      var result = SitecoreWebApiSessionBuilder.AnonymousSessionWithHost("http://jetstream.test24dk1.dk.sitecore.net/")
-
-        // @adk : does not work with anonymous
-//        .Site ("/sitecore/shell")
-//        .DefaultDatabase("master") // flights are stored in "master" db
-        .BuildSession();
-
-      return result;
-    }
-
-    private ISitecoreWebApiSession GetAdminSession()
-    {
-      using (
-        //TODO: move credentils info to the constructor
-        var credentials = new WebApiCredentialsPODInsequredDemo("admin", "b"))
-      {
-        var result = SitecoreWebApiSessionBuilder.AuthenticatedSessionWithHost("http://jetstream.test24dk1.dk.sitecore.net/")
-          .Credentials(credentials)
-          .Site("/sitecore/shell")
-//          .DefaultLanguage("en")
-          .DefaultDatabase("master")
-          .BuildSession();
-
-        return result;
-      }
-    }
-
     private ISitecoreWebApiSession GetSession()
     {
-//      if (null == this.session)
-//      {
-//        this.session = this.GetAdminSession();
-//      }
-        
       return this.session;
     }
       
