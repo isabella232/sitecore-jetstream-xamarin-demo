@@ -72,7 +72,15 @@
 
     public ISitecoreWebApiSession GetSession()
     {
-      return this.GetAuthenticatedSession();
+      bool isAnonymousSession = string.IsNullOrWhiteSpace(this.InstanceLogin);
+      if (isAnonymousSession)
+      {
+        return this.GetAnonymousSession();
+      }
+      else
+      {
+        return this.GetAuthenticatedSession();
+      }
     }
 
     private void SaveValueToStorage(string value, string key)
