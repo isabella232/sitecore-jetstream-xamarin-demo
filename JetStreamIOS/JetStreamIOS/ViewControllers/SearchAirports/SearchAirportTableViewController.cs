@@ -8,6 +8,7 @@ using JetStreamCommons;
 using Sitecore.MobileSDK.API.Items;
 using System.Collections.Generic;
 using Sitecore.MobileSDK.Items;
+using System.Threading.Tasks;
 
 namespace JetStreamIOS
 {
@@ -17,6 +18,7 @@ namespace JetStreamIOS
 		{
 		}
 
+    #region UIViewController
     public override void ViewDidLoad()
     {
       base.ViewDidLoad ();
@@ -35,7 +37,22 @@ namespace JetStreamIOS
       this.GetAllAirports();
     }
 
-    private async void GetAllAirports()
+
+    public override void ViewWillAppear(bool animated)
+    {
+      base.ViewWillAppear(animated);
+
+      if (null == this.SearchTicketsBuilder)
+      {
+        throw new ArgumentNullException();
+      }
+
+      this.SearchBar.Text = this.SourceTextField.Text;
+    }
+    #endregion
+
+
+    private async Task<ScItemsResponse> DownloadAllAirportsAnimated()
     {
       this.ShowLoader();
 
@@ -43,18 +60,23 @@ namespace JetStreamIOS
       {
         using (var restManager = new RestManager())
         {
-          this.AllAirportsList = await restManager.SearchAllAirports();
+          return await restManager.SearchAllAirports();
         }
       }
       catch
       {
         AlertHelper.ShowAlertWithOkOption("Failure", "Unable to download airports");
-        return;
+        return null;
       }
       finally
       {
         this.HideLoader();
       }
+    }
+
+    private async void GetAllAirports()
+    {
+      this.AllAirportsList = await this.DownloadAllAirportsAnimated();
 
       if (null == this.AllAirportsList || this.AllAirportsList.ResultCount == 0)
       {
@@ -64,26 +86,14 @@ namespace JetStreamIOS
 
 
       // triggers UITableView
-      this.SearchAirports();
+      this.SearchAirportsAndUpdateTable();
     }
 
-    public override void ViewWillAppear(bool animated)
-    {
-      base.ViewWillAppear(animated);
-
-      if (null == SearchTicketsBuilder)
-      {
-        throw new ArgumentNullException();
-      }
-
-      this.SearchBar.Text = this.SourceTextField.Text;
-    }
-
-    public void SearchAirports()
+    public void SearchAirportsAndUpdateTable()
     {
       this.ResultList = new List<ISitecoreItem>();
 
-      foreach (ISitecoreItem elem in AllAirportsList)
+      foreach (ISitecoreItem elem in this.AllAirportsList)
       {
         string AirportName = elem["Airport Name"].RawValue.ToLowerInvariant();
         string City = elem["City"].RawValue.ToLowerInvariant();
@@ -102,37 +112,40 @@ namespace JetStreamIOS
       this.TableView.ReloadData();
     }
 
-    public void RowSelected (int row)
+    public void RowSelected(int row)
     {
-      ISitecoreItem selectedAirport = ResultList [row];
+      ISitecoreItem selectedAirport = this.ResultList[row];
 
       string airportId = selectedAirport.Id;
       if (this.isFromAirportSearch)
       {
-        SearchTicketsBuilder.SetFromAirportItem(airportId);
+        this.SearchTicketsBuilder.SetFromAirportItem(airportId);
       }
       else
       {
-        SearchTicketsBuilder.SetToAirportItem(airportId);
+        this.SearchTicketsBuilder.SetToAirportItem(airportId);
       }
 
       this.SourceTextField.Text = selectedAirport.DisplayName;
       this.NavigationController.PopViewControllerAnimated(true);
     }
 
-    public void ShowLoader()
+    #region Progress indicator
+    private void ShowLoader()
     {
       this.loadingOverlay = new LoadingOverlay (this.View.Bounds, NSBundle.MainBundle.LocalizedString ("Loading Data", null));
       this.View.Add (loadingOverlay);
     }
 
-    public void HideLoader()
+    private void HideLoader()
     {
       if (this.loadingOverlay != null)
       {
         this.loadingOverlay.Hide ();
       }
     }
+    #endregion
+
 
     private SearchAirportsSource tableViewSource;
     private SearchAirportsDelegate tableViewDelegate;

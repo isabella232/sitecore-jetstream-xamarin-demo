@@ -11,12 +11,12 @@ namespace JetStreamIOS
 
     public override void SearchButtonClicked (UISearchBar searchBar)
     {
-      AirportsTable.SearchAirports();
+      AirportsTable.SearchAirportsAndUpdateTable();
       searchBar.ResignFirstResponder();
     }
     public override void TextChanged (UISearchBar searchBar, string searchText)
     {
-      AirportsTable.SearchAirports();
+      AirportsTable.SearchAirportsAndUpdateTable();
     }
 
     public SearchAirportTableViewController AirportsTable;
