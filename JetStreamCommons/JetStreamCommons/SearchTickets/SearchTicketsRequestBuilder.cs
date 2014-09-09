@@ -63,19 +63,19 @@ namespace JetStreamCommons
       }
 
       DateTime pastDate = DateTime.Now;
-      pastDate =pastDate.AddDays (-1);
+      pastDate = pastDate.AddDays(-1);
 
-      if (pastDate > this.departDate)
+      if (pastDate.Date > this.departDate.Date)
       {
         throw new ArgumentNullException("DEPART_DATE_MUST_BE_A_FUTURE");
       }
 
-      if (pastDate > this.returnDate)
+      if (pastDate.Date > this.returnDate.Date)
       {
         throw new ArgumentNullException("RETURN_DATE_MUST_BE_A_FUTURE");
       }
 
-      if (departDate > returnDate)
+      if (departDate.Date > returnDate.Date)
       {
         throw new ArgumentException("RETURN_DATE_MUST_BE_AFTER_DEPARTURE");
       }
