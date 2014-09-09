@@ -52,6 +52,9 @@ namespace JetStreamIOS
 		MonoTouch.UIKit.UIStepper TicketCountStepper { get; set; }
 
 		[Outlet]
+		MonoTouch.UIKit.UIButton ToLocationButton { get; set; }
+
+		[Outlet]
 		MonoTouch.UIKit.UITextField ToLocationTextField { get; set; }
 
 		[Action ("CountValueChanged:")]
@@ -62,6 +65,9 @@ namespace JetStreamIOS
 
 		[Action ("OnReturnDateButtonTouched:")]
 		partial void OnReturnDateButtonTouched (MonoTouch.UIKit.UIButton sender);
+
+		[Action ("OnRoundtripValueChanged:")]
+		partial void OnRoundtripValueChanged (MonoTouch.UIKit.UISwitch sender);
 
 		[Action ("OnSearchButtonTouched:")]
 		partial void OnSearchButtonTouched (MonoTouch.UIKit.UIButton sender);
@@ -128,14 +134,19 @@ namespace JetStreamIOS
 				SearchButton = null;
 			}
 
-			if (ToLocationTextField != null) {
-				ToLocationTextField.Dispose ();
-				ToLocationTextField = null;
-			}
-
 			if (TicketCountStepper != null) {
 				TicketCountStepper.Dispose ();
 				TicketCountStepper = null;
+			}
+
+			if (ToLocationButton != null) {
+				ToLocationButton.Dispose ();
+				ToLocationButton = null;
+			}
+
+			if (ToLocationTextField != null) {
+				ToLocationTextField.Dispose ();
+				ToLocationTextField = null;
 			}
 		}
 	}

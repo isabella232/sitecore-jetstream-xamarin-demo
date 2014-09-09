@@ -72,29 +72,32 @@ namespace JetStreamIOS
 
     private async void SearchTickets()
     {
-      SearchFlightsRequest request = SearchRequestBuilder
-        .Build();
+      SearchFlightsRequest request = null;
 
-
-      if (null == request.FromAirportId)
+      try
       {
-        string title = NSBundle.MainBundle.LocalizedString("TITLE", null);
-        string message = NSBundle.MainBundle.LocalizedString("SELECT_FROM_AIRPORT_MESSAGE", null);
-        AlertHelper.ShowAlertWithOkOption(title, message);
-        return;
+        request = SearchRequestBuilder
+          .Build();
       }
-
-      if (null == request.ToAirportId)
+      catch(ArgumentException e) 
       {
         string title = NSBundle.MainBundle.LocalizedString("TITLE", null);
-        string message = NSBundle.MainBundle.LocalizedString("SELECT_TO_AIRPORT_MESSAGE", null);
-        AlertHelper.ShowAlertWithOkOption(title, message);
+        string message;
+        if (null != e.ParamName)
+        {
+          message = NSBundle.MainBundle.LocalizedString (e.ParamName, null);
+        }
+        else
+        {
+          message = NSBundle.MainBundle.LocalizedString (e.Message, null);
+        }
+
+        AlertHelper.ShowLocalizedAlertWithOkOption(title, message);
         return;
       }
 
       //TODO: show flights list VC here
       //TODO: move this to flights list VC and make this method sync
-
       try
       {
         using (var restManager = new RestManager())
@@ -153,6 +156,11 @@ namespace JetStreamIOS
       this.SearchTickets();
     }
 
+    partial void OnRoundtripValueChanged (MonoTouch.UIKit.UISwitch sender)
+    {
+      this.ToLocationButton.Enabled = sender.On;
+      this.ReturnDateButton.Enabled = sender.On;
+    }
     #endregion;
 
     #region Segue
