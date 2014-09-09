@@ -1,8 +1,9 @@
-﻿using System;
-using MonoTouch.Foundation;
-
-namespace JetStreamIOS
+﻿namespace JetStreamIOS
 {
+  using System;
+  using MonoTouch.Foundation;
+
+
   public class DateConverter
   {
     public DateConverter()
@@ -11,9 +12,8 @@ namespace JetStreamIOS
 
     public static string StringFromDateForUI(DateTime date)
     {
-      return  NSDateFormatter.ToLocalizedString (date, NSDateFormatterStyle.Short, NSDateFormatterStyle.None);
+      return  NSDateFormatter.ToLocalizedString(date, NSDateFormatterStyle.Short, NSDateFormatterStyle.None);
     }
-
   }
 }
 
