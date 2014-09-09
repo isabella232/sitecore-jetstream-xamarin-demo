@@ -1,13 +1,10 @@
-﻿using System;
-
-namespace JetStreamCommons
+﻿namespace JetStreamCommons
 {
+  using System;
+
+
   public static class QueryHelpers
   {
-    public QueryHelpers()
-    {
-    }
-
     public static string QueryToSearchAirportsWithName(string name)
     {
       //NOTE: case sensitive, no way to search @City field using case insensitive option
