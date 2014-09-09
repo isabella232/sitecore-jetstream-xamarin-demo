@@ -51,12 +51,17 @@ namespace JetStreamIOS
         AlertHelper.ShowAlertWithOkOption("Failure", "Unable to download airports");
         return;
       }
+      finally
+      {
+        this.HideLoader();
+      }
 
       if (null == this.AllAirportsList || this.AllAirportsList.ResultCount == 0)
       {
-        throw new ArgumentNullException();
+        AlertHelper.ShowAlertWithOkOption("Failure", "No Airports Found");
+        return;
       }
-      this.HideLoader();
+
 
       // triggers UITableView
       this.SearchAirports();
