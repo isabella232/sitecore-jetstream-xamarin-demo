@@ -92,9 +92,17 @@ namespace JetStreamIOS
 
       //TODO: show flights list VC here
       //TODO: move this to flights list VC and make this method sync
-      RestManager restManager = new RestManager();
-      ScItemsResponse result = await restManager.SearchDepartTicketsWithRequest(request);
-      AlertHelper.ShowAlertWithOkOption("result", "flights count: " + result.ResultCount.ToString());
+
+      try
+      {
+        RestManager restManager = new RestManager();
+        ScItemsResponse result = await restManager.SearchDepartTicketsWithRequest(request);
+        AlertHelper.ShowAlertWithOkOption("result", "flights count: " + result.ResultCount.ToString());
+      }
+      catch
+      {
+        AlertHelper.ShowAlertWithOkOption("Failure", "Unable to download flights");
+      }
     }
 
     #region Events
