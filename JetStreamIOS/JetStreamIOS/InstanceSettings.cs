@@ -59,6 +59,17 @@
       }
     }
 
+    private ISitecoreWebApiSession GetAnonymousSession()
+    {
+        var result = SitecoreWebApiSessionBuilder.AnonymousSessionWithHost(this.InstanceUrl)
+          .Site(this.InstanceSite)
+          .DefaultDatabase(this.InstanceDataBase)
+          .DefaultLanguage(this.InstanceLanguage)
+          .BuildSession();
+
+        return result;
+    }
+
     public ISitecoreWebApiSession GetSession()
     {
       return this.GetAuthenticatedSession();
