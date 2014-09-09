@@ -15,5 +15,9 @@
 
 //Messages
 "TITLE" = "Title";
-"SELECT_FROM_AIRPORT_MESSAGE" = "Please choose 'From' airport";
-"SELECT_TO_AIRPORT_MESSAGE" = "Please choose 'To' airport";
+"FROM_AIRPORT_IS_NULL" = "Please choose 'From' airport";
+"TO_AIRPORT_IS_NULL" = "Please choose 'To' airport";
+"DEPART_DATE_IS_NULL" = "Please select departure date";
+"DEPART_DATE_MUST_BE_A_FUTURE" = "Depart date must be a future";
+"RETURN_DATE_MUST_BE_A_FUTURE" = "Return date must be a future";
+"RETURN_DATE_MUST_BE_AFTER_DEPARTURE" = "Return date must be after departure";
