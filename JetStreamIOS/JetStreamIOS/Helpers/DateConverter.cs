@@ -1,4 +1,5 @@
 ﻿using System;
+using MonoTouch.Foundation;
 
 namespace JetStreamIOS
 {
@@ -10,7 +11,7 @@ namespace JetStreamIOS
 
     public static string StringFromDateForUI(DateTime date)
     {
-      return string.Format("{0:00}/{1:00}/{2:0000}", date.Month, date.Day, date.Year);
+      return  NSDateFormatter.ToLocalizedString (date, NSDateFormatterStyle.Short, NSDateFormatterStyle.None);
     }
 
   }
