@@ -33,12 +33,17 @@ namespace JetStreamIOS
 
     public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
     {
-      var cell = tableView.DequeueReusableCell ("SearchAirportsSourceCell") as UITableViewCell;
+      string cellIdentifier = "SearchAirportsSourceCell";
+      UITableViewCell cell = tableView.DequeueReusableCell (cellIdentifier);
+
       if (cell == null)
-        cell = new UITableViewCell ();
-      
+      {
+        cell = new UITableViewCell (UITableViewCellStyle.Subtitle, cellIdentifier);
+      }
+
       ISitecoreItem item = Items[indexPath.Row];
       cell.TextLabel.Text = item.DisplayName;
+      cell.DetailTextLabel.Text = item["City"].RawValue;
       
       return cell;
     }
