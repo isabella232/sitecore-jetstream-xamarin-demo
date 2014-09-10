@@ -19,7 +19,7 @@ namespace JetStreamIOS
       AirportsTable.SearchAirportsAndUpdateTable();
     }
 
-    public SearchAirportTableViewController AirportsTable;
+    public SearchAirportTableViewController AirportsTable { get; set; }
   }
 }
 

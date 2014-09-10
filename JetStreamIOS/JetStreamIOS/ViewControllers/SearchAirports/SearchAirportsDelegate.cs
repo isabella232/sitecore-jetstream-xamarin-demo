@@ -20,7 +20,7 @@ namespace JetStreamIOS
       this.AirportsTable.HideSearchKeyboard();
     }
 
-    public SearchAirportTableViewController AirportsTable;
+    public SearchAirportTableViewController AirportsTable {get; set;}
 
   }
 }

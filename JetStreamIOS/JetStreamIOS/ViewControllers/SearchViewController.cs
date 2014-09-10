@@ -182,13 +182,13 @@ namespace JetStreamIOS
       if ("ToAirportQuickSearch" == segue.Identifier)
       {
         searchAirportsViewController = segue.DestinationViewController as SearchAirportTableViewController;
-        searchAirportsViewController.isFromAirportSearch = false;
+        searchAirportsViewController.IsFromAirportSearch = false;
         searchAirportsViewController.SourceTextField = this.ToLocationTextField;
       }
       else if ("FromAirportQuickSearch" == segue.Identifier)
       {
         searchAirportsViewController = segue.DestinationViewController as SearchAirportTableViewController;
-        searchAirportsViewController.isFromAirportSearch = true;
+        searchAirportsViewController.IsFromAirportSearch = true;
         searchAirportsViewController.SourceTextField = this.FromLocationTextField;
       }
 
