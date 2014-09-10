@@ -12,7 +12,12 @@ namespace JetStreamIOS
 
     public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
     {
-      AirportsTable.RowSelected (indexPath.Row);
+      this.AirportsTable.RowSelected (indexPath.Row);
+    }
+
+    public override void DecelerationStarted(UIScrollView scrollView)
+    {
+      this.AirportsTable.HideSearchKeyboard();
     }
 
     public SearchAirportTableViewController AirportsTable;
