@@ -36,12 +36,14 @@
     <Compile Include="Helpers\QueryHelpers.cs" />
     <Compile Include="SearchTickets\SearchTicketsRequestBuilder.cs" />
     <Compile Include="JetStreamOrder.cs" />
-    <Compile Include="JetStreamFlight.cs" />
     <Compile Include="SearchTickets\SearchFlightsRequest.cs" />
     <Compile Include="SearchAirports\AirportsCaseInsensitiveSearchEngine.cs" />
     <Compile Include="About\IAboutPageInfo.cs" />
     <Compile Include="About\IBaseContentPage.cs" />
     <Compile Include="About\AboutPageWithItem.cs" />
+    <Compile Include="Flight\JetStreamFlight.cs" />
+    <Compile Include="Flight\IJetStreamFlight.cs" />
+    <Compile Include="Helpers\RawValueConverter.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
@@ -54,5 +56,6 @@
     <Folder Include="SearchTickets\" />
     <Folder Include="SearchAirports\" />
     <Folder Include="About\" />
+    <Folder Include="Flight\" />
   </ItemGroup>
 </Project>

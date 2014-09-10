@@ -1,10 +1,10 @@
-﻿namespace JetStreamCommons
+﻿namespace JetStreamCommons.Flight
 {
   using System;
   using Sitecore.MobileSDK.API.Items;
 
 
-  public class JetStreamFlight
+  public class JetStreamFlight : IJetStreamFlight
   {
     public JetStreamFlight(ISitecoreItem flight)
     {
@@ -61,7 +61,7 @@
     {
       get
       {
-        return this.Flight["Personal Entertainment"].RawValue.ToLowerInvariant().Equals("true");
+        return RawValueConverter.ToBoolean(this.Flight["Personal Entertainment"].RawValue);
       }
     }
 
@@ -69,7 +69,7 @@
     {
       get
       {
-        return this.Flight["In Flight Wifi"].RawValue;
+        return RawValueConverter.ToBoolean(this.Flight["In Flight Wifi"].RawValue);
       }
     }
 
@@ -77,7 +77,7 @@
     {
       get
       {
-        return this.Flight["Food Service"].RawValue;
+        return RawValueConverter.ToBoolean(this.Flight["Food Service"].RawValue);
       }
     }
   }
