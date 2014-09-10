@@ -72,7 +72,6 @@ namespace JetStreamIOS
 
     private async void SearchTickets()
     {
-      /*
       SearchFlightsRequest request = null;
 
       try
@@ -120,7 +119,6 @@ namespace JetStreamIOS
       {
         AlertHelper.ShowLocalizedAlertWithOkOption("FAILURE_ALERT_TITLE", "FLIGHTS_DOWNLOAD_FAILED_ALERT_MESSAGE");
       }
-      */
     }
 
     #region Events
