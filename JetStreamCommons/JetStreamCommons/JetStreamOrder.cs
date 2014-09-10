@@ -1,25 +1,25 @@
-﻿using System;
-using Sitecore.MobileSDK.Items;
-namespace JetStreamCommons
+﻿namespace JetStreamCommons
 {
+  using JetStreamCommons.Flight;
+
   public class JetStreamOrder
   {
-    public JetStreamOrder(JetStreamFlight departFlight, JetStreamFlight returnFlight)
+    public JetStreamOrder(IJetStreamFlight departFlight, IJetStreamFlight returnFlight)
     {
-      this.DepartFlight = departFlight;
+      this.DepartureFlight = departFlight;
       this.ReturnFlight = returnFlight;
     }
 
-    private JetStreamFlight DepartFlight
+    public IJetStreamFlight DepartureFlight
     {
       get;
-      set;
+      private set;
     }
 
-    private JetStreamFlight ReturnFlight
+    public IJetStreamFlight ReturnFlight
     {
       get;
-      set;
+      private set;
     }
 
   }
