@@ -184,11 +184,11 @@
     { 
       get
       { 
-        if (this.instanceLanguage == null) 
-        {
-          this.instanceLanguage = "en";
-        }
-
+//        if (this.instanceLanguage == null) 
+//        {
+//          this.instanceLanguage = "en";
+//        }
+//
         return this.instanceLanguage;
       }
       set
