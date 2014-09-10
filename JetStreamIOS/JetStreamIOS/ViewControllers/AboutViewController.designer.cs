@@ -12,9 +12,15 @@ namespace JetStreamIOS
 	[Register ("AboutViewController")]
 	partial class AboutViewController
 	{
+		[Outlet]
+		MonoTouch.UIKit.UITextView AboutTextContainer { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (AboutTextContainer != null) {
+				AboutTextContainer.Dispose ();
+				AboutTextContainer = null;
+			}
 		}
 	}
 }
