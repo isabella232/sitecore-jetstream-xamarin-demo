@@ -16,7 +16,7 @@ using Sitecore.MobileSDK.API.Items;
 
 namespace JetStreamIOS
 {
-	public partial class SearchAirportTableViewController : UITableViewController
+	public partial class SearchAirportTableViewController : UIViewController
 	{
 		public SearchAirportTableViewController (IntPtr handle) : base (handle)
 		{
@@ -111,6 +111,11 @@ namespace JetStreamIOS
 
       this.tableViewSource.Items = this.ResultList;
       this.TableView.ReloadData();
+    }
+
+    public void HideSearchKeyboard()
+    {
+      this.SearchBar.ResignFirstResponder();
     }
 
     #region UITableViewDelegate
