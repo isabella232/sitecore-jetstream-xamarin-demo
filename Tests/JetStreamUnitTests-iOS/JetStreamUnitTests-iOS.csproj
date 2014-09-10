@@ -97,5 +97,12 @@
     <Compile Include="Main.cs" />
     <Compile Include="UnitTestAppDelegate.cs" />
   </ItemGroup>
+  <Import Project="..\JetStreamUnitTests\JetStreamUnitTests.projitems" Label="Shared" Condition="Exists('..\JetStreamUnitTests\JetStreamUnitTests.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
+  <ItemGroup>
+    <ProjectReference Include="..\..\JetStreamCommons\JetStreamCommons\JetStreamCommons.csproj">
+      <Project>{040C24CF-4B83-4917-B837-ED8157960B5F}</Project>
+      <Name>JetStreamCommons</Name>
+    </ProjectReference>
+  </ItemGroup>
 </Project>
