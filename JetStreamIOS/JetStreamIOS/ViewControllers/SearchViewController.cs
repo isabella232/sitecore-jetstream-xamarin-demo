@@ -120,17 +120,17 @@ namespace JetStreamIOS
 
     partial void OnDepartDateButtonTouched (MonoTouch.UIKit.UIButton sender)
     {
-      actionSheetDatePicker.DatePicker.ValueChanged -= ReturnDateReceived;
-      actionSheetDatePicker.DatePicker.ValueChanged += DepartDateReceived;
-      actionSheetDatePicker.Show();
+      this.actionSheetDatePicker.DatePicker.ValueChanged -= ReturnDateReceived;
+      this.actionSheetDatePicker.DatePicker.ValueChanged += DepartDateReceived;
+      this.actionSheetDatePicker.Show();
     }
 
     partial void OnReturnDateButtonTouched (MonoTouch.UIKit.UIButton sender)
     {
 
-      actionSheetDatePicker.DatePicker.ValueChanged -= DepartDateReceived;
-      actionSheetDatePicker.DatePicker.ValueChanged += ReturnDateReceived;
-      actionSheetDatePicker.Show();
+      this.actionSheetDatePicker.DatePicker.ValueChanged -= DepartDateReceived;
+      this.actionSheetDatePicker.DatePicker.ValueChanged += ReturnDateReceived;
+      this.actionSheetDatePicker.Show();
     }
 
 
