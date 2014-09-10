@@ -14,12 +14,20 @@ namespace JetStreamIOS
 	{
 		[Outlet]
 		MonoTouch.UIKit.UITextView AboutTextContainer { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UILabel ViewControllerNameLabel { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
 			if (AboutTextContainer != null) {
 				AboutTextContainer.Dispose ();
 				AboutTextContainer = null;
+			}
+
+			if (ViewControllerNameLabel != null) {
+				ViewControllerNameLabel.Dispose ();
+				ViewControllerNameLabel = null;
 			}
 		}
 	}
