@@ -46,15 +46,20 @@ namespace JetStreamIOS
       base.ViewDidLoad ();
       // Perform any additional setup after loading the view, typically from a nib.
 
-      this.InstanceUrlField.Placeholder = NSBundle.MainBundle.LocalizedString ("Instance Url", null);
-      this.PasswordField.Placeholder    = NSBundle.MainBundle.LocalizedString ("Password", null);
-      this.LoginField.Placeholder       = NSBundle.MainBundle.LocalizedString ("Login", null);
-      this.SiteField.Placeholder        = NSBundle.MainBundle.LocalizedString ("Site", null);
-      this.DatabaseField.Placeholder    = NSBundle.MainBundle.LocalizedString ("Database", null);
-      this.LanguageField.Placeholder    = NSBundle.MainBundle.LocalizedString ("Language", null);
+      this.DatabaseField.Hidden = true;
+      this.SiteField.Hidden = true;
+      this.LanguageField.Hidden = true;
+
+
+      this.InstanceUrlField.Placeholder = NSBundle.MainBundle.LocalizedString("Instance Url", null);
+      this.PasswordField.Placeholder    = NSBundle.MainBundle.LocalizedString("Password", null);
+      this.LoginField.Placeholder       = NSBundle.MainBundle.LocalizedString("Login", null);
+      this.SiteField.Placeholder        = NSBundle.MainBundle.LocalizedString("Site", null);
+      this.DatabaseField.Placeholder    = NSBundle.MainBundle.LocalizedString("Database", null);
+      this.LanguageField.Placeholder    = NSBundle.MainBundle.LocalizedString("Language", null);
 
       this.InstanceUrlField.ShouldReturn  = this.HideKeyboard;
-      this.PasswordField.ShouldReturn   = this.HideKeyboard;
+      this.PasswordField.ShouldReturn    = this.HideKeyboard;
       this.LoginField.ShouldReturn      = this.HideKeyboard;
       this.SiteField.ShouldReturn       = this.HideKeyboard;
       this.DatabaseField.ShouldReturn   = this.HideKeyboard;
@@ -78,7 +83,11 @@ namespace JetStreamIOS
     {
       base.ViewWillDisappear(animated);
 
-      if (this.isAuthValid)
+      if (!this.IsUserChangedSettings())
+      {
+        return;
+      }
+      else if (this.isAuthValid)
       {
         InstanceSettings settings = this.instanceSettings;
 
@@ -139,6 +148,21 @@ namespace JetStreamIOS
           await this.TryAuthenticateSessionWithAlert(session);
         }
       }
+    }
+
+    private bool IsUserChangedSettings()
+    {
+      InstanceSettings settings = this.instanceSettings;
+
+      bool isNoChangeOccured = 
+        string.Equals(settings.InstanceUrl, this.InstanceUrlField.Text) &&
+        string.Equals(settings.InstancePassword, this.PasswordField.Text) &&
+        string.Equals(settings.InstanceLogin, this.LoginField.Text) &&
+        string.Equals(settings.InstanceSite, this.SiteField.Text) &&
+        string.Equals(settings.InstanceDataBase, this.DatabaseField.Text) &&
+        string.Equals(settings.InstanceLanguage, this.LanguageField.Text);
+
+      return !isNoChangeOccured;
     }
   }
 }
