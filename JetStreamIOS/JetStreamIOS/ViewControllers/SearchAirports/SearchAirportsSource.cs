@@ -1,14 +1,16 @@
-﻿
-using System;
-using System.Drawing;
-
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
-using Sitecore.MobileSDK.API.Items;
-using System.Collections.Generic;
-
-namespace JetStreamIOS
+﻿namespace JetStreamIOS
 {
+  using System;
+  using System.Drawing;
+  using System.Collections.Generic;
+
+  using MonoTouch.Foundation;
+  using MonoTouch.UIKit;
+
+  using JetStreamCommons.Airport;
+  using Sitecore.MobileSDK.API.Items;
+
+
   public class SearchAirportsSource : UITableViewSource
   {
     public SearchAirportsSource()
@@ -41,14 +43,14 @@ namespace JetStreamIOS
         cell = new UITableViewCell (UITableViewCellStyle.Subtitle, cellIdentifier);
       }
 
-      ISitecoreItem item = Items[indexPath.Row];
+      IJetStreamAirport item = this.Items[indexPath.Row];
       cell.TextLabel.Text = item.DisplayName;
-      cell.DetailTextLabel.Text = item["City"].RawValue;
+      cell.DetailTextLabel.Text = item.City;
       
       return cell;
     }
 
-    public List<ISitecoreItem> Items;
+    public List<IJetStreamAirport> Items { get; set; }
   }
 }
 

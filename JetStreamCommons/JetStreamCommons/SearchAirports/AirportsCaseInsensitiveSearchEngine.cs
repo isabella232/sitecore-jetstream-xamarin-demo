@@ -3,6 +3,8 @@
   using System;
   using System.Linq;
   using System.Collections.Generic;
+
+  using JetStreamCommons.Airport;
   using Sitecore.MobileSDK.API.Items;
 
 
@@ -15,12 +17,12 @@
       this.textToSearch = textToSearch.ToLowerInvariant();
     }
 
-    public bool IsAirportMatchingPredicate(ISitecoreItem singleAirport)
+    public bool IsAirportMatchingPredicate(IJetStreamAirport singleAirport)
     {
       string stringToSearch = this.textToSearch;
 
-      string airportName = singleAirport["Airport Name"].RawValue.ToLowerInvariant();
-      string city = singleAirport["City"].RawValue.ToLowerInvariant();
+      string airportName = singleAirport.Name.ToLowerInvariant();
+      string city = singleAirport.City.ToLowerInvariant();
 
       bool isAirportNameContainsSearchedString = airportName.IndexOf(stringToSearch) >= 0;
       bool isCityContainsSearchedString = city.IndexOf(stringToSearch) >= 0;
@@ -29,15 +31,15 @@
       return isAirportMatchesSearchPredicate;
     }
 
-    public IEnumerable<ISitecoreItem> SearchAirports(IEnumerable<ISitecoreItem> multipleAirports)
+    public IEnumerable<IJetStreamAirport> SearchAirports(IEnumerable<IJetStreamAirport> multipleAirports)
     {
-      Func<ISitecoreItem, bool> filter = 
+      Func<IJetStreamAirport, bool> filter = 
         singleAirport =>
         {
           return this.IsAirportMatchingPredicate(singleAirport);
         };
 
-      IEnumerable<ISitecoreItem> searchResult = multipleAirports.Where(filter);
+      IEnumerable<IJetStreamAirport> searchResult = multipleAirports.Where(filter);
       return searchResult;
     }
   }

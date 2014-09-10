@@ -1,9 +1,14 @@
-﻿namespace JetStreamCommons
+﻿
+
+namespace JetStreamCommons
 {
   using System;
   using System.Linq;
-  using System.Collections;
   using System.Threading.Tasks;
+  using System.Collections;
+  using System.Collections.Generic;
+
+  using JetStreamCommons.Airport;
 
   using Sitecore.MobileSDK.API;
   using Sitecore.MobileSDK.API.Session;
@@ -64,23 +69,9 @@
       return this.session;
     }
       
-    public async Task<ScItemsResponse> SearchAirportsWithNameContains(string name)
+    public async Task< IEnumerable<IJetStreamAirport> > SearchAllAirports()
     {
       var session = this.GetSession();
-
-      string testQuery = QueryHelpers.QueryToSearchAirportsWithName(name); 
-
-      var request = ItemWebApiRequestBuilder.ReadItemsRequestWithSitecoreQuery(testQuery)
-        .Build();
-
-      ScItemsResponse responce = await session.ReadItemAsync(request);
-
-      return responce;
-    }
-
-    public async Task<ScItemsResponse> SearchAllAirports()
-    {
-      var session = this.GetSession ();
 
       string testQuery = QueryHelpers.QueryToSearchAllAirports(); 
 
@@ -89,7 +80,8 @@
 
       ScItemsResponse responce = await session.ReadItemAsync(request);
 
-      return responce;
+      IEnumerable<IJetStreamAirport> result = responce.Select(item => new JetStreamAirportWithItem(item));
+      return result;
     }
 
     public async Task<ScItemsResponse> SearchDepartTicketsWithRequest(SearchFlightsRequest request)
