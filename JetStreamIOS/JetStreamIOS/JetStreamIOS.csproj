@@ -127,6 +127,8 @@
     <BundleResource Include="Resources\en.lproj\Localizable.strings" />
     <BundleResource Include="Resources\settingsNavButtonIcon.png" />
     <BundleResource Include="Resources\settingsNavButtonIcon%402x.png" />
+    <BundleResource Include="Resources\helpNavButtonIcon.png" />
+    <BundleResource Include="Resources\helpNavButtonIcon%402x.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
   <ItemGroup>

@@ -11,12 +11,12 @@ namespace JetStreamIOS
 		{
 		}
 
-		public static void ShowAlertWithOkOption(string title, string message)
+    private static void ShowAlertWithOkOption(string title, string message)
 		{
 			AlertHelper.ShowAlertWithSingleButton(title, message, "OK");
 		}
 
-		public static void ShowAlertWithSingleButton(string title, string message, string buttonTitle)
+    private static void ShowAlertWithSingleButton(string title, string message, string buttonTitle)
 		{
 			UIAlertView alert = new UIAlertView() 
 			{ 
@@ -42,7 +42,7 @@ namespace JetStreamIOS
 			AlertHelper.ShowLocalizedAlertWithOkOption("Alert", "Not implemented yet");
 		}
 
-		public static Task<int> ShowAlert(string title, string message, params string [] buttons)
+		private static Task<int> ShowAlert(string title, string message, params string [] buttons)
 		{
 			var tcs 	= new TaskCompletionSource<int>();
 			var alert 	= new UIAlertView 

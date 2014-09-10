@@ -73,7 +73,7 @@ namespace JetStreamIOS
       }
       catch
       {
-        AlertHelper.ShowAlertWithOkOption("Failure", "Unable to download airports");
+        AlertHelper.ShowLocalizedAlertWithOkOption("AIRPORTS_DOWNLOAD_FAILURE_ALERT_TITLE", "AIRPORTS_DOWNLOAD_FAILURE_ALERT_MESSAGE");
         return null;
       }
       finally
@@ -92,7 +92,7 @@ namespace JetStreamIOS
       }
       else if (this.AllAirportsList.ResultCount == 0)
       {
-        AlertHelper.ShowAlertWithOkOption("Failure", "No Airports Found");
+        AlertHelper.ShowLocalizedAlertWithOkOption("AIRPORTS_NOT_FOUND_ALERT_TITLE", "AIRPORTS_NOT_FOUND_ALERT_MESSAGE");
         return;
       }
 
