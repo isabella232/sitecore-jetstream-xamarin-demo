@@ -31,7 +31,7 @@ namespace JetStreamIOS
       this.LocalizeUI();
       this.InitializeDateActionPicker();
 
-      this.SearchRequestBuilder = new  SearchTicketsRequestBuilder();
+      this.SearchRequestBuilder = new SearchTicketsRequestBuilder();
       this.SearchRequestBuilder.Set.ReturnDate(DateTime.Now);
       this.SearchRequestBuilder.Set.DepartureDate(DateTime.Now);
     }
@@ -72,6 +72,7 @@ namespace JetStreamIOS
 
     private async void SearchTickets()
     {
+      /*
       SearchFlightsRequest request = null;
 
       try
@@ -108,6 +109,8 @@ namespace JetStreamIOS
         {
           ScItemsResponse result = await restManager.SearchDepartTicketsWithRequest(request);
 
+
+
           string flightsCountFormat = NSBundle.MainBundle.LocalizedString("FLIGHTS_COUNT_FORMAT", null);
           string flightsCountMessage = string.Format(flightsCountFormat, result.ResultCount.ToString());
           AlertHelper.ShowLocalizedAlertWithOkOption("RESULT_TITLE_ALERT", flightsCountMessage);
@@ -117,6 +120,7 @@ namespace JetStreamIOS
       {
         AlertHelper.ShowLocalizedAlertWithOkOption("FAILURE_ALERT_TITLE", "FLIGHTS_DOWNLOAD_FAILED_ALERT_MESSAGE");
       }
+      */
     }
 
     #region Events

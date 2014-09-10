@@ -33,7 +33,7 @@
       }
     }
 
-    public string DepartureDate
+    public string DepartureTime
     {
       get
       {
@@ -41,7 +41,15 @@
       }
     }
 
-    public string DeparturePrice
+    public string ArrivalTime
+    {
+      get
+      {
+        return this.Flight["Arrival Time"].RawValue;
+      }
+    }
+
+    public string Price
     {
       get
       {
@@ -49,15 +57,15 @@
       }
     }
 
-    public string DeparturePersonalEntertainment
+    public bool IsPersonalEntertainmentIncluded
     {
       get
       {
-        return this.Flight["Personal Entertainment"].RawValue;
+        return this.Flight["Personal Entertainment"].RawValue.ToLowerInvariant().Equals("true");
       }
     }
 
-    public string DepartureInFlightWifi 
+    public bool IsInFlightWifiIncluded
     {
       get
       {
@@ -65,7 +73,7 @@
       }
     }
 
-    public string DepartureFoodService
+    public bool IsFoodServiceIncluded
     {
       get
       {
