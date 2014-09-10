@@ -4,9 +4,9 @@
   using Sitecore.MobileSDK.API.Items;
 
 
-  public class JetStreamFlight : IJetStreamFlight
+  public class JetStreamFlightWithItem : IJetStreamFlight
   {
-    public JetStreamFlight(ISitecoreItem flight)
+    public JetStreamFlightWithItem(ISitecoreItem flight)
     {
       this.Flight = flight;
     }
