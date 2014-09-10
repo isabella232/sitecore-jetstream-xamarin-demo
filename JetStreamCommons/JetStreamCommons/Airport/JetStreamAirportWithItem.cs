@@ -28,6 +28,23 @@
         return this.item["Airport Name"].RawValue;
       }
     }
+
+    public string Id 
+    { 
+      get
+      {
+        return this.item.Id;
+      }
+    }
+
+    public string DisplayName 
+    { 
+      get
+      {
+        return this.item.DisplayName;
+      }
+    }
+
   }
 }
 
