@@ -5,6 +5,7 @@ namespace JetStreamCommons
   public class SearchFlightsRequest
   {
     private DateTime? optionalReturnDate;
+    private DateTime? optionalDepartDate;
 
     public SearchFlightsRequest(
       string fromAirportId, 
@@ -15,7 +16,7 @@ namespace JetStreamCommons
     {
       this.FromAirportId = fromAirportId;
       this.ToAirportId = toAirportId;
-      this.DepartDate = departDate;
+      this.optionalDepartDate = departDate;
       this.optionalReturnDate = returnDate;
     }
 
@@ -31,17 +32,19 @@ namespace JetStreamCommons
       private set;
     }
 
-    public DateTime DepartDate
-    {
-      get;
-      private set;
-    }
-
-    public DateTime ReturnDate
+    public DateTime? DepartDate
     {
       get
       {
-        return this.optionalReturnDate.Value;
+        return this.optionalDepartDate;
+      }
+    }
+
+    public DateTime? ReturnDate
+    {
+      get
+      {
+        return this.optionalReturnDate;
       }
     }
 

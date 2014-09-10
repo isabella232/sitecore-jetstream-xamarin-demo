@@ -18,7 +18,7 @@
 
     public static string QueryToSearchDepartFlightsWithRequest(SearchFlightsRequest request)
     {
-      string formatedDate = QueryHelpers.StringFromDateForQuery(request.DepartDate);
+      string formatedDate = QueryHelpers.StringFromDateForQuery(request.DepartDate.Value);
 
       return "/sitecore/content/Global/Flights//*" +
         "[" +
@@ -31,7 +31,7 @@
 
     public static string QueryToSearchReturnFlightsWithRequest(SearchFlightsRequest request)
     {
-      string formatedDate = QueryHelpers.StringFromDateForQuery(request.ReturnDate);
+      string formatedDate = QueryHelpers.StringFromDateForQuery(request.ReturnDate.Value);
 
       return "/sitecore/content/Global/Flights//*" +
         "[" +
