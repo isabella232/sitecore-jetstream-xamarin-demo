@@ -35,4 +35,35 @@
 "Language" = "Language";
 
 
-///
+/// SearchViewController Alerts
+"RESULT_TITLE_ALERT" = "Search Result";
+"FLIGHTS_COUNT_FORMAT" = "Flights Count : {0}";
+
+
+"FAILURE_ALERT_TITLE" = "Failure";
+"FLIGHTS_DOWNLOAD_FAILED_ALERT_MESSAGE" = "Unable to download flights";
+
+
+/// SettingsViewController alerts
+"SETTINGS_NOT_APPLIED_ALERT_TITLE" = "Settings not Applied";
+"SETTINGS_NOT_APPLIED_ALERT_MESSAGE" = "Settings are not valid or have not been verified";
+
+"SETTINGS_AUTH_SUCCEEDED_ALERT_TITLE" = "Connected";
+"SETTINGS_AUTH_SUCCEEDED_ALERT_MESSAGE" = "The settings will be applied once you leave this tab";
+
+
+"SETTINGS_AUTH_FAILED_ALERT_TITLE" = "Not connected";
+"SETTINGS_AUTH_FAILED_ALERT_MESSAGE" = "Please check your data and network availability";
+
+"SETTINGS_ANONYMOUS_USER_ALERT_TITLE" = "UserName is Missing";
+"SETTINGS_ANONYMOUS_USER_ALERT_MESSAGE" = "An anonymous session will be used";
+
+
+/// SearchAirportTableViewController alerts
+"AIRPORTS_DOWNLOAD_FAILURE_ALERT_TITLE" = "Failure";
+"AIRPORTS_DOWNLOAD_FAILURE_ALERT_MESSAGE" = "Unable to download airports";
+
+"AIRPORTS_NOT_FOUND_ALERT_TITLE" = "Failure";
+"AIRPORTS_NOT_FOUND_ALERT_MESSAGE" = "No Airports Found";
+
+

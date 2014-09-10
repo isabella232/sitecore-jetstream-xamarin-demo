@@ -107,12 +107,15 @@ namespace JetStreamIOS
         using (var restManager = new RestManager(session))
         {
           ScItemsResponse result = await restManager.SearchDepartTicketsWithRequest(request);
-          AlertHelper.ShowAlertWithOkOption("result", "flights count: " + result.ResultCount.ToString());
+
+          string flightsCountFormat = NSBundle.MainBundle.LocalizedString("FLIGHTS_COUNT_FORMAT", null);
+          string flightsCountMessage = string.Format(flightsCountFormat, result.ResultCount.ToString());
+          AlertHelper.ShowLocalizedAlertWithOkOption("RESULT_TITLE_ALERT", flightsCountMessage);
         }
       }
       catch
       {
-        AlertHelper.ShowAlertWithOkOption("Failure", "Unable to download flights");
+        AlertHelper.ShowLocalizedAlertWithOkOption("FAILURE_ALERT_TITLE", "FLIGHTS_DOWNLOAD_FAILED_ALERT_MESSAGE");
       }
     }
 
