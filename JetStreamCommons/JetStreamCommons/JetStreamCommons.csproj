@@ -41,9 +41,11 @@
     <Compile Include="About\IAboutPageInfo.cs" />
     <Compile Include="About\IBaseContentPage.cs" />
     <Compile Include="About\AboutPageWithItem.cs" />
-    <Compile Include="Flight\JetStreamFlight.cs" />
     <Compile Include="Flight\IJetStreamFlight.cs" />
     <Compile Include="Helpers\RawValueConverter.cs" />
+    <Compile Include="Airport\IJetStreamAirport.cs" />
+    <Compile Include="Airport\JetStreamAirportWithItem.cs" />
+    <Compile Include="Flight\JetStreamFlightWithItem.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
@@ -57,5 +59,6 @@
     <Folder Include="SearchAirports\" />
     <Folder Include="About\" />
     <Folder Include="Flight\" />
+    <Folder Include="Airport\" />
   </ItemGroup>
 </Project>
