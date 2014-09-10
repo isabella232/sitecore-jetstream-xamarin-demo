@@ -14,12 +14,20 @@ namespace JetStreamIOS
 	{
 		[Outlet]
 		MonoTouch.UIKit.UISearchBar SearchBar { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UITableView TableView { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
 			if (SearchBar != null) {
 				SearchBar.Dispose ();
 				SearchBar = null;
+			}
+
+			if (TableView != null) {
+				TableView.Dispose ();
+				TableView = null;
 			}
 		}
 	}
