@@ -101,11 +101,15 @@ namespace JetStreamIOS
       string stringToSearch = this.SearchBar.Text.ToLowerInvariant();
 
       var searchEngine = new AirportsCaseInsensitiveSearchEngine(stringToSearch);
-      IEnumerable<IJetStreamAirport> searchResult = searchEngine.SearchAirports(this.AllAirportsList);
-      this.ResultList = searchResult.ToList();
 
-      this.tableViewSource.Items = this.ResultList;
-      this.TableView.ReloadData();
+      if (null != this.AllAirportsList)
+      {
+        IEnumerable<IJetStreamAirport> searchResult = searchEngine.SearchAirports (this.AllAirportsList);
+        this.ResultList = searchResult.ToList ();
+
+        this.tableViewSource.Items = this.ResultList;
+        this.TableView.ReloadData ();
+      }
     }
 
     public void HideSearchKeyboard()
