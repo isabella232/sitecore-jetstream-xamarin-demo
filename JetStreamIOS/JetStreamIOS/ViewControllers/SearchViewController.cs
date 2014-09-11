@@ -1,5 +1,3 @@
-using JetStreamCommons.Airport;
-
 namespace JetStreamIOS
 {
   using System;
@@ -12,6 +10,7 @@ namespace JetStreamIOS
   using ActionSheetDatePicker;
 
   using JetStreamCommons;
+  using JetStreamCommons.Airport;
   using JetStreamCommons.FlightSearch;
   using Sitecore.MobileSDK.API.Items;
 
