@@ -75,6 +75,6 @@
 
 /// flights list
 "PRICE_UNAVAILABLE" = "N/A";
-
-
+"DEPARTURE_DATE_FORMAT" = "Departs : {0}";
+"ARRIVAL_DATE_FORMAT" = "Arrives : {0}";
 
