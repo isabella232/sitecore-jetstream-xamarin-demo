@@ -91,7 +91,7 @@ namespace JetStreamCommons
 
     public async Task<ScItemsResponse> SearchReturnTicketsWithRequest(SearchFlightsRequest request)
     {
-      return await this.SearchTicketsWithRequest (request, false);
+      return await this.SearchTicketsWithRequest(request, false);
     }
 
     private async Task<ScItemsResponse> SearchTicketsWithRequest(SearchFlightsRequest request, bool isDepart)

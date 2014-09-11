@@ -49,11 +49,14 @@
       }
     }
 
-    public string Price
+    public decimal Price
     {
       get
       {
-        return this.Flight["Price"].RawValue;
+        string rawResult = this.Flight["Price"].RawValue;
+        decimal result = RawValueConverter.ToMoney(rawResult);
+
+        return result;
       }
     }
 
@@ -61,7 +64,8 @@
     {
       get
       {
-        return RawValueConverter.ToBoolean(this.Flight["Personal Entertainment"].RawValue);
+        string rawResult = this.Flight["Personal Entertainment"].RawValue;
+        return RawValueConverter.ToBoolean(rawResult);
       }
     }
 
@@ -69,7 +73,8 @@
     {
       get
       {
-        return RawValueConverter.ToBoolean(this.Flight["In Flight Wifi"].RawValue);
+        string rawResult = this.Flight["In Flight Wifi"].RawValue;
+        return RawValueConverter.ToBoolean(rawResult);
       }
     }
 
@@ -77,7 +82,8 @@
     {
       get
       {
-        return RawValueConverter.ToBoolean(this.Flight["Food Service"].RawValue);
+        string rawResult = this.Flight["Food Service"].RawValue;
+        return RawValueConverter.ToBoolean(rawResult);
       }
     }
   }

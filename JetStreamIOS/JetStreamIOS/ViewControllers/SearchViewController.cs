@@ -10,15 +10,17 @@ namespace JetStreamIOS
   using ActionSheetDatePicker;
 
   using JetStreamCommons;
+  using JetStreamCommons.Airport;
+  using JetStreamCommons.FlightSearch;
   using Sitecore.MobileSDK.API.Items;
 
 
 
 	public partial class SearchViewController : UIViewController
 	{
-
-    private SearchTicketsRequestBuilder SearchRequestBuilder;
+    private SearchTicketsRequestBuilder searchRequestBuilder;
     private ActionSheetDatePickerView actionSheetDatePicker;
+    private MutableFlightSearchUserInput userInput;
 
 		public SearchViewController (IntPtr handle) : base (handle)
 		{
@@ -31,9 +33,9 @@ namespace JetStreamIOS
       this.LocalizeUI();
       this.InitializeDateActionPicker();
 
-      this.SearchRequestBuilder = new SearchTicketsRequestBuilder();
-      this.SearchRequestBuilder.Set.ReturnDate(DateTime.Now);
-      this.SearchRequestBuilder.Set.DepartureDate(DateTime.Now);
+      this.searchRequestBuilder = new SearchTicketsRequestBuilder();
+      this.searchRequestBuilder.Set.ReturnDate(DateTime.Now);
+      this.searchRequestBuilder.Set.DepartureDate(DateTime.Now);
     }
 
     private void LocalizeUI()
@@ -57,9 +59,18 @@ namespace JetStreamIOS
       this.FromLocationTextField.Placeholder = NSBundle.MainBundle.LocalizedString("FROM_LOCATION_PLACEHOLDER", null); 
       this.ToLocationTextField.Placeholder = NSBundle.MainBundle.LocalizedString("TO_LOCATION_PLACEHOLDER", null);
 
-      string date = DateConverter.StringFromDateForUI(DateTime.Now);
+      DateTime nowDate = DateTime.Now;
+      string date = DateConverter.StringFromDateForUI(nowDate);
       ReturnDateButton.SetTitle(date, UIControlState.Normal);
       DepartDateButton.SetTitle(date, UIControlState.Normal);
+
+      this.userInput = new MutableFlightSearchUserInput();
+      this.userInput.SourceAirport = null;
+      this.userInput.DestinationAirport = null;
+      this.userInput.ForwardFlightDepartureDate = nowDate;
+      this.userInput.ReturnFlightDepartureDate = nowDate;
+      this.userInput.TicketsCount = Convert.ToInt32(this.TicketCountStepper.Value);
+      this.userInput.TicketClass = TicketClass.Business;
     }
 
     private void InitializeDateActionPicker()
@@ -76,7 +87,7 @@ namespace JetStreamIOS
 
       try
       {
-        request = SearchRequestBuilder.Build();
+        request = this.searchRequestBuilder.Build();
       }
       catch(ArgumentException e) 
       {
@@ -123,41 +134,56 @@ namespace JetStreamIOS
 
     #region Events
 
-    partial void OnDepartDateButtonTouched (MonoTouch.UIKit.UIButton sender)
+    partial void OnDepartDateButtonTouched(MonoTouch.UIKit.UIButton sender)
     {
       this.actionSheetDatePicker.DatePicker.ValueChanged -= ReturnDateReceived;
       this.actionSheetDatePicker.DatePicker.ValueChanged += DepartDateReceived;
       this.actionSheetDatePicker.Show();
     }
 
-    partial void OnReturnDateButtonTouched (MonoTouch.UIKit.UIButton sender)
+    partial void OnReturnDateButtonTouched(MonoTouch.UIKit.UIButton sender)
     {
-
       this.actionSheetDatePicker.DatePicker.ValueChanged -= DepartDateReceived;
       this.actionSheetDatePicker.DatePicker.ValueChanged += ReturnDateReceived;
       this.actionSheetDatePicker.Show();
     }
+      
+    partial void OnTicketClassChanged(MonoTouch.UIKit.UISegmentedControl sender)
+    {
+      TicketClass[] segmentValues = 
+      {
+        TicketClass.Business,
+        TicketClass.Economy,
+        TicketClass.FirstClass
+      };
 
+      this.userInput.TicketClass = segmentValues[sender.SelectedSegment];
+    }
 
-    partial void CountValueChanged (MonoTouch.UIKit.UIStepper sender)
+    partial void CountValueChanged(MonoTouch.UIKit.UIStepper sender)
     {
       ResultCountLabel.Text = sender.Value.ToString();
+      this.userInput.TicketsCount = Convert.ToInt32(sender.Value);
     }
 
     private void DepartDateReceived(object sender, EventArgs e)
     {
       DateTime date = (sender as UIDatePicker).Date;
+      this.userInput.ForwardFlightDepartureDate = date;
+
       string formatedDate = DateConverter.StringFromDateForUI(date);
       this.DepartDateButton.SetTitle(formatedDate, UIControlState.Normal);
-      this.SearchRequestBuilder.Set.DepartureDate(date);
+      this.searchRequestBuilder.Set.DepartureDate(date);
     }
 
     private void ReturnDateReceived(object sender, EventArgs e)
     {
       DateTime date = (sender as UIDatePicker).Date;
+      this.userInput.ReturnFlightDepartureDate = date;
+
       string formatedDate = DateConverter.StringFromDateForUI(date);
       this.ReturnDateButton.SetTitle(formatedDate, UIControlState.Normal);
-      this.SearchRequestBuilder.Set.ReturnDate(date);
+      this.searchRequestBuilder.Set.ReturnDate(date);
     }
 
     partial void OnSearchButtonTouched(MonoTouch.UIKit.UIButton sender)
@@ -165,10 +191,35 @@ namespace JetStreamIOS
       this.SearchTickets();
     }
 
-    partial void OnRoundtripValueChanged (MonoTouch.UIKit.UISwitch sender)
+    partial void OnRoundtripValueChanged(MonoTouch.UIKit.UISwitch sender)
     {
-      this.ToLocationButton.Enabled = sender.On;
       this.ReturnDateButton.Enabled = sender.On;
+
+      if (!sender.On)
+      {
+        this.userInput.ReturnFlightDepartureDate = null;
+      }
+      else
+      {
+        // @adk : using legacy until full migration
+        this.userInput.ReturnFlightDepartureDate = this.searchRequestBuilder.Build().DepartDate;
+        if (null == this.userInput.ReturnFlightDepartureDate)
+        {
+          this.userInput.ReturnFlightDepartureDate = DateTime.Now;
+        }
+      }
+    }
+
+    private void OnSourceAirportSelected(IJetStreamAirport selectedAirport, int airportIndexInTable)
+    {
+      this.searchRequestBuilder.Set.SourceAirport(selectedAirport.Id);
+      this.userInput.SourceAirport = selectedAirport;
+    }
+
+    private void OnDestinationAirportSelected(IJetStreamAirport selectedAirport, int airportIndexInTable)
+    {
+      this.searchRequestBuilder.Set.DestinationAirport(selectedAirport.Id);
+      this.userInput.DestinationAirport = selectedAirport;
     }
     #endregion;
 
@@ -182,18 +233,17 @@ namespace JetStreamIOS
       if ("ToAirportQuickSearch" == segue.Identifier)
       {
         searchAirportsViewController = segue.DestinationViewController as SearchAirportTableViewController;
-        searchAirportsViewController.IsFromAirportSearch = false;
+        searchAirportsViewController.OnAirportSelected = this.OnDestinationAirportSelected;
+
         searchAirportsViewController.SourceTextField = this.ToLocationTextField;
       }
       else if ("FromAirportQuickSearch" == segue.Identifier)
       {
         searchAirportsViewController = segue.DestinationViewController as SearchAirportTableViewController;
-        searchAirportsViewController.IsFromAirportSearch = true;
+        searchAirportsViewController.OnAirportSelected = this.OnSourceAirportSelected;
+
         searchAirportsViewController.SourceTextField = this.FromLocationTextField;
       }
-
-
-      searchAirportsViewController.SearchTicketsBuilder = this.SearchRequestBuilder;
     }
 
     #endregion;

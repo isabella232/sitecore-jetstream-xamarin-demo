@@ -32,6 +32,17 @@
         throw new ArgumentException(message);
       }
     }
+
+    public static decimal ToMoney(string rawValue)
+    {
+      if (string.IsNullOrWhiteSpace(rawValue))
+      {
+        string message = "RawValue does not have a decimal value because it is empty.";
+        throw new ArgumentException(message);
+      }
+
+      return Decimal.Parse(rawValue);
+    }
   }
 }
 

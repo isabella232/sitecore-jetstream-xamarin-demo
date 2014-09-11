@@ -138,6 +138,9 @@
                                     <segment title="Economy"/>
                                     <segment title="First Class"/>
                                 </segments>
+                                <connections>
+                                    <action selector="OnTicketClassChanged:" destination="CZ4-MO-1fc" eventType="valueChanged" id="oUq-ze-3Qh"/>
+                                </connections>
                             </segmentedControl>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HzJ-Tx-TZ0">
                                 <rect key="frame" x="51" y="438" width="219" height="53"/>

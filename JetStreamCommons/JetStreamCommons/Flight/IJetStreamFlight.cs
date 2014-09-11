@@ -22,7 +22,7 @@
       get;
     }
 
-    string Price
+    decimal Price
     {
       get;
     }
