@@ -13,6 +13,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Mocks\AirportsListPOD.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Mocks\AirportPOD.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AirportsFilteringTest.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)QueryBuilderTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Mocks\" />
