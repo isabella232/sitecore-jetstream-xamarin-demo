@@ -20,6 +20,11 @@
     {
       return "ToDepartureFlightsList".Equals(segue.Identifier);
     }
+
+    public static void NavigateToDepartureFlightsListFromViewController(UIViewController sourceViewController)
+    {
+      sourceViewController.PerformSegue("ToDepartureFlightsList", sourceViewController);
+    }
   }
 }
 
