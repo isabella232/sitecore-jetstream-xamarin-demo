@@ -123,6 +123,7 @@
     <Compile Include="ViewControllers\FlightListViewController.designer.cs">
       <DependentUpon>FlightListViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="ViewControllers\FlightsTable\FlightsTableViewEnumerableDataSource.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard.storyboard" />
@@ -151,5 +152,6 @@
     <Folder Include="ViewControllers\" />
     <Folder Include="Resources\en.lproj\" />
     <Folder Include="ViewControllers\SearchAirports\" />
+    <Folder Include="ViewControllers\FlightsTable\" />
   </ItemGroup>
 </Project>

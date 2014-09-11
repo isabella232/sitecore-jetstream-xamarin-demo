@@ -134,6 +134,11 @@ namespace JetStreamIOS
     }
 
     #region Events
+    partial void OnSearchButtonTouched (MonoTouch.UIKit.UIButton sender)
+    {
+      // IDLE
+      // @adk : the method is required to avoid crashes
+    }
 
     partial void OnDepartDateButtonTouched(MonoTouch.UIKit.UIButton sender)
     {

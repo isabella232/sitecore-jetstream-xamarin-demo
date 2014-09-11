@@ -1,3 +1,5 @@
+using JetStreamIOS.ViewControllers.FlightsTable;
+
 namespace JetStreamIOS
 {
   using System;
@@ -68,6 +70,10 @@ namespace JetStreamIOS
           this.SearchOptionsFromUser.ForwardFlightDepartureDate);
 
         IEnumerable<IJetStreamFlight> flights = await loader.GetFlightsForTheGivenDateAsync();
+        var tableSource = new FlightsTableViewEnumerableDataSource(flights);
+        this.FlightsTableView.DataSource = tableSource;
+        this.FlightsTableView.ReloadData();
+
         DaySummary yesterday = await loader.GetPreviousDayAsync();
         DaySummary tomorrow = await loader.GetNextDayAsync();
 
