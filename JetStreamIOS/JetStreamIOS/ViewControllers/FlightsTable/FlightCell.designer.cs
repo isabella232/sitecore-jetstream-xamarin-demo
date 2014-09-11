@@ -29,14 +29,9 @@ namespace JetStreamIOS
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (PriceLabel != null) {
-				PriceLabel.Dispose ();
-				PriceLabel = null;
-			}
-
-			if (OrderButton != null) {
-				OrderButton.Dispose ();
-				OrderButton = null;
+			if (ArrivalTimeLabel != null) {
+				ArrivalTimeLabel.Dispose ();
+				ArrivalTimeLabel = null;
 			}
 
 			if (DepartureTimeLabel != null) {
@@ -44,9 +39,14 @@ namespace JetStreamIOS
 				DepartureTimeLabel = null;
 			}
 
-			if (ArrivalTimeLabel != null) {
-				ArrivalTimeLabel.Dispose ();
-				ArrivalTimeLabel = null;
+			if (OrderButton != null) {
+				OrderButton.Dispose ();
+				OrderButton = null;
+			}
+
+			if (PriceLabel != null) {
+				PriceLabel.Dispose ();
+				PriceLabel = null;
 			}
 		}
 	}

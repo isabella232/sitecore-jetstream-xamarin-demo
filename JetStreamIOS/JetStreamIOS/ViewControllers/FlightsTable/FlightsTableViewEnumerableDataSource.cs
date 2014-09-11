@@ -33,12 +33,15 @@ namespace JetStreamIOS.ViewControllers.FlightsTable
 
     public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
     {
-      UITableViewCell newCell = tableView.DequeueReusableCell("FlightCell");
+      NSString reuseIdentifier = FlightCell.StaticReuseIdentifier();
+      FlightCell newCell = tableView.DequeueReusableCell(reuseIdentifier) as FlightCell;
       if (null == newCell)
       {
-        newCell = new UITableViewCell(UITableViewCellStyle.Default, "FlightCell");
+        newCell = new FlightCell(UITableViewCellStyle.Default, reuseIdentifier);
       }
-      newCell.TextLabel.Text = flights.ToArray()[indexPath.Row].Price.ToString("C");
+
+      IJetStreamFlight flight = flights.ToArray()[indexPath.Row];
+      newCell.SetModel(flight);
 
       return newCell;
     }

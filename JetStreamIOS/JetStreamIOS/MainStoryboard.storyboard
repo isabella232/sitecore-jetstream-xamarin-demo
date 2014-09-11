@@ -338,7 +338,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="1Xs-Sj-tfK" customClass="FlightCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FlightCell" id="1Xs-Sj-tfK" customClass="FlightCell">
                                         <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1Xs-Sj-tfK" id="TN0-sC-yuR">
@@ -352,9 +352,12 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="awS-Po-obM">
-                                                    <rect key="frame" x="237" y="7" width="63" height="30"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="awS-Po-obM">
+                                                    <rect key="frame" x="257" y="7" width="63" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="63" id="aZO-7Q-dMR"/>
+                                                    </constraints>
                                                     <state key="normal" title="Order">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
@@ -383,16 +386,14 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="AkD-LD-IkT" firstAttribute="leading" secondItem="TN0-sC-yuR" secondAttribute="leading" constant="20" id="4rM-mn-qx1"/>
-                                                <constraint firstItem="awS-Po-obM" firstAttribute="leading" secondItem="r6M-xH-3sd" secondAttribute="trailing" constant="8" id="AbW-zu-wsw"/>
                                                 <constraint firstItem="MnS-kD-dxc" firstAttribute="leading" secondItem="AkD-LD-IkT" secondAttribute="trailing" constant="8" id="FDt-cj-LUi"/>
-                                                <constraint firstAttribute="trailing" secondItem="awS-Po-obM" secondAttribute="trailing" constant="20" id="Gox-Py-fNe"/>
-                                                <constraint firstItem="awS-Po-obM" firstAttribute="leading" secondItem="MnS-kD-dxc" secondAttribute="trailing" constant="8" id="IMX-qk-BfZ"/>
                                                 <constraint firstItem="r6M-xH-3sd" firstAttribute="top" secondItem="TN0-sC-yuR" secondAttribute="top" id="JPO-Tv-0Oo"/>
                                                 <constraint firstItem="MnS-kD-dxc" firstAttribute="top" secondItem="r6M-xH-3sd" secondAttribute="bottom" constant="-1" id="Uw7-qw-dML"/>
                                                 <constraint firstAttribute="bottom" secondItem="MnS-kD-dxc" secondAttribute="bottom" constant="2" id="WIY-Uo-hgb"/>
                                                 <constraint firstAttribute="bottom" secondItem="AkD-LD-IkT" secondAttribute="bottom" id="Xia-bz-Jb6"/>
                                                 <constraint firstAttribute="bottom" secondItem="awS-Po-obM" secondAttribute="bottom" constant="6" id="Yx9-G4-8mu"/>
                                                 <constraint firstItem="AkD-LD-IkT" firstAttribute="top" secondItem="TN0-sC-yuR" secondAttribute="top" id="hsB-eA-381"/>
+                                                <constraint firstAttribute="trailing" secondItem="awS-Po-obM" secondAttribute="trailing" id="pjJ-bR-BAK"/>
                                                 <constraint firstItem="awS-Po-obM" firstAttribute="top" secondItem="TN0-sC-yuR" secondAttribute="top" constant="7" id="qPP-mJ-PqI"/>
                                                 <constraint firstItem="r6M-xH-3sd" firstAttribute="leading" secondItem="AkD-LD-IkT" secondAttribute="trailing" constant="8" id="sL1-38-7O3"/>
                                             </constraints>
