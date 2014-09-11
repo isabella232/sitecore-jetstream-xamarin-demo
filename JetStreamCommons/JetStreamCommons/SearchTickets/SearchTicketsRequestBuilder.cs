@@ -88,7 +88,6 @@ namespace JetStreamCommons
       }
 
       DateTime pastDate = DateTime.Now;
-      pastDate = pastDate.AddDays(-1);
 
       DateTime departDateValue = this.departDate.Value;
       DateTime returnDateValue = this.returnDate.Value;
