@@ -10,5 +10,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)SearchTicketsRequestBuilderTest.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Mocks\AirportsListPOD.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Mocks\AirportPOD.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AirportsFilteringTest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Mocks\" />
   </ItemGroup>
 </Project>
