@@ -14,7 +14,7 @@
 "DONE_BUTTON_TITLE" = "Done";
 
 //Messages
-"TITLE" = "Title";
+"TITLE" = "Message";
 "FROM_AIRPORT_IS_NULL" = "Please choose 'From' airport";
 "TO_AIRPORT_IS_NULL" = "Please choose 'To' airport";
 "DEPART_DATE_IS_NULL" = "Please select departure date";
