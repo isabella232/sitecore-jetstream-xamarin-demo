@@ -14,7 +14,14 @@
 
     public AirportsCaseInsensitiveSearchEngine(string textToSearch)
     {
-      this.textToSearch = textToSearch.ToLowerInvariant();
+      if (null == textToSearch)
+      {
+        this.textToSearch = "";
+      }
+      else
+      {
+        this.textToSearch = textToSearch.ToLowerInvariant ();
+      }
     }
 
     public bool IsAirportMatchingPredicate(IJetStreamAirport singleAirport)
