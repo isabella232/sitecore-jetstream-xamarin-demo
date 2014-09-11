@@ -122,6 +122,7 @@
     <Compile Include="FlightListViewController.designer.cs">
       <DependentUpon>FlightListViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\StoryboardHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard.storyboard" />
