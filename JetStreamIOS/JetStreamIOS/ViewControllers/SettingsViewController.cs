@@ -136,16 +136,23 @@ namespace JetStreamIOS
       }
       else
       {
-        using (var credentials = new WebApiCredentialsPODInsequredDemo(userName, password))
-        using (
-          var session = SitecoreWebApiSessionBuilder.AuthenticatedSessionWithHost(this.InstanceUrlField.Text)
-          .Credentials(credentials)
-          .DefaultDatabase(this.DatabaseField.Text)
-          .DefaultLanguage(this.LanguageField.Text)
-          .Site(this.SiteField.Text)
-          .BuildReadonlySession())
+        try
         {
-          await this.TryAuthenticateSessionWithAlert(session);
+          using (var credentials = new WebApiCredentialsPODInsequredDemo(userName, password))
+          using (
+            var session = SitecoreWebApiSessionBuilder.AuthenticatedSessionWithHost(this.InstanceUrlField.Text)
+            .Credentials(credentials)
+            .DefaultDatabase(this.DatabaseField.Text)
+            .DefaultLanguage(this.LanguageField.Text)
+            .Site(this.SiteField.Text)
+            .BuildReadonlySession())
+          {
+            await this.TryAuthenticateSessionWithAlert(session);
+          }
+        }
+        catch 
+        {
+          AlertHelper.ShowLocalizedAlertWithOkOption("FAILURE_ALERT_TITLE", "SETTINGS_AUTH_FAILED_ALERT_MESSAGE");
         }
       }
     }
