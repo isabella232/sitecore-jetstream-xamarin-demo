@@ -94,13 +94,27 @@
       SearchTicketsRequestBuilder builder = new SearchTicketsRequestBuilder ()
         .DestinationAirport("bla")
         .SourceAirport("bla")
-        .DepartureDate(DateTime.Now)
         .RoundTrip(true);
 
       TestDelegate action = () => builder.Build();
       Assert.Throws<ArgumentNullException>(action);
     }
 
+    [Test ()]
+    public void WillCrashWithWrongDepartureDate()
+    {
+      DateTime date = DateTime.Now;
+      date = date.AddDays(-1);//past
+
+      SearchTicketsRequestBuilder builder = new SearchTicketsRequestBuilder ()
+        .DestinationAirport("bla")
+        .SourceAirport("bla")
+        .DepartureDate(date)
+        .RoundTrip(true);
+
+      TestDelegate action = () => builder.Build();
+      Assert.Throws<ArgumentNullException>(action);
+    }
 
   }
 }
