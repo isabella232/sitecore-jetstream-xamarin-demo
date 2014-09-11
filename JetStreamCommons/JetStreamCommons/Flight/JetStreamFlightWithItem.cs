@@ -33,19 +33,21 @@
       }
     }
 
-    public string DepartureTime
+    public DateTime DepartureTime
     {
       get
       {
-        return this.Flight["Departure Time"].RawValue;
+        string rawResult = this.Flight["Departure Time"].RawValue;
+        return RawValueConverter.ToDateTime(rawResult);
       }
     }
 
-    public string ArrivalTime
+    public DateTime ArrivalTime
     {
       get
       {
-        return this.Flight["Arrival Time"].RawValue;
+        string rawResult = this.Flight["Arrival Time"].RawValue;
+        return RawValueConverter.ToDateTime(rawResult);
       }
     }
 
