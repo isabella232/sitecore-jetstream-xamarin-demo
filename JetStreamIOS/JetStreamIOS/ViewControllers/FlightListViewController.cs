@@ -88,10 +88,7 @@ namespace JetStreamIOS
         this.TomorrowPriceLabel.Text = tomorrow.LowestPrice.HasValue ? 
           tomorrow.LowestPrice.Value.ToString("C") :
           NSBundle.MainBundle.LocalizedString("PRICE_UNAVAILABLE", null);
-
       }
-
-      // TODO : 
     }
 
 
