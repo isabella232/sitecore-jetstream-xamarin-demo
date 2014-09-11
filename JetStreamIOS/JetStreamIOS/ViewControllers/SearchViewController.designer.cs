@@ -71,6 +71,9 @@ namespace JetStreamIOS
 
 		[Action ("OnSearchButtonTouched:")]
 		partial void OnSearchButtonTouched (MonoTouch.UIKit.UIButton sender);
+
+		[Action ("OnTicketClassChanged:")]
+		partial void OnTicketClassChanged (MonoTouch.UIKit.UISegmentedControl sender);
 		
 		void ReleaseDesignerOutlets ()
 		{
