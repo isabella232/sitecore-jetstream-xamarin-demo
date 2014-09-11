@@ -187,11 +187,6 @@ namespace JetStreamIOS
       this.searchRequestBuilder.Set.ReturnDate(date);
     }
 
-    partial void OnSearchButtonTouched(MonoTouch.UIKit.UIButton sender)
-    {
-      this.SearchTickets();
-    }
-
     partial void OnRoundtripValueChanged(MonoTouch.UIKit.UISwitch sender)
     {
       this.ReturnDateButton.Enabled = sender.On;
