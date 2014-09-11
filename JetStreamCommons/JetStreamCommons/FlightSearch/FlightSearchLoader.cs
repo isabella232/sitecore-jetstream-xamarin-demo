@@ -71,7 +71,7 @@
       }
       catch
       {
-        // suppress missing element exception
+        // @adk : suppress missing element exception
       }
 
       return new DaySummary(otherDay, lowestPrice);
