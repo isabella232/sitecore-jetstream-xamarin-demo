@@ -1,14 +1,15 @@
-﻿using NUnit.Framework;
-using System;
-using JetStreamCommons;
-
-namespace JetStreamUnitTests
+﻿namespace JetStreamUnitTests
 {
-  [TestFixture ()]
+  using System;
+  using NUnit.Framework;
+
+  using JetStreamCommons;
+
+
+  [TestFixture]
   public class SearchTicketsRequestBuilderTest
   {
-
-    [Test ()]
+    [Test]
     public void CorrectBuilderWillBuildRequest()
     {
       DateTime date = DateTime.Now;
@@ -28,7 +29,7 @@ namespace JetStreamUnitTests
       Assert.AreEqual (request.RoundTrip, true, "wrong returning date airport value");
     }
 
-    [Test ()]
+    [Test]
     public void ReturnDateIsNullIfRoundtripValueIsFalse()
     {
       DateTime date = DateTime.Now;
@@ -48,7 +49,7 @@ namespace JetStreamUnitTests
       Assert.AreEqual (request.RoundTrip, false, "wrong returning date airport value");
     }
 
-    [Test ()]
+    [Test]
     public void WillCrashWithoutFromAirport()
     {
       SearchTicketsRequestBuilder builder = new SearchTicketsRequestBuilder ()
@@ -60,7 +61,7 @@ namespace JetStreamUnitTests
       Assert.Throws<ArgumentNullException>(action);
     }
 
-    [Test ()]
+    [Test]
     public void WillCrashWithoutDepartureDate()
     {
       SearchTicketsRequestBuilder builder = new SearchTicketsRequestBuilder ()
