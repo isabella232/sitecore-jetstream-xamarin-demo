@@ -9,6 +9,7 @@ namespace JetStreamIOS
 
   using ActionSheetDatePicker;
 
+  using JetStreamIOS.Helpers;
   using JetStreamCommons;
   using JetStreamCommons.Airport;
   using JetStreamCommons.FlightSearch;
@@ -228,21 +229,27 @@ namespace JetStreamIOS
     public override void PrepareForSegue(UIStoryboardSegue segue, NSObject sender)
     {
       base.PrepareForSegue(segue, sender);
-      SearchAirportTableViewController searchAirportsViewController = null;
 
-      if ("ToAirportQuickSearch" == segue.Identifier)
+      if (StoryboardHelper.IsSegueToDestinationAirportSearch(segue))
       {
+        SearchAirportTableViewController searchAirportsViewController = null;
         searchAirportsViewController = segue.DestinationViewController as SearchAirportTableViewController;
         searchAirportsViewController.OnAirportSelected = this.OnDestinationAirportSelected;
 
         searchAirportsViewController.SourceTextField = this.ToLocationTextField;
       }
-      else if ("FromAirportQuickSearch" == segue.Identifier)
+      else if (StoryboardHelper.IsSegueToSourceAirportSearch(segue))
       {
+        SearchAirportTableViewController searchAirportsViewController = null;
         searchAirportsViewController = segue.DestinationViewController as SearchAirportTableViewController;
         searchAirportsViewController.OnAirportSelected = this.OnSourceAirportSelected;
 
         searchAirportsViewController.SourceTextField = this.FromLocationTextField;
+      }
+      else if (StoryboardHelper.IsSegueToDepartureFlightsSearch(segue))
+      {
+        FlightListViewController nextScreen = segue.DestinationViewController as FlightListViewController;
+        nextScreen.SearchOptionsFromUser = this.userInput;
       }
     }
 
