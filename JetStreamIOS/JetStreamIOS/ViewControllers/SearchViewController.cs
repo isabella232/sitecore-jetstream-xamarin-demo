@@ -14,13 +14,14 @@ namespace JetStreamIOS
   using JetStreamCommons.FlightSearch;
   using Sitecore.MobileSDK.API.Items;
 
-
-
 	public partial class SearchViewController : UIViewController
 	{
     private SearchTicketsRequestBuilder searchRequestBuilder;
     private ActionSheetDatePickerView actionSheetDatePicker;
     private MutableFlightSearchUserInput userInput;
+
+    private DateTime departureDateHolder;
+    private DateTime returnDateHolder;
 
 		public SearchViewController (IntPtr handle) : base (handle)
 		{
@@ -30,12 +31,11 @@ namespace JetStreamIOS
     {
       base.ViewDidLoad();
 
-      this.LocalizeUI();
-      this.InitializeDateActionPicker();
-
+      //@igk order matters
       this.searchRequestBuilder = new SearchTicketsRequestBuilder();
-      this.searchRequestBuilder.Set.ReturnDate(DateTime.Now);
-      this.searchRequestBuilder.Set.DepartureDate(DateTime.Now);
+      this.userInput = new MutableFlightSearchUserInput();
+      this.InitializeDateActionPicker();
+      this.LocalizeUI();
     }
 
     private void LocalizeUI()
@@ -59,18 +59,13 @@ namespace JetStreamIOS
       this.FromLocationTextField.Placeholder = NSBundle.MainBundle.LocalizedString("FROM_LOCATION_PLACEHOLDER", null); 
       this.ToLocationTextField.Placeholder = NSBundle.MainBundle.LocalizedString("TO_LOCATION_PLACEHOLDER", null);
 
-      DateTime nowDate = DateTime.Now;
-      string date = DateConverter.StringFromDateForUI(nowDate);
-      ReturnDateButton.SetTitle(date, UIControlState.Normal);
-      DepartDateButton.SetTitle(date, UIControlState.Normal);
-
-      this.userInput = new MutableFlightSearchUserInput();
       this.userInput.SourceAirport = null;
       this.userInput.DestinationAirport = null;
-      this.userInput.ForwardFlightDepartureDate = nowDate;
-      this.userInput.ReturnFlightDepartureDate = nowDate;
       this.userInput.TicketsCount = Convert.ToInt32(this.TicketCountStepper.Value);
       this.userInput.TicketClass = TicketClass.Business;
+
+      this.DepartureDate = DateTime.Now;
+      this.ReturnDate = DateTime.Now;
     }
 
     private void InitializeDateActionPicker()
@@ -119,8 +114,6 @@ namespace JetStreamIOS
         {
           ScItemsResponse result = await restManager.SearchDepartTicketsWithRequest(request);
 
-
-
           string flightsCountFormat = NSBundle.MainBundle.LocalizedString("FLIGHTS_COUNT_FORMAT", null);
           string flightsCountMessage = string.Format(flightsCountFormat, result.ResultCount.ToString());
           AlertHelper.ShowLocalizedAlertWithOkOption("RESULT_TITLE_ALERT", flightsCountMessage);
@@ -138,14 +131,14 @@ namespace JetStreamIOS
     {
       this.actionSheetDatePicker.DatePicker.ValueChanged -= ReturnDateReceived;
       this.actionSheetDatePicker.DatePicker.ValueChanged += DepartDateReceived;
-      this.actionSheetDatePicker.Show();
+      this.actionSheetDatePicker.ShowWithDate(this.DepartureDate);
     }
 
     partial void OnReturnDateButtonTouched(MonoTouch.UIKit.UIButton sender)
     {
       this.actionSheetDatePicker.DatePicker.ValueChanged -= DepartDateReceived;
       this.actionSheetDatePicker.DatePicker.ValueChanged += ReturnDateReceived;
-      this.actionSheetDatePicker.Show();
+      this.actionSheetDatePicker.ShowWithDate(this.ReturnDate);
     }
       
     partial void OnTicketClassChanged(MonoTouch.UIKit.UISegmentedControl sender)
@@ -169,21 +162,13 @@ namespace JetStreamIOS
     private void DepartDateReceived(object sender, EventArgs e)
     {
       DateTime date = (sender as UIDatePicker).Date;
-      this.userInput.ForwardFlightDepartureDate = date;
-
-      string formatedDate = DateConverter.StringFromDateForUI(date);
-      this.DepartDateButton.SetTitle(formatedDate, UIControlState.Normal);
-      this.searchRequestBuilder.Set.DepartureDate(date);
+      this.DepartureDate = date;
     }
 
     private void ReturnDateReceived(object sender, EventArgs e)
     {
       DateTime date = (sender as UIDatePicker).Date;
-      this.userInput.ReturnFlightDepartureDate = date;
-
-      string formatedDate = DateConverter.StringFromDateForUI(date);
-      this.ReturnDateButton.SetTitle(formatedDate, UIControlState.Normal);
-      this.searchRequestBuilder.Set.ReturnDate(date);
+      this.ReturnDate = date;
     }
 
     partial void OnSearchButtonTouched(MonoTouch.UIKit.UIButton sender)
@@ -202,10 +187,10 @@ namespace JetStreamIOS
       else
       {
         // @adk : using legacy until full migration
-        this.userInput.ReturnFlightDepartureDate = this.searchRequestBuilder.Build().DepartDate;
+        this.ReturnDate = this.returnDateHolder;
         if (null == this.userInput.ReturnFlightDepartureDate)
         {
-          this.userInput.ReturnFlightDepartureDate = DateTime.Now;
+          this.ReturnDate = DateTime.Now;
         }
       }
     }
@@ -243,6 +228,45 @@ namespace JetStreamIOS
         searchAirportsViewController.OnAirportSelected = this.OnSourceAirportSelected;
 
         searchAirportsViewController.SourceTextField = this.FromLocationTextField;
+      }
+    }
+
+    #endregion;
+
+    #region Date Logik
+    private DateTime DepartureDate
+    {
+      get
+      {
+        return this.departureDateHolder;
+      }
+      set
+      {
+        this.departureDateHolder = value;
+
+        this.searchRequestBuilder.Set.DepartureDate(value);
+        this.userInput.ForwardFlightDepartureDate = value;
+
+        string formatedDate = DateConverter.StringFromDateForUI(value);
+        this.DepartDateButton.SetTitle(formatedDate, UIControlState.Normal);
+      }
+    }
+
+    private DateTime ReturnDate
+    {
+      get
+      {
+        return this.returnDateHolder;
+      }
+      set
+      {
+        this.returnDateHolder = value;
+
+        this.searchRequestBuilder.Set.ReturnDate(value);
+        this.userInput.ReturnFlightDepartureDate = value;
+
+        string formatedDate = DateConverter.StringFromDateForUI(value);
+        this.ReturnDateButton.SetTitle(formatedDate, UIControlState.Normal);
       }
     }
 
