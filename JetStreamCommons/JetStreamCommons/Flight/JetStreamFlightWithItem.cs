@@ -49,11 +49,14 @@
       }
     }
 
-    public string Price
+    public decimal Price
     {
       get
       {
-        return this.Flight["Price"].RawValue;
+        string rawResult = this.Flight["Price"].RawValue;
+        decimal result = Decimal.Parse(rawResult);
+
+        return result;
       }
     }
 
