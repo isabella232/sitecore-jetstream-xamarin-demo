@@ -15,6 +15,10 @@ namespace JetStreamIOS
 
 	public partial class SearchAirportTableViewController : UIViewController
 	{
+    public delegate void AirportSelectedDelegate(
+      IJetStreamAirport selectedAirport, 
+      int airportIndexInTable);
+
 		public SearchAirportTableViewController (IntPtr handle) : base (handle)
 		{
 		}
@@ -41,12 +45,6 @@ namespace JetStreamIOS
     public override void ViewWillAppear(bool animated)
     {
       base.ViewWillAppear(animated);
-
-      if (null == this.SearchTicketsBuilder)
-      {
-        throw new ArgumentNullException();
-      }
-
       this.SearchBar.Text = this.SourceTextField.Text;
     }
     #endregion
@@ -119,16 +117,7 @@ namespace JetStreamIOS
     public void RowSelected(int row)
     {
       IJetStreamAirport selectedAirport = this.ResultList[row];
-
-      string airportId = selectedAirport.Id;
-      if (this.IsFromAirportSearch)
-      {
-        this.SearchTicketsBuilder.Set.SourceAirport(airportId);
-      }
-      else
-      {
-        this.SearchTicketsBuilder.Set.DestinationAirport(airportId);
-      }
+      this.OnAirportSelected(selectedAirport, row);
 
       this.SourceTextField.Text = selectedAirport.DisplayName;
       this.NavigationController.PopViewControllerAnimated(true);
@@ -161,21 +150,6 @@ namespace JetStreamIOS
     private LoadingOverlay loadingOverlay;
 
     public UITextField SourceTextField { get; set; }
-    public SearchTicketsRequestBuilder SearchTicketsBuilder {get; set;}
-
-    public bool IsFromAirportSearch 
-    {
-      get
-      {
-        return this.isFromAirportSearch;
-      }
-
-      set
-      {
-        this.isFromAirportSearch = value;
-      }
-    }
-
-    private bool isFromAirportSearch = true;
+    public AirportSelectedDelegate OnAirportSelected {get; set;}
 	}
 }
