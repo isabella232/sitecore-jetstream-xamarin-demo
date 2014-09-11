@@ -9,6 +9,7 @@ namespace JetStreamIOS
 
   using ActionSheetDatePicker;
 
+  using JetStreamIOS.Helpers;
   using JetStreamCommons;
   using JetStreamCommons.Airport;
   using JetStreamCommons.FlightSearch;
@@ -131,6 +132,11 @@ namespace JetStreamIOS
     }
 
     #region Events
+    partial void OnSearchButtonTouched (MonoTouch.UIKit.UIButton sender)
+    {
+      // IDLE
+      // @adk : the method is required to avoid crashes
+    }
 
     partial void OnDepartDateButtonTouched(MonoTouch.UIKit.UIButton sender)
     {
@@ -176,11 +182,6 @@ namespace JetStreamIOS
       this.ReturnDate = date;
     }
 
-    partial void OnSearchButtonTouched(MonoTouch.UIKit.UIButton sender)
-    {
-      this.SearchTickets();
-    }
-
     partial void OnRoundtripValueChanged(MonoTouch.UIKit.UISwitch sender)
     {
       this.ReturnDateButton.Enabled = sender.On;
@@ -220,17 +221,18 @@ namespace JetStreamIOS
     public override void PrepareForSegue(UIStoryboardSegue segue, NSObject sender)
     {
       base.PrepareForSegue(segue, sender);
-      SearchAirportTableViewController searchAirportsViewController = null;
 
-      if ("ToAirportQuickSearch" == segue.Identifier)
+      if (StoryboardHelper.IsSegueToDestinationAirportSearch(segue))
       {
+        SearchAirportTableViewController searchAirportsViewController = null;
         searchAirportsViewController = segue.DestinationViewController as SearchAirportTableViewController;
         searchAirportsViewController.OnAirportSelected = this.OnDestinationAirportSelected;
 
         this.FillSearchFieldWithAirportName (searchAirportsViewController, this.userInput.DestinationAirport);
       }
-      else if ("FromAirportQuickSearch" == segue.Identifier)
+      else if (StoryboardHelper.IsSegueToSourceAirportSearch(segue))
       {
+        SearchAirportTableViewController searchAirportsViewController = null;
         searchAirportsViewController = segue.DestinationViewController as SearchAirportTableViewController;
         searchAirportsViewController.OnAirportSelected = this.OnSourceAirportSelected;
 
@@ -284,6 +286,11 @@ namespace JetStreamIOS
 
         string formatedDate = DateConverter.StringFromDateForUI(value);
         this.ReturnDateButton.SetTitle(formatedDate, UIControlState.Normal);
+      }
+      else if (StoryboardHelper.IsSegueToDepartureFlightsSearch(segue))
+      {
+        FlightListViewController nextScreen = segue.DestinationViewController as FlightListViewController;
+        nextScreen.SearchOptionsFromUser = this.userInput;
       }
     }
 

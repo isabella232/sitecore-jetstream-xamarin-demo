@@ -43,6 +43,44 @@
 
       return Decimal.Parse(rawValue);
     }
+  
+    public static DateTime ToDateTime(string rawValue)
+    {
+      if (string.IsNullOrWhiteSpace(rawValue))
+      {
+        string message = "RawValue does not have a date value because it is empty.";
+        throw new ArgumentException(message);
+      }
+
+
+      //      20140817T125041
+      string rawYear = rawValue.Substring(0, 4);
+      string rawMonth = rawValue.Substring(4, 2);
+      string rawDay = rawValue.Substring(6, 2);
+//      string t = rawValue.Substring(8, 1);
+      string rawHour = rawValue.Substring(9, 2);
+      string rawMinute = rawValue.Substring(11, 2);
+      string rawSecond = rawValue.Substring(13, 2);
+
+      int year = Convert.ToInt32(rawYear);
+      int month = Convert.ToInt32(rawMonth);
+      int day = Convert.ToInt32(rawDay);
+
+      int hour = Convert.ToInt32(rawHour);
+      int minute = Convert.ToInt32(rawMinute);
+      int second = Convert.ToInt32(rawSecond);
+
+      DateTime result = new DateTime(
+        year,
+        month,
+        day,
+        hour,
+        minute,
+        second,
+        DateTimeKind.Utc);
+        
+      return result;
+    }
   }
 }
 

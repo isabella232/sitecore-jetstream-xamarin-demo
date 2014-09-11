@@ -1,5 +1,7 @@
 ﻿namespace JetStreamCommons.Flight
 {
+  using System;
+
   public interface IJetStreamFlight
   {
     string DepartureAirportId
@@ -12,12 +14,12 @@
       get;
     }
 
-    string DepartureTime
+    DateTime DepartureTime
     {
       get;
     }
 
-    string ArrivalTime
+    DateTime ArrivalTime
     {
       get;
     }

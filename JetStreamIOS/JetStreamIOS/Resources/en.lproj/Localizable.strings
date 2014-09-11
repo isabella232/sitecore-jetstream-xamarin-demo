@@ -73,3 +73,10 @@
 "ABOUT_SCREEN_NAME" = "About";
 "STATIC_ABOUT_SCREEN_TEXT" = "The Jetstream story is inextricably linked with the development of civil aviation. It begins with fragile biplanes carrying one or two passengers in open cockpits and progresses to the new Airbus A380s flying some 450 people half way around the world in a day. But, it is a story of human endeavor, not just machines. A few determined individuals overcame formidable obstacles to establish Jetstream. Supported by committed staff and loyal customers, the airline persevered through war and peace to serve the nation and build an enterprise. The Jetstream story is about the people who have created its exciting and productive history - its staff, its customers and the excellence of its business partners and key suppliers... Today, Jetstream is widely regarded as the world's leading long distance airline and one of the strongest brands internationally. Jetstream continues to provide outstanding service to its customers and is at the forefront of the international civil aviation industry. The future holds many challenges for Jetstream - maintaining safe operations and world class product standards while building a viable and competitive position long term for the airline."
 ;
+
+
+/// flights list
+"PRICE_UNAVAILABLE" = "N/A";
+"DEPARTURE_DATE_FORMAT" = "Departs : {0}";
+"ARRIVAL_DATE_FORMAT" = "Arrives : {0}";
+

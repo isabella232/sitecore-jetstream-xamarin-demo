@@ -51,6 +51,7 @@
     <Compile Include="FlightSearch\IFlightSearchUserInput.cs" />
     <Compile Include="FlightSearch\MutableFlightSearchUserInput.cs" />
     <Compile Include="FlightSearch\DaySummary.cs" />
+    <Compile Include="IFlightsLoader.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
