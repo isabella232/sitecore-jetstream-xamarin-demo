@@ -47,6 +47,9 @@
     <Compile Include="Airport\JetStreamAirportWithItem.cs" />
     <Compile Include="Flight\JetStreamFlightWithItem.cs" />
     <Compile Include="FlightSearch\FlightSearchLoader.cs" />
+    <Compile Include="FlightSearch\TicketClass.cs" />
+    <Compile Include="FlightSearch\IFlightSearchUserInput.cs" />
+    <Compile Include="FlightSearch\MutableFlightSearchUserInput.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>

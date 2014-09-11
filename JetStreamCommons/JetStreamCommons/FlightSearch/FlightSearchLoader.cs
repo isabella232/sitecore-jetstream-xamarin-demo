@@ -1,6 +1,7 @@
 ﻿namespace JetStreamCommons.FlightSearch
 {
   using System;
+  using System.Collections.Generic;
 
   using JetStreamCommons;
   using JetStreamCommons.Airport;
@@ -10,7 +11,11 @@
   {
     public FlightSearchLoader(
       RestManager restManagerToConsume, 
-      IJetStreamAirport departingFrom)
+      IJetStreamAirport sourceAirport,
+      IJetStreamAirport destinationAirport,
+      DateTime flightDate,
+      int datePrecisionInDays
+    )
     {
     }
   }
