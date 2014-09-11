@@ -64,7 +64,16 @@
         null);
       IEnumerable<IJetStreamFlight> flights = await this.flightsDataSource.LoadOneWayFlightsAsync(request);
 
-      decimal lowestPrice = flights.Min(flight => flight.Price);
+      decimal? lowestPrice = null;
+      try
+      {
+        lowestPrice = flights.Min(flight => flight.Price);
+      }
+      catch
+      {
+        // suppress missing element exception
+      }
+
       return new DaySummary(otherDay, lowestPrice);
     }
   }
