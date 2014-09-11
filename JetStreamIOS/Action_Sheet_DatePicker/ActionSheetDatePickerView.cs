@@ -106,6 +106,12 @@ namespace ActionSheetDatePicker {
 			// move our button
 			doneButton.Frame = new RectangleF (actionSheetSize.Width - doneButtonSize.Width - 10, 7, doneButtonSize.Width, doneButtonSize.Height);
 		}
+
+    public void ShowWithDate(DateTime date)
+    {
+      this.datePicker.SetDate(date, false);
+      this.Show();
+    }
 		
 		/// <summary>
 		/// Dismisses the action sheet date picker
