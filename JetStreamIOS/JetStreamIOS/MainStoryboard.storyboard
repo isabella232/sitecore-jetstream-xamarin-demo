@@ -349,14 +349,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" misplaced="YES" showsHorizontalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" minimumZoomScale="0.0" maximumZoomScale="0.0" bouncesZoom="NO" editable="NO" text="Loaded by the second view controller — an instance of SecondViewController — specified in the app delegate." translatesAutoresizingMaskIntoConstraints="NO" id="DcM-Fx-MKR">
-                                <rect key="frame" x="0.0" y="94" width="320" height="423"/>
-                                <fontDescription key="fontDescription" type="system" size="system"/>
+                            <textView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" minimumZoomScale="0.0" maximumZoomScale="0.0" bouncesZoom="NO" editable="NO" text="Loaded by the second view controller — an instance of SecondViewController — specified in the app delegate." translatesAutoresizingMaskIntoConstraints="NO" id="DcM-Fx-MKR">
+                                <rect key="frame" x="20" y="94" width="280" height="376"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="utw-FG-kCV">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="utw-FG-kCV">
                                 <rect key="frame" x="0.0" y="40" width="320" height="46"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="46" id="TOc-dU-8si"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -364,13 +367,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="DcM-Fx-MKR" secondAttribute="trailing" id="OAR-i4-VFM"/>
-                            <constraint firstItem="utw-FG-kCV" firstAttribute="leading" secondItem="gMD-aP-Fq6" secondAttribute="leading" id="Sxm-5S-b9L"/>
-                            <constraint firstAttribute="trailing" secondItem="utw-FG-kCV" secondAttribute="trailing" id="T18-mH-Q1t"/>
-                            <constraint firstItem="DcM-Fx-MKR" firstAttribute="leading" secondItem="gMD-aP-Fq6" secondAttribute="leading" id="Vsx-K1-1tO"/>
-                            <constraint firstItem="DcM-Fx-MKR" firstAttribute="top" secondItem="utw-FG-kCV" secondAttribute="bottom" constant="8" id="WfZ-CY-Na3"/>
-                            <constraint firstItem="Lv9-pJ-mvp" firstAttribute="top" secondItem="DcM-Fx-MKR" secondAttribute="bottom" constant="2" id="men-6N-V52"/>
-                            <constraint firstItem="utw-FG-kCV" firstAttribute="top" secondItem="pKf-1o-IxL" secondAttribute="bottom" constant="20" id="q0g-PZ-AKH"/>
+                            <constraint firstItem="DcM-Fx-MKR" firstAttribute="leading" secondItem="gMD-aP-Fq6" secondAttribute="leading" constant="20" id="3dR-YW-4jD"/>
+                            <constraint firstItem="utw-FG-kCV" firstAttribute="leading" secondItem="gMD-aP-Fq6" secondAttribute="leading" id="5na-Dz-2cO"/>
+                            <constraint firstAttribute="trailing" secondItem="DcM-Fx-MKR" secondAttribute="trailing" constant="20" id="BTs-VE-XCH"/>
+                            <constraint firstAttribute="trailing" secondItem="utw-FG-kCV" secondAttribute="trailing" id="Dlv-Os-VoP"/>
+                            <constraint firstItem="Lv9-pJ-mvp" firstAttribute="bottom" secondItem="DcM-Fx-MKR" secondAttribute="bottom" constant="49" id="Mq0-Hn-mkQ"/>
+                            <constraint firstItem="DcM-Fx-MKR" firstAttribute="top" secondItem="utw-FG-kCV" secondAttribute="bottom" constant="8" id="hSv-N9-pTL"/>
+                            <constraint firstItem="utw-FG-kCV" firstAttribute="top" secondItem="pKf-1o-IxL" secondAttribute="bottom" constant="20" id="k22-T8-NNq"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="About" image="helpNavButtonIcon.png" id="Z7h-1E-pvt"/>
