@@ -70,7 +70,7 @@ namespace JetStreamIOS
       this.userInput.DestinationAirport = null;
       this.userInput.ForwardFlightDepartureDate = nowDate;
       this.userInput.ReturnFlightDepartureDate = nowDate;
-      this.userInput.DatePrecisionInDays = Convert.ToInt32(this.TicketCountStepper.Value);
+      this.userInput.TicketsCount = Convert.ToInt32(this.TicketCountStepper.Value);
       this.userInput.TicketClass = TicketClass.Business;
     }
 
@@ -164,7 +164,7 @@ namespace JetStreamIOS
     partial void CountValueChanged(MonoTouch.UIKit.UIStepper sender)
     {
       ResultCountLabel.Text = sender.Value.ToString();
-      this.userInput.DatePrecisionInDays = Convert.ToInt32(sender.Value);
+      this.userInput.TicketsCount = Convert.ToInt32(sender.Value);
     }
 
     private void DepartDateReceived(object sender, EventArgs e)

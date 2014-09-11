@@ -13,7 +13,7 @@
     DateTime? ReturnFlightDepartureDate { get; }
 
     TicketClass TicketClass { get; }
-    int DatePrecisionInDays { get; }
+    int TicketsCount { get; }
 
     bool IsRoundTrip { get; }
   }

@@ -12,7 +12,7 @@
     public DateTime? ReturnFlightDepartureDate { get; set; }
 
     public TicketClass TicketClass { get; set; }
-    public int DatePrecisionInDays { get; set; }
+    public int TicketsCount { get; set; }
 
     public bool IsRoundTrip
     {
