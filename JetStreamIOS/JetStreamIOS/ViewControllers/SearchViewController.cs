@@ -56,8 +56,13 @@ namespace JetStreamIOS
       this.CountTitleLabel.Text = NSBundle.MainBundle.LocalizedString("COUNT_TITLE", null);
       this.RoundtripTitleLabel.Text = NSBundle.MainBundle.LocalizedString("ROUNDTRIP_TITLE", null);
 
-      this.FromLocationTextField.Placeholder = NSBundle.MainBundle.LocalizedString("FROM_LOCATION_PLACEHOLDER", null); 
-      this.ToLocationTextField.Placeholder = NSBundle.MainBundle.LocalizedString("TO_LOCATION_PLACEHOLDER", null);
+      string fromButtonTitle = NSBundle.MainBundle.LocalizedString("FROM_LOCATION_PLACEHOLDER", null);
+      string toButtonTitle = NSBundle.MainBundle.LocalizedString("TO_LOCATION_PLACEHOLDER", null);
+      this.FromLocationButton.SetTitle(fromButtonTitle, UIControlState.Normal);
+      this.ToLocationButton.SetTitle(toButtonTitle, UIControlState.Normal);
+
+      this.FromLocationLabel.Text = NSBundle.MainBundle.LocalizedString("FROM_LOCATION_LABEL_TITLE", null); 
+      this.ToLocationLabel.Text = NSBundle.MainBundle.LocalizedString("TO_LOCATION_LABEL_TITLE", null); 
 
       this.userInput.SourceAirport = null;
       this.userInput.DestinationAirport = null;
@@ -199,12 +204,14 @@ namespace JetStreamIOS
     {
       this.searchRequestBuilder.Set.SourceAirport(selectedAirport.Id);
       this.userInput.SourceAirport = selectedAirport;
+      this.FromLocationButton.SetTitle(selectedAirport.DisplayName, UIControlState.Normal);
     }
 
     private void OnDestinationAirportSelected(IJetStreamAirport selectedAirport, int airportIndexInTable)
     {
       this.searchRequestBuilder.Set.DestinationAirport(selectedAirport.Id);
       this.userInput.DestinationAirport = selectedAirport;
+      this.ToLocationButton.SetTitle(selectedAirport.DisplayName, UIControlState.Normal);
     }
     #endregion;
 
@@ -220,15 +227,25 @@ namespace JetStreamIOS
         searchAirportsViewController = segue.DestinationViewController as SearchAirportTableViewController;
         searchAirportsViewController.OnAirportSelected = this.OnDestinationAirportSelected;
 
-        searchAirportsViewController.SourceTextField = this.ToLocationTextField;
+        this.FillSearchFieldWithAirportName (searchAirportsViewController, this.userInput.DestinationAirport);
       }
       else if ("FromAirportQuickSearch" == segue.Identifier)
       {
         searchAirportsViewController = segue.DestinationViewController as SearchAirportTableViewController;
         searchAirportsViewController.OnAirportSelected = this.OnSourceAirportSelected;
 
-        searchAirportsViewController.SourceTextField = this.FromLocationTextField;
+        this.FillSearchFieldWithAirportName (searchAirportsViewController, this.userInput.SourceAirport);
       }
+    }
+
+    private void FillSearchFieldWithAirportName(SearchAirportTableViewController searchController, IJetStreamAirport airport)
+    {
+      string textToSearch = "";
+      if (null != airport)
+      {
+        textToSearch = airport.DisplayName;
+      }
+      searchController.SourceText = textToSearch;
     }
 
     #endregion;

@@ -28,7 +28,10 @@ namespace JetStreamIOS
 		MonoTouch.UIKit.UILabel DepartTitleLabel { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UITextField FromLocationTextField { get; set; }
+		MonoTouch.UIKit.UIButton FromLocationButton { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UILabel FromLocationLabel { get; set; }
 
 		[Outlet]
 		MonoTouch.UIKit.UILabel ResultCountLabel { get; set; }
@@ -55,7 +58,7 @@ namespace JetStreamIOS
 		MonoTouch.UIKit.UIButton ToLocationButton { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UITextField ToLocationTextField { get; set; }
+		MonoTouch.UIKit.UILabel ToLocationLabel { get; set; }
 
 		[Action ("CountValueChanged:")]
 		partial void CountValueChanged (MonoTouch.UIKit.UIStepper sender);
@@ -102,9 +105,9 @@ namespace JetStreamIOS
 				DepartTitleLabel = null;
 			}
 
-			if (FromLocationTextField != null) {
-				FromLocationTextField.Dispose ();
-				FromLocationTextField = null;
+			if (FromLocationLabel != null) {
+				FromLocationLabel.Dispose ();
+				FromLocationLabel = null;
 			}
 
 			if (ResultCountLabel != null) {
@@ -147,9 +150,14 @@ namespace JetStreamIOS
 				ToLocationButton = null;
 			}
 
-			if (ToLocationTextField != null) {
-				ToLocationTextField.Dispose ();
-				ToLocationTextField = null;
+			if (ToLocationLabel != null) {
+				ToLocationLabel.Dispose ();
+				ToLocationLabel = null;
+			}
+
+			if (FromLocationButton != null) {
+				FromLocationButton.Dispose ();
+				FromLocationButton = null;
 			}
 		}
 	}

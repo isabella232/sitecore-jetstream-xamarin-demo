@@ -45,7 +45,7 @@ namespace JetStreamIOS
     public override void ViewWillAppear(bool animated)
     {
       base.ViewWillAppear(animated);
-      this.SearchBar.Text = this.SourceTextField.Text;
+      this.SearchBar.Text = this.SourceText;
     }
     #endregion
 
@@ -123,7 +123,6 @@ namespace JetStreamIOS
       IJetStreamAirport selectedAirport = this.ResultList[row];
       this.OnAirportSelected(selectedAirport, row);
 
-      this.SourceTextField.Text = selectedAirport.DisplayName;
       this.NavigationController.PopViewControllerAnimated(true);
     }
     #endregion
@@ -153,7 +152,7 @@ namespace JetStreamIOS
     private List<IJetStreamAirport> ResultList;
     private LoadingOverlay loadingOverlay;
 
-    public UITextField SourceTextField { get; set; }
+    public string SourceText{get; set;}
     public AirportSelectedDelegate OnAirportSelected {get; set;}
 	}
 }

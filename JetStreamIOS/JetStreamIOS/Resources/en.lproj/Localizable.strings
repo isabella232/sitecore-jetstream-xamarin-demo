@@ -8,8 +8,10 @@
 "CLASS_TITLE" = "Class";
 "COUNT_TITLE" = "Count";
 "ROUNDTRIP_TITLE" = "Roundtrip";
-"FROM_LOCATION_PLACEHOLDER" = "From location name";
-"TO_LOCATION_PLACEHOLDER" = "Fly to location name";
+"FROM_LOCATION_PLACEHOLDER" = "Select airport";
+"TO_LOCATION_PLACEHOLDER" = "Select airport";
+"FROM_LOCATION_LABEL_TITLE" = "From";
+"TO_LOCATION_LABEL_TITLE" = "Fly to";
 "DATE_PICKER_TITLE" = "Choose date:";
 "DONE_BUTTON_TITLE" = "Done";
 
