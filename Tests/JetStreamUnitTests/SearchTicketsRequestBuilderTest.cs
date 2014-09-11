@@ -29,6 +29,33 @@ namespace JetStreamUnitTests
     }
 
     [Test ()]
+    public void EveryFieldCanBeSetTwice()
+    {
+      DateTime date = DateTime.Now;
+      DateTime secondDate = date.AddDays(1);
+
+      SearchFlightsRequest request = new SearchTicketsRequestBuilder ()
+        .SourceAirport("SourceAirport")
+        .DestinationAirport("DestinationAirport")
+        .DepartureDate(date)
+        .ReturnDate(date)
+        .RoundTrip(false)
+        .SourceAirport("SourceAirport1")
+        .DestinationAirport("DestinationAirport1")
+        .DepartureDate(secondDate)
+        .ReturnDate(secondDate)
+        .RoundTrip(true)
+        .Build();
+
+      Assert.IsNotNull(request, "request must no be null");
+      Assert.AreEqual (request.FromAirportId, "SourceAirport1", "wrong source airport value");
+      Assert.AreEqual (request.ToAirportId, "DestinationAirport1", "wrong destination airport value");
+      Assert.AreEqual (request.DepartDate, secondDate, "wrong departure date airport value");
+      Assert.AreEqual (request.ReturnDate, secondDate, "wrong returning date airport value");
+      Assert.AreEqual (request.RoundTrip, true, "wrong returning date airport value");
+    }
+
+    [Test ()]
     public void ReturnDateIsNullIfRoundtripValueIsFalse()
     {
       DateTime date = DateTime.Now;
@@ -61,16 +88,19 @@ namespace JetStreamUnitTests
     }
 
     [Test ()]
-    public void WillCrashWithoutDepartureDate()
+    public void WillCrashIfReturnDateIsNullWithRoundtrip()
     {
       SearchTicketsRequestBuilder builder = new SearchTicketsRequestBuilder ()
         .DestinationAirport("bla")
         .SourceAirport("bla")
-        .ReturnDate(DateTime.Now);
+        .DepartureDate(DateTime.Now)
+        .RoundTrip(true);
 
       TestDelegate action = () => builder.Build();
       Assert.Throws<ArgumentNullException>(action);
     }
+
+
   }
 }
 
