@@ -1,6 +1,4 @@
-﻿
-
-namespace JetStreamCommons
+﻿namespace JetStreamCommons
 {
   using System;
   using System.Linq;
@@ -8,6 +6,7 @@ namespace JetStreamCommons
   using System.Collections;
   using System.Collections.Generic;
 
+  using JetStreamCommons.Flight;
   using JetStreamCommons.Airport;
 
   using Sitecore.MobileSDK.API;
@@ -15,9 +14,15 @@ namespace JetStreamCommons
   using Sitecore.MobileSDK.API.Items;
 
 
-  public class RestManager : IDisposable
+  public class RestManager : IFlightsLoader, IDisposable
   {
     #region IDisposable
+    private ISitecoreWebApiSession session;
+    private ISitecoreWebApiSession GetSession()
+    {
+      return this.session;
+    }
+
     private bool disposed = false;
 
     public void Dispose()
@@ -63,11 +68,6 @@ namespace JetStreamCommons
     {
       this.session = sessionToConsume;
     }
-
-    private ISitecoreWebApiSession GetSession()
-    {
-      return this.session;
-    }
       
     public async Task< IEnumerable<IJetStreamAirport> > SearchAllAirports()
     {
@@ -80,6 +80,7 @@ namespace JetStreamCommons
 
       ScItemsResponse responce = await session.ReadItemAsync(request);
 
+      // TODO : maybe wrap in Task.Factory.StartNew()
       IEnumerable<IJetStreamAirport> result = responce.Select(item => new JetStreamAirportWithItem(item));
       return result;
     }
@@ -117,7 +118,22 @@ namespace JetStreamCommons
       return responce;
     }
 
-    private ISitecoreWebApiSession session;
+    #region IFlightsLoader
+    public async Task< IEnumerable<IJetStreamFlight> > LoadOneWayFlightsAsync(SearchFlightsRequest request)
+    {
+      var requestCopy = new SearchFlightsRequest(
+        request.FromAirportId, 
+        request.ToAirportId, 
+        request.DepartDate.Value, 
+        null);
+
+      ScItemsResponse flightItems = await this.SearchDepartTicketsWithRequest(requestCopy);
+
+      // TODO : maybe wrap in Task.Factory.StartNew()
+      IEnumerable<IJetStreamFlight> result = flightItems.Select(item => new JetStreamFlightWithItem(item));
+      return result;
+    }
+    #endregion
   }
 }
 
