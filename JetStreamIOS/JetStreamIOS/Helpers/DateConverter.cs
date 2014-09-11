@@ -10,6 +10,11 @@
     {
       return  NSDateFormatter.ToLocalizedString(date, NSDateFormatterStyle.Short, NSDateFormatterStyle.None);
     }
+
+    public static string StringFromTimeForUI(DateTime date)
+    {
+      return  NSDateFormatter.ToLocalizedString(date, NSDateFormatterStyle.None, NSDateFormatterStyle.Short);
+    }
   }
 }
 
