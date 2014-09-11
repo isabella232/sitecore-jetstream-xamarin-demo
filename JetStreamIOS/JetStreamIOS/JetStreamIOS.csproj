@@ -124,6 +124,10 @@
       <DependentUpon>FlightListViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="ViewControllers\FlightsTable\FlightsTableViewEnumerableDataSource.cs" />
+    <Compile Include="ViewControllers\FlightsTable\FlightCell.cs" />
+    <Compile Include="ViewControllers\FlightsTable\FlightCell.designer.cs">
+      <DependentUpon>FlightCell.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard.storyboard" />
