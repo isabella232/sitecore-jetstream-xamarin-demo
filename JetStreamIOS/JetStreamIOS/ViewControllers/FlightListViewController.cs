@@ -49,7 +49,19 @@ namespace JetStreamIOS
     #endregion UIViewController
 
     #region IBAction
-    partial void OnTomorrowButtonPressed (MonoTouch.Foundation.NSObject sender)
+    partial void OnTomorrowButtonPressed(MonoTouch.Foundation.NSObject sender)
+    {
+      DateTime dayIncrement = this.CurrentSearchOptions.ForwardFlightDepartureDate.AddDays(+1);
+      this.ReloadDataForDate(dayIncrement);
+    }
+
+    partial void OnYesterdayButtonPressed(MonoTouch.Foundation.NSObject sender)
+    {
+      DateTime dayIncrement = this.CurrentSearchOptions.ForwardFlightDepartureDate.AddDays(-1);
+      this.ReloadDataForDate(dayIncrement);
+    }
+
+    private void ReloadDataForDate(DateTime dayIncrement)
     {
       MutableFlightSearchUserInput newDay = new MutableFlightSearchUserInput();
 
@@ -57,7 +69,6 @@ namespace JetStreamIOS
       {
         newDay.SourceAirport = this.CurrentSearchOptions.SourceAirport;
         newDay.DestinationAirport = this.CurrentSearchOptions.DestinationAirport;
-        newDay.ForwardFlightDepartureDate = this.CurrentSearchOptions.ForwardFlightDepartureDate;
 
         newDay.TicketClass  = this.CurrentSearchOptions.TicketClass;
         newDay.TicketsCount = this.CurrentSearchOptions.TicketsCount;
@@ -67,16 +78,11 @@ namespace JetStreamIOS
       // changed values
       {
         newDay.ReturnFlightDepartureDate = null;
-
-        DateTime dayIncrement = this.CurrentSearchOptions.ForwardFlightDepartureDate.AddDays(+1);
         newDay.ForwardFlightDepartureDate = dayIncrement;
       }
-      AlertHelper.ShowLocalizedAlertWithOkOption("tomorrow", "tomorrow");
-    }
 
-    partial void OnYesterdayButtonPressed (MonoTouch.Foundation.NSObject sender)
-    {
-      AlertHelper.ShowLocalizedAlertWithOkOption("yesterday", "yesterday");
+      this.CurrentSearchOptions = newDay;
+      this.ReloadData();
     }
     #endregion IBAction
 
@@ -95,13 +101,15 @@ namespace JetStreamIOS
           this.CurrentSearchOptions.ForwardFlightDepartureDate);
 
         IEnumerable<IJetStreamFlight> flights = await loader.GetFlightsForTheGivenDateAsync();
+        DaySummary yesterday = await loader.GetPreviousDayAsync();
+        DaySummary tomorrow = await loader.GetNextDayAsync();
+
         var tableSource = new FlightsTableViewEnumerableDataSource(flights);
         this.FlightsTableView.DataSource = tableSource;
         this.FlightsTableView.ReloadData();
 
-        DaySummary yesterday = await loader.GetPreviousDayAsync();
-        DaySummary tomorrow = await loader.GetNextDayAsync();
 
+        this.TodayDateLabel.Text = DateConverter.StringFromDateForUI(this.CurrentSearchOptions.ForwardFlightDepartureDate);
         this.YesterdayDateLabel.Text = DateConverter.StringFromDateForUI(yesterday.DepartureDate);
 
 
