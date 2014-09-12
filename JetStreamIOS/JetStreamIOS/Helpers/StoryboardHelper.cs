@@ -16,6 +16,7 @@
       return "ToAirportQuickSearch".Equals(segue.Identifier);
     }
 
+    #region Forward Flight List
     public static bool IsSegueToDepartureFlightsSearch(UIStoryboardSegue segue)
     {
       return "ToDepartureFlightsList".Equals(segue.Identifier);
@@ -25,6 +26,34 @@
     {
       sourceViewController.PerformSegue("ToDepartureFlightsList", sourceViewController);
     }
+    #endregion Forward Flight List
+      
+
+    #region Return Flight List
+    public static bool IsSegueToReturnFlightsSearch(UIStoryboardSegue segue)
+    {
+      return "ToReturnFlightSearch".Equals(segue.Identifier);
+    }
+
+    public static void NavigateToReturnFlightsListFromViewController(UIViewController sourceViewController)
+    {
+      sourceViewController.PerformSegue("ToReturnFlightSearch", sourceViewController);
+    }
+    #endregion Return Flight List
+
+
+    #region FlightSummary
+    public static bool IsSegueToFlightSummary(UIStoryboardSegue segue)
+    {
+      // TODO : verify
+      return false;
+    }
+      
+    public static void NavigateToReturnFlightSummaryViewController(UIViewController sourceViewController)
+    {
+      // TODO : perform segue
+    }
+    #endregion
   }
 }
 

@@ -45,6 +45,9 @@
 "FAILURE_ALERT_TITLE" = "Failure";
 "FLIGHTS_DOWNLOAD_FAILED_ALERT_MESSAGE" = "Unable to download flights";
 
+"VALIDATION_FAILED_ALERT_TITLE" = "Insufficient Data";
+"VALIDATION_FAILED_ALERT_MESSAGE" = "Please set both source and destination airports";
+
 
 /// SettingsViewController alerts
 "SETTINGS_NOT_APPLIED_ALERT_TITLE" = "Settings not Applied";

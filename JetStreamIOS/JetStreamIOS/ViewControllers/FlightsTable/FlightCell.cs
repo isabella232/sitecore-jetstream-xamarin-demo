@@ -10,15 +10,34 @@ namespace JetStreamIOS
 {
 	public partial class FlightCell : UITableViewCell
 	{
+
+    #region Events
+    public delegate void OnFlightSelectedDelegate(IJetStreamFlight flight);
+
+    public OnFlightSelectedDelegate OnFlightSelected { get; set; }
+
+    partial void OrderButtonPressed (MonoTouch.Foundation.NSObject sender)
+    {
+      this.OnFlightSelected(this.flight);
+    }
+
+    #endregion Events
+
+
+    #region Model
+    private IJetStreamFlight flight;
+
     public static NSString StaticReuseIdentifier()
     {
       return new NSString("FlightCell");
     }
 
+
     public void SetModel(IJetStreamFlight flight)
     {
-      this.PriceLabel.Text = flight.Price.ToString("C");
+      this.flight = flight;
 
+      this.PriceLabel.Text = flight.Price.ToString("C");
 
       string strDepartureTime = DateConverter.StringFromTimeForUI(flight.DepartureTime.ToLocalTime());
       string strArrivalTime = DateConverter.StringFromTimeForUI(flight.ArrivalTime.ToLocalTime());
@@ -29,12 +48,9 @@ namespace JetStreamIOS
       this.DepartureTimeLabel.Text = string.Format(departureFormat, strDepartureTime);
       this.ArrivalTimeLabel.Text = string.Format(arrivalFormat, strArrivalTime);
     }
+    #endregion Model
 
-    partial void OrderButtonPressed (MonoTouch.Foundation.NSObject sender)
-    {
-      AlertHelper.ShowLocalizedAlertWithOkOption("Order Flight", "Order Flight");
-    }
-
+    #region UITableViewCell
 		public FlightCell (IntPtr handle) : base (handle)
 		{
 		}
@@ -42,5 +58,6 @@ namespace JetStreamIOS
     public FlightCell(UITableViewCellStyle style, NSString reuseIdentifier) : base(style, reuseIdentifier)
     {
     }
+    #endregion UITableViewCell
 	}
 }
