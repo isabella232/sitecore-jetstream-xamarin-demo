@@ -6,7 +6,9 @@
     string DisplayName { get; }
 
     string City { get; }
+    string Country { get; }
     string Name { get; }
+    string Code { get; }
   }
 }
 
