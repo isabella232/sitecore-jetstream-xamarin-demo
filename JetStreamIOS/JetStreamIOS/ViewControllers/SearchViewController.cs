@@ -292,7 +292,6 @@ namespace JetStreamIOS
         string formatedDate = DateConverter.StringFromDateForUI(value);
         this.ReturnDateButton.SetTitle(formatedDate, UIControlState.Normal);
       }
-
     }
 
     #endregion;

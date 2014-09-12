@@ -32,7 +32,7 @@ namespace JetStreamIOS
 
     partial void OrderButtonPressed (MonoTouch.Foundation.NSObject sender)
     {
-      //IDLE
+      AlertHelper.ShowLocalizedAlertWithOkOption("Order Flight", "Order Flight");
     }
 
 		public FlightCell (IntPtr handle) : base (handle)

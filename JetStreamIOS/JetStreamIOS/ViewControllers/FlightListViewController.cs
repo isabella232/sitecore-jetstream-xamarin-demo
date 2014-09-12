@@ -18,6 +18,9 @@ namespace JetStreamIOS
 	{
     #region Injected Variables
     private bool IsFlyingBack { get; set; }
+
+//    public IFlightSearchUserInput 
+    public IFlightSearchUserInput CurrentSearchOptions { get; set; }
     public IFlightSearchUserInput SearchOptionsFromUser { get; set; }
     #endregion Injected Variables
 
@@ -28,7 +31,9 @@ namespace JetStreamIOS
 
     public override void ViewWillAppear(bool animated)
     {
-      DateTime today = this.SearchOptionsFromUser.ForwardFlightDepartureDate;
+      this.CurrentSearchOptions = this.SearchOptionsFromUser;
+
+      DateTime today = this.CurrentSearchOptions.ForwardFlightDepartureDate;
       DateTime yesterday = today.AddDays(-1);
       DateTime tomorrow  = today.AddDays(+1);
 
@@ -44,14 +49,40 @@ namespace JetStreamIOS
     #endregion UIViewController
 
     #region IBAction
-    partial void OnTomorrowButtonPressed (MonoTouch.Foundation.NSObject sender)
+    partial void OnTomorrowButtonPressed(MonoTouch.Foundation.NSObject sender)
     {
-      AlertHelper.ShowLocalizedAlertWithOkOption("tomorrow", "tomorrow");
+      DateTime dayIncrement = this.CurrentSearchOptions.ForwardFlightDepartureDate.AddDays(+1);
+      this.ReloadDataForDate(dayIncrement);
     }
 
-    partial void OnYesterdayButtonPressed (MonoTouch.Foundation.NSObject sender)
+    partial void OnYesterdayButtonPressed(MonoTouch.Foundation.NSObject sender)
     {
-      AlertHelper.ShowLocalizedAlertWithOkOption("yesterday", "yesterday");
+      DateTime dayIncrement = this.CurrentSearchOptions.ForwardFlightDepartureDate.AddDays(-1);
+      this.ReloadDataForDate(dayIncrement);
+    }
+
+    private void ReloadDataForDate(DateTime dayIncrement)
+    {
+      MutableFlightSearchUserInput newDay = new MutableFlightSearchUserInput();
+
+      // same values
+      {
+        newDay.SourceAirport = this.CurrentSearchOptions.SourceAirport;
+        newDay.DestinationAirport = this.CurrentSearchOptions.DestinationAirport;
+
+        newDay.TicketClass  = this.CurrentSearchOptions.TicketClass;
+        newDay.TicketsCount = this.CurrentSearchOptions.TicketsCount;
+      }
+
+
+      // changed values
+      {
+        newDay.ReturnFlightDepartureDate = null;
+        newDay.ForwardFlightDepartureDate = dayIncrement;
+      }
+
+      this.CurrentSearchOptions = newDay;
+      this.ReloadData();
     }
     #endregion IBAction
 
@@ -65,18 +96,20 @@ namespace JetStreamIOS
       {
         var loader = new FlightSearchLoader(
           jetStreamSession,
-          this.SearchOptionsFromUser.SourceAirport,
-          this.SearchOptionsFromUser.DestinationAirport,
-          this.SearchOptionsFromUser.ForwardFlightDepartureDate);
+          this.CurrentSearchOptions.SourceAirport,
+          this.CurrentSearchOptions.DestinationAirport,
+          this.CurrentSearchOptions.ForwardFlightDepartureDate);
 
         IEnumerable<IJetStreamFlight> flights = await loader.GetFlightsForTheGivenDateAsync();
+        DaySummary yesterday = await loader.GetPreviousDayAsync();
+        DaySummary tomorrow = await loader.GetNextDayAsync();
+
         var tableSource = new FlightsTableViewEnumerableDataSource(flights);
         this.FlightsTableView.DataSource = tableSource;
         this.FlightsTableView.ReloadData();
 
-        DaySummary yesterday = await loader.GetPreviousDayAsync();
-        DaySummary tomorrow = await loader.GetNextDayAsync();
 
+        this.TodayDateLabel.Text = DateConverter.StringFromDateForUI(this.CurrentSearchOptions.ForwardFlightDepartureDate);
         this.YesterdayDateLabel.Text = DateConverter.StringFromDateForUI(yesterday.DepartureDate);
 
 
@@ -90,7 +123,5 @@ namespace JetStreamIOS
           NSBundle.MainBundle.LocalizedString("PRICE_UNAVAILABLE", null);
       }
     }
-
-
 	}
 }
