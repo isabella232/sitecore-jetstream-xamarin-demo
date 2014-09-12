@@ -15,10 +15,14 @@ namespace JetStreamIOS.ViewControllers.FlightsTable
   public class FlightsTableViewEnumerableDataSource : UITableViewDataSource
   {
     private IEnumerable<IJetStreamFlight> flights;
+    private FlightCell.OnFlightSelectedDelegate onFlightSelectedCallback;
 
-    public FlightsTableViewEnumerableDataSource(IEnumerable<IJetStreamFlight> flights)
+    public FlightsTableViewEnumerableDataSource(
+      IEnumerable<IJetStreamFlight> flights,
+      FlightCell.OnFlightSelectedDelegate onFlightSelectedCallback)
     {
       this.flights = flights;
+      this.onFlightSelectedCallback = onFlightSelectedCallback;
     }
       
     public override int NumberOfSections(UITableView tableView)
@@ -41,6 +45,7 @@ namespace JetStreamIOS.ViewControllers.FlightsTable
       }
 
       IJetStreamFlight flight = flights.ToArray()[indexPath.Row];
+      newCell.OnFlightSelected = this.onFlightSelectedCallback;
       newCell.SetModel(flight);
 
       return newCell;
