@@ -132,10 +132,15 @@ namespace JetStreamIOS
     }
 
     #region Events
-    partial void OnSearchButtonTouched (MonoTouch.UIKit.UIButton sender)
+    partial void OnSearchButtonTouched(MonoTouch.UIKit.UIButton sender)
     {
-      // IDLE
-      // @adk : the method is required to avoid crashes
+      if (!FlightInputValidator.IsFlightInputValid(this.userInput))
+      {
+        AlertHelper.ShowLocalizedAlertWithOkOption("VALIDATION_FAILED_ALERT_TITLE", "VALIDATION_FAILED_ALERT_MESSAGE");
+        return;
+      }
+
+      StoryboardHelper.NavigateToDepartureFlightsListFromViewController(this);
     }
 
     partial void OnDepartDateButtonTouched(MonoTouch.UIKit.UIButton sender)
