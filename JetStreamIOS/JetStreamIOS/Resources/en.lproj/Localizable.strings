@@ -11,7 +11,7 @@
 "FROM_LOCATION_PLACEHOLDER" = "Select airport";
 "TO_LOCATION_PLACEHOLDER" = "Select airport";
 "FROM_LOCATION_LABEL_TITLE" = "From";
-"TO_LOCATION_LABEL_TITLE" = "Fly to";
+"TO_LOCATION_LABEL_TITLE" = "To";
 "DATE_PICKER_TITLE" = "Choose date:";
 "DONE_BUTTON_TITLE" = "Done";
 
