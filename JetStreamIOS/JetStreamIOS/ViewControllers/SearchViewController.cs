@@ -238,6 +238,12 @@ namespace JetStreamIOS
 
         this.FillSearchFieldWithAirportName (searchAirportsViewController, this.userInput.SourceAirport);
       }
+      else if (StoryboardHelper.IsSegueToDepartureFlightsSearch(segue))
+      {
+        FlightListViewController nextScreen = segue.DestinationViewController as FlightListViewController;
+        nextScreen.SearchOptionsFromUser = this.userInput;
+      }
+
     }
 
     private void FillSearchFieldWithAirportName(SearchAirportTableViewController searchController, IJetStreamAirport airport)
@@ -286,11 +292,6 @@ namespace JetStreamIOS
 
         string formatedDate = DateConverter.StringFromDateForUI(value);
         this.ReturnDateButton.SetTitle(formatedDate, UIControlState.Normal);
-      }
-      else if (StoryboardHelper.IsSegueToDepartureFlightsSearch(segue))
-      {
-        FlightListViewController nextScreen = segue.DestinationViewController as FlightListViewController;
-        nextScreen.SearchOptionsFromUser = this.userInput;
       }
     }
 
