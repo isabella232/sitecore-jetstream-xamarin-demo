@@ -1,5 +1,3 @@
-using JetStreamIOS.ViewControllers.FlightsTable;
-
 namespace JetStreamIOS
 {
   using System;
@@ -8,10 +6,14 @@ namespace JetStreamIOS
   using MonoTouch.Foundation;
   using MonoTouch.UIKit;
 
+  using Sitecore.MobileSDK.API.Session;
+
   using JetStreamCommons;
   using JetStreamCommons.Flight;
   using JetStreamCommons.FlightSearch;
-  using Sitecore.MobileSDK.API.Session;
+
+  using JetStreamIOS.ViewControllers.FlightsTable;
+  using JetStreamIOS.Helpers;
 
 
 	public partial class FlightListViewController : UIViewController
@@ -20,7 +22,9 @@ namespace JetStreamIOS
     private bool IsFlyingBack { get; set; }
 
 //    public IFlightSearchUserInput 
-    public IFlightSearchUserInput CurrentSearchOptions { get; set; }
+    private IFlightSearchUserInput CurrentSearchOptions { get; set; }
+    private JetStreamOrder OrderToAccumulate { get; set; }
+
     public IFlightSearchUserInput SearchOptionsFromUser { get; set; }
     #endregion Injected Variables
 
@@ -31,7 +35,14 @@ namespace JetStreamIOS
 
     public override void ViewWillAppear(bool animated)
     {
-      this.CurrentSearchOptions = this.SearchOptionsFromUser;
+      if (null == this.CurrentSearchOptions)
+      {
+        this.CurrentSearchOptions = this.SearchOptionsFromUser;
+      }
+      if (null == this.OrderToAccumulate)
+      {
+        this.OrderToAccumulate = new JetStreamOrder(null, null);
+      }
 
       DateTime today = this.CurrentSearchOptions.ForwardFlightDepartureDate;
       DateTime yesterday = today.AddDays(-1);
@@ -86,6 +97,37 @@ namespace JetStreamIOS
     }
     #endregion IBAction
 
+    #region Cell Input
+    private void OnForwardFlightSelected(IJetStreamFlight departureFlight)
+    {
+      this.OrderToAccumulate = new JetStreamOrder(departureFlight, this.OrderToAccumulate.ReturnFlight);
+//      AlertHelper.ShowLocalizedAlertWithOkOption("Flight selected", "Forward");
+
+      StoryboardHelper.NavigateToReturnFlightsListFromViewController(this);
+    }
+
+    private void OnReturnFlightSelected(IJetStreamFlight returnFlight)
+    {
+      this.OrderToAccumulate = new JetStreamOrder(this.OrderToAccumulate.DepartureFlight, returnFlight);
+      AlertHelper.ShowLocalizedAlertWithOkOption("Flight selected", "Return");
+      // show booking summary controller
+    }
+    #endregion Cell Input
+
+    private FlightCell.OnFlightSelectedDelegate GetCellButtonCallback()
+    {
+      FlightCell.OnFlightSelectedDelegate buttonCallback = null;
+      if (this.IsFlyingBack)
+      {
+        buttonCallback = this.OnReturnFlightSelected;
+      }
+      else
+      {
+        buttonCallback = this.OnForwardFlightSelected;
+      }
+
+      return buttonCallback;
+    }
 
     private async void ReloadData()
     {
@@ -104,7 +146,10 @@ namespace JetStreamIOS
         DaySummary yesterday = await loader.GetPreviousDayAsync();
         DaySummary tomorrow = await loader.GetNextDayAsync();
 
-        var tableSource = new FlightsTableViewEnumerableDataSource(flights);
+
+        FlightCell.OnFlightSelectedDelegate buttonCallback = this.GetCellButtonCallback();            
+        var tableSource = new FlightsTableViewEnumerableDataSource(flights, buttonCallback);
+
         this.FlightsTableView.DataSource = tableSource;
         this.FlightsTableView.ReloadData();
 
@@ -123,5 +168,40 @@ namespace JetStreamIOS
           NSBundle.MainBundle.LocalizedString("PRICE_UNAVAILABLE", null);
       }
     }
-	}
+	
+    public override void PrepareForSegue(UIStoryboardSegue segue, NSObject sender)
+    {
+      base.PrepareForSegue(segue, sender);
+
+      if (StoryboardHelper.IsSegueToReturnFlightsSearch(segue))
+      {
+        FlightListViewController targetController = segue.DestinationViewController as FlightListViewController;
+        this.ShowReturnFlightsSearch(targetController);
+      }
+    }
+
+    private void ShowReturnFlightsSearch(FlightListViewController targetController)
+    {
+      targetController.OrderToAccumulate = 
+        new JetStreamOrder(
+          this.OrderToAccumulate.DepartureFlight, 
+          this.OrderToAccumulate.ReturnFlight);
+
+      targetController.SearchOptionsFromUser = this.SearchOptionsFromUser;
+
+
+      // @adk reversed one way trip
+      MutableFlightSearchUserInput returnFlightsConfig = new MutableFlightSearchUserInput();
+      {
+        returnFlightsConfig.SourceAirport = this.SearchOptionsFromUser.DestinationAirport;
+        returnFlightsConfig.DestinationAirport = this.SearchOptionsFromUser.SourceAirport;
+        returnFlightsConfig.ForwardFlightDepartureDate = this.SearchOptionsFromUser.ReturnFlightDepartureDate.Value;
+        returnFlightsConfig.ReturnFlightDepartureDate = null;
+        returnFlightsConfig.TicketClass = this.SearchOptionsFromUser.TicketClass;
+        returnFlightsConfig.TicketsCount = this.SearchOptionsFromUser.TicketsCount;
+      }
+      targetController.CurrentSearchOptions = returnFlightsConfig;
+      targetController.IsFlyingBack = true;
+    }
+  }
 }
