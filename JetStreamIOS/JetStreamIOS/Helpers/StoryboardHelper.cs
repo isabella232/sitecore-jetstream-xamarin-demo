@@ -41,6 +41,19 @@
     }
     #endregion Return Flight List
 
+
+    #region FlightSummary
+    public static bool IsSegueToFlightSummary(UIStoryboardSegue segue)
+    {
+      // TODO : verify
+      return false;
+    }
+      
+    public static void NavigateToReturnFlightSummaryViewController(UIViewController sourceViewController)
+    {
+      // TODO : perform segue
+    }
+    #endregion
   }
 }
 

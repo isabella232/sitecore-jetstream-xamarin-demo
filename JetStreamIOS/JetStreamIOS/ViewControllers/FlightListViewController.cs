@@ -108,17 +108,14 @@ namespace JetStreamIOS
       }
       else
       {
-        AlertHelper.ShowLocalizedAlertWithOkOption("Flight selected", "Forward. Going to booking summary.");
-        // TODO : show booking summary controller
-
+        StoryboardHelper.NavigateToReturnFlightSummaryViewController(this);
       }
     }
 
     private void OnReturnFlightSelected(IJetStreamFlight returnFlight)
     {
       this.OrderToAccumulate = new JetStreamOrder(this.OrderToAccumulate.DepartureFlight, returnFlight);
-      AlertHelper.ShowLocalizedAlertWithOkOption("Flight selected", "Return");
-      // TODO : show booking summary controller
+      StoryboardHelper.NavigateToReturnFlightSummaryViewController(this);
     }
     #endregion Cell Input
 
@@ -186,6 +183,11 @@ namespace JetStreamIOS
         FlightListViewController targetController = segue.DestinationViewController as FlightListViewController;
         this.ShowReturnFlightsSearch(targetController);
       }
+      else if (StoryboardHelper.IsSegueToFlightSummary(segue))
+      {
+        UIViewController targetController = segue.DestinationViewController;
+        this.ShowFlightSummaryScreen(targetController);
+      }
     }
 
     private void ShowReturnFlightsSearch(FlightListViewController targetController)
@@ -210,6 +212,11 @@ namespace JetStreamIOS
       }
       targetController.CurrentSearchOptions = returnFlightsConfig;
       targetController.IsFlyingBack = true;
+    }
+
+    private void ShowFlightSummaryScreen(UIViewController targetController)
+    {
+      // TODO : initialize view controllers
     }
   }
 }
