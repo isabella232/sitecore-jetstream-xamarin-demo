@@ -101,16 +101,22 @@ namespace JetStreamIOS
     private void OnForwardFlightSelected(IJetStreamFlight departureFlight)
     {
       this.OrderToAccumulate = new JetStreamOrder(departureFlight, this.OrderToAccumulate.ReturnFlight);
-//      AlertHelper.ShowLocalizedAlertWithOkOption("Flight selected", "Forward");
 
-      StoryboardHelper.NavigateToReturnFlightsListFromViewController(this);
+      if (this.SearchOptionsFromUser.IsRoundTrip)
+      {
+        StoryboardHelper.NavigateToReturnFlightsListFromViewController(this);
+      }
+      else
+      {
+        // TODO : show booking summary controller
+      }
     }
 
     private void OnReturnFlightSelected(IJetStreamFlight returnFlight)
     {
       this.OrderToAccumulate = new JetStreamOrder(this.OrderToAccumulate.DepartureFlight, returnFlight);
       AlertHelper.ShowLocalizedAlertWithOkOption("Flight selected", "Return");
-      // show booking summary controller
+      // TODO : show booking summary controller
     }
     #endregion Cell Input
 
