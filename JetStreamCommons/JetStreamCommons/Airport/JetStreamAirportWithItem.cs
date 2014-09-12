@@ -13,11 +13,27 @@
       this.item = item;
     }
 
+    public string Country 
+    { 
+      get
+      {
+        return this.item["Country"].RawValue;
+      }
+    }
+
     public string City 
     { 
       get
       {
         return this.item["City"].RawValue;
+      }
+    }
+
+    public string Code 
+    { 
+      get
+      {
+        return this.item["Airport Code"].RawValue;
       }
     }
 
