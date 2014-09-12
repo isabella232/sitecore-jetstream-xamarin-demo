@@ -108,7 +108,9 @@ namespace JetStreamIOS
       }
       else
       {
+        AlertHelper.ShowLocalizedAlertWithOkOption("Flight selected", "Forward. Going to booking summary.");
         // TODO : show booking summary controller
+
       }
     }
 
