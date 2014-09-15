@@ -7,9 +7,9 @@ using MonoTouch.UIKit;
 
 namespace JetStreamIOS
 {
-	public partial class FirstViewController : UIViewController
+	public partial class FlightDetailsViewController : UIViewController
 	{
-		public FirstViewController (IntPtr handle) : base (handle)
+		public FlightDetailsViewController (IntPtr handle) : base (handle)
 		{
 		}
 	}

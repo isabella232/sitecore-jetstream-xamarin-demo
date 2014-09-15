@@ -9,8 +9,8 @@ using System.CodeDom.Compiler;
 
 namespace JetStreamIOS
 {
-	[Register ("SecondViewController")]
-	partial class SecondViewController
+	[Register ("FlightDetailsViewController")]
+	partial class FlightDetailsViewController
 	{
 		
 		void ReleaseDesignerOutlets ()
