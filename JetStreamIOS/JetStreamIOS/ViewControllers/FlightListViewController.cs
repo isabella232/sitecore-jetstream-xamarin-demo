@@ -1,11 +1,10 @@
-using MonoTouch.ObjCRuntime;
-using System.Linq;
-
 namespace JetStreamIOS
 {
   using System;
+  using System.Linq;
   using System.Collections.Generic;
 
+  using MonoTouch.ObjCRuntime;
   using MonoTouch.Foundation;
   using MonoTouch.UIKit;
 
@@ -24,7 +23,6 @@ namespace JetStreamIOS
     #region Injected Variables
     private bool IsFlyingBack { get; set; }
 
-//    public IFlightSearchUserInput 
     private IFlightSearchUserInput CurrentSearchOptions { get; set; }
     private JetStreamOrder OrderToAccumulate { get; set; }
 
@@ -38,6 +36,8 @@ namespace JetStreamIOS
 
     public override void ViewWillAppear(bool animated)
     {
+      this.StopLoading();
+
       if (null == this.CurrentSearchOptions)
       {
         this.CurrentSearchOptions = this.SearchOptionsFromUser;
@@ -140,6 +140,8 @@ namespace JetStreamIOS
 
     private async void ReloadData()
     {
+      this.StartLoading();
+
       // @adk : on top of NSUserDefaults singleton
       InstanceSettings endpoint = new InstanceSettings();
       ISitecoreWebApiSession webApiSession = endpoint.GetSession();
@@ -151,13 +153,25 @@ namespace JetStreamIOS
           this.CurrentSearchOptions.DestinationAirport,
           this.CurrentSearchOptions.ForwardFlightDepartureDate);
 
-        IEnumerable<IJetStreamFlight> flights = await loader.GetFlightsForTheGivenDateAsync();
-        DaySummary yesterday = await loader.GetPreviousDayAsync();
-        DaySummary tomorrow = await loader.GetNextDayAsync();
+
+        IEnumerable<IJetStreamFlight> flights = null;
+        DaySummary yesterday = null;
+        DaySummary tomorrow = null;
+
+        try
+        {
+          flights = await loader.GetFlightsForTheGivenDateAsync();
+          yesterday = await loader.GetPreviousDayAsync();
+          tomorrow = await loader.GetNextDayAsync();
+        }
+        finally
+        {
+          this.StopLoading();
+        }
 
 
         UITableViewDataSource tableSource = null;
-        if (0 == flights.Count())
+        if (null == flights || 0 == flights.Count())
         {
           tableSource = new FlightsTableViewEmptyDataSource();
         }
@@ -248,5 +262,20 @@ namespace JetStreamIOS
     }
   
     #endregion Storyboard
+
+
+    #region Progress
+    private void StartLoading()
+    {
+      this.ProgressIndicator.Hidden = false;
+      this.ProgressIndicator.StartAnimating();
+    }
+
+    private void StopLoading()
+    {
+      this.ProgressIndicator.Hidden = true;
+      this.ProgressIndicator.StopAnimating();
+    }
+    #endregion Progress
   }
 }

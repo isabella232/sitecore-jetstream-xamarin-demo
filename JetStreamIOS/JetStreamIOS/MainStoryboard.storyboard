@@ -585,6 +585,10 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="25G-pB-Xay">
+                                <rect key="frame" x="150" y="274" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -608,6 +612,7 @@
                     <connections>
                         <outlet property="FilterToolbarButton" destination="Vli-Vh-q3Y" id="BW7-U1-jQr"/>
                         <outlet property="FlightsTableView" destination="cVy-Y9-DIl" id="lOs-5f-W1x"/>
+                        <outlet property="ProgressIndicator" destination="25G-pB-Xay" id="klr-P8-7Ae"/>
                         <outlet property="TodayDateLabel" destination="pdY-n9-Wuw" id="Zlo-Bc-RSP"/>
                         <outlet property="TomorrowDateLabel" destination="7zc-Ot-MAJ" id="728-Vi-YgD"/>
                         <outlet property="TomorrowPriceLabel" destination="nyd-WY-F2s" id="zIH-aN-n1P"/>

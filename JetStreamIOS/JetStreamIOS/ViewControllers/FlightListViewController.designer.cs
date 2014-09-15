@@ -19,6 +19,9 @@ namespace JetStreamIOS
 		MonoTouch.UIKit.UITableView FlightsTableView { get; set; }
 
 		[Outlet]
+		MonoTouch.UIKit.UIActivityIndicatorView ProgressIndicator { get; set; }
+
+		[Outlet]
 		MonoTouch.UIKit.UILabel TodayDateLabel { get; set; }
 
 		[Outlet]
@@ -77,6 +80,11 @@ namespace JetStreamIOS
 			if (YesterdayPriceLabel != null) {
 				YesterdayPriceLabel.Dispose ();
 				YesterdayPriceLabel = null;
+			}
+
+			if (ProgressIndicator != null) {
+				ProgressIndicator.Dispose ();
+				ProgressIndicator = null;
 			}
 		}
 	}
