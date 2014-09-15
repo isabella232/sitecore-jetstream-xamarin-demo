@@ -132,8 +132,8 @@
     <Compile Include="ViewControllers\OrderSummaryViewController.designer.cs">
       <DependentUpon>OrderSummaryViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="FlightsFilterViewController.cs" />
-    <Compile Include="FlightsFilterViewController.designer.cs">
+    <Compile Include="ViewControllers\FlightsFilterViewController.cs" />
+    <Compile Include="ViewControllers\FlightsFilterViewController.designer.cs">
       <DependentUpon>FlightsFilterViewController.cs</DependentUpon>
     </Compile>
   </ItemGroup>
