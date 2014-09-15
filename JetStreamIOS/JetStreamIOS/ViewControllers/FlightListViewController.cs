@@ -1,3 +1,5 @@
+using MonoTouch.ObjCRuntime;
+
 namespace JetStreamIOS
 {
   using System;
@@ -119,6 +121,7 @@ namespace JetStreamIOS
     }
     #endregion Cell Input
 
+    #region UITableViewController
     private FlightCell.OnFlightSelectedDelegate GetCellButtonCallback()
     {
       FlightCell.OnFlightSelectedDelegate buttonCallback = null;
@@ -173,7 +176,9 @@ namespace JetStreamIOS
           NSBundle.MainBundle.LocalizedString("PRICE_UNAVAILABLE", null);
       }
     }
-	
+    #endregion UITableViewController
+
+    #region Storyboard
     public override void PrepareForSegue(UIStoryboardSegue segue, NSObject sender)
     {
       base.PrepareForSegue(segue, sender);
@@ -189,7 +194,20 @@ namespace JetStreamIOS
         this.ShowFlightSummaryScreen(targetController);
       }
     }
+      
+    public override UIViewController GetViewControllerForUnwind(
+      Selector segueAction, 
+      UIViewController fromViewController, 
+      NSObject sender)
+    {
+      return this;
+    }
 
+    partial void unwindToFlightList(MonoTouch.UIKit.UIStoryboardSegue unwindSegue)
+    {
+      // TODO : apply filters
+    }
+      
     private void ShowReturnFlightsSearch(FlightListViewController targetController)
     {
       targetController.OrderToAccumulate = 
@@ -218,5 +236,7 @@ namespace JetStreamIOS
     {
       // TODO : initialize view controllers
     }
+  
+    #endregion Storyboard
   }
 }
