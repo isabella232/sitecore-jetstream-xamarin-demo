@@ -110,14 +110,14 @@ namespace JetStreamIOS
       }
       else
       {
-        StoryboardHelper.NavigateToReturnFlightSummaryViewController(this);
+        StoryboardHelper.NavigateToOrderSummaryViewController(this);
       }
     }
 
     private void OnReturnFlightSelected(IJetStreamFlight returnFlight)
     {
       this.OrderToAccumulate = new JetStreamOrder(this.OrderToAccumulate.DepartureFlight, returnFlight);
-      StoryboardHelper.NavigateToReturnFlightSummaryViewController(this);
+      StoryboardHelper.NavigateToOrderSummaryViewController(this);
     }
     #endregion Cell Input
 
@@ -188,9 +188,9 @@ namespace JetStreamIOS
         FlightListViewController targetController = segue.DestinationViewController as FlightListViewController;
         this.ShowReturnFlightsSearch(targetController);
       }
-      else if (StoryboardHelper.IsSegueToFlightSummary(segue))
+      else if (StoryboardHelper.IsSegueToOrderSummary(segue))
       {
-        UIViewController targetController = segue.DestinationViewController;
+        OrderSummaryViewController targetController = segue.DestinationViewController as OrderSummaryViewController;
         this.ShowFlightSummaryScreen(targetController);
       }
     }
@@ -232,9 +232,9 @@ namespace JetStreamIOS
       targetController.IsFlyingBack = true;
     }
 
-    private void ShowFlightSummaryScreen(UIViewController targetController)
+    private void ShowFlightSummaryScreen(OrderSummaryViewController targetController)
     {
-      // TODO : initialize view controllers
+      // TODO : inject order data
     }
   
     #endregion Storyboard
