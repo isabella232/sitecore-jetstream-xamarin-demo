@@ -408,7 +408,7 @@
                                 <rect key="frame" x="0.0" y="65" width="320" height="75"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="2014/08/17" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pdY-n9-Wuw">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2014/08/17" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pdY-n9-Wuw">
                                         <rect key="frame" x="113" y="27" width="94" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <constraints>
@@ -418,7 +418,7 @@
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W05-Zl-ZNg">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W05-Zl-ZNg">
                                         <rect key="frame" x="215" y="0.0" width="105" height="75"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
@@ -450,7 +450,7 @@
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                     </view>
-                                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fsb-64-QCs">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fsb-64-QCs">
                                         <rect key="frame" x="0.0" y="0.0" width="105" height="75"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
@@ -481,12 +481,16 @@
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="105" id="mFD-Ut-rq2"/>
+                                        </constraints>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="Fsb-64-QCs" firstAttribute="top" secondItem="maD-MA-hCU" secondAttribute="top" id="1FZ-Qc-m0x"/>
                                     <constraint firstItem="W05-Zl-ZNg" firstAttribute="top" secondItem="maD-MA-hCU" secondAttribute="top" id="6jF-wi-yrC"/>
+                                    <constraint firstItem="W05-Zl-ZNg" firstAttribute="leading" secondItem="Fsb-64-QCs" secondAttribute="trailing" constant="110" id="DHd-pE-ewt"/>
                                     <constraint firstAttribute="bottom" secondItem="W05-Zl-ZNg" secondAttribute="bottom" id="EMD-8C-BUD"/>
                                     <constraint firstItem="Fsb-64-QCs" firstAttribute="leading" secondItem="maD-MA-hCU" secondAttribute="leading" id="S6Z-ip-g2n"/>
                                     <constraint firstAttribute="bottom" secondItem="Fsb-64-QCs" secondAttribute="bottom" id="d5O-ZN-trc"/>

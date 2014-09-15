@@ -12,11 +12,14 @@ namespace JetStreamIOS
 		{
 		}
 
-    partial void OnDoneButtonTapped (MonoTouch.Foundation.NSObject sender)
+    partial void OnDoneButtonTapped(MonoTouch.Foundation.NSObject sender)
     {
+      // IDLE for Interface Builder
+    }
 
-
-//      this.Unwind
+    partial void unwindToFlightList(MonoTouch.UIKit.UIStoryboardSegue unwindSegue)
+    {
+      // IDLE for Interface Builder
     }
 	}
 }

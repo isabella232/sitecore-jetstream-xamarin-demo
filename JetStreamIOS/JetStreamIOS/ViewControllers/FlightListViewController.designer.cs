@@ -38,9 +38,17 @@ namespace JetStreamIOS
 
 		[Action ("OnYesterdayButtonPressed:")]
 		partial void OnYesterdayButtonPressed (MonoTouch.Foundation.NSObject sender);
+
+		[Action ("unwindToFlightList:")]
+		partial void unwindToFlightList (MonoTouch.UIKit.UIStoryboardSegue unwindSegue);
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (FilterToolbarButton != null) {
+				FilterToolbarButton.Dispose ();
+				FilterToolbarButton = null;
+			}
+
 			if (FlightsTableView != null) {
 				FlightsTableView.Dispose ();
 				FlightsTableView = null;
@@ -69,11 +77,6 @@ namespace JetStreamIOS
 			if (YesterdayPriceLabel != null) {
 				YesterdayPriceLabel.Dispose ();
 				YesterdayPriceLabel = null;
-			}
-
-			if (FilterToolbarButton != null) {
-				FilterToolbarButton.Dispose ();
-				FilterToolbarButton = null;
 			}
 		}
 	}
