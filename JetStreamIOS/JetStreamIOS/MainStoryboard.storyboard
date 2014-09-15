@@ -584,8 +584,16 @@
                             <constraint firstAttribute="trailing" secondItem="cVy-Y9-DIl" secondAttribute="trailing" id="q5k-uW-HZD"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="8hO-dG-Lzn"/>
+                    <navigationItem key="navigationItem" id="8hO-dG-Lzn">
+                        <barButtonItem key="backBarButtonItem" id="rkz-fO-615"/>
+                        <barButtonItem key="rightBarButtonItem" title="Filter" id="Vli-Vh-q3Y">
+                            <connections>
+                                <segue destination="eYT-3Y-Qxd" kind="modal" identifier="ToFlightsFilter" id="6H7-gM-8G0"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="FilterToolbarButton" destination="Vli-Vh-q3Y" id="BW7-U1-jQr"/>
                         <outlet property="FlightsTableView" destination="cVy-Y9-DIl" id="lOs-5f-W1x"/>
                         <outlet property="TodayDateLabel" destination="pdY-n9-Wuw" id="Zlo-Bc-RSP"/>
                         <outlet property="TomorrowDateLabel" destination="7zc-Ot-MAJ" id="728-Vi-YgD"/>
@@ -597,6 +605,71 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o0j-dw-rKd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1843" y="36"/>
+        </scene>
+        <!--Flights Filter View Controller-->
+        <scene sceneID="Lnc-ou-Elg">
+            <objects>
+                <viewController id="eYT-3Y-Qxd" customClass="FlightsFilterViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="XA4-9K-Qzg"/>
+                        <viewControllerLayoutGuide type="bottom" id="5KI-hP-GrQ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="TyG-Ks-XEy">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NcX-Dn-L99">
+                                <rect key="frame" x="0.0" y="28" width="320" height="55"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mwg-RU-CyY">
+                                        <rect key="frame" x="243" y="0.0" width="77" height="55"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="77" id="ADr-KC-NKL"/>
+                                        </constraints>
+                                        <state key="normal" title="Done">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="OnDoneButtonTapped:" destination="eYT-3Y-Qxd" eventType="touchUpInside" id="9gw-kJ-Q8v"/>
+                                            <segue destination="uYz-bE-jGb" kind="unwind" unwindAction="unwindToFlightList:" id="het-PH-1vq"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="mwg-RU-CyY" secondAttribute="trailing" id="6yy-zO-e7A"/>
+                                    <constraint firstAttribute="bottom" secondItem="mwg-RU-CyY" secondAttribute="bottom" id="SfP-x0-NFb"/>
+                                    <constraint firstAttribute="height" constant="55" id="cfr-BC-g8z"/>
+                                    <constraint firstItem="mwg-RU-CyY" firstAttribute="top" secondItem="NcX-Dn-L99" secondAttribute="top" id="dX3-EY-jrC"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Id1-I3-mjv">
+                                <rect key="frame" x="0.0" y="83" width="320" height="485"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="0.2260269657" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="5KI-hP-GrQ" firstAttribute="top" secondItem="Id1-I3-mjv" secondAttribute="bottom" id="0c0-wQ-Jl7"/>
+                            <constraint firstAttribute="trailing" secondItem="NcX-Dn-L99" secondAttribute="trailing" id="DQE-UM-1c2"/>
+                            <constraint firstItem="Id1-I3-mjv" firstAttribute="leading" secondItem="TyG-Ks-XEy" secondAttribute="leading" id="NF9-25-SjO"/>
+                            <constraint firstAttribute="trailing" secondItem="Id1-I3-mjv" secondAttribute="trailing" id="OTf-Md-rcC"/>
+                            <constraint firstItem="Id1-I3-mjv" firstAttribute="top" secondItem="NcX-Dn-L99" secondAttribute="bottom" id="XE2-eF-Nq9"/>
+                            <constraint firstItem="NcX-Dn-L99" firstAttribute="leading" secondItem="TyG-Ks-XEy" secondAttribute="leading" id="sML-xv-9hi"/>
+                            <constraint firstItem="NcX-Dn-L99" firstAttribute="top" secondItem="XA4-9K-Qzg" secondAttribute="bottom" constant="8" id="wnE-T2-0yf"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="DoneButton" destination="mwg-RU-CyY" id="utr-4y-xVO"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qzb-FC-VmK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="uYz-bE-jGb" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="2227" y="770"/>
         </scene>
         <!--About View Controller - Second-->
         <scene sceneID="ot8-2e-RuS">
