@@ -1,4 +1,5 @@
 using MonoTouch.ObjCRuntime;
+using System.Linq;
 
 namespace JetStreamIOS
 {
@@ -155,11 +156,20 @@ namespace JetStreamIOS
         DaySummary tomorrow = await loader.GetNextDayAsync();
 
 
-        FlightCell.OnFlightSelectedDelegate buttonCallback = this.GetCellButtonCallback();            
-        var tableSource = new FlightsTableViewEnumerableDataSource(flights, buttonCallback);
-
+        UITableViewDataSource tableSource = null;
+        if (0 == flights.Count())
+        {
+          tableSource = new FlightsTableViewEmptyDataSource();
+        }
+        else
+        {
+          FlightCell.OnFlightSelectedDelegate buttonCallback = this.GetCellButtonCallback();            
+          tableSource = new FlightsTableViewEnumerableDataSource(flights, buttonCallback);
+        }
         this.FlightsTableView.DataSource = tableSource;
         this.FlightsTableView.ReloadData();
+
+
 
 
         this.TodayDateLabel.Text = DateConverter.StringFromDateForUI(this.CurrentSearchOptions.ForwardFlightDepartureDate);

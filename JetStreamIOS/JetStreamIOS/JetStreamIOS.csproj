@@ -140,6 +140,7 @@
     <Compile Include="ViewControllers\FlightsFilterViewController.designer.cs">
       <DependentUpon>FlightsFilterViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="ViewControllers\FlightsTable\FlightsTableViewEmptyDataSource.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard.storyboard" />
