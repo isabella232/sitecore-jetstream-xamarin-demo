@@ -82,4 +82,4 @@
 "PRICE_UNAVAILABLE" = "N/A";
 "DEPARTURE_DATE_FORMAT" = "Departs : {0}";
 "ARRIVAL_DATE_FORMAT" = "Arrives : {0}";
-
+"NO_FLIGHTS_FOUND" = "No Flights Found";
