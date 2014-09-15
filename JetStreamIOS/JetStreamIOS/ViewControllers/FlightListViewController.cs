@@ -205,7 +205,7 @@ namespace JetStreamIOS
 
     partial void unwindToFlightList(MonoTouch.UIKit.UIStoryboardSegue unwindSegue)
     {
-      // IDLE
+      // TODO : apply filters
     }
       
     private void ShowReturnFlightsSearch(FlightListViewController targetController)
