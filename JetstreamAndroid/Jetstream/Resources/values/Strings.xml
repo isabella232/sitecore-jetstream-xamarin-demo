@@ -2,4 +2,12 @@
 <resources>
 	<string name="hello">Hello World, Click Me!</string>
 	<string name="app_name">Jetstream</string>
+
+  <string name="key_instance_url">instance_url</string>
+  <string name="key_login">login</string>
+  <string name="key_password">pass</string>
+
+  <string name="text_default_instance_url">http://jetstream.test24dk1.dk.sitecore.net/</string>
+  <string name="text_default_login"></string>
+  <string name="text_default_password"></string>
 </resources>

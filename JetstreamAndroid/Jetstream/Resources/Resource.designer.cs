@@ -9,9 +9,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: global::Android.Runtime.ResourceDesignerAttribute("Jetstream.Resource", IsApplication=true)]
+[assembly: global::Android.Runtime.ResourceDesignerAttribute("JetstreamAndroid.Resource", IsApplication=true)]
 
-namespace Jetstream
+namespace JetstreamAndroid
 {
 	
 	
@@ -60,8 +60,50 @@ namespace Jetstream
 		public partial class Id
 		{
 			
+			// aapt resource value: 0x7f050009
+			public const int button1 = 2131034121;
+			
+			// aapt resource value: 0x7f05000a
+			public const int button2 = 2131034122;
+			
+			// aapt resource value: 0x7f05000e
+			public const int button_save = 2131034126;
+			
+			// aapt resource value: 0x7f050003
+			public const int checkBox_roundtrip = 2131034115;
+			
+			// aapt resource value: 0x7f050001
+			public const int field_from_location = 2131034113;
+			
+			// aapt resource value: 0x7f05000c
+			public const int field_instance_login = 2131034124;
+			
+			// aapt resource value: 0x7f05000d
+			public const int field_instance_password = 2131034125;
+			
+			// aapt resource value: 0x7f05000b
+			public const int field_instance_url = 2131034123;
+			
+			// aapt resource value: 0x7f050002
+			public const int field_to_location = 2131034114;
+			
 			// aapt resource value: 0x7f050000
-			public const int myButton = 2131034112;
+			public const int linearLayout1 = 2131034112;
+			
+			// aapt resource value: 0x7f050004
+			public const int linearLayout2 = 2131034116;
+			
+			// aapt resource value: 0x7f050005
+			public const int linearLayout3 = 2131034117;
+			
+			// aapt resource value: 0x7f050007
+			public const int linearLayout4 = 2131034119;
+			
+			// aapt resource value: 0x7f050008
+			public const int spinner_classes = 2131034120;
+			
+			// aapt resource value: 0x7f050006
+			public const int spinner_number_of_tickets = 2131034118;
 			
 			static Id()
 			{
@@ -77,7 +119,10 @@ namespace Jetstream
 		{
 			
 			// aapt resource value: 0x7f030000
-			public const int Main = 2130903040;
+			public const int activity_search = 2130903040;
+			
+			// aapt resource value: 0x7f030001
+			public const int activity_settings = 2130903041;
 			
 			static Layout()
 			{
@@ -97,6 +142,24 @@ namespace Jetstream
 			
 			// aapt resource value: 0x7f040000
 			public const int hello = 2130968576;
+			
+			// aapt resource value: 0x7f040002
+			public const int key_instance_url = 2130968578;
+			
+			// aapt resource value: 0x7f040003
+			public const int key_login = 2130968579;
+			
+			// aapt resource value: 0x7f040004
+			public const int key_password = 2130968580;
+			
+			// aapt resource value: 0x7f040005
+			public const int text_default_instance_url = 2130968581;
+			
+			// aapt resource value: 0x7f040006
+			public const int text_default_login = 2130968582;
+			
+			// aapt resource value: 0x7f040007
+			public const int text_default_password = 2130968583;
 			
 			static String()
 			{

@@ -1,26 +1,16 @@
-﻿
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
-
-namespace Jetstream
+﻿namespace JetstreamAndroid
 {
-  [Activity(Label = "Jetstream", MainLauncher = true, Icon = "@drawable/icon")]	
+  using Android.App;
+  using Android.OS;
+
+//  [Activity(Label = "Jetstream", MainLauncher = true, Icon = "@drawable/icon")]
+  [Activity(Label = "Jetstream", Icon = "@drawable/icon")]	
   public class SearchActivity : Activity
   {
     protected override void OnCreate(Bundle bundle)
     {
       base.OnCreate(bundle);
-      SetContentView(Resource.Layout.Activity_Search);
-      // Create your application here
+      this.SetContentView(Resource.Layout.activity_search);
     }
   }
 }
