@@ -47,6 +47,13 @@ namespace JetStreamIOS
         this.OrderToAccumulate = new JetStreamOrder(null, null);
       }
 
+      this.SetDefaultValues();
+      this.ReloadData();
+    }
+
+
+    private void SetDefaultValues()
+    {
       DateTime today = this.CurrentSearchOptions.ForwardFlightDepartureDate;
       DateTime yesterday = today.AddDays(-1);
       DateTime tomorrow  = today.AddDays(+1);
@@ -58,7 +65,9 @@ namespace JetStreamIOS
       this.YesterdayPriceLabel.Text = NSBundle.MainBundle.LocalizedString("PRICE_UNAVAILABLE", null);
       this.TomorrowPriceLabel.Text = NSBundle.MainBundle.LocalizedString("PRICE_UNAVAILABLE", null);
 
-      this.ReloadData();
+      var tableSource = new FlightsTableViewEmptyDataSource();
+      this.FlightsTableView.DataSource = tableSource;
+      this.FlightsTableView.ReloadData();
     }
     #endregion UIViewController
 
@@ -267,6 +276,8 @@ namespace JetStreamIOS
     #region Progress
     private void StartLoading()
     {
+      this.SetDefaultValues();
+
       this.ProgressIndicator.Hidden = false;
       this.ProgressIndicator.StartAnimating();
     }
