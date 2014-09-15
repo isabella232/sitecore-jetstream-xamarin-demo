@@ -132,6 +132,10 @@
     <Compile Include="ViewControllers\OrderSummaryViewController.designer.cs">
       <DependentUpon>OrderSummaryViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="ViewControllers\FlightDetailsViewController.cs" />
+    <Compile Include="ViewControllers\FlightDetailsViewController.designer.cs">
+      <DependentUpon>FlightDetailsViewController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard.storyboard" />

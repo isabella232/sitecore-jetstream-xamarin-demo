@@ -12,9 +12,26 @@ namespace JetStreamIOS
 	[Register ("FlightDetailsViewController")]
 	partial class FlightDetailsViewController
 	{
+		[Outlet]
+		MonoTouch.UIKit.UIWebView DetailsWebView { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIButton OrderButton { get; set; }
+
+		[Action ("OnOrderButtonTouched:")]
+		partial void OnOrderButtonTouched (MonoTouch.UIKit.UIButton sender);
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (DetailsWebView != null) {
+				DetailsWebView.Dispose ();
+				DetailsWebView = null;
+			}
+
+			if (OrderButton != null) {
+				OrderButton.Dispose ();
+				OrderButton = null;
+			}
 		}
 	}
 }
