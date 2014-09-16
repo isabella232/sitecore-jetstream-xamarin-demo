@@ -1,8 +1,10 @@
 namespace JetStreamIOS
 {
   using System;
+  using System.Linq;
   using System.Collections.Generic;
 
+  using MonoTouch.ObjCRuntime;
   using MonoTouch.Foundation;
   using MonoTouch.UIKit;
 
@@ -21,7 +23,6 @@ namespace JetStreamIOS
     #region Injected Variables
     private bool IsFlyingBack { get; set; }
 
-//    public IFlightSearchUserInput 
     private IFlightSearchUserInput CurrentSearchOptions { get; set; }
     private JetStreamOrder OrderToAccumulate { get; set; }
 
@@ -35,6 +36,8 @@ namespace JetStreamIOS
 
     public override void ViewWillAppear(bool animated)
     {
+      this.StopLoading();
+
       if (null == this.CurrentSearchOptions)
       {
         this.CurrentSearchOptions = this.SearchOptionsFromUser;
@@ -44,6 +47,13 @@ namespace JetStreamIOS
         this.OrderToAccumulate = new JetStreamOrder(null, null);
       }
 
+      this.SetDefaultValues();
+      this.ReloadData();
+    }
+
+
+    private void SetDefaultValues()
+    {
       DateTime today = this.CurrentSearchOptions.ForwardFlightDepartureDate;
       DateTime yesterday = today.AddDays(-1);
       DateTime tomorrow  = today.AddDays(+1);
@@ -55,7 +65,9 @@ namespace JetStreamIOS
       this.YesterdayPriceLabel.Text = NSBundle.MainBundle.LocalizedString("PRICE_UNAVAILABLE", null);
       this.TomorrowPriceLabel.Text = NSBundle.MainBundle.LocalizedString("PRICE_UNAVAILABLE", null);
 
-      this.ReloadData();
+      var tableSource = new FlightsTableViewEmptyDataSource();
+      this.FlightsTableView.DataSource = tableSource;
+      this.FlightsTableView.ReloadData();
     }
     #endregion UIViewController
 
@@ -108,17 +120,18 @@ namespace JetStreamIOS
       }
       else
       {
-        StoryboardHelper.NavigateToReturnFlightSummaryViewController(this);
+        StoryboardHelper.NavigateToOrderSummaryViewController(this);
       }
     }
 
     private void OnReturnFlightSelected(IJetStreamFlight returnFlight)
     {
       this.OrderToAccumulate = new JetStreamOrder(this.OrderToAccumulate.DepartureFlight, returnFlight);
-      StoryboardHelper.NavigateToReturnFlightSummaryViewController(this);
+      StoryboardHelper.NavigateToOrderSummaryViewController(this);
     }
     #endregion Cell Input
 
+    #region UITableViewController
     private FlightCell.OnFlightSelectedDelegate GetCellButtonCallback()
     {
       FlightCell.OnFlightSelectedDelegate buttonCallback = null;
@@ -136,6 +149,8 @@ namespace JetStreamIOS
 
     private async void ReloadData()
     {
+      this.StartLoading();
+
       // @adk : on top of NSUserDefaults singleton
       InstanceSettings endpoint = new InstanceSettings();
       ISitecoreWebApiSession webApiSession = endpoint.GetSession();
@@ -147,16 +162,37 @@ namespace JetStreamIOS
           this.CurrentSearchOptions.DestinationAirport,
           this.CurrentSearchOptions.ForwardFlightDepartureDate);
 
-        IEnumerable<IJetStreamFlight> flights = await loader.GetFlightsForTheGivenDateAsync();
-        DaySummary yesterday = await loader.GetPreviousDayAsync();
-        DaySummary tomorrow = await loader.GetNextDayAsync();
+
+        IEnumerable<IJetStreamFlight> flights = null;
+        DaySummary yesterday = null;
+        DaySummary tomorrow = null;
+
+        try
+        {
+          flights = await loader.GetFlightsForTheGivenDateAsync();
+          yesterday = await loader.GetPreviousDayAsync();
+          tomorrow = await loader.GetNextDayAsync();
+        }
+        finally
+        {
+          this.StopLoading();
+        }
 
 
-        FlightCell.OnFlightSelectedDelegate buttonCallback = this.GetCellButtonCallback();            
-        var tableSource = new FlightsTableViewEnumerableDataSource(flights, buttonCallback);
-
+        UITableViewDataSource tableSource = null;
+        if (null == flights || 0 == flights.Count())
+        {
+          tableSource = new FlightsTableViewEmptyDataSource();
+        }
+        else
+        {
+          FlightCell.OnFlightSelectedDelegate buttonCallback = this.GetCellButtonCallback();            
+          tableSource = new FlightsTableViewEnumerableDataSource(flights, buttonCallback);
+        }
         this.FlightsTableView.DataSource = tableSource;
         this.FlightsTableView.ReloadData();
+
+
 
 
         this.TodayDateLabel.Text = DateConverter.StringFromDateForUI(this.CurrentSearchOptions.ForwardFlightDepartureDate);
@@ -173,7 +209,9 @@ namespace JetStreamIOS
           NSBundle.MainBundle.LocalizedString("PRICE_UNAVAILABLE", null);
       }
     }
-	
+    #endregion UITableViewController
+
+    #region Storyboard
     public override void PrepareForSegue(UIStoryboardSegue segue, NSObject sender)
     {
       base.PrepareForSegue(segue, sender);
@@ -183,13 +221,26 @@ namespace JetStreamIOS
         FlightListViewController targetController = segue.DestinationViewController as FlightListViewController;
         this.ShowReturnFlightsSearch(targetController);
       }
-      else if (StoryboardHelper.IsSegueToFlightSummary(segue))
+      else if (StoryboardHelper.IsSegueToOrderSummary(segue))
       {
-        UIViewController targetController = segue.DestinationViewController;
+        OrderSummaryViewController targetController = segue.DestinationViewController as OrderSummaryViewController;
         this.ShowFlightSummaryScreen(targetController);
       }
     }
+      
+    public override UIViewController GetViewControllerForUnwind(
+      Selector segueAction, 
+      UIViewController fromViewController, 
+      NSObject sender)
+    {
+      return this;
+    }
 
+    partial void unwindToFlightList(MonoTouch.UIKit.UIStoryboardSegue unwindSegue)
+    {
+      // TODO : apply filters
+    }
+      
     private void ShowReturnFlightsSearch(FlightListViewController targetController)
     {
       targetController.OrderToAccumulate = 
@@ -214,9 +265,28 @@ namespace JetStreamIOS
       targetController.IsFlyingBack = true;
     }
 
-    private void ShowFlightSummaryScreen(UIViewController targetController)
+    private void ShowFlightSummaryScreen(OrderSummaryViewController targetController)
     {
-      // TODO : initialize view controllers
+      // TODO : inject order data
     }
+  
+    #endregion Storyboard
+
+
+    #region Progress
+    private void StartLoading()
+    {
+      this.SetDefaultValues();
+
+      this.ProgressIndicator.Hidden = false;
+      this.ProgressIndicator.StartAnimating();
+    }
+
+    private void StopLoading()
+    {
+      this.ProgressIndicator.Hidden = true;
+      this.ProgressIndicator.StopAnimating();
+    }
+    #endregion Progress
   }
 }

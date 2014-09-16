@@ -4,6 +4,11 @@
 
   public interface IJetStreamFlight
   {
+    string FlightNumber
+    {
+      get;
+    }
+
     string DepartureAirportId
     {
       get;

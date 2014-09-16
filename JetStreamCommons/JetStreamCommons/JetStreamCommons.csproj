@@ -53,6 +53,7 @@
     <Compile Include="FlightSearch\DaySummary.cs" />
     <Compile Include="IFlightsLoader.cs" />
     <Compile Include="FlightSearch\FlightInputValidator.cs" />
+    <Compile Include="FlightFilter\IFlightFilterUserInput.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
@@ -68,5 +69,6 @@
     <Folder Include="Flight\" />
     <Folder Include="Airport\" />
     <Folder Include="FlightSearch\" />
+    <Folder Include="FlightFilter\" />
   </ItemGroup>
 </Project>
