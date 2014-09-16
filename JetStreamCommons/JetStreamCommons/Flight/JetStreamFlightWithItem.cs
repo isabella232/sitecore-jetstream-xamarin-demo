@@ -17,6 +17,14 @@
       set;
     }
 
+    public string FlightNumber
+    {
+      get
+      {
+        return this.Flight["Flight Number"].RawValue;
+      }
+    }
+
     public string DepartureAirportId
     {
       get
