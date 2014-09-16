@@ -1,4 +1,4 @@
-﻿namespace JetStreamCommons
+﻿namespace JetStreamIOS
 {
   using System;
   using MonoTouch.Foundation;
