@@ -1,5 +1,3 @@
-using Humanizer;
-
 namespace JetStreamIOS
 {
   using System;
@@ -91,7 +89,7 @@ namespace JetStreamIOS
       this.DurationValueSlider.MaxValue = Convert.ToSingle(maxDuration.Days + 1); // TODO : compute from flight list
       this.DurationValueSlider.Value = Convert.ToSingle(this.userInput.MaxDuration.TotalDays);
       this.DurationValueSlider.Continuous = false;
-      this.DurationValueLabel.Text = this.userInput.MaxDuration.Humanize();
+      this.DurationValueLabel.Text = DateConverter.StringFromTimeSpanForUI(this.userInput.MaxDuration);
 
       string strLatestTime = DateConverter.StringFromTimeForUI(this.userInput.LatestDepartureTime);
       this.LatestDepartureTimeButton.SetTitle(strLatestTime, UIControlState.Normal);
