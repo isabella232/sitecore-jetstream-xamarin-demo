@@ -78,7 +78,7 @@ namespace JetStreamIOS
     private void ApplyFilterSettingsToUI()
     {
       this.PriceValueSlider.MinValue = 0;
-      this.PriceValueSlider.MinValue = Convert.ToSingle(FAKE_MAX_PRICE); // TODO : compute from flight list
+      this.PriceValueSlider.MaxValue = Convert.ToSingle(FAKE_MAX_PRICE); // TODO : compute from flight list
       this.PriceValueSlider.Value = Convert.ToSingle(this.userInput.MaxPrice);
       this.PriceValueSlider.Continuous = false;
       this.PriceValueLabel.Text = this.userInput.MaxPrice.ToString("C");
@@ -86,8 +86,8 @@ namespace JetStreamIOS
 
       TimeSpan maxDuration = this.GetMaxFlightDuration();
       this.DurationValueSlider.MinValue = 0;
-      this.DurationValueSlider.MaxValue = Convert.ToSingle(maxDuration.Days + 1); // TODO : compute from flight list
-      this.DurationValueSlider.Value = Convert.ToSingle(this.userInput.MaxDuration.TotalDays);
+      this.DurationValueSlider.MaxValue = Convert.ToSingle(maxDuration.TotalHours + 1); // TODO : compute from flight list
+      this.DurationValueSlider.Value = Convert.ToSingle(this.userInput.MaxDuration.TotalHours);
       this.DurationValueSlider.Continuous = false;
       this.DurationValueLabel.Text = DateConverter.StringFromTimeSpanForUI(this.userInput.MaxDuration);
 
@@ -149,12 +149,18 @@ namespace JetStreamIOS
     #endregion Time Actions
 
     #region Slider Actions
-    partial void OnDurationValueChanged (MonoTouch.Foundation.NSObject sender)
+    partial void OnDurationValueChanged(MonoTouch.Foundation.NSObject sender)
     {
+      TimeSpan newValue = TimeSpan.FromHours(this.DurationValueSlider.Value);
+      this.userInput.MaxDuration = newValue;
+      this.DurationValueLabel.Text = DateConverter.StringFromTimeSpanForUI(newValue);
     }
 
-    partial void OnPriceValueChanged (MonoTouch.Foundation.NSObject sender)
+    partial void OnPriceValueChanged(MonoTouch.Foundation.NSObject sender)
     {
+      decimal newValue = Convert.ToDecimal(this.PriceValueSlider.Value);
+      this.userInput.MaxPrice = newValue;
+      this.PriceValueLabel.Text = newValue.ToString("C");
     }
     #endregion Slider Actions
 
