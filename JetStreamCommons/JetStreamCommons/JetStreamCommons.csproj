@@ -54,6 +54,7 @@
     <Compile Include="IFlightsLoader.cs" />
     <Compile Include="FlightSearch\FlightInputValidator.cs" />
     <Compile Include="FlightFilter\IFlightFilterUserInput.cs" />
+    <Compile Include="FlightFilter\MutableFlightsFilterSettings.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
