@@ -24,7 +24,12 @@ namespace JetStreamIOS.ViewControllers.FlightsTable
       this.flights = flights;
       this.onFlightSelectedCallback = onFlightSelectedCallback;
     }
-      
+     
+    private bool IsNoFlightsFound()
+    {
+      return ( 0 == this.flights.Count() );
+    }
+
     public override int NumberOfSections(UITableView tableView)
     {
       return 1;
@@ -36,6 +41,11 @@ namespace JetStreamIOS.ViewControllers.FlightsTable
     }
 
     public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
+    {
+      return this.GetFlightCell(tableView, indexPath);
+    }
+
+    private UITableViewCell GetFlightCell(UITableView tableView, NSIndexPath indexPath)
     {
       NSString reuseIdentifier = FlightCell.StaticReuseIdentifier();
       FlightCell newCell = tableView.DequeueReusableCell(reuseIdentifier) as FlightCell;

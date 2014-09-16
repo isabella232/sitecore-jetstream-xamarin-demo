@@ -43,15 +43,14 @@
 
 
     #region FlightSummary
-    public static bool IsSegueToFlightSummary(UIStoryboardSegue segue)
+    public static bool IsSegueToOrderSummary(UIStoryboardSegue segue)
     {
-      // TODO : verify
-      return false;
+      return "ToOrderSummary".Equals(segue.Identifier);
     }
       
-    public static void NavigateToReturnFlightSummaryViewController(UIViewController sourceViewController)
+    public static void NavigateToOrderSummaryViewController(UIViewController sourceViewController)
     {
-      // TODO : perform segue
+      sourceViewController.PerformSegue("ToOrderSummary", sourceViewController);
     }
     #endregion
   }

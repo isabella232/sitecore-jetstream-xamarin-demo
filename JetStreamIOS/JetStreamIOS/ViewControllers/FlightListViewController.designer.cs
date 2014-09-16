@@ -13,7 +13,13 @@ namespace JetStreamIOS
 	partial class FlightListViewController
 	{
 		[Outlet]
+		MonoTouch.UIKit.UIBarButtonItem FilterToolbarButton { get; set; }
+
+		[Outlet]
 		MonoTouch.UIKit.UITableView FlightsTableView { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIActivityIndicatorView ProgressIndicator { get; set; }
 
 		[Outlet]
 		MonoTouch.UIKit.UILabel TodayDateLabel { get; set; }
@@ -35,27 +41,25 @@ namespace JetStreamIOS
 
 		[Action ("OnYesterdayButtonPressed:")]
 		partial void OnYesterdayButtonPressed (MonoTouch.Foundation.NSObject sender);
+
+		[Action ("unwindToFlightList:")]
+		partial void unwindToFlightList (MonoTouch.UIKit.UIStoryboardSegue unwindSegue);
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (FilterToolbarButton != null) {
+				FilterToolbarButton.Dispose ();
+				FilterToolbarButton = null;
+			}
+
 			if (FlightsTableView != null) {
 				FlightsTableView.Dispose ();
 				FlightsTableView = null;
 			}
 
-			if (YesterdayPriceLabel != null) {
-				YesterdayPriceLabel.Dispose ();
-				YesterdayPriceLabel = null;
-			}
-
-			if (YesterdayDateLabel != null) {
-				YesterdayDateLabel.Dispose ();
-				YesterdayDateLabel = null;
-			}
-
-			if (TomorrowPriceLabel != null) {
-				TomorrowPriceLabel.Dispose ();
-				TomorrowPriceLabel = null;
+			if (TodayDateLabel != null) {
+				TodayDateLabel.Dispose ();
+				TodayDateLabel = null;
 			}
 
 			if (TomorrowDateLabel != null) {
@@ -63,9 +67,24 @@ namespace JetStreamIOS
 				TomorrowDateLabel = null;
 			}
 
-			if (TodayDateLabel != null) {
-				TodayDateLabel.Dispose ();
-				TodayDateLabel = null;
+			if (TomorrowPriceLabel != null) {
+				TomorrowPriceLabel.Dispose ();
+				TomorrowPriceLabel = null;
+			}
+
+			if (YesterdayDateLabel != null) {
+				YesterdayDateLabel.Dispose ();
+				YesterdayDateLabel = null;
+			}
+
+			if (YesterdayPriceLabel != null) {
+				YesterdayPriceLabel.Dispose ();
+				YesterdayPriceLabel = null;
+			}
+
+			if (ProgressIndicator != null) {
+				ProgressIndicator.Dispose ();
+				ProgressIndicator = null;
 			}
 		}
 	}

@@ -130,7 +130,7 @@ namespace JetStreamIOS
     #region Progress indicator
     private void ShowLoader()
     {
-      this.loadingOverlay = new LoadingOverlay (this.View.Bounds, NSBundle.MainBundle.LocalizedString ("Loading Data", null));
+      this.loadingOverlay = new LoadingOverlay(this.View.Bounds, NSBundle.MainBundle.LocalizedString ("Loading Data", null));
       this.View.Add (loadingOverlay);
     }
 

@@ -78,10 +78,9 @@
 ;
 
 
-/// flights list
 "PRICE_UNAVAILABLE" = "N/A";
 "DEPARTURE_DATE_FORMAT" = "Departs : {0}";
 "ARRIVAL_DATE_FORMAT" = "Arrives : {0}";
 
-//flight details
 "FLIGHT_DETAILS_ORDER_BUTTON_TITLE" = "Order";
+"NO_FLIGHTS_FOUND" = "No Flights Found";

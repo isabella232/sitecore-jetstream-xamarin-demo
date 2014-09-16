@@ -18,7 +18,7 @@ namespace JetStreamIOS
 
     public override void ViewDidLoad()
     {
-      base.ViewDidLoad ();
+      base.ViewDidLoad();
         
       if (null != this.CurrentSearchOptions)
       {
