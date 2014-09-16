@@ -176,6 +176,7 @@ namespace JetStreamIOS
         {
           flights = await loader.GetFlightsForTheGivenDateAsync();
           this.allFlights = flights;
+          flights = this.FilterFlights(flights);
 
           yesterday = await loader.GetPreviousDayAsync();
           tomorrow = await loader.GetNextDayAsync();
@@ -224,9 +225,56 @@ namespace JetStreamIOS
         return allFlights;
       }
 
-      return allFlights.Where(singleFlight =>
+      return allFlights.Where( (IJetStreamFlight singleFlight) =>
       {
-//        if (this.filterUserInput.IsRedEyeFlight.Equals(singleFlight.
+        if (!this.filterUserInput.IsFoodServiceIncluded.Equals(singleFlight.IsFoodServiceIncluded))
+        {
+          return false;
+        }
+        // TODO : uncomment when implemented
+        else if (!this.filterUserInput.IsRedEyeFlight.Equals(singleFlight.IsRedEyeFlight))
+        {
+          return false;
+        }
+        else if (!this.filterUserInput.IsInFlightWifiIncluded.Equals(singleFlight.IsInFlightWifiIncluded))
+        {
+          return false;
+        }
+        else if (!this.filterUserInput.IsPersonalEntertainmentIncluded.Equals(singleFlight.IsPersonalEntertainmentIncluded))
+        {
+          return false;
+        }
+
+
+        bool isPriceNotExceedsLimits = (singleFlight.Price <= this.filterUserInput.MaxPrice);
+        if (!isPriceNotExceedsLimits)
+        {
+          return false;
+        }
+
+
+        // TODO : uncomment when implemented
+//        bool isFlightDurationNotExceedsLimits = ( 1 != TimeSpan.Compare(singleFlight.Duration, this.filterUserInput.MaxDuration) );
+//        if (!isFlightDurationNotExceedsLimits)
+//        {
+//          return false;
+//        }
+
+        DateTime flightTime = singleFlight.DepartureTime;
+        DateTime minTime = this.filterUserInput.EarliestDepartureTime;
+        DateTime maxTime = this.filterUserInput.LatestDepartureTime;
+
+        int lowerLimitResult = DateTime.Compare(minTime, flightTime);
+        int upperLimitResult = DateTime.Compare(flightTime, maxTime);
+        bool isFlightTimeBetweenLimits = 
+        (
+          (1 != lowerLimitResult) && 
+          (1 != upperLimitResult)
+        );
+        if (!isFlightTimeBetweenLimits)
+        {
+          return false;
+        }
 
         return true;
 //        singleFlight.DepartureTime.

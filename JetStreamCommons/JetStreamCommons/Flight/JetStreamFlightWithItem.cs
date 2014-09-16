@@ -59,6 +59,7 @@
       }
     }
 
+    #region Timezone
     public TimeSpan Duration 
     { 
       get
@@ -70,6 +71,18 @@
         return this.ArrivalTime.Subtract(this.DepartureTime);
       }
     }
+
+    public bool IsRedEyeFlight
+    {
+      get
+      {
+        // TODO : add timezone computation
+
+        return false;
+      }
+    }
+    #endregion Timezone
+
 
     public decimal Price
     {
