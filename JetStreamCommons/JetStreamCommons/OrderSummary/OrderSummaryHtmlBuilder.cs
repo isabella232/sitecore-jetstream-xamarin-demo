@@ -68,25 +68,33 @@ namespace JetStreamCommons
 
     private string GetOneWayHtmlStringWithOrder(JetStreamOrder order)
     {
-      string templateHtmlString = this.OneWayHtmlTemlate();
+      string resultHtmlString = null;
+      try
+      {
+        string templateHtmlString = this.OneWayHtmlTemlate();
 
-      string departDate = this.LocalizedStringFromDate(order.DepartureFlight.DepartureTime);
+        string departDate = this.LocalizedStringFromDate(order.DepartureFlight.DepartureTime);
 
-      decimal fullPrice = order.DepartureFlight.Price * order.TicketsCount;
+        decimal fullPrice = order.DepartureFlight.Price * order.TicketsCount;
 
-      string resultHtmlString = String.Format(
-        templateHtmlString,
-        order.TicketsCount.ToString(),
-        order.DepartureAirport.City,
-        order.DepartureAirport.Country,
-        order.DepartureAirport.Code,
-        order.DestinationAirport.City,
-        order.DestinationAirport.Country,
-        order.DestinationAirport.Code,
-        departDate,
-        order.DepartureFlight.FlightNumber,
-        fullPrice.ToString()
-      );
+        resultHtmlString = String.Format(
+          templateHtmlString,
+          order.TicketsCount.ToString(),
+          order.DepartureAirport.City,
+          order.DepartureAirport.Country,
+          order.DepartureAirport.Code,
+          order.DestinationAirport.City,
+          order.DestinationAirport.Country,
+          order.DestinationAirport.Code,
+          departDate,
+          order.DepartureFlight.FlightNumber,
+          fullPrice.ToString()
+        );
+      }
+      catch
+      {
+        resultHtmlString = null;
+      }
 
       return resultHtmlString;
     }
@@ -95,31 +103,39 @@ namespace JetStreamCommons
 
     private string GetRoundTripHtmlStringWithOrder(JetStreamOrder order)
     {
-      string templateHtmlString = this.RoundTripHtmlTemlate();
+      string resultHtmlString = null;
 
-      string departDate = this.LocalizedStringFromDate(order.DepartureFlight.DepartureTime);
-      string returnDate = this.LocalizedStringFromDate(order.ReturnFlight.DepartureTime);
+      try
+      {
+        string templateHtmlString = this.RoundTripHtmlTemlate();
 
-      decimal departPrice = order.DepartureFlight.Price * order.TicketsCount;
-      decimal returnPrice = order.ReturnFlight.Price * order.TicketsCount;
-      decimal fullPrice = departPrice + returnPrice;
+        string departDate = this.LocalizedStringFromDate(order.DepartureFlight.DepartureTime);
+        string returnDate = this.LocalizedStringFromDate(order.ReturnFlight.DepartureTime);
 
-      string resultHtmlString = String.Format (templateHtmlString,
-        order.TicketsCount.ToString (),
-        order.DepartureAirport.City,
-        order.DepartureAirport.Country,
-        order.DepartureAirport.Code,
-        order.DestinationAirport.City,
-        order.DestinationAirport.Country,
-        order.DestinationAirport.Code,
-        departDate,
-        order.DepartureFlight.FlightNumber,
-        returnDate,
-        order.ReturnFlight.FlightNumber,
-        departPrice.ToString (),
-        returnPrice.ToString (),
-        fullPrice.ToString ());
+        decimal departPrice = order.DepartureFlight.Price * order.TicketsCount;
+        decimal returnPrice = order.ReturnFlight.Price * order.TicketsCount;
+        decimal fullPrice = departPrice + returnPrice;
 
+        resultHtmlString = String.Format (templateHtmlString,
+          order.TicketsCount.ToString (),
+          order.DepartureAirport.City,
+          order.DepartureAirport.Country,
+          order.DepartureAirport.Code,
+          order.DestinationAirport.City,
+          order.DestinationAirport.Country,
+          order.DestinationAirport.Code,
+          departDate,
+          order.DepartureFlight.FlightNumber,
+          returnDate,
+          order.ReturnFlight.FlightNumber,
+          departPrice.ToString (),
+          returnPrice.ToString (),
+          fullPrice.ToString ());
+      }
+      catch
+      {
+        resultHtmlString = null;
+      }
       return resultHtmlString;
     }
   }
