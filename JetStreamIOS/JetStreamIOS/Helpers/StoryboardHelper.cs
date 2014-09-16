@@ -39,6 +39,11 @@
     {
       sourceViewController.PerformSegue("ToReturnFlightSearch", sourceViewController);
     }
+
+    public static bool IsSegueToShowFlightDetails(UIStoryboardSegue segue)
+    {
+      return "ToFlightDetails".Equals(segue.Identifier);
+    }
     #endregion Return Flight List
 
 
