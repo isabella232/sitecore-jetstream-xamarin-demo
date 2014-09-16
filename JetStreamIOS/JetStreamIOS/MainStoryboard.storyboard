@@ -579,7 +579,7 @@
                                             <outlet property="DepartureTimeLabel" destination="r6M-xH-3sd" id="78q-E7-MhH"/>
                                             <outlet property="OrderButton" destination="awS-Po-obM" id="sYE-rq-ryx"/>
                                             <outlet property="PriceLabel" destination="AkD-LD-IkT" id="FkJ-ZB-xX2"/>
-                                            <segue destination="Fy0-cK-cVE" kind="push" id="xQ5-K3-SQH"/>
+                                            <segue destination="Fy0-cK-cVE" kind="push" identifier="ToFlightDetails" id="xQ5-K3-SQH"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
