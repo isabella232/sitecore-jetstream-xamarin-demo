@@ -10,4 +10,11 @@
   <string name="text_default_instance_url">http://jetstream.test24dk1.dk.sitecore.net/</string>
   <string name="text_default_login"></string>
   <string name="text_default_password"></string>
+
+  <string-array name="fragment_names_array">
+    <item>Book a flight</item>
+    <item>Settings</item>
+    <item>About</item>
+  </string-array>
+
 </resources>

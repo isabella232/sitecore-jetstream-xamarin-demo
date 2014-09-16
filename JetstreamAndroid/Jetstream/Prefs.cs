@@ -81,7 +81,7 @@ namespace JetstreamAndroid
         bool isAuthentiated = !string.IsNullOrEmpty(this.Login) && !string.IsNullOrEmpty(this.Password);
 
         ISitecoreWebApiSession session;
-        if(isAuthentiated)
+        if (isAuthentiated)
         {
           var credentials = new Credentials(this.Login, this.Password);
 
@@ -94,7 +94,7 @@ namespace JetstreamAndroid
           session = SitecoreWebApiSessionBuilder.AnonymousSessionWithHost(this.InstanceUrl)
             .BuildSession();
         }
-          
+
         return session;
       }
     }
