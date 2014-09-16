@@ -18,7 +18,7 @@
     private DateTime flightDate;
 
     public FlightSearchLoader(
-      IFlightsLoader flightsDataSource, 
+      IFlightsLoader flightsDataSource,
       IJetStreamAirport sourceAirport,
       IJetStreamAirport destinationAirport,
       DateTime flightDate)
@@ -29,7 +29,7 @@
       this.flightDate = flightDate;
     }
 
-    public async Task< IEnumerable<IJetStreamFlight> > GetFlightsForTheGivenDateAsync()
+    public async Task<IEnumerable<IJetStreamFlight>> GetFlightsForTheGivenDateAsync()
     {
       DateTime today = this.flightDate.Date;
 
