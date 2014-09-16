@@ -136,6 +136,7 @@
     <Compile Include="ViewControllers\FlightDetailsViewController.designer.cs">
       <DependentUpon>FlightDetailsViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\BadgeNames.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard.storyboard" />
@@ -149,6 +150,10 @@
     <BundleResource Include="Resources\helpNavButtonIcon%402x.png" />
     <BundleResource Include="Resources\en.lproj\SummaryTemplate.html" />
     <BundleResource Include="Resources\en.lproj\SummaryTemplateDEMO.html" />
+    <BundleResource Include="Resources\en.lproj\flightDetailsTemplate.html" />
+    <BundleResource Include="Resources\bag.png" />
+    <BundleResource Include="Resources\crow.png" />
+    <BundleResource Include="Resources\drink.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
   <ItemGroup>
@@ -167,5 +172,6 @@
     <Folder Include="Resources\en.lproj\" />
     <Folder Include="ViewControllers\SearchAirports\" />
     <Folder Include="ViewControllers\FlightsTable\" />
+    <Folder Include="Resources\Badges\" />
   </ItemGroup>
 </Project>
