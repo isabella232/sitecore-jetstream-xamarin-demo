@@ -38,12 +38,20 @@ namespace JetStreamUnitTests
       }
     }
 
+    public string Country { get; set; }
+
     public string Name
     {
       get
       {
         return this.privateName;
       }
+    }
+
+    public string Code
+    {
+      get;
+      set;
     }
   }
 }
