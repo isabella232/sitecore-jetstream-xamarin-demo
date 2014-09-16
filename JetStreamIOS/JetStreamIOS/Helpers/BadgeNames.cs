@@ -4,17 +4,17 @@ namespace JetStreamIOS
 {
   public static class BadgeNames
   {
-    public static void BagBadgeResourceName()
+    public static string BagBadgeResourceName()
     {
       return "bag";
     }
 
-    public static void CrowBadgeResourceName()
+    public static string CrowBadgeResourceName()
     {
       return "crow";
     }
 
-    public static void DrinkBadgeResourceName()
+    public static string DrinkBadgeResourceName()
     {
       return "drink";
     }
