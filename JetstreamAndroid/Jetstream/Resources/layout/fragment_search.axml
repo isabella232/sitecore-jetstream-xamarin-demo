@@ -71,17 +71,18 @@
             android:text="Depart"
             android:textAppearance="?android:attr/textAppearanceMedium" />
         <Button
-            android:id="@+id/button1"
+            android:id="@+id/button_depart_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text=".." />
         <TextView
+            android:id="@+id/textview_return_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Return"
             android:textAppearance="?android:attr/textAppearanceMedium" />
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/button_return_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text=".." />
