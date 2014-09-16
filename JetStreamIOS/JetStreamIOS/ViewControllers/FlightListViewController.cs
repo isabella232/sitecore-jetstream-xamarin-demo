@@ -36,6 +36,7 @@ namespace JetStreamIOS
 
     public override void ViewWillAppear(bool animated)
     {
+      base.ViewWillAppear(animated);
       this.StopLoading();
 
       if (null == this.CurrentSearchOptions)
