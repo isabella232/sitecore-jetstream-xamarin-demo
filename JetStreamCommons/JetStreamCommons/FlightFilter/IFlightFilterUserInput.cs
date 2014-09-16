@@ -1,4 +1,4 @@
-﻿namespace JetStreamCommons
+﻿namespace JetStreamCommons.FlightFilter
 {
   using System;
 
