@@ -17,4 +17,18 @@
     <item>About</item>
   </string-array>
 
+  <string-array name="number_of_tickets">
+    <item>1</item>
+    <item>2</item>
+    <item>3</item>
+    <item>4</item>
+    <item>5</item>
+  </string-array>
+
+  <string-array name="ticket_class">
+    <item>Bussiness</item>
+    <item>Economy</item>
+    <item>First Class</item>
+  </string-array>
+
 </resources>

@@ -37,6 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_gravity="center"
         android:weightSum="2">
 
       <LinearLayout
@@ -54,7 +55,9 @@
 
         <Spinner
             android:id="@+id/spinner_number_of_tickets"
+            android:entries="@array/number_of_tickets"
             android:layout_width="wrap_content"
+            android:minWidth="100dp"
             android:layout_height="wrap_content" />
       </LinearLayout>
 
@@ -73,6 +76,8 @@
 
         <Spinner
             android:id="@+id/spinner_classes"
+            android:entries="@array/ticket_class"
+            android:gravity="right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
       </LinearLayout>

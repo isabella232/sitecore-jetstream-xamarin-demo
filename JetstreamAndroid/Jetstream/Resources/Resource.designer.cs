@@ -34,6 +34,12 @@ namespace JetstreamAndroid
 			// aapt resource value: 0x7f050000
 			public const int fragment_names_array = 2131034112;
 			
+			// aapt resource value: 0x7f050001
+			public const int number_of_tickets = 2131034113;
+			
+			// aapt resource value: 0x7f050002
+			public const int ticket_class = 2131034114;
+			
 			static Array()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
