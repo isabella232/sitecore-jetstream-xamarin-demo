@@ -48,6 +48,11 @@
     {
       get;
     }
+
+    TimeSpan Duration 
+    { 
+      get;
+    }
   }
 }
 
