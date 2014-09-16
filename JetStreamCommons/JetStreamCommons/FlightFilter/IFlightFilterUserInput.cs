@@ -6,7 +6,7 @@
   {
     decimal MaxPrice { get; }
     DateTime EarliestDepartureTime { get; }
-    DateTime LatestArrivalTime { get; }
+    DateTime LatestDepartureTime { get; }
     TimeSpan MaxDuration {get;}
 
     bool IsRedEyeFlight {get;}
