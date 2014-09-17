@@ -3,7 +3,7 @@ SOLUTIONS_DIR="$LAUNCH_DIR/Solutions"
 RELEASE_DIR="$LAUNCH_DIR/JetStreamIOS/JetStreamIOS/bin/iPhone/Release"
 IPA_FILE="$RELEASE_DIR/JetStreamIOS.ipa"
 
-MDTOOL_EXE="/Applications/Xamarin\ Studio.app/Contents/MacOS/mdtool"
+MDTOOL_EXE="/Applications/Xamarin Studio.app/Contents/MacOS/mdtool"
 
 
 echo "LAUNCH_DIR - $LAUNCH_DIR"
