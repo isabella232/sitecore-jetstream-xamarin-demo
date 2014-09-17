@@ -195,8 +195,6 @@ namespace JetStreamIOS
         {
           flights = await loader.GetFlightsForTheGivenDateAsync();
           this.allFlights = flights;
-
-          var allFlightsArrayForDebug = this.allFlights.ToArray();
           flights = this.FilterFlights(flights);
 
           yesterday = await loader.GetPreviousDayAsync();
