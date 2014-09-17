@@ -259,10 +259,15 @@ namespace JetStreamIOS
 
     partial void unwindToFlightList(MonoTouch.UIKit.UIStoryboardSegue unwindSegue)
     {
-      // TODO : apply filters
       FlightsFilterViewController filterController = unwindSegue.SourceViewController as FlightsFilterViewController;
       this.filterUserInput = new MutableFlightsFilterSettings(filterController.FilterData);
 
+      this.ReloadData();
+    }
+
+    partial void unwindToFlightListWithNoFilters (MonoTouch.UIKit.UIStoryboardSegue unwindSegue)
+    {
+      this.filterUserInput = null;
       this.ReloadData();
     }
       

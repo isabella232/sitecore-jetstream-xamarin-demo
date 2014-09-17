@@ -44,6 +44,9 @@ namespace JetStreamIOS
 
 		[Action ("unwindToFlightList:")]
 		partial void unwindToFlightList (MonoTouch.UIKit.UIStoryboardSegue unwindSegue);
+
+		[Action ("unwindToFlightListWithNoFilters:")]
+		partial void unwindToFlightListWithNoFilters (MonoTouch.UIKit.UIStoryboardSegue unwindSegue);
 		
 		void ReleaseDesignerOutlets ()
 		{
@@ -55,6 +58,11 @@ namespace JetStreamIOS
 			if (FlightsTableView != null) {
 				FlightsTableView.Dispose ();
 				FlightsTableView = null;
+			}
+
+			if (ProgressIndicator != null) {
+				ProgressIndicator.Dispose ();
+				ProgressIndicator = null;
 			}
 
 			if (TodayDateLabel != null) {
@@ -80,11 +88,6 @@ namespace JetStreamIOS
 			if (YesterdayPriceLabel != null) {
 				YesterdayPriceLabel.Dispose ();
 				YesterdayPriceLabel = null;
-			}
-
-			if (ProgressIndicator != null) {
-				ProgressIndicator.Dispose ();
-				ProgressIndicator = null;
 			}
 		}
 	}

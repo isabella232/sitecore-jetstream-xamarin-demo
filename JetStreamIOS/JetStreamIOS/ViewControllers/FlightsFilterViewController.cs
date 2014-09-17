@@ -66,6 +66,12 @@ namespace JetStreamIOS
 
     private void LocalizeUI()
     {
+      string doneButtonTitle = NSBundle.MainBundle.LocalizedString("APPLY_SETTINGS_BUTTON_TITLE", null); 
+      this.DoneButton.SetTitle(doneButtonTitle, UIControlState.Normal);
+
+      string cancelButtonTitle = NSBundle.MainBundle.LocalizedString("CLEAR_FILTERS_BUTTON_TITLE", null); 
+      this.CancelButton.SetTitle(cancelButtonTitle, UIControlState.Normal);
+
       this.PriceTitleLabel.Text = NSBundle.MainBundle.LocalizedString("PRICE_TITLE", null);
       this.EarliestDepartureTimeTitleLabel.Text = NSBundle.MainBundle.LocalizedString("EARLIEST_DEPARTURE_TITLE", null);
       this.LatestDepartureTimeTitleLabel.Text = NSBundle.MainBundle.LocalizedString("LATEST_DEPARTURE_TITLE", null);
@@ -171,7 +177,17 @@ namespace JetStreamIOS
       // IDLE for Interface Builder
     }
 
+    partial void OnCancelButtonTapped (MonoTouch.Foundation.NSObject sender)
+    {
+      this.userInput = null;
+    }
+
     partial void unwindToFlightList(MonoTouch.UIKit.UIStoryboardSegue unwindSegue)
+    {
+      // IDLE for Interface Builder
+    }
+
+    partial void unwindToFlightListWithNoFilters (MonoTouch.UIKit.UIStoryboardSegue unwindSegue)
     {
       // IDLE for Interface Builder
     }

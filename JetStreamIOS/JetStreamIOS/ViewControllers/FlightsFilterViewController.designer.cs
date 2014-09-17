@@ -13,6 +13,9 @@ namespace JetStreamIOS
 	partial class FlightsFilterViewController
 	{
 		[Outlet]
+		MonoTouch.UIKit.UIButton CancelButton { get; set; }
+
+		[Outlet]
 		MonoTouch.UIKit.UIButton DoneButton { get; set; }
 
 		[Outlet]
@@ -69,6 +72,9 @@ namespace JetStreamIOS
 		[Outlet]
 		MonoTouch.UIKit.UISwitch WifiValueSwitch { get; set; }
 
+		[Action ("OnCancelButtonTapped:")]
+		partial void OnCancelButtonTapped (MonoTouch.Foundation.NSObject sender);
+
 		[Action ("OnDoneButtonTapped:")]
 		partial void OnDoneButtonTapped (MonoTouch.Foundation.NSObject sender);
 
@@ -98,27 +104,15 @@ namespace JetStreamIOS
 
 		[Action ("unwindToFlightList:")]
 		partial void unwindToFlightList (MonoTouch.UIKit.UIStoryboardSegue unwindSegue);
+
+		[Action ("unwindToFlightListWithNoFilters:")]
+		partial void unwindToFlightListWithNoFilters (MonoTouch.UIKit.UIStoryboardSegue unwindSegue);
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (LatestDepartureTimeButton != null) {
-				LatestDepartureTimeButton.Dispose ();
-				LatestDepartureTimeButton = null;
-			}
-
-			if (LatestDepartureTimeTitleLabel != null) {
-				LatestDepartureTimeTitleLabel.Dispose ();
-				LatestDepartureTimeTitleLabel = null;
-			}
-
-			if (EarliestDepartureTimeButton != null) {
-				EarliestDepartureTimeButton.Dispose ();
-				EarliestDepartureTimeButton = null;
-			}
-
-			if (EarliestDepartureTimeTitleLabel != null) {
-				EarliestDepartureTimeTitleLabel.Dispose ();
-				EarliestDepartureTimeTitleLabel = null;
+			if (CancelButton != null) {
+				CancelButton.Dispose ();
+				CancelButton = null;
 			}
 
 			if (DoneButton != null) {
@@ -141,6 +135,16 @@ namespace JetStreamIOS
 				DurationValueSlider = null;
 			}
 
+			if (EarliestDepartureTimeButton != null) {
+				EarliestDepartureTimeButton.Dispose ();
+				EarliestDepartureTimeButton = null;
+			}
+
+			if (EarliestDepartureTimeTitleLabel != null) {
+				EarliestDepartureTimeTitleLabel.Dispose ();
+				EarliestDepartureTimeTitleLabel = null;
+			}
+
 			if (FoodServiceTitleLabel != null) {
 				FoodServiceTitleLabel.Dispose ();
 				FoodServiceTitleLabel = null;
@@ -149,6 +153,16 @@ namespace JetStreamIOS
 			if (FoodServiceValueSwitch != null) {
 				FoodServiceValueSwitch.Dispose ();
 				FoodServiceValueSwitch = null;
+			}
+
+			if (LatestDepartureTimeButton != null) {
+				LatestDepartureTimeButton.Dispose ();
+				LatestDepartureTimeButton = null;
+			}
+
+			if (LatestDepartureTimeTitleLabel != null) {
+				LatestDepartureTimeTitleLabel.Dispose ();
+				LatestDepartureTimeTitleLabel = null;
 			}
 
 			if (PersonalEntertainmentTitleLabel != null) {
