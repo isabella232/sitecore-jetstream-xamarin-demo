@@ -5,6 +5,7 @@
   using Android.OS;
   using Android.Views;
   using Android.Widget;
+  using JetstreamAndroid.Adapters;
 
   public class BookFlightFragment : Fragment
   {
@@ -43,8 +44,19 @@
       };
 
       this.UpdateDepartDate(DateTime.Today);
-
+      this.InitFields(root);
       return root;
+    }
+
+    private void InitFields(View root)
+    {
+      var autoCompleteAdapter = new AutoCompleteAdapter(Activity, Android.Resource.Layout.SimpleDropDownItem1Line, new string[]{});
+
+      var fromField = root.FindViewById<AutoCompleteTextView>(Resource.Id.field_from_location);
+      var toField = root.FindViewById<AutoCompleteTextView>(Resource.Id.field_to_location);
+
+      fromField.Adapter = autoCompleteAdapter;
+      toField.Adapter = autoCompleteAdapter;
     }
 
     private void InitializeButtons(View root)
