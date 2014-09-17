@@ -360,7 +360,7 @@ namespace JetStreamIOS
 
         this.ProgressIndicator.Hidden = false;
         this.ProgressIndicator.StartAnimating();
-      }
+      });
     }
 
     private void StopLoading()

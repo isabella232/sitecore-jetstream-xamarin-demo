@@ -54,8 +54,10 @@
     <Compile Include="IFlightsLoader.cs" />
     <Compile Include="FlightSearch\FlightInputValidator.cs" />
     <Compile Include="FlightFilter\IFlightFilterUserInput.cs" />
+    <Compile Include="HtmlBuilders\OrderSummaryHtmlBuilder.cs" />
+    <Compile Include="HtmlBuilders\FlightDetailsHtmlBuilder.cs" />
+    <Compile Include="Helpers\BadgeNames.cs" />
     <Compile Include="FlightFilter\MutableFlightsFilterSettings.cs" />
-    <Compile Include="OrderSummary\OrderSummaryHtmlBuilder.cs" />
     <Compile Include="FlightFilter\FlightFilter.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
@@ -73,6 +75,6 @@
     <Folder Include="Airport\" />
     <Folder Include="FlightSearch\" />
     <Folder Include="FlightFilter\" />
-    <Folder Include="OrderSummary\" />
+    <Folder Include="HtmlBuilders\" />
   </ItemGroup>
 </Project>

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace JetStreamIOS
+namespace JetStreamCommons
 {
   public static class BadgeNames
   {
