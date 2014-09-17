@@ -82,55 +82,6 @@ namespace JetStreamIOS
       this.actionSheetDatePicker.DatePicker.Mode = UIDatePickerMode.Date;   
     }
 
-    private async void SearchTickets()
-    {
-      SearchFlightsRequest request = null;
-
-      try
-      {
-        request = this.searchRequestBuilder.Build();
-      }
-      catch(ArgumentException e) 
-      {
-        string title = NSBundle.MainBundle.LocalizedString("TITLE", null);
-        string message;
-        if (null != e.ParamName)
-        {
-          message = NSBundle.MainBundle.LocalizedString(e.ParamName, null);
-        }
-        else
-        {
-          message = NSBundle.MainBundle.LocalizedString(e.Message, null);
-        }
-
-        AlertHelper.ShowLocalizedAlertWithOkOption(title, message);
-        return;
-      }
-
-      //TODO: show flights list VC here
-      //TODO: move this to flights list VC and make this method sync
-      try
-      {
-        // It will automatically get values from the NSUserDefaults singleton
-        var endpoint = new InstanceSettings();
-
-        // It will be disposed by RestManager
-        var session = endpoint.GetSession();
-        using (var restManager = new RestManager(session))
-        {
-          ScItemsResponse result = await restManager.SearchDepartTicketsWithRequest(request);
-
-          string flightsCountFormat = NSBundle.MainBundle.LocalizedString("FLIGHTS_COUNT_FORMAT", null);
-          string flightsCountMessage = string.Format(flightsCountFormat, result.ResultCount.ToString());
-          AlertHelper.ShowLocalizedAlertWithOkOption("RESULT_TITLE_ALERT", flightsCountMessage);
-        }
-      }
-      catch
-      {
-        AlertHelper.ShowLocalizedAlertWithOkOption("FAILURE_ALERT_TITLE", "FLIGHTS_DOWNLOAD_FAILED_ALERT_MESSAGE");
-      }
-    }
-
     #region Events
     partial void OnSearchButtonTouched(MonoTouch.UIKit.UIButton sender)
     {
