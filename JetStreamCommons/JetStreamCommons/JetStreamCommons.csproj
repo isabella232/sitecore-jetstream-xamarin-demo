@@ -56,6 +56,7 @@
     <Compile Include="FlightFilter\IFlightFilterUserInput.cs" />
     <Compile Include="FlightFilter\MutableFlightsFilterSettings.cs" />
     <Compile Include="OrderSummary\OrderSummaryHtmlBuilder.cs" />
+    <Compile Include="FlightFilter\FlightFilter.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
