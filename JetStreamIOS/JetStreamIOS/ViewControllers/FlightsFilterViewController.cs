@@ -119,7 +119,7 @@ namespace JetStreamIOS
 
 
       DateTime departureDateMidnight = this.DepartureLocalDate.Date;
-      DateTime departureDateEnd = departureDateMidnight.AddDays(1);
+      DateTime departureDateEnd = departureDateMidnight.AddDays(1).AddSeconds(-1);
 
       this.earlyDepartureActionSheetDatePicker.DatePicker.MinimumDate = departureDateMidnight;
       this.earlyDepartureActionSheetDatePicker.DatePicker.MaximumDate = departureDateEnd;
@@ -144,7 +144,7 @@ namespace JetStreamIOS
 
         DateTime localNowDate = DateTime.Today;
         result.EarliestDepartureTime = localNowDate;
-        result.LatestDepartureTime = localNowDate.AddDays(1);
+        result.LatestDepartureTime = localNowDate.AddDays(1).AddSeconds(-1);
       }
 
       return result;
