@@ -105,36 +105,13 @@
 
       return timeZone;
     }
-
-
-
-    public async Task<ScItemsResponse> SearchDepartTicketsWithRequest(SearchFlightsRequest request)
-    {
-      return await this.SearchTicketsWithRequest (request, true);
-    }
-
-    private async Task<ScItemsResponse> SearchReturnTicketsWithRequest(SearchFlightsRequest request)
-    {
-      return await this.SearchTicketsWithRequest(request, false);
-    }
-
-    private async Task<ScItemsResponse> SearchTicketsWithRequest(SearchFlightsRequest request, bool isDepart)
+      
+    private async Task<ScItemsResponse> SearchTicketsWithRequest(SearchFlightsRequest request)
     {
       var session = this.GetSession ();
 
-      string testQuery;
-
-      if (isDepart)
-      {
-        testQuery = QueryHelpers.QueryToSearchDepartFlightsWithRequest (request); 
-      }
-      else
-      {
-        testQuery = QueryHelpers.QueryToSearchReturnFlightsWithRequest (request); 
-      }
-
-      var readRequest = ItemWebApiRequestBuilder.ReadItemsRequestWithSitecoreQuery(testQuery)
-        .Build();
+      string testQuery = QueryHelpers.QueryToSearchDepartFlightsWithRequest (request); 
+      var readRequest = ItemWebApiRequestBuilder.ReadItemsRequestWithSitecoreQuery(testQuery).Build();
 
       ScItemsResponse responce = await session.ReadItemAsync(readRequest);
 
@@ -150,7 +127,10 @@
         request.DepartDate.Value, 
         null);
 
-      ScItemsResponse flightItems = await this.SearchDepartTicketsWithRequest(requestCopy);
+      ScItemsResponse flightItems = await this.SearchTicketsWithRequest(requestCopy);
+
+
+
 
       // TODO : maybe wrap in Task.Factory.StartNew()
       IEnumerable<IJetStreamFlight> result = flightItems.Select(item => new JetStreamFlightWithItem(item));
