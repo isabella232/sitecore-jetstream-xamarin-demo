@@ -6,8 +6,8 @@
 
   public interface IJetStreamFlightWithAirports : IJetStreamFlight
   {
-    IJetStreamAirport DepartureAirport { get; }
-    IJetStreamAirport ArrivalAirport { get; }
+    IJetStreamAirportWithTimeZone DepartureAirport { get; }
+    IJetStreamAirportWithTimeZone ArrivalAirport { get; }
   }
 }
 

@@ -129,11 +129,33 @@
 
       ScItemsResponse flightItems = await this.SearchTicketsWithRequest(requestCopy);
 
+      var result = new List<IJetStreamFlight>();
+      foreach (ISitecoreItem singleFlightItem in flightItems)
+      {
+        string departureAirportId = singleFlightItem["Departure Airport"].RawValue;
+        IJetStreamAirportWithTimeZone departureAirport = await this.LoadAirportWithTimezoneByIdAsync(departureAirportId);
+
+        string arrivalAirportId = singleFlightItem["Arrival Airport"].RawValue;
+        IJetStreamAirportWithTimeZone arrivalAirport = await this.LoadAirportWithTimezoneByIdAsync(arrivalAirportId);
 
 
+        var newFlight = new JetStreamFlightWithItem(singleFlightItem, departureAirport, arrivalAirport);
+        result.Add(newFlight);
+      }
 
-      // TODO : maybe wrap in Task.Factory.StartNew()
-      IEnumerable<IJetStreamFlight> result = flightItems.Select(item => new JetStreamFlightWithItem(item));
+      return result;
+    }
+
+    private async Task<IJetStreamAirportWithTimeZone> LoadAirportWithTimezoneByIdAsync(string airportId)
+    {
+      var session = this.GetSession();
+      var request = ItemWebApiRequestBuilder.ReadItemsRequestWithId(airportId).Build();
+
+      ScItemsResponse airportResponse = await session.ReadItemAsync(request);
+      ISitecoreItem airportItem = airportResponse[0];
+      ITimeZoneInfo timezone = await this.TimezoneForAirportAsync(airportItem);
+
+      var result = new JetStreamAirportWithItem(airportItem, timezone);
       return result;
     }
     #endregion
