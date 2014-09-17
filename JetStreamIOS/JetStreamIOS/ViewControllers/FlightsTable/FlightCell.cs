@@ -18,14 +18,23 @@ namespace JetStreamIOS
 
     partial void OrderButtonPressed (MonoTouch.Foundation.NSObject sender)
     {
-      this.OnFlightSelected(this.flight);
+      this.OrderThisFlight();
+    }
+
+    public void OrderThisFlight()
+    {
+      this.OnFlightSelected(this.Flight);
     }
 
     #endregion Events
 
 
     #region Model
-    private IJetStreamFlight flight;
+    public IJetStreamFlight Flight
+    {
+      get;
+      private set;
+    }
 
     public static NSString StaticReuseIdentifier()
     {
@@ -35,7 +44,7 @@ namespace JetStreamIOS
 
     public void SetModel(IJetStreamFlight flight)
     {
-      this.flight = flight;
+      this.Flight = flight;
 
       this.PriceLabel.Text = flight.Price.ToString("C");
 

@@ -23,10 +23,12 @@ namespace JetStreamIOS
     #region Injected Variables
     private bool IsFlyingBack { get; set; }
 
-    private IFlightSearchUserInput CurrentSearchOptions { get; set; }
-    private JetStreamOrder OrderToAccumulate { get; set; }
-
     public IFlightSearchUserInput SearchOptionsFromUser { get; set; }
+    private IFlightSearchUserInput CurrentSearchOptions { get; set; }
+
+    private JetStreamOrder OrderToAccumulate { get; set; } //user order!!!
+
+
     #endregion Injected Variables
 
     #region UIViewController
@@ -44,7 +46,13 @@ namespace JetStreamIOS
       }
       if (null == this.OrderToAccumulate)
       {
-        this.OrderToAccumulate = new JetStreamOrder(null, null);
+        this.OrderToAccumulate = new JetStreamOrder(
+          null, 
+          null,
+          this.CurrentSearchOptions.SourceAirport,
+          this.CurrentSearchOptions.DestinationAirport,
+          this.CurrentSearchOptions.TicketsCount
+        );
       }
 
       this.SetDefaultValues();
@@ -97,7 +105,6 @@ namespace JetStreamIOS
         newDay.TicketsCount = this.CurrentSearchOptions.TicketsCount;
       }
 
-
       // changed values
       {
         newDay.ReturnFlightDepartureDate = null;
@@ -112,7 +119,13 @@ namespace JetStreamIOS
     #region Cell Input
     private void OnForwardFlightSelected(IJetStreamFlight departureFlight)
     {
-      this.OrderToAccumulate = new JetStreamOrder(departureFlight, this.OrderToAccumulate.ReturnFlight);
+      this.OrderToAccumulate = new JetStreamOrder(
+        departureFlight, 
+        this.OrderToAccumulate.ReturnFlight,
+        this.OrderToAccumulate.DepartureAirport,
+        this.OrderToAccumulate.DestinationAirport,
+        this.OrderToAccumulate.TicketsCount
+      );
 
       if (this.SearchOptionsFromUser.IsRoundTrip)
       {
@@ -126,7 +139,13 @@ namespace JetStreamIOS
 
     private void OnReturnFlightSelected(IJetStreamFlight returnFlight)
     {
-      this.OrderToAccumulate = new JetStreamOrder(this.OrderToAccumulate.DepartureFlight, returnFlight);
+      this.OrderToAccumulate = new JetStreamOrder(
+        this.OrderToAccumulate.DepartureFlight, 
+        returnFlight,
+        this.OrderToAccumulate.DepartureAirport,
+        this.OrderToAccumulate.DestinationAirport,
+        this.OrderToAccumulate.TicketsCount
+      );
       StoryboardHelper.NavigateToOrderSummaryViewController(this);
     }
     #endregion Cell Input
@@ -226,6 +245,15 @@ namespace JetStreamIOS
         OrderSummaryViewController targetController = segue.DestinationViewController as OrderSummaryViewController;
         this.ShowFlightSummaryScreen(targetController);
       }
+      else if (StoryboardHelper.IsSegueToShowFlightDetails(segue))
+      {
+        if (sender.GetType () == typeof(FlightCell))
+        {
+          FlightCell cell = sender as FlightCell;
+          FlightDetailsViewController targetController = segue.DestinationViewController as FlightDetailsViewController;
+          this.ShowFlightDetailsScreen(targetController, cell);
+        }
+      }
     }
       
     public override UIViewController GetViewControllerForUnwind(
@@ -246,7 +274,11 @@ namespace JetStreamIOS
       targetController.OrderToAccumulate = 
         new JetStreamOrder(
           this.OrderToAccumulate.DepartureFlight, 
-          this.OrderToAccumulate.ReturnFlight);
+          this.OrderToAccumulate.ReturnFlight,
+          this.OrderToAccumulate.DepartureAirport,
+          this.OrderToAccumulate.DestinationAirport,
+          this.OrderToAccumulate.TicketsCount
+        );
 
       targetController.SearchOptionsFromUser = this.SearchOptionsFromUser;
 
@@ -267,7 +299,13 @@ namespace JetStreamIOS
 
     private void ShowFlightSummaryScreen(OrderSummaryViewController targetController)
     {
-      // TODO : inject order data
+      targetController.Order = this.OrderToAccumulate;
+    }
+
+    private void ShowFlightDetailsScreen(FlightDetailsViewController targetController, FlightCell sender)
+    {
+      targetController.Order = this.OrderToAccumulate;
+      targetController.SelectedFlight = sender;
     }
   
     #endregion Storyboard

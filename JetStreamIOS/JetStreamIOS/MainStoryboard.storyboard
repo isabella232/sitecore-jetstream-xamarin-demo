@@ -293,36 +293,35 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="skd-V2-Plg">
-                                <rect key="frame" x="0.0" y="109" width="320" height="409"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="lFQ-i6-CUV" id="C1k-nA-HBt"/>
-                                    <outlet property="delegate" destination="lFQ-i6-CUV" id="5q1-jG-daH"/>
-                                </connections>
-                            </tableView>
                             <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="W1W-k6-f8v">
-                                <rect key="frame" x="0.0" y="65" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="S2E-vG-XYn"/>
+                                </constraints>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="QbI-uk-5DE">
+                                <rect key="frame" x="0.0" y="108" width="320" height="411"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="W1W-k6-f8v" secondAttribute="trailing" id="1jq-jX-X3e"/>
-                            <constraint firstItem="W1W-k6-f8v" firstAttribute="top" secondItem="cBZ-jX-sXD" secondAttribute="bottom" constant="1" id="3af-Wt-KVt"/>
-                            <constraint firstItem="f7K-o7-QwM" firstAttribute="top" secondItem="skd-V2-Plg" secondAttribute="bottom" constant="1" id="8fJ-fL-FXm"/>
-                            <constraint firstItem="W1W-k6-f8v" firstAttribute="leading" secondItem="B3t-tx-yOK" secondAttribute="leading" id="Ewq-9v-ntI"/>
-                            <constraint firstItem="skd-V2-Plg" firstAttribute="top" secondItem="W1W-k6-f8v" secondAttribute="bottom" id="Ntf-zh-Uuz"/>
-                            <constraint firstAttribute="trailing" secondItem="skd-V2-Plg" secondAttribute="trailing" id="X0k-wJ-FKN"/>
-                            <constraint firstItem="skd-V2-Plg" firstAttribute="leading" secondItem="B3t-tx-yOK" secondAttribute="leading" id="vSA-ls-8kM"/>
+                            <constraint firstAttribute="trailing" secondItem="W1W-k6-f8v" secondAttribute="trailing" id="5iY-C8-Wck"/>
+                            <constraint firstItem="f7K-o7-QwM" firstAttribute="top" secondItem="QbI-uk-5DE" secondAttribute="bottom" id="7Bo-zF-t3N"/>
+                            <constraint firstItem="W1W-k6-f8v" firstAttribute="leading" secondItem="B3t-tx-yOK" secondAttribute="leading" id="Qxy-rH-u33"/>
+                            <constraint firstItem="QbI-uk-5DE" firstAttribute="top" secondItem="W1W-k6-f8v" secondAttribute="bottom" id="VkP-vG-d84"/>
+                            <constraint firstAttribute="trailing" secondItem="QbI-uk-5DE" secondAttribute="trailing" id="ljj-5x-R2O"/>
+                            <constraint firstItem="QbI-uk-5DE" firstAttribute="leading" secondItem="B3t-tx-yOK" secondAttribute="leading" id="q7R-UN-KY8"/>
+                            <constraint firstItem="W1W-k6-f8v" firstAttribute="top" secondItem="cBZ-jX-sXD" secondAttribute="bottom" id="v3b-2p-gh6"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="ri4-45-Egy"/>
                     <connections>
                         <outlet property="SearchBar" destination="W1W-k6-f8v" id="oEc-9a-bbN"/>
-                        <outlet property="TableView" destination="skd-V2-Plg" id="DyA-i6-hS8"/>
+                        <outlet property="TableView" destination="QbI-uk-5DE" id="Hdx-D8-HRm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CAh-j8-j6I" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -580,7 +579,7 @@
                                             <outlet property="DepartureTimeLabel" destination="r6M-xH-3sd" id="78q-E7-MhH"/>
                                             <outlet property="OrderButton" destination="awS-Po-obM" id="sYE-rq-ryx"/>
                                             <outlet property="PriceLabel" destination="AkD-LD-IkT" id="FkJ-ZB-xX2"/>
-                                            <segue destination="Fy0-cK-cVE" kind="push" id="xQ5-K3-SQH"/>
+                                            <segue destination="Fy0-cK-cVE" kind="push" identifier="ToFlightDetails" id="xQ5-K3-SQH"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

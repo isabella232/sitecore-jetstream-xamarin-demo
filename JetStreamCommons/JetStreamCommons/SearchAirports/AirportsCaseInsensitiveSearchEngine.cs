@@ -5,8 +5,6 @@
   using System.Collections.Generic;
 
   using JetStreamCommons.Airport;
-  using Sitecore.MobileSDK.API.Items;
-
 
   public class AirportsCaseInsensitiveSearchEngine
   {
