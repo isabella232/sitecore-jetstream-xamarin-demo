@@ -84,27 +84,36 @@
       var result = new List<IJetStreamAirport>();
       foreach (ISitecoreItem airportItem in responce)
       {
-        string timezoneItemId = airportItem["Time Zone"].RawValue;
-
-        var timezoneItemRequest = ItemWebApiRequestBuilder.ReadItemsRequestWithId(timezoneItemId).Build();
-        ScItemsResponse timezoneResponse = await session.ReadItemAsync(timezoneItemRequest);
-
-        ISitecoreItem timeZoneItem = timezoneResponse[0];
-        ITimeZoneInfo timeZone = new TimeZoneInfoWithItem(timeZoneItem);
-
+        ITimeZoneInfo timeZone = await this.TimezoneForAirportAsync(airportItem);
         IJetStreamAirport airport = new JetStreamAirportWithItem(airportItem, timeZone);
+
         result.Add(airport);
       }
 
       return result.ToArray();
     }
 
+    private async Task<ITimeZoneInfo> TimezoneForAirportAsync(ISitecoreItem airportItem)
+    {
+      string timezoneItemId = airportItem["Time Zone"].RawValue;
+
+      var timezoneItemRequest = ItemWebApiRequestBuilder.ReadItemsRequestWithId(timezoneItemId).Build();
+      ScItemsResponse timezoneResponse = await session.ReadItemAsync(timezoneItemRequest);
+
+      ISitecoreItem timeZoneItem = timezoneResponse[0];
+      ITimeZoneInfo timeZone = new TimeZoneInfoWithItem(timeZoneItem);
+
+      return timeZone;
+    }
+
+
+
     public async Task<ScItemsResponse> SearchDepartTicketsWithRequest(SearchFlightsRequest request)
     {
       return await this.SearchTicketsWithRequest (request, true);
     }
 
-    public async Task<ScItemsResponse> SearchReturnTicketsWithRequest(SearchFlightsRequest request)
+    private async Task<ScItemsResponse> SearchReturnTicketsWithRequest(SearchFlightsRequest request)
     {
       return await this.SearchTicketsWithRequest(request, false);
     }
