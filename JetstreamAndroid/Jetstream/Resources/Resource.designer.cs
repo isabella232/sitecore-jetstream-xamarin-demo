@@ -31,14 +31,14 @@ namespace JetstreamAndroid
 		public partial class Array
 		{
 			
-			// aapt resource value: 0x7f050000
-			public const int fragment_names_array = 2131034112;
+			// aapt resource value: 0x7f060000
+			public const int fragment_names_array = 2131099648;
 			
-			// aapt resource value: 0x7f050001
-			public const int number_of_tickets = 2131034113;
+			// aapt resource value: 0x7f060001
+			public const int number_of_tickets = 2131099649;
 			
-			// aapt resource value: 0x7f050002
-			public const int ticket_class = 2131034114;
+			// aapt resource value: 0x7f060002
+			public const int ticket_class = 2131099650;
 			
 			static Array()
 			{
@@ -94,62 +94,53 @@ namespace JetstreamAndroid
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f06000c
-			public const int button_depart_date = 2131099660;
+			// aapt resource value: 0x7f070008
+			public const int button_depart_date = 2131165192;
 			
-			// aapt resource value: 0x7f06000e
-			public const int button_return_date = 2131099662;
+			// aapt resource value: 0x7f07000a
+			public const int button_return_date = 2131165194;
 			
-			// aapt resource value: 0x7f060012
-			public const int button_save = 2131099666;
+			// aapt resource value: 0x7f07000f
+			public const int button_save = 2131165199;
 			
-			// aapt resource value: 0x7f060006
-			public const int checkBox_roundtrip = 2131099654;
+			// aapt resource value: 0x7f07000b
+			public const int button_search_tickets = 2131165195;
 			
-			// aapt resource value: 0x7f060001
-			public const int content_frame = 2131099649;
+			// aapt resource value: 0x7f070005
+			public const int checkBox_roundtrip = 2131165189;
 			
-			// aapt resource value: 0x7f060000
-			public const int drawer_layout = 2131099648;
+			// aapt resource value: 0x7f070001
+			public const int content_frame = 2131165185;
 			
-			// aapt resource value: 0x7f060004
-			public const int field_from_location = 2131099652;
+			// aapt resource value: 0x7f070000
+			public const int drawer_layout = 2131165184;
 			
-			// aapt resource value: 0x7f060010
-			public const int field_instance_login = 2131099664;
+			// aapt resource value: 0x7f070003
+			public const int field_from_location = 2131165187;
 			
-			// aapt resource value: 0x7f060011
-			public const int field_instance_password = 2131099665;
+			// aapt resource value: 0x7f07000d
+			public const int field_instance_login = 2131165197;
 			
-			// aapt resource value: 0x7f06000f
-			public const int field_instance_url = 2131099663;
+			// aapt resource value: 0x7f07000e
+			public const int field_instance_password = 2131165198;
 			
-			// aapt resource value: 0x7f060005
-			public const int field_to_location = 2131099653;
+			// aapt resource value: 0x7f07000c
+			public const int field_instance_url = 2131165196;
 			
-			// aapt resource value: 0x7f060002
-			public const int left_drawer = 2131099650;
+			// aapt resource value: 0x7f070004
+			public const int field_to_location = 2131165188;
 			
-			// aapt resource value: 0x7f060003
-			public const int linearLayout1 = 2131099651;
+			// aapt resource value: 0x7f070002
+			public const int left_drawer = 2131165186;
 			
-			// aapt resource value: 0x7f060007
-			public const int linearLayout2 = 2131099655;
+			// aapt resource value: 0x7f070007
+			public const int spinner_classes = 2131165191;
 			
-			// aapt resource value: 0x7f060008
-			public const int linearLayout3 = 2131099656;
+			// aapt resource value: 0x7f070006
+			public const int spinner_number_of_tickets = 2131165190;
 			
-			// aapt resource value: 0x7f06000a
-			public const int linearLayout4 = 2131099658;
-			
-			// aapt resource value: 0x7f06000b
-			public const int spinner_classes = 2131099659;
-			
-			// aapt resource value: 0x7f060009
-			public const int spinner_number_of_tickets = 2131099657;
-			
-			// aapt resource value: 0x7f06000d
-			public const int textview_return_date = 2131099661;
+			// aapt resource value: 0x7f070009
+			public const int textview_return_date = 2131165193;
 			
 			static Id()
 			{
@@ -157,6 +148,22 @@ namespace JetstreamAndroid
 			}
 			
 			private Id()
+			{
+			}
+		}
+		
+		public partial class Integer
+		{
+			
+			// aapt resource value: 0x7f040000
+			public const int airport_form_threshold = 2130968576;
+			
+			static Integer()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Integer()
 			{
 			}
 		}
@@ -186,29 +193,29 @@ namespace JetstreamAndroid
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f040001
-			public const int app_name = 2130968577;
+			// aapt resource value: 0x7f050001
+			public const int app_name = 2131034113;
 			
-			// aapt resource value: 0x7f040000
-			public const int hello = 2130968576;
+			// aapt resource value: 0x7f050000
+			public const int hello = 2131034112;
 			
-			// aapt resource value: 0x7f040002
-			public const int key_instance_url = 2130968578;
+			// aapt resource value: 0x7f050002
+			public const int key_instance_url = 2131034114;
 			
-			// aapt resource value: 0x7f040003
-			public const int key_login = 2130968579;
+			// aapt resource value: 0x7f050003
+			public const int key_login = 2131034115;
 			
-			// aapt resource value: 0x7f040004
-			public const int key_password = 2130968580;
+			// aapt resource value: 0x7f050004
+			public const int key_password = 2131034116;
 			
-			// aapt resource value: 0x7f040005
-			public const int text_default_instance_url = 2130968581;
+			// aapt resource value: 0x7f050005
+			public const int text_default_instance_url = 2131034117;
 			
-			// aapt resource value: 0x7f040006
-			public const int text_default_login = 2130968582;
+			// aapt resource value: 0x7f050006
+			public const int text_default_login = 2131034118;
 			
-			// aapt resource value: 0x7f040007
-			public const int text_default_password = 2130968583;
+			// aapt resource value: 0x7f050007
+			public const int text_default_password = 2131034119;
 			
 			static String()
 			{

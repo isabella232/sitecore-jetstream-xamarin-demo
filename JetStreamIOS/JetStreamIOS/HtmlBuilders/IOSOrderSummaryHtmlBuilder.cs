@@ -1,6 +1,7 @@
 ﻿using System;
 using JetStreamCommons;
 using MonoTouch.Foundation;
+using JetStreamCommons.HtmlBuilders;
 
 namespace JetStreamIOS
 {

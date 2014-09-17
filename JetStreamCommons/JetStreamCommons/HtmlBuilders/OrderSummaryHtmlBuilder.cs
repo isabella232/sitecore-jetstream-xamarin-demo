@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace JetStreamCommons
+namespace JetStreamCommons.HtmlBuilders
 {
   public class OrderSummaryHtmlBuilder
   {
@@ -10,7 +10,7 @@ namespace JetStreamCommons
 
     protected virtual string OneWayHtmlTemlate()
     {
-      //10 parameters must be in template string!!!
+//10 parameters must be in template string!!!
 //      0 - tikets count
 //      1 - depart from city
 //      2 - depart from country
@@ -26,7 +26,7 @@ namespace JetStreamCommons
 
     protected virtual string RoundTripHtmlTemlate()
     {
-      //14 parameters must be in template string!!!
+//14 parameters must be in template string!!!
 //      0 - tikets count
 //      1 - depart from city
 //      2 - depart from country

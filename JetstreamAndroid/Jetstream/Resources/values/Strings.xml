@@ -8,8 +8,8 @@
   <string name="key_password">pass</string>
 
   <string name="text_default_instance_url">http://jetstream.test24dk1.dk.sitecore.net/</string>
-  <string name="text_default_login"></string>
-  <string name="text_default_password"></string>
+  <string name="text_default_login">admin</string>
+  <string name="text_default_password">b</string>
 
   <string-array name="fragment_names_array">
     <item>Book a flight</item>
