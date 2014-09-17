@@ -80,9 +80,23 @@
 
       ScItemsResponse responce = await session.ReadItemAsync(request);
 
-      // TODO : maybe wrap in Task.Factory.StartNew()
-      IEnumerable<IJetStreamAirport> result = responce.Select(item => new JetStreamAirportWithItem(item));
-      return result;
+
+      var result = new List<IJetStreamAirport>();
+      foreach (ISitecoreItem airportItem in responce)
+      {
+        string timezoneItemId = airportItem["Time Zone"].RawValue;
+
+        var timezoneItemRequest = ItemWebApiRequestBuilder.ReadItemsRequestWithId(timezoneItemId).Build();
+        ScItemsResponse timezoneResponse = await session.ReadItemAsync(timezoneItemRequest);
+
+        ISitecoreItem timeZoneItem = timezoneResponse[0];
+        ITimeZoneInfo timeZone = new TimeZoneInfoWithItem(timeZoneItem);
+
+        IJetStreamAirport airport = new JetStreamAirportWithItem(airportItem, timeZone);
+        result.Add(airport);
+      }
+
+      return result.ToArray();
     }
 
     public async Task<ScItemsResponse> SearchDepartTicketsWithRequest(SearchFlightsRequest request)

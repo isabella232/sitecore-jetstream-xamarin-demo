@@ -4,13 +4,14 @@
   using Sitecore.MobileSDK.API.Items;
 
 
-  public class JetStreamAirportWithItem : IJetStreamAirport
+  public class JetStreamAirportWithItem : IJetStreamAirportWithTimeZone
   {
     private ISitecoreItem item;
 
-    public JetStreamAirportWithItem(ISitecoreItem item)
+    public JetStreamAirportWithItem(ISitecoreItem item, ITimeZoneInfo timeZone)
     {
       this.item = item;
+      this.TimeZone = timeZone;
     }
 
     public string Country 
@@ -69,6 +70,11 @@
       }
     }
 
+    public ITimeZoneInfo TimeZone
+    { 
+      get; 
+      private set;
+    }
   }
 }
 
