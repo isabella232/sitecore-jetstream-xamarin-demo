@@ -19,21 +19,33 @@
 
     public bool IsFlightMatchingPredicate(IJetStreamFlight singleFlight)
     {
-      if (!this.filterUserInput.IsFoodServiceIncluded.Equals(singleFlight.IsFoodServiceIncluded))
+      if (this.filterUserInput.IsFoodServiceIncluded)
       {
-        return false;
+        if (!singleFlight.IsFoodServiceIncluded)
+        {
+          return false;
+        }
       }
-      else if (!this.filterUserInput.IsRedEyeFlight.Equals(singleFlight.IsRedEyeFlight))
+      else if (this.filterUserInput.IsRedEyeFlight)
       {
-        return false;
+        if (!singleFlight.IsRedEyeFlight)
+        {
+          return false;
+        }
       }
-      else if (!this.filterUserInput.IsInFlightWifiIncluded.Equals(singleFlight.IsInFlightWifiIncluded))
+      else if (this.filterUserInput.IsInFlightWifiIncluded)
       {
-        return false;
+        if (!singleFlight.IsInFlightWifiIncluded)
+        {
+          return false;
+        }
       }
-      else if (!this.filterUserInput.IsPersonalEntertainmentIncluded.Equals(singleFlight.IsPersonalEntertainmentIncluded))
+      else if (this.filterUserInput.IsPersonalEntertainmentIncluded)
       {
-        return false;
+        if (!singleFlight.IsPersonalEntertainmentIncluded)
+        {
+          return false;
+        }
       }
 
 
