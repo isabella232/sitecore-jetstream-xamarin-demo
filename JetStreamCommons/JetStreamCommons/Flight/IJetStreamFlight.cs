@@ -48,6 +48,16 @@
     {
       get;
     }
+
+    bool IsRedEyeFlight
+    {
+      get;
+    }
+
+    TimeSpan Duration 
+    { 
+      get;
+    }
   }
 }
 

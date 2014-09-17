@@ -13,16 +13,7 @@ namespace JetStreamIOS
 	partial class FlightsFilterViewController
 	{
 		[Outlet]
-		MonoTouch.UIKit.UIButton ArrivalTimeButton { get; set; }
-
-		[Outlet]
-		MonoTouch.UIKit.UILabel ArrivalTimeTitleLabel { get; set; }
-
-		[Outlet]
-		MonoTouch.UIKit.UIButton DepartureTimeButton { get; set; }
-
-		[Outlet]
-		MonoTouch.UIKit.UILabel DepartureTimeTitleLabel { get; set; }
+		MonoTouch.UIKit.UIButton CancelButton { get; set; }
 
 		[Outlet]
 		MonoTouch.UIKit.UIButton DoneButton { get; set; }
@@ -37,10 +28,22 @@ namespace JetStreamIOS
 		MonoTouch.UIKit.UISlider DurationValueSlider { get; set; }
 
 		[Outlet]
+		MonoTouch.UIKit.UIButton EarliestDepartureTimeButton { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UILabel EarliestDepartureTimeTitleLabel { get; set; }
+
+		[Outlet]
 		MonoTouch.UIKit.UILabel FoodServiceTitleLabel { get; set; }
 
 		[Outlet]
 		MonoTouch.UIKit.UISwitch FoodServiceValueSwitch { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIButton LatestDepartureTimeButton { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UILabel LatestDepartureTimeTitleLabel { get; set; }
 
 		[Outlet]
 		MonoTouch.UIKit.UILabel PersonalEntertainmentTitleLabel { get; set; }
@@ -69,11 +72,8 @@ namespace JetStreamIOS
 		[Outlet]
 		MonoTouch.UIKit.UISwitch WifiValueSwitch { get; set; }
 
-		[Action ("OnArrivaleTimeButtonTapped:")]
-		partial void OnArrivaleTimeButtonTapped (MonoTouch.Foundation.NSObject sender);
-
-		[Action ("OnDepartureTimeButtonTapped:")]
-		partial void OnDepartureTimeButtonTapped (MonoTouch.Foundation.NSObject sender);
+		[Action ("OnCancelButtonTapped:")]
+		partial void OnCancelButtonTapped (MonoTouch.Foundation.NSObject sender);
 
 		[Action ("OnDoneButtonTapped:")]
 		partial void OnDoneButtonTapped (MonoTouch.Foundation.NSObject sender);
@@ -81,8 +81,14 @@ namespace JetStreamIOS
 		[Action ("OnDurationValueChanged:")]
 		partial void OnDurationValueChanged (MonoTouch.Foundation.NSObject sender);
 
+		[Action ("OnEarliestDepartureTimeButtonTapped:")]
+		partial void OnEarliestDepartureTimeButtonTapped (MonoTouch.Foundation.NSObject sender);
+
 		[Action ("OnFoodServiceSwitchValueChanged:")]
 		partial void OnFoodServiceSwitchValueChanged (MonoTouch.Foundation.NSObject sender);
+
+		[Action ("OnLatestDepartureTimeButtonTapped:")]
+		partial void OnLatestDepartureTimeButtonTapped (MonoTouch.Foundation.NSObject sender);
 
 		[Action ("OnPersonalEntertainmentSwitchValueChanged:")]
 		partial void OnPersonalEntertainmentSwitchValueChanged (MonoTouch.Foundation.NSObject sender);
@@ -98,47 +104,20 @@ namespace JetStreamIOS
 
 		[Action ("unwindToFlightList:")]
 		partial void unwindToFlightList (MonoTouch.UIKit.UIStoryboardSegue unwindSegue);
+
+		[Action ("unwindToFlightListWithNoFilters:")]
+		partial void unwindToFlightListWithNoFilters (MonoTouch.UIKit.UIStoryboardSegue unwindSegue);
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (CancelButton != null) {
+				CancelButton.Dispose ();
+				CancelButton = null;
+			}
+
 			if (DoneButton != null) {
 				DoneButton.Dispose ();
 				DoneButton = null;
-			}
-
-			if (PriceTitleLabel != null) {
-				PriceTitleLabel.Dispose ();
-				PriceTitleLabel = null;
-			}
-
-			if (PriceValueSlider != null) {
-				PriceValueSlider.Dispose ();
-				PriceValueSlider = null;
-			}
-
-			if (PriceValueLabel != null) {
-				PriceValueLabel.Dispose ();
-				PriceValueLabel = null;
-			}
-
-			if (DepartureTimeTitleLabel != null) {
-				DepartureTimeTitleLabel.Dispose ();
-				DepartureTimeTitleLabel = null;
-			}
-
-			if (DepartureTimeButton != null) {
-				DepartureTimeButton.Dispose ();
-				DepartureTimeButton = null;
-			}
-
-			if (ArrivalTimeTitleLabel != null) {
-				ArrivalTimeTitleLabel.Dispose ();
-				ArrivalTimeTitleLabel = null;
-			}
-
-			if (ArrivalTimeButton != null) {
-				ArrivalTimeButton.Dispose ();
-				ArrivalTimeButton = null;
 			}
 
 			if (DurationTitleLabel != null) {
@@ -146,14 +125,69 @@ namespace JetStreamIOS
 				DurationTitleLabel = null;
 			}
 
+			if (DurationValueLabel != null) {
+				DurationValueLabel.Dispose ();
+				DurationValueLabel = null;
+			}
+
 			if (DurationValueSlider != null) {
 				DurationValueSlider.Dispose ();
 				DurationValueSlider = null;
 			}
 
-			if (DurationValueLabel != null) {
-				DurationValueLabel.Dispose ();
-				DurationValueLabel = null;
+			if (EarliestDepartureTimeButton != null) {
+				EarliestDepartureTimeButton.Dispose ();
+				EarliestDepartureTimeButton = null;
+			}
+
+			if (EarliestDepartureTimeTitleLabel != null) {
+				EarliestDepartureTimeTitleLabel.Dispose ();
+				EarliestDepartureTimeTitleLabel = null;
+			}
+
+			if (FoodServiceTitleLabel != null) {
+				FoodServiceTitleLabel.Dispose ();
+				FoodServiceTitleLabel = null;
+			}
+
+			if (FoodServiceValueSwitch != null) {
+				FoodServiceValueSwitch.Dispose ();
+				FoodServiceValueSwitch = null;
+			}
+
+			if (LatestDepartureTimeButton != null) {
+				LatestDepartureTimeButton.Dispose ();
+				LatestDepartureTimeButton = null;
+			}
+
+			if (LatestDepartureTimeTitleLabel != null) {
+				LatestDepartureTimeTitleLabel.Dispose ();
+				LatestDepartureTimeTitleLabel = null;
+			}
+
+			if (PersonalEntertainmentTitleLabel != null) {
+				PersonalEntertainmentTitleLabel.Dispose ();
+				PersonalEntertainmentTitleLabel = null;
+			}
+
+			if (PersonalEntertainmentValueSwitch != null) {
+				PersonalEntertainmentValueSwitch.Dispose ();
+				PersonalEntertainmentValueSwitch = null;
+			}
+
+			if (PriceTitleLabel != null) {
+				PriceTitleLabel.Dispose ();
+				PriceTitleLabel = null;
+			}
+
+			if (PriceValueLabel != null) {
+				PriceValueLabel.Dispose ();
+				PriceValueLabel = null;
+			}
+
+			if (PriceValueSlider != null) {
+				PriceValueSlider.Dispose ();
+				PriceValueSlider = null;
 			}
 
 			if (RedEyeTitleLabel != null) {
@@ -174,26 +208,6 @@ namespace JetStreamIOS
 			if (WifiValueSwitch != null) {
 				WifiValueSwitch.Dispose ();
 				WifiValueSwitch = null;
-			}
-
-			if (PersonalEntertainmentTitleLabel != null) {
-				PersonalEntertainmentTitleLabel.Dispose ();
-				PersonalEntertainmentTitleLabel = null;
-			}
-
-			if (PersonalEntertainmentValueSwitch != null) {
-				PersonalEntertainmentValueSwitch.Dispose ();
-				PersonalEntertainmentValueSwitch = null;
-			}
-
-			if (FoodServiceTitleLabel != null) {
-				FoodServiceTitleLabel.Dispose ();
-				FoodServiceTitleLabel = null;
-			}
-
-			if (FoodServiceValueSwitch != null) {
-				FoodServiceValueSwitch.Dispose ();
-				FoodServiceValueSwitch = null;
 			}
 		}
 	}

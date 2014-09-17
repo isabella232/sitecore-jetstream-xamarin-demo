@@ -13,6 +13,7 @@ namespace JetStreamIOS
   using JetStreamCommons;
   using JetStreamCommons.Flight;
   using JetStreamCommons.FlightSearch;
+  using JetStreamCommons.FlightFilter;
 
   using JetStreamIOS.ViewControllers.FlightsTable;
   using JetStreamIOS.Helpers;
@@ -20,6 +21,9 @@ namespace JetStreamIOS
 
 	public partial class FlightListViewController : UIViewController
 	{
+    private IEnumerable<IJetStreamFlight> allFlights;
+    private IFlightFilterUserInput filterUserInput;
+
     #region Injected Variables
     private bool IsFlyingBack { get; set; }
 
@@ -38,6 +42,7 @@ namespace JetStreamIOS
 
     public override void ViewWillAppear(bool animated)
     {
+      base.ViewWillAppear(animated);
       this.StopLoading();
 
       if (null == this.CurrentSearchOptions)
@@ -189,8 +194,17 @@ namespace JetStreamIOS
         try
         {
           flights = await loader.GetFlightsForTheGivenDateAsync();
+          this.allFlights = flights;
+
+          var allFlightsArrayForDebug = this.allFlights.ToArray();
+          flights = this.FilterFlights(flights);
+
           yesterday = await loader.GetPreviousDayAsync();
           tomorrow = await loader.GetNextDayAsync();
+        }
+        catch
+        {
+          AlertHelper.ShowLocalizedAlertWithOkOption("FAILURE_ALERT_TITLE", "FLIGHTS_DOWNLOAD_FAILED_ALERT_MESSAGE");
         }
         finally
         {
@@ -228,6 +242,12 @@ namespace JetStreamIOS
           NSBundle.MainBundle.LocalizedString("PRICE_UNAVAILABLE", null);
       }
     }
+
+    private IEnumerable<IJetStreamFlight> FilterFlights(IEnumerable<IJetStreamFlight> allFlights)
+    {
+      FlightFilter filter = new FlightFilter(this.filterUserInput);
+      return filter.FilterFlights(allFlights);
+    }
     #endregion UITableViewController
 
     #region Storyboard
@@ -238,12 +258,17 @@ namespace JetStreamIOS
       if (StoryboardHelper.IsSegueToReturnFlightsSearch(segue))
       {
         FlightListViewController targetController = segue.DestinationViewController as FlightListViewController;
-        this.ShowReturnFlightsSearch(targetController);
+        this.InitializeReturnFlightsSearchController(targetController);
       }
       else if (StoryboardHelper.IsSegueToOrderSummary(segue))
       {
         OrderSummaryViewController targetController = segue.DestinationViewController as OrderSummaryViewController;
-        this.ShowFlightSummaryScreen(targetController);
+        this.InitializeFlightSummaryViewController(targetController);
+      }
+      else if (StoryboardHelper.IsSegueToFlightsFilter(segue))
+      {
+        FlightsFilterViewController targetControllers = segue.DestinationViewController as FlightsFilterViewController;
+        this.InitializeFilterViewController(targetControllers);
       }
       else if (StoryboardHelper.IsSegueToShowFlightDetails(segue))
       {
@@ -266,10 +291,19 @@ namespace JetStreamIOS
 
     partial void unwindToFlightList(MonoTouch.UIKit.UIStoryboardSegue unwindSegue)
     {
-      // TODO : apply filters
+      FlightsFilterViewController filterController = unwindSegue.SourceViewController as FlightsFilterViewController;
+      this.filterUserInput = new MutableFlightsFilterSettings(filterController.FilterData);
+
+      this.ReloadData();
+    }
+
+    partial void unwindToFlightListWithNoFilters (MonoTouch.UIKit.UIStoryboardSegue unwindSegue)
+    {
+      this.filterUserInput = null;
+      this.ReloadData();
     }
       
-    private void ShowReturnFlightsSearch(FlightListViewController targetController)
+    private void InitializeReturnFlightsSearchController(FlightListViewController targetController)
     {
       targetController.OrderToAccumulate = 
         new JetStreamOrder(
@@ -297,7 +331,7 @@ namespace JetStreamIOS
       targetController.IsFlyingBack = true;
     }
 
-    private void ShowFlightSummaryScreen(OrderSummaryViewController targetController)
+    private void InitializeFlightSummaryViewController(OrderSummaryViewController targetController)
     {
       targetController.Order = this.OrderToAccumulate;
     }
@@ -308,22 +342,34 @@ namespace JetStreamIOS
       targetController.SelectedFlight = sender;
     }
   
+    private void InitializeFilterViewController(FlightsFilterViewController targetControllers)
+    {
+      targetControllers.AllFlights = this.allFlights;
+      targetControllers.FilterData = this.filterUserInput;
+      targetControllers.DepartureLocalDate = this.CurrentSearchOptions.ForwardFlightDepartureDate;
+    }
     #endregion Storyboard
 
 
     #region Progress
     private void StartLoading()
     {
-      this.SetDefaultValues();
+      BeginInvokeOnMainThread(() =>
+      {
+        this.SetDefaultValues();
 
-      this.ProgressIndicator.Hidden = false;
-      this.ProgressIndicator.StartAnimating();
+        this.ProgressIndicator.Hidden = false;
+        this.ProgressIndicator.StartAnimating();
+      });
     }
 
     private void StopLoading()
     {
-      this.ProgressIndicator.Hidden = true;
-      this.ProgressIndicator.StopAnimating();
+      BeginInvokeOnMainThread(() =>
+      {
+        this.ProgressIndicator.Hidden = true;
+        this.ProgressIndicator.StopAnimating();
+      });
     }
     #endregion Progress
   }

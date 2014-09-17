@@ -76,10 +76,10 @@ namespace JetStreamIOS
 
     private void InitializeDateActionPicker()
     {
-      actionSheetDatePicker = new ActionSheetDatePickerView (this.View);
-      actionSheetDatePicker.Title = NSBundle.MainBundle.LocalizedString("DATE_PICKER_TITLE", null);
-      actionSheetDatePicker.DoneButtonTitle = NSBundle.MainBundle.LocalizedString("DONE_BUTTON_TITLE", null);
-      actionSheetDatePicker.DatePicker.Mode = UIDatePickerMode.Date;   
+      this.actionSheetDatePicker = new ActionSheetDatePickerView (this.View);
+      this.actionSheetDatePicker.Title = NSBundle.MainBundle.LocalizedString("DATE_PICKER_TITLE", null);
+      this.actionSheetDatePicker.DoneButtonTitle = NSBundle.MainBundle.LocalizedString("DONE_BUTTON_TITLE", null);
+      this.actionSheetDatePicker.DatePicker.Mode = UIDatePickerMode.Date;   
     }
 
     private async void SearchTickets()

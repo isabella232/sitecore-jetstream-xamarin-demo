@@ -84,3 +84,17 @@
 
 "FLIGHT_DETAILS_ORDER_BUTTON_TITLE" = "Order";
 "NO_FLIGHTS_FOUND" = "No Flights Found";
+
+
+/// Flight Filter
+"PRICE_TITLE" = "Price per Flight Limit";
+"EARLIEST_DEPARTURE_TITLE" = "Earliest Departure Time";
+"LATEST_DEPARTURE_TITLE" = "Latest Departure Time";
+"DURATION_TITLE" = "Duration Limit";
+"RRED_EYE_TITLE" = "Red Eye Flight";
+"WIFI_INCLUDED_TITLE" = "In Flight WiFi";
+"PERSONAL_ENTERTAINMENT_TITLE" = "Personal Entertainment";
+"FOOD_SERVICE_TITLE" = "Food Service";
+"APPLY_SETTINGS_BUTTON_TITLE" = "Apply";
+"CLEAR_FILTERS_BUTTON_TITLE" = "Clear Filters";
+

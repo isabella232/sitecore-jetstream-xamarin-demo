@@ -58,6 +58,19 @@
       sourceViewController.PerformSegue("ToOrderSummary", sourceViewController);
     }
     #endregion
+
+
+    #region FlightFilter
+    public static bool IsSegueToFlightsFilter(UIStoryboardSegue segue)
+    {
+      return "ToFlightsFilter".Equals(segue.Identifier);
+    }
+
+    public static void NavigateToFlightsFilterViewController(UIViewController sourceViewController)
+    {
+      sourceViewController.PerformSegue("ToFlightsFilter", sourceViewController);
+    }
+    #endregion FlightFilter  
   }
 }
 

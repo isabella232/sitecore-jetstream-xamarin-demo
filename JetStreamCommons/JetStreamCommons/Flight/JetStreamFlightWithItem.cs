@@ -59,6 +59,31 @@
       }
     }
 
+    #region Timezone
+    public TimeSpan Duration 
+    { 
+      get
+      {
+        // @adk : DepartureTime, ArrivalTime are local.
+        // Airport info must be used to produce proper output.
+
+        // TODO : add timezone computation
+        return this.ArrivalTime.Subtract(this.DepartureTime);
+      }
+    }
+
+    public bool IsRedEyeFlight
+    {
+      get
+      {
+        // TODO : add timezone computation
+
+        return false;
+      }
+    }
+    #endregion Timezone
+
+
     public decimal Price
     {
       get

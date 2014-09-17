@@ -1,6 +1,7 @@
 ﻿namespace JetStreamIOS
 {
   using System;
+  using Humanizer;
   using MonoTouch.Foundation;
 
 
@@ -22,6 +23,11 @@
     {
       NSDate convertedDate = DateTime.SpecifyKind(date, DateTimeKind.Local);
       return  NSDateFormatter.ToLocalizedString(convertedDate, NSDateFormatterStyle.None, NSDateFormatterStyle.Short);
+    }
+
+    public static string StringFromTimeSpanForUI(TimeSpan timeInterval)
+    {
+      return timeInterval.Humanize();
     }
   }
 }
