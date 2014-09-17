@@ -202,6 +202,10 @@ namespace JetStreamIOS
           yesterday = await loader.GetPreviousDayAsync();
           tomorrow = await loader.GetNextDayAsync();
         }
+        catch
+        {
+          AlertHelper.ShowLocalizedAlertWithOkOption("FAILURE_ALERT_TITLE", "FLIGHTS_DOWNLOAD_FAILED_ALERT_MESSAGE");
+        }
         finally
         {
           this.StopLoading();
@@ -350,16 +354,22 @@ namespace JetStreamIOS
     #region Progress
     private void StartLoading()
     {
-      this.SetDefaultValues();
+      BeginInvokeOnMainThread(() =>
+      {
+        this.SetDefaultValues();
 
-      this.ProgressIndicator.Hidden = false;
-      this.ProgressIndicator.StartAnimating();
+        this.ProgressIndicator.Hidden = false;
+        this.ProgressIndicator.StartAnimating();
+      }
     }
 
     private void StopLoading()
     {
-      this.ProgressIndicator.Hidden = true;
-      this.ProgressIndicator.StopAnimating();
+      BeginInvokeOnMainThread(() =>
+      {
+        this.ProgressIndicator.Hidden = true;
+        this.ProgressIndicator.StopAnimating();
+      });
     }
     #endregion Progress
   }
