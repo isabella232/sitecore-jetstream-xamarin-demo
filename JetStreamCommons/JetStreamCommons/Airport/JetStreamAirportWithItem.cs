@@ -45,6 +45,14 @@
       }
     }
 
+    public string TimeZoneId 
+    { 
+      get
+      {
+        return this.item["Time Zone"].RawValue;
+      }
+    }
+
     public string Id 
     { 
       get
