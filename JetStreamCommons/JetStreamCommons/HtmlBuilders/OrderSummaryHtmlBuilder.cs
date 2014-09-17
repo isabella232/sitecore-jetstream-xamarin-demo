@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace JetStreamCommons
+namespace JetStreamCommons.HtmlBuilders
 {
   public class OrderSummaryHtmlBuilder
   {

@@ -135,7 +135,6 @@
     <Compile Include="ViewControllers\FlightDetailsViewController.designer.cs">
       <DependentUpon>FlightDetailsViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\BadgeNames.cs" />
     <Compile Include="ViewControllers\FlightsFilterViewController.cs" />
     <Compile Include="ViewControllers\FlightsFilterViewController.designer.cs">
       <DependentUpon>FlightsFilterViewController.cs</DependentUpon>
@@ -143,6 +142,7 @@
     <Compile Include="ViewControllers\FlightsTable\FlightsTableViewEmptyDataSource.cs" />
     <Compile Include="Helpers\DateConverter.cs" />
     <Compile Include="HtmlBuilders\IOSOrderSummaryHtmlBuilder.cs" />
+    <Compile Include="HtmlBuilders\IOSFlightDetailsHtmlBuilder.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard.storyboard" />
