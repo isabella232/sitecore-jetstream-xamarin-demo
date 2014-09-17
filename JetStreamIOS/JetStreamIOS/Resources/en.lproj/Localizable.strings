@@ -98,3 +98,8 @@
 "APPLY_SETTINGS_BUTTON_TITLE" = "Apply";
 "CLEAR_FILTERS_BUTTON_TITLE" = "Clear Filters";
 
+//Flights list
+"ERROR_ALERT_TITLE" = "Failure";
+"LOADING_FLIGHTS_ERROR" = "Unable to load data. Check internet connection.";
+"RETURNING_SCREEN_TITLE" = "Returning";
+"DEPARTING_SCREEN_TITLE" = "Departing";
