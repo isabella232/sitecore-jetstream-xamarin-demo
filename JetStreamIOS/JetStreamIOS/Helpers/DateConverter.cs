@@ -8,17 +8,20 @@
   {
     public static string StringFromDateForUI(DateTime date)
     {
-      return  NSDateFormatter.ToLocalizedString(date, NSDateFormatterStyle.Short, NSDateFormatterStyle.None);
+      NSDate convertedDate = DateTime.SpecifyKind(date, DateTimeKind.Local);
+      return  NSDateFormatter.ToLocalizedString(convertedDate, NSDateFormatterStyle.Short, NSDateFormatterStyle.None);
     }
 
     public static string StringFromDateTimeForSummary(DateTime date)
     {
-      return  NSDateFormatter.ToLocalizedString(date, NSDateFormatterStyle.Short, NSDateFormatterStyle.Short);
+      NSDate convertedDate = DateTime.SpecifyKind(date, DateTimeKind.Local);
+      return  NSDateFormatter.ToLocalizedString(convertedDate, NSDateFormatterStyle.Short, NSDateFormatterStyle.Short);
     }
 
     public static string StringFromTimeForUI(DateTime date)
     {
-      return  NSDateFormatter.ToLocalizedString(date, NSDateFormatterStyle.None, NSDateFormatterStyle.Short);
+      NSDate convertedDate = DateTime.SpecifyKind(date, DateTimeKind.Local);
+      return  NSDateFormatter.ToLocalizedString(convertedDate, NSDateFormatterStyle.None, NSDateFormatterStyle.Short);
     }
   }
 }
