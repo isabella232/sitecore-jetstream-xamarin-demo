@@ -22,23 +22,18 @@ namespace JetStreamCommons.FlightFilter
     {
       if (!this.filterUserInput.IsFoodServiceIncluded.Equals(singleFlight.IsFoodServiceIncluded))
       {
-        Debug.WriteLine("[fail] IsFoodServiceIncluded.");
         return false;
       }
-      // TODO : uncomment when implemented
       else if (!this.filterUserInput.IsRedEyeFlight.Equals(singleFlight.IsRedEyeFlight))
       {
-        Debug.WriteLine("[fail] IsRedEyeFlight");
         return false;
       }
       else if (!this.filterUserInput.IsInFlightWifiIncluded.Equals(singleFlight.IsInFlightWifiIncluded))
       {
-        Debug.WriteLine("[fail] IsInFlightWifiIncluded");
         return false;
       }
       else if (!this.filterUserInput.IsPersonalEntertainmentIncluded.Equals(singleFlight.IsPersonalEntertainmentIncluded))
       {
-        Debug.WriteLine("[fail] IsPersonalEntertainmentIncluded");
         return false;
       }
 
@@ -46,7 +41,6 @@ namespace JetStreamCommons.FlightFilter
       bool isPriceNotExceedsLimits = (singleFlight.Price <= this.filterUserInput.MaxPrice);
       if (!isPriceNotExceedsLimits)
       {
-        Debug.WriteLine("[fail] MaxPrice");
         return false;
       }
 
@@ -71,8 +65,7 @@ namespace JetStreamCommons.FlightFilter
       {
         return false;
       }
-
-      Debug.WriteLine("[success] Predicat Match");
+        
       return true;
     }
 
