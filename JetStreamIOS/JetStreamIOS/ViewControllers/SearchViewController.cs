@@ -81,14 +81,13 @@ namespace JetStreamIOS
       this.actionSheetDatePicker.DoneButtonTitle = NSBundle.MainBundle.LocalizedString("DONE_BUTTON_TITLE", null);
       this.actionSheetDatePicker.DatePicker.Mode = UIDatePickerMode.Date;   
     }
-
-    private async void SearchTickets()
+      
+    #region Events
+    partial void OnSearchButtonTouched(MonoTouch.UIKit.UIButton sender)
     {
-      SearchFlightsRequest request = null;
-
       try
       {
-        request = this.searchRequestBuilder.Build();
+        FlightInputValidator.CheckIsDataCorrectWithException(this.userInput);
       }
       catch(ArgumentException e) 
       {
@@ -104,39 +103,6 @@ namespace JetStreamIOS
         }
 
         AlertHelper.ShowLocalizedAlertWithOkOption(title, message);
-        return;
-      }
-
-      //TODO: show flights list VC here
-      //TODO: move this to flights list VC and make this method sync
-      try
-      {
-        // It will automatically get values from the NSUserDefaults singleton
-        var endpoint = new InstanceSettings();
-
-        // It will be disposed by RestManager
-        var session = endpoint.GetSession();
-        using (var restManager = new RestManager(session))
-        {
-          ScItemsResponse result = await restManager.SearchDepartTicketsWithRequest(request);
-
-          string flightsCountFormat = NSBundle.MainBundle.LocalizedString("FLIGHTS_COUNT_FORMAT", null);
-          string flightsCountMessage = string.Format(flightsCountFormat, result.ResultCount.ToString());
-          AlertHelper.ShowLocalizedAlertWithOkOption("RESULT_TITLE_ALERT", flightsCountMessage);
-        }
-      }
-      catch
-      {
-        AlertHelper.ShowLocalizedAlertWithOkOption("FAILURE_ALERT_TITLE", "FLIGHTS_DOWNLOAD_FAILED_ALERT_MESSAGE");
-      }
-    }
-
-    #region Events
-    partial void OnSearchButtonTouched(MonoTouch.UIKit.UIButton sender)
-    {
-      if (!FlightInputValidator.IsFlightInputValid(this.userInput))
-      {
-        AlertHelper.ShowLocalizedAlertWithOkOption("VALIDATION_FAILED_ALERT_TITLE", "VALIDATION_FAILED_ALERT_MESSAGE");
         return;
       }
 
