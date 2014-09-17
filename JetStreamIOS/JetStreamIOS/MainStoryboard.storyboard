@@ -693,13 +693,10 @@
                                 <rect key="frame" x="0.0" y="28" width="320" height="55"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mwg-RU-CyY">
-                                        <rect key="frame" x="243" y="0.0" width="77" height="55"/>
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mwg-RU-CyY">
+                                        <rect key="frame" x="259" y="0.0" width="51" height="55"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="77" id="ADr-KC-NKL"/>
-                                        </constraints>
-                                        <state key="normal" title="Done">
+                                        <state key="normal" title="Apply">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -707,12 +704,30 @@
                                             <segue destination="uYz-bE-jGb" kind="unwind" unwindAction="unwindToFlightList:" id="het-PH-1vq"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fLo-kD-BXP">
+                                        <rect key="frame" x="10" y="0.0" width="83" height="55"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Clear Filters">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="OnCancelButtonTapped:" destination="eYT-3Y-Qxd" eventType="touchUpInside" id="f9w-HA-q2g"/>
+                                            <segue destination="uYz-bE-jGb" kind="unwind" unwindAction="unwindToFlightListWithNoFilters:" id="V0k-Gq-2nz"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="mwg-RU-CyY" secondAttribute="trailing" id="6yy-zO-e7A"/>
+                                    <constraint firstAttribute="centerY" secondItem="fLo-kD-BXP" secondAttribute="centerY" id="1Rj-bW-JBk"/>
+                                    <constraint firstAttribute="bottom" secondItem="fLo-kD-BXP" secondAttribute="bottom" id="9FO-YB-BbS"/>
+                                    <constraint firstAttribute="centerY" secondItem="mwg-RU-CyY" secondAttribute="centerY" id="B5q-h4-UwJ"/>
+                                    <constraint firstItem="fLo-kD-BXP" firstAttribute="height" secondItem="mwg-RU-CyY" secondAttribute="height" id="HO7-GJ-iSi"/>
+                                    <constraint firstItem="fLo-kD-BXP" firstAttribute="baseline" secondItem="mwg-RU-CyY" secondAttribute="baseline" constant="1" id="OAq-ou-RLW"/>
+                                    <constraint firstItem="fLo-kD-BXP" firstAttribute="top" secondItem="NcX-Dn-L99" secondAttribute="top" id="RY6-sC-aLD"/>
                                     <constraint firstAttribute="bottom" secondItem="mwg-RU-CyY" secondAttribute="bottom" id="SfP-x0-NFb"/>
+                                    <constraint firstAttribute="trailing" secondItem="mwg-RU-CyY" secondAttribute="trailing" constant="10" id="U1t-Uw-6yy"/>
                                     <constraint firstAttribute="height" constant="55" id="cfr-BC-g8z"/>
                                     <constraint firstItem="mwg-RU-CyY" firstAttribute="top" secondItem="NcX-Dn-L99" secondAttribute="top" id="dX3-EY-jrC"/>
+                                    <constraint firstItem="fLo-kD-BXP" firstAttribute="leading" secondItem="NcX-Dn-L99" secondAttribute="leading" constant="10" id="nku-Ze-fRZ"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Id1-I3-mjv">
@@ -885,6 +900,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="CancelButton" destination="fLo-kD-BXP" id="J6t-O5-jNP"/>
                         <outlet property="DoneButton" destination="mwg-RU-CyY" id="utr-4y-xVO"/>
                         <outlet property="DurationTitleLabel" destination="fMC-u2-Mic" id="T0b-2h-Tba"/>
                         <outlet property="DurationValueLabel" destination="ymM-Pg-0ji" id="GtC-LF-cZT"/>
