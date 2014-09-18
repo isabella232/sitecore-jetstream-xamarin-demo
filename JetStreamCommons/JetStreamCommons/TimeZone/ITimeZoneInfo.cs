@@ -1,4 +1,4 @@
-﻿namespace JetStreamCommons.Airport
+﻿namespace JetStreamCommons.Timezone
 {
   using System;
 

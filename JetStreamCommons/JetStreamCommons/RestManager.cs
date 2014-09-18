@@ -8,6 +8,7 @@
 
   using JetStreamCommons.Flight;
   using JetStreamCommons.Airport;
+  using JetStreamCommons.Timezone;
 
   using Sitecore.MobileSDK.API;
   using Sitecore.MobileSDK.API.Session;

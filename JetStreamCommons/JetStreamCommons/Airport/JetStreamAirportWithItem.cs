@@ -2,6 +2,7 @@
 {
   using System;
   using Sitecore.MobileSDK.API.Items;
+  using JetStreamCommons.Timezone;
 
 
   public class JetStreamAirportWithItem : IJetStreamAirportWithTimeZone
