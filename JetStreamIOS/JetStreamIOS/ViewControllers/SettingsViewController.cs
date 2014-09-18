@@ -6,6 +6,7 @@ namespace JetStreamIOS
   using MonoTouch.Foundation;
   using MonoTouch.UIKit;
 
+  using JetStreamIOS.Helpers;
   using JetStreamCommons;
   using Sitecore.MobileSDK.API;
   using Sitecore.MobileSDK.API.Session;

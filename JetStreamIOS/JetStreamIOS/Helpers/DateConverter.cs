@@ -1,4 +1,4 @@
-﻿namespace JetStreamIOS
+﻿namespace JetStreamIOS.Helpers
 {
   using System;
   using Humanizer;

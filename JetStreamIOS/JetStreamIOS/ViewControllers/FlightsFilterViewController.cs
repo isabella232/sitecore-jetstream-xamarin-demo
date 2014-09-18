@@ -10,7 +10,7 @@ namespace JetStreamIOS
   using ActionSheetDatePicker;
   using JetStreamCommons.Flight;
   using JetStreamCommons.FlightFilter;
-
+  using JetStreamIOS.Helpers;
 
 
 	public partial class FlightsFilterViewController : UIViewController
@@ -213,8 +213,6 @@ namespace JetStreamIOS
       // IDLE for Interface Builder
     }
     #endregion Navigation
-
-  
 
     #region Time Actions
     partial void OnEarliestDepartureTimeButtonTapped(MonoTouch.Foundation.NSObject sender)
