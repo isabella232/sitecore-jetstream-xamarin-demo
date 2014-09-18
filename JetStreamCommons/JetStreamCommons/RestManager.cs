@@ -13,6 +13,7 @@
   using Sitecore.MobileSDK.API;
   using Sitecore.MobileSDK.API.Session;
   using Sitecore.MobileSDK.API.Items;
+  using Sitecore.MobileSDK.API.Request.Parameters;
 
 
   public class RestManager : IFlightsLoader, IDisposable
@@ -80,6 +81,7 @@
       string testQuery = QueryHelpers.QueryToSearchAllAirports(); 
 
       var request = ItemWebApiRequestBuilder.ReadItemsRequestWithSitecoreQuery(testQuery)
+        .Payload(PayloadType.Content)
         .Build();
 
       ScItemsResponse responce = await session.ReadItemAsync(request);
@@ -103,7 +105,9 @@
     {
       string timezoneItemId = airportItem["Time Zone"].RawValue;
 
-      var timezoneItemRequest = ItemWebApiRequestBuilder.ReadItemsRequestWithId(timezoneItemId).Build();
+      var timezoneItemRequest = ItemWebApiRequestBuilder.ReadItemsRequestWithId(timezoneItemId)
+        .Payload(PayloadType.Content)
+        .Build();
       ScItemsResponse timezoneResponse = await session.ReadItemAsync(timezoneItemRequest);
 
       ISitecoreItem timeZoneItem = timezoneResponse[0];
@@ -116,8 +120,10 @@
     {
       var session = this.GetSession ();
 
-      string testQuery = QueryHelpers.QueryToSearchDepartFlightsWithRequest (request); 
-      var readRequest = ItemWebApiRequestBuilder.ReadItemsRequestWithSitecoreQuery(testQuery).Build();
+      string testQuery = QueryHelpers.QueryToSearchDepartFlightsWithRequest(request); 
+      var readRequest = ItemWebApiRequestBuilder.ReadItemsRequestWithSitecoreQuery(testQuery)
+        .Payload(PayloadType.Content)
+        .Build();
 
       ScItemsResponse responce = await session.ReadItemAsync(readRequest);
 
@@ -155,7 +161,9 @@
     private async Task<IJetStreamAirportWithTimeZone> LoadAirportWithTimezoneByIdAsync(string airportId)
     {
       var session = this.GetSession();
-      var request = ItemWebApiRequestBuilder.ReadItemsRequestWithId(airportId).Build();
+      var request = ItemWebApiRequestBuilder.ReadItemsRequestWithId(airportId)
+        .Payload(PayloadType.Content)
+        .Build();
 
       ScItemsResponse airportResponse = await session.ReadItemAsync(request);
       ISitecoreItem airportItem = airportResponse[0];
