@@ -1,6 +1,7 @@
 namespace JetStreamIOS
 {
   using System;
+  using System.Linq;
   using System.Collections.Generic;
 
   using MonoTouch.Foundation;
@@ -82,17 +83,37 @@ namespace JetStreamIOS
       this.FoodServiceTitleLabel.Text = NSBundle.MainBundle.LocalizedString("FOOD_SERVICE_TITLE", null);
     }
 
+    private bool IsNoModel()
+    {
+      return ( null == this.AllFlights || 0 == this.AllFlights.Count() );
+    }
+
     private TimeSpan GetMaxFlightDuration()
     {
-      return new TimeSpan(24, 0, 0);
+      if ( this.IsNoModel() )
+      {
+        // fake value
+        return new TimeSpan(24, 0, 0);
+      }
+
+      return this.AllFlights.Max(singleFlight => singleFlight.Duration);
+    }
+
+    private decimal GetMaxPrice()
+    {
+      if (this.IsNoModel())
+      {
+        return 10000;
+      }
+
+      return this.AllFlights.Max(singleFlight => singleFlight.Price);
     }
 
     private const bool SHOULD_UPDATE_SLIDERS_IN_REALTIME = true;
-    private const decimal FAKE_MAX_PRICE = 10000;
     private void ApplyFilterSettingsToUI()
     {
       this.PriceValueSlider.MinValue = 0;
-      this.PriceValueSlider.MaxValue = Convert.ToSingle(FAKE_MAX_PRICE); // TODO : compute from flight list
+      this.PriceValueSlider.MaxValue = Convert.ToSingle(this.GetMaxPrice()); // TODO : compute from flight list
       this.PriceValueSlider.Value = Convert.ToSingle(this.userInput.MaxPrice);
       this.PriceValueSlider.Continuous = SHOULD_UPDATE_SLIDERS_IN_REALTIME;
       this.PriceValueLabel.Text = this.userInput.MaxPrice.ToString("C");
@@ -134,7 +155,7 @@ namespace JetStreamIOS
     {
       var result = new MutableFlightsFilterSettings();
       {
-        result.MaxPrice = Convert.ToDecimal(FAKE_MAX_PRICE); // TODO : add a proper value
+        result.MaxPrice = Convert.ToDecimal(this.GetMaxPrice()); // TODO : add a proper value
         result.MaxDuration = this.GetMaxFlightDuration();
 
         result.IsRedEyeFlight = false;
