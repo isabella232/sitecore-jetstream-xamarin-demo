@@ -61,9 +61,9 @@
     <Compile Include="FlightFilter\FlightFilter.cs" />
     <Compile Include="Flight\IJetStreamFlightWithAirports.cs" />
     <Compile Include="Airport\IJetStreamAirportWithTimeZone.cs" />
-    <Compile Include="Airport\ITimeZoneInfo.cs" />
-    <Compile Include="Airport\TimeZoneInfoWithItem.cs" />
-    <Compile Include="Airport\ITimeZoneProvider.cs" />
+    <Compile Include="TimeZone\ITimeZoneInfo.cs" />
+    <Compile Include="TimeZone\ITimeZoneProvider.cs" />
+    <Compile Include="TimeZone\TimeZoneInfoWithItem.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
@@ -81,5 +81,6 @@
     <Folder Include="FlightSearch\" />
     <Folder Include="FlightFilter\" />
     <Folder Include="HtmlBuilders\" />
+    <Folder Include="TimeZone\" />
   </ItemGroup>
 </Project>
