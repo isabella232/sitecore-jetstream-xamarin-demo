@@ -79,8 +79,8 @@
       <HintPath>..\..\SitecoreMobileSDK-Full\Sitecore.MobileSDK.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
-    <Reference Include="Xamarin.Android.Support.v4">
-      <HintPath>..\..\Solutions\Components\xamandroidsupportv4-18-4.18.1\lib\android\Xamarin.Android.Support.v4.dll</HintPath>
+    <Reference Include="Xamarin.Android.Support.v13">
+      <HintPath>..\..\Solutions\Components\xamandroidsupportv13-18-20.0.0.4\lib\android\Xamarin.Android.Support.v13.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -114,8 +114,8 @@
     <AndroidResource Include="Resources\Drawable-xhdpi\ic_drawer_light.png" />
   </ItemGroup>
   <ItemGroup>
-    <XamarinComponentReference Include="xamandroidsupportv4-18">
-      <Version>4.18.1</Version>
+    <XamarinComponentReference Include="xamandroidsupportv13-18">
+      <Version>20.0.0.4</Version>
       <Visible>False</Visible>
     </XamarinComponentReference>
   </ItemGroup>
