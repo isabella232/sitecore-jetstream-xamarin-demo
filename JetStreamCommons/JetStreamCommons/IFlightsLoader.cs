@@ -8,7 +8,7 @@
 
   public interface IFlightsLoader
   {
-    Task< IEnumerable<IJetStreamFlight> > LoadOneWayFlightsAsync(SearchFlightsRequest request);
+    Task< IEnumerable<IJetStreamFlightWithAirports> > LoadOneWayFlightsAsync(SearchFlightsRequest request);
   }
 }
 

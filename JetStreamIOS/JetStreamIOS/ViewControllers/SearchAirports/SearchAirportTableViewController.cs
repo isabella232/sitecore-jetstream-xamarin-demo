@@ -8,6 +8,7 @@ namespace JetStreamIOS
   using MonoTouch.Foundation;
   using MonoTouch.UIKit;
 
+  using JetStreamIOS.Helpers;
   using JetStreamCommons;
   using JetStreamCommons.Airport;
   using JetStreamCommons.SearchAirports;
@@ -61,7 +62,8 @@ namespace JetStreamIOS
 
         // It will be disposed by RestManager
         var session = endpoint.GetSession();
-        using (var restManager = new RestManager(session))
+        var timezoneProvider = new TimezoneProviderForIOS();
+        using (var restManager = new RestManager(session, timezoneProvider))
         {
           return await restManager.SearchAllAirports();
         }
