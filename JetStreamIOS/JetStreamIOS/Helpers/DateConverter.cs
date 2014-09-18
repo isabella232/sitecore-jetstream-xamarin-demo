@@ -1,8 +1,9 @@
 ﻿namespace JetStreamIOS.Helpers
 {
   using System;
-  using Humanizer;
+  using System.Globalization;
   using MonoTouch.Foundation;
+  using Humanizer;
 
 
   public static class DateConverter
@@ -32,8 +33,8 @@
   
     public static string StringFromDollars(decimal dollars)
     {
-      return dollars.ToString("C");
-
+      var locale = CultureInfo.CreateSpecificCulture("en-US");
+      return dollars.ToString("C", locale);
     }
   }
 }
