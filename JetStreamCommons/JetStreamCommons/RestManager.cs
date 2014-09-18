@@ -84,8 +84,10 @@
       var result = new List<IJetStreamAirport>();
       foreach (ISitecoreItem airportItem in responce)
       {
-        ITimeZoneInfo timeZone = await this.TimezoneForAirportAsync(airportItem);
-        IJetStreamAirport airport = new JetStreamAirportWithItem(airportItem, timeZone);
+//        ITimeZoneInfo timeZone = await this.TimezoneForAirportAsync(airportItem);
+//        IJetStreamAirport airport = new JetStreamAirportWithItem(airportItem, timeZone);
+
+        IJetStreamAirport airport = new JetStreamAirportWithItem(airportItem, null);
 
         result.Add(airport);
       }
@@ -119,7 +121,7 @@
     }
 
     #region IFlightsLoader
-    public async Task< IEnumerable<IJetStreamFlight> > LoadOneWayFlightsAsync(SearchFlightsRequest request)
+    public async Task< IEnumerable<IJetStreamFlightWithAirports> > LoadOneWayFlightsAsync(SearchFlightsRequest request)
     {
       var requestCopy = new SearchFlightsRequest(
         request.FromAirportId, 
@@ -129,7 +131,7 @@
 
       ScItemsResponse flightItems = await this.SearchTicketsWithRequest(requestCopy);
 
-      var result = new List<IJetStreamFlight>();
+      var result = new List<IJetStreamFlightWithAirports>();
       foreach (ISitecoreItem singleFlightItem in flightItems)
       {
         string departureAirportId = singleFlightItem["Departure Airport"].RawValue;
