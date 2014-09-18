@@ -16,6 +16,9 @@
     private JetstreamActionBarDrawerToggle drawerToggle;
     private ListView drawerList;
 
+    private BookFlightFragment bookFlightFragment;
+    private SettingsFragment settingsFragment;
+
     private string drawerTitle;
     private string title;
     private string[] titles;
@@ -23,6 +26,8 @@
     protected override void OnCreate(Bundle savedInstanceState)
     {
       base.OnCreate(savedInstanceState);
+
+      RequestWindowFeature(WindowFeatures.IndeterminateProgress);
 
       this.SetContentView(Resource.Layout.activity_main);
 
@@ -76,10 +81,20 @@
       switch (position)
       {
         case 0:
-          fragment = new BookFlightFragment();
+          if (this.bookFlightFragment == null)
+          {
+             this.bookFlightFragment = new BookFlightFragment();  
+          }
+          fragment = this.bookFlightFragment;
+
           break;
         case 1:
-          fragment = new SettingsFragment();
+          if (this.settingsFragment == null)
+          {
+             this.settingsFragment = new SettingsFragment();  
+          }
+          fragment = this.settingsFragment;
+
           break;
         default:
           fragment = new BookFlightFragment();

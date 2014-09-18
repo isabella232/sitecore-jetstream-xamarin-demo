@@ -6,6 +6,7 @@ namespace JetstreamAndroid.Adapters
   using Android.Content;
   using Android.Widget;
   using Java.Lang;
+  using JetstreamAndroid.Utils;
   using JetStreamCommons;
   using JetStreamCommons.Airport;
   using JetStreamCommons.SearchAirports;
@@ -19,10 +20,13 @@ namespace JetstreamAndroid.Adapters
     private readonly Context context;
     private readonly AutoCompleteAdapter adapter;
 
-    public AirportsFilter(Context context, AutoCompleteAdapter adapter)
+    private readonly IOperationListener listener;
+
+    public AirportsFilter(Context context, AutoCompleteAdapter adapter, IOperationListener listener)
     {
       this.context = context;
       this.adapter = adapter;
+      this.listener = listener;
     }
 
     protected override FilterResults PerformFiltering(ICharSequence constraint)
@@ -39,10 +43,13 @@ namespace JetstreamAndroid.Adapters
       {
         try
         {
+          this.listener.OnOperationStarted();
           this.ReceiveAirports();
+          this.listener.OnOperationFinished();
         }
         catch (SitecoreMobileSdkException exception)
         {
+          this.listener.OnOperationFailed();
           Debug.WriteLine(exception);
           return null;
         }

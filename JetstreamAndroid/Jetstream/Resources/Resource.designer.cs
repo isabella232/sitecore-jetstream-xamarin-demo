@@ -208,6 +208,9 @@ namespace JetstreamAndroid
 			// aapt resource value: 0x7f050004
 			public const int key_password = 2131034116;
 			
+			// aapt resource value: 0x7f050008
+			public const int text_button_ok = 2131034120;
+			
 			// aapt resource value: 0x7f050005
 			public const int text_default_instance_url = 2131034117;
 			

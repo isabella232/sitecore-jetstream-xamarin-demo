@@ -7,8 +7,8 @@ namespace JetstreamAndroid.Adapters
 
   class AutoCompleteAdapter : ArrayAdapter<string>
   {
-    private Filter airportsFilter;
-
+    public AirportsFilter AirportsFilter { get; set; }
+  
     public IList<IJetStreamAirport> SearchedAirports { get; set; }
 
     public AutoCompleteAdapter(Context context, int textViewResourceId, IList<string> objects)
@@ -20,7 +20,7 @@ namespace JetstreamAndroid.Adapters
     {
       get
       {
-        return this.airportsFilter ?? (this.airportsFilter = new AirportsFilter(Context, this));
+        return AirportsFilter;
       }
     }
   }
