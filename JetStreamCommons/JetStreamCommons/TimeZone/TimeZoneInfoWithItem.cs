@@ -7,10 +7,12 @@
   public class TimeZoneInfoWithItem : ITimeZoneInfo
   {
     private ISitecoreItem underlyingItem;
+    private ITimeZoneProvider timezoneProvider;
 
-    public TimeZoneInfoWithItem(ISitecoreItem item)
+    public TimeZoneInfoWithItem(ISitecoreItem item, ITimeZoneProvider timezoneProvider)
     {
       this.underlyingItem = item;
+      this.timezoneProvider = timezoneProvider;
     }
 
     public string Name 
@@ -37,13 +39,13 @@
       }
     }
 
-//    public TimeZoneInfo TimeZone 
-//    { 
-//      get
-//      {
-//        return TimeZoneInfo.FindSystemTimeZoneById(this.Id);
-//      }
-//    }
+    public TimeZoneInfo TimeZone 
+    { 
+      get
+      {
+        return this.timezoneProvider.FindSystemTimeZoneById(this.Id);
+      }
+    }
   }
 }
 

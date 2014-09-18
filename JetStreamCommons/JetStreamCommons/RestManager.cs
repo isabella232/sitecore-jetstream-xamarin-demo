@@ -17,6 +17,8 @@
 
   public class RestManager : IFlightsLoader, IDisposable
   {
+    private ITimeZoneProvider timezoneProvider;
+
     #region IDisposable
     private ISitecoreWebApiSession session;
     private ISitecoreWebApiSession GetSession()
@@ -65,9 +67,10 @@
     }
     #endregion
 
-    public RestManager(ISitecoreWebApiSession sessionToConsume)
+    public RestManager(ISitecoreWebApiSession sessionToConsume, ITimeZoneProvider timezoneProvider)
     {
       this.session = sessionToConsume;
+      this.timezoneProvider = timezoneProvider;
     }
       
     public async Task< IEnumerable<IJetStreamAirport> > SearchAllAirports()
@@ -104,7 +107,7 @@
       ScItemsResponse timezoneResponse = await session.ReadItemAsync(timezoneItemRequest);
 
       ISitecoreItem timeZoneItem = timezoneResponse[0];
-      ITimeZoneInfo timeZone = new TimeZoneInfoWithItem(timeZoneItem);
+      ITimeZoneInfo timeZone = new TimeZoneInfoWithItem(timeZoneItem, this.timezoneProvider);
 
       return timeZone;
     }
