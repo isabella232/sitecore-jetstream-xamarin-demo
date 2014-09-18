@@ -55,11 +55,11 @@
         return false;
       }
 
-      bool isFlightDurationNotExceedsLimits = ( 1 != TimeSpan.Compare(singleFlight.Duration, this.filterUserInput.MaxDuration) );
-      if (!isFlightDurationNotExceedsLimits)
-      {
-        return false;
-      }
+//      bool isFlightDurationNotExceedsLimits = ( 1 != TimeSpan.Compare(singleFlight.Duration, this.filterUserInput.MaxDuration) );
+//      if (!isFlightDurationNotExceedsLimits)
+//      {
+//        return false;
+//      }
 
       DateTime flightTime = singleFlight.DepartureTime;
       DateTime minTime = this.filterUserInput.EarliestDepartureTime;
