@@ -63,6 +63,7 @@
     <Compile Include="Airport\IJetStreamAirportWithTimeZone.cs" />
     <Compile Include="Airport\ITimeZoneInfo.cs" />
     <Compile Include="Airport\TimeZoneInfoWithItem.cs" />
+    <Compile Include="Airport\ITimeZoneProvider.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>

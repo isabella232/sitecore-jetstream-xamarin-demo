@@ -36,6 +36,14 @@
         return this.underlyingItem["Abbreviation"].RawValue;
       }
     }
+
+//    public TimeZoneInfo TimeZone 
+//    { 
+//      get
+//      {
+//        return TimeZoneInfo.FindSystemTimeZoneById(this.Id);
+//      }
+//    }
   }
 }
 
