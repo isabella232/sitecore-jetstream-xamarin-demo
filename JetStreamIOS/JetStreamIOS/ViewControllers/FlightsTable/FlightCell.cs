@@ -47,7 +47,7 @@ namespace JetStreamIOS
     {
       this.Flight = flight;
 
-      this.PriceLabel.Text = flight.Price.ToString("C");
+      this.PriceLabel.Text = DateConverter.StringFromDollars(flight.Price);
 
       string strDepartureTime = DateConverter.StringFromTimeForUI(flight.DepartureTime.ToLocalTime());
       string strArrivalTime = DateConverter.StringFromTimeForUI(flight.ArrivalTime.ToLocalTime());

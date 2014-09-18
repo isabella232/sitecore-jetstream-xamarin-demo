@@ -29,6 +29,12 @@
     {
       return timeInterval.Humanize();
     }
+  
+    public static string StringFromDollars(decimal dollars)
+    {
+      return dollars.ToString("C");
+
+    }
   }
 }
 

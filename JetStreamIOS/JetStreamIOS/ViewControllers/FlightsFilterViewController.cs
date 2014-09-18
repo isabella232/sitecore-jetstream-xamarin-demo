@@ -116,7 +116,7 @@ namespace JetStreamIOS
       this.PriceValueSlider.MaxValue = Convert.ToSingle(this.GetMaxPrice()); // TODO : compute from flight list
       this.PriceValueSlider.Value = Convert.ToSingle(this.userInput.MaxPrice);
       this.PriceValueSlider.Continuous = SHOULD_UPDATE_SLIDERS_IN_REALTIME;
-      this.PriceValueLabel.Text = this.userInput.MaxPrice.ToString("C");
+      this.PriceValueLabel.Text = DateConverter.StringFromDollars(this.userInput.MaxPrice);
 
 
       TimeSpan maxDuration = this.GetMaxFlightDuration();
@@ -259,7 +259,7 @@ namespace JetStreamIOS
     {
       decimal newValue = Convert.ToDecimal(this.PriceValueSlider.Value);
       this.userInput.MaxPrice = newValue;
-      this.PriceValueLabel.Text = newValue.ToString("C");
+      this.PriceValueLabel.Text = DateConverter.StringFromDollars(newValue);
     }
     #endregion Slider Actions
 

@@ -246,12 +246,12 @@ namespace JetStreamIOS
 
 
         this.YesterdayPriceLabel.Text = yesterday.LowestPrice.HasValue ? 
-            yesterday.LowestPrice.Value.ToString("C") : 
+            DateConverter.StringFromDollars(yesterday.LowestPrice.Value): 
             NSBundle.MainBundle.LocalizedString("PRICE_UNAVAILABLE", null);
 
         this.TomorrowDateLabel.Text = DateConverter.StringFromDateForUI(tomorrow.DepartureDate);
         this.TomorrowPriceLabel.Text = tomorrow.LowestPrice.HasValue ? 
-          tomorrow.LowestPrice.Value.ToString("C") :
+          DateConverter.StringFromDollars(tomorrow.LowestPrice.Value) :
           NSBundle.MainBundle.LocalizedString("PRICE_UNAVAILABLE", null);
       }
     }
