@@ -163,9 +163,9 @@ namespace JetStreamIOS
         result.IsPersonalEntertainmentIncluded = false;
         result.IsFoodServiceIncluded = false;
 
-        DateTime localNowDate = DateTime.Today;
-        result.EarliestDepartureTime = localNowDate;
-        result.LatestDepartureTime = localNowDate.AddDays(1).AddSeconds(-1);
+        DateTime localNowDate = this.DepartureLocalDate;
+        result.EarliestDepartureTime = localNowDate.Date;
+        result.LatestDepartureTime = result.EarliestDepartureTime.AddDays(1).AddSeconds(-1);
       }
 
       return result;
