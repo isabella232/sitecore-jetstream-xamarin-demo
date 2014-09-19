@@ -76,8 +76,8 @@ namespace JetStreamIOS
       this.PriceTitleLabel.Text = NSBundle.MainBundle.LocalizedString("PRICE_TITLE", null);
       this.EarliestDepartureTimeTitleLabel.Text = NSBundle.MainBundle.LocalizedString("EARLIEST_DEPARTURE_TITLE", null);
       this.LatestDepartureTimeTitleLabel.Text = NSBundle.MainBundle.LocalizedString("LATEST_DEPARTURE_TITLE", null);
-      this.DurationTitleLabel.Text = NSBundle.MainBundle.LocalizedString("DURATION_TITLE", null);
-      this.RedEyeTitleLabel.Text = NSBundle.MainBundle.LocalizedString("RRED_EYE_TITLE", null);
+//      this.DurationTitleLabel.Text = NSBundle.MainBundle.LocalizedString("DURATION_TITLE", null);
+//      this.RedEyeTitleLabel.Text = NSBundle.MainBundle.LocalizedString("RRED_EYE_TITLE", null);
       this.WifiTitleLabel.Text = NSBundle.MainBundle.LocalizedString("WIFI_INCLUDED_TITLE", null);
       this.PersonalEntertainmentTitleLabel.Text = NSBundle.MainBundle.LocalizedString("PERSONAL_ENTERTAINMENT_TITLE", null);
       this.FoodServiceTitleLabel.Text = NSBundle.MainBundle.LocalizedString("FOOD_SERVICE_TITLE", null);
@@ -119,12 +119,12 @@ namespace JetStreamIOS
       this.PriceValueLabel.Text = DateConverter.StringFromDollars(this.userInput.MaxPrice);
 
 
-      TimeSpan maxDuration = this.GetMaxFlightDuration();
-      this.DurationValueSlider.MinValue = 0;
-      this.DurationValueSlider.MaxValue = Convert.ToSingle(maxDuration.TotalHours + 1); // TODO : compute from flight list
-      this.DurationValueSlider.Value = Convert.ToSingle(this.userInput.MaxDuration.TotalHours);
-      this.DurationValueSlider.Continuous = SHOULD_UPDATE_SLIDERS_IN_REALTIME;
-      this.DurationValueLabel.Text = DateConverter.StringFromTimeSpanForUI(this.userInput.MaxDuration);
+//      TimeSpan maxDuration = this.GetMaxFlightDuration();
+//      this.DurationValueSlider.MinValue = 0;
+//      this.DurationValueSlider.MaxValue = Convert.ToSingle(maxDuration.TotalHours + 1); // TODO : compute from flight list
+//      this.DurationValueSlider.Value = Convert.ToSingle(this.userInput.MaxDuration.TotalHours);
+//      this.DurationValueSlider.Continuous = SHOULD_UPDATE_SLIDERS_IN_REALTIME;
+//      this.DurationValueLabel.Text = DateConverter.StringFromTimeSpanForUI(this.userInput.MaxDuration);
 
       string strLatestTime = DateConverter.StringFromTimeForUI(this.userInput.LatestDepartureTime);
       this.LatestDepartureTimeButton.SetTitle(strLatestTime, UIControlState.Normal);
@@ -133,7 +133,7 @@ namespace JetStreamIOS
       this.EarliestDepartureTimeButton.SetTitle(strEarliestTime, UIControlState.Normal);
 
       const bool IS_SWITCH_CHANGES_ANIMATED = false;
-      this.RedEyeValueSwitch.On = this.userInput.IsRedEyeFlight;
+//      this.RedEyeValueSwitch.On = this.userInput.IsRedEyeFlight;
       this.WifiValueSwitch.On = this.userInput.IsInFlightWifiIncluded;
       this.PersonalEntertainmentValueSwitch.On = this.userInput.IsPersonalEntertainmentIncluded;
       this.FoodServiceValueSwitch.On = this.userInput.IsFoodServiceIncluded;
