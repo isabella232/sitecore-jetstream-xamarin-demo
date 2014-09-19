@@ -139,7 +139,7 @@ namespace JetStreamIOS
       this.FoodServiceValueSwitch.On = this.userInput.IsFoodServiceIncluded;
 
 
-      DateTime departureDateMidnight = this.DepartureLocalDate.Date;
+      DateTime departureDateMidnight = DateTime.SpecifyKind(this.DepartureLocalDate.Date, DateTimeKind.Local);
       DateTime departureDateEnd = departureDateMidnight.AddDays(1).AddSeconds(-1);
 
       this.earlyDepartureActionSheetDatePicker.DatePicker.MinimumDate = departureDateMidnight;
