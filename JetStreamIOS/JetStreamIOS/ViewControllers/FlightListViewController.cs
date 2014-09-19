@@ -100,12 +100,32 @@ namespace JetStreamIOS
     partial void OnTomorrowButtonPressed(MonoTouch.Foundation.NSObject sender)
     {
       DateTime dayIncrement = this.CurrentSearchOptions.ForwardFlightDepartureDate.AddDays(+1);
+      if (null != this.filterUserInput)
+      {
+        var newFilter = new MutableFlightsFilterSettings(this.filterUserInput);
+        {
+          newFilter.EarliestDepartureTime = this.filterUserInput.EarliestDepartureTime.AddDays(+1);
+          newFilter.LatestDepartureTime = this.filterUserInput.LatestDepartureTime.AddDays(+1);
+        }
+        this.filterUserInput = newFilter;
+      }
+
       this.ReloadDataForDate(dayIncrement);
     }
 
     partial void OnYesterdayButtonPressed(MonoTouch.Foundation.NSObject sender)
     {
       DateTime dayIncrement = this.CurrentSearchOptions.ForwardFlightDepartureDate.AddDays(-1);
+      if (null != this.filterUserInput)
+      {
+        var newFilter = new MutableFlightsFilterSettings(this.filterUserInput);
+        {
+          newFilter.EarliestDepartureTime = this.filterUserInput.EarliestDepartureTime.AddDays(-1);
+          newFilter.LatestDepartureTime = this.filterUserInput.LatestDepartureTime.AddDays(-1);
+        }
+        this.filterUserInput = newFilter;
+      }
+
       this.ReloadDataForDate(dayIncrement);
     }
 
