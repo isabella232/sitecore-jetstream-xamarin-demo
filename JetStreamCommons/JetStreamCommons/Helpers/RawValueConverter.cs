@@ -77,7 +77,7 @@
         hour,
         minute,
         second,
-        DateTimeKind.Utc);
+        DateTimeKind.Local);
         
       return result;
     }

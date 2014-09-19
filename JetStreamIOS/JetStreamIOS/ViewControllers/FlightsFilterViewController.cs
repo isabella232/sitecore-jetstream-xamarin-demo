@@ -217,19 +217,23 @@ namespace JetStreamIOS
     #region Time Actions
     partial void OnEarliestDepartureTimeButtonTapped(MonoTouch.Foundation.NSObject sender)
     {
-      this.earlyDepartureActionSheetDatePicker.Show();
+      // @ADK : To display components as is since NSDatePicker uses current locale
+      DateTime departureDateAsLocal = DateTime.SpecifyKind(this.userInput.EarliestDepartureTime, DateTimeKind.Local);
+      this.earlyDepartureActionSheetDatePicker.ShowWithDate(departureDateAsLocal);
     }
 
     partial void OnLatestDepartureTimeButtonTapped(MonoTouch.Foundation.NSObject sender)
     {
-      this.laterDepartureActionSheetDatePicker.Show();
+      // @ADK : To display components as is since NSDatePicker uses current locale
+      DateTime departureDateAsLocal = DateTime.SpecifyKind(this.userInput.LatestDepartureTime, DateTimeKind.Local);
+      this.laterDepartureActionSheetDatePicker.ShowWithDate(departureDateAsLocal);
     }
 
 
     private void OnEarlyDepartureTimeEntered(object sender, EventArgs e)
     {
       UIDatePicker picker = sender as UIDatePicker;
-      DateTime dateValue = picker.Date;
+      DateTime dateValue =  DateConverter.LocalDateTimeFromNSDate(picker.Date);
 
       this.userInput.EarliestDepartureTime = dateValue;
       string strDateValue = DateConverter.StringFromTimeForUI(dateValue);
@@ -239,7 +243,7 @@ namespace JetStreamIOS
     private void OnLateDepartureTimeEntered(object sender, EventArgs e)
     {
       UIDatePicker picker = sender as UIDatePicker;
-      DateTime dateValue = picker.Date;
+      DateTime dateValue = DateConverter.LocalDateTimeFromNSDate(picker.Date);
 
       this.userInput.LatestDepartureTime = dateValue;
       string strDateValue = DateConverter.StringFromTimeForUI(dateValue);
