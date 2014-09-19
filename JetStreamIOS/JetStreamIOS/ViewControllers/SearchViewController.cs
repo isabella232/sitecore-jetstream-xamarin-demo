@@ -35,7 +35,7 @@ namespace JetStreamIOS
       //@igk order matters
       this.searchRequestBuilder = new SearchTicketsRequestBuilder();
       this.userInput = new MutableFlightSearchUserInput();
-      this.InitializeDateActionPicker();
+     // this.InitializeDateActionPicker();
       this.LocalizeUI();
     }
 
@@ -111,6 +111,7 @@ namespace JetStreamIOS
 
     partial void OnDepartDateButtonTouched(MonoTouch.UIKit.UIButton sender)
     {
+      this.InitializeDateActionPicker();
       this.actionSheetDatePicker.DatePicker.ValueChanged -= ReturnDateReceived;
       this.actionSheetDatePicker.DatePicker.ValueChanged += DepartDateReceived;
       this.actionSheetDatePicker.ShowWithDate(this.DepartureDate);
@@ -118,6 +119,7 @@ namespace JetStreamIOS
 
     partial void OnReturnDateButtonTouched(MonoTouch.UIKit.UIButton sender)
     {
+      this.InitializeDateActionPicker();
       this.actionSheetDatePicker.DatePicker.ValueChanged -= DepartDateReceived;
       this.actionSheetDatePicker.DatePicker.ValueChanged += ReturnDateReceived;
       this.actionSheetDatePicker.ShowWithDate(this.ReturnDate);
