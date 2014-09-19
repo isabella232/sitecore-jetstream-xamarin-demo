@@ -2,6 +2,7 @@
 {
   using System;
   using System.Collections.Generic;
+  using System.Threading.Tasks;
   using Android.App;
   using Android.OS;
   using Android.Views;
@@ -147,6 +148,7 @@
           //                  flights = this.FilterFlights(flights);
           yesterday = await loader.GetPreviousDayAsync();
           tomorrow = await loader.GetNextDayAsync();
+
           this.OnOperationFinished();
 
           var message = string.Format("Received {0} tickets", new List<IJetStreamFlight>(flights).Count);

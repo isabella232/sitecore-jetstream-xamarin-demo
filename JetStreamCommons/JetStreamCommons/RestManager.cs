@@ -1,6 +1,7 @@
 ﻿namespace JetStreamCommons
 {
   using System;
+  using System.Diagnostics;
   using System.Linq;
   using System.Threading.Tasks;
   using System.Collections;
@@ -126,12 +127,18 @@
         request.ToAirportId, 
         request.DepartDate.Value, 
         null);
-
-      ScItemsResponse flightItems = await this.SearchDepartTicketsWithRequest(requestCopy);
-
+      try
+      {
+        ScItemsResponse flightItems = await this.SearchDepartTicketsWithRequest(requestCopy);
+        IEnumerable<IJetStreamFlight> result = flightItems.Select(item => new JetStreamFlightWithItem(item));
+        return result;
+      }
+      catch (Exception exception)
+      {
+        Debug.WriteLine("Exce");
+      }
       // TODO : maybe wrap in Task.Factory.StartNew()
-      IEnumerable<IJetStreamFlight> result = flightItems.Select(item => new JetStreamFlightWithItem(item));
-      return result;
+      return null;
     }
     #endregion
   }
