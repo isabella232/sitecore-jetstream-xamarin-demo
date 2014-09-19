@@ -100,12 +100,32 @@ namespace JetStreamIOS
     partial void OnTomorrowButtonPressed(MonoTouch.Foundation.NSObject sender)
     {
       DateTime dayIncrement = this.CurrentSearchOptions.ForwardFlightDepartureDate.AddDays(+1);
+      if (null != this.filterUserInput)
+      {
+        var newFilter = new MutableFlightsFilterSettings(this.filterUserInput);
+        {
+          newFilter.EarliestDepartureTime = this.filterUserInput.EarliestDepartureTime.AddDays(+1);
+          newFilter.LatestDepartureTime = this.filterUserInput.LatestDepartureTime.AddDays(+1);
+        }
+        this.filterUserInput = newFilter;
+      }
+
       this.ReloadDataForDate(dayIncrement);
     }
 
     partial void OnYesterdayButtonPressed(MonoTouch.Foundation.NSObject sender)
     {
       DateTime dayIncrement = this.CurrentSearchOptions.ForwardFlightDepartureDate.AddDays(-1);
+      if (null != this.filterUserInput)
+      {
+        var newFilter = new MutableFlightsFilterSettings(this.filterUserInput);
+        {
+          newFilter.EarliestDepartureTime = this.filterUserInput.EarliestDepartureTime.AddDays(-1);
+          newFilter.LatestDepartureTime = this.filterUserInput.LatestDepartureTime.AddDays(-1);
+        }
+        this.filterUserInput = newFilter;
+      }
+
       this.ReloadDataForDate(dayIncrement);
     }
 
@@ -247,12 +267,12 @@ namespace JetStreamIOS
 
 
         this.YesterdayPriceLabel.Text = yesterday.LowestPrice.HasValue ? 
-            yesterday.LowestPrice.Value.ToString("C") : 
+            DateConverter.StringFromDollars(yesterday.LowestPrice.Value): 
             NSBundle.MainBundle.LocalizedString("PRICE_UNAVAILABLE", null);
 
         this.TomorrowDateLabel.Text = DateConverter.StringFromDateForUI(tomorrow.DepartureDate);
         this.TomorrowPriceLabel.Text = tomorrow.LowestPrice.HasValue ? 
-          tomorrow.LowestPrice.Value.ToString("C") :
+          DateConverter.StringFromDollars(tomorrow.LowestPrice.Value) :
           NSBundle.MainBundle.LocalizedString("PRICE_UNAVAILABLE", null);
       }
     }

@@ -1,10 +1,12 @@
-﻿using System;
-using MonoTouch.UIKit;
-using System.Drawing;
-
-namespace JetStreamIOS
+﻿namespace JetStreamIOS.Helpers
 {
-	public class LoadingOverlay : UIView {
+  using System;
+  using MonoTouch.UIKit;
+  using System.Drawing;
+
+
+	public class LoadingOverlay : UIView 
+  {
 
 		UIActivityIndicatorView activitySpinner;
 		UILabel loadingLabel;
