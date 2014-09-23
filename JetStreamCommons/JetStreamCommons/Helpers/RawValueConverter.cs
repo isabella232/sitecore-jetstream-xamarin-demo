@@ -9,8 +9,11 @@
     {
       if (string.IsNullOrWhiteSpace(rawValue))
       {
-        string message = "RawValue does not have a boolean value because it is empty.";
-        throw new ArgumentException(message);
+        // hotfix for bad data on back end
+        return false;
+
+//        string message = "RawValue does not have a boolean value because it is empty.";
+//        throw new ArgumentException(message);
       }
 
       const string strTrue = "true";
@@ -77,7 +80,7 @@
         hour,
         minute,
         second,
-        DateTimeKind.Utc);
+        DateTimeKind.Local);
         
       return result;
     }

@@ -103,3 +103,6 @@
 "LOADING_FLIGHTS_ERROR" = "Unable to load data. Check internet connection.";
 "RETURNING_SCREEN_TITLE" = "Returning";
 "DEPARTING_SCREEN_TITLE" = "Departing";
+
+"TIME_PICKER_CAPTION" = "Choose Time :";
+

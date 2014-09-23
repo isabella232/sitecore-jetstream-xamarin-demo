@@ -3,7 +3,7 @@ using MonoTouch.UIKit;
 using System.Threading.Tasks;
 using MonoTouch.Foundation;
 
-namespace JetStreamIOS
+namespace JetStreamIOS.Helpers
 {
 	public class AlertHelper
 	{

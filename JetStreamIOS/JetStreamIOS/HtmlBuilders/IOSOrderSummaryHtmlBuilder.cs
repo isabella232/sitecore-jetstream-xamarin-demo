@@ -1,10 +1,13 @@
-﻿using System;
-using JetStreamCommons;
-using MonoTouch.Foundation;
-using JetStreamCommons.HtmlBuilders;
-
-namespace JetStreamIOS
+﻿namespace JetStreamIOS
 {
+  using System;
+  using MonoTouch.Foundation;
+
+  using JetStreamCommons;
+  using JetStreamIOS.Helpers;
+  using JetStreamCommons.HtmlBuilders;
+
+
   public class IOSOrderSummaryHtmlBuilder : OrderSummaryHtmlBuilder
   {
     public IOSOrderSummaryHtmlBuilder()

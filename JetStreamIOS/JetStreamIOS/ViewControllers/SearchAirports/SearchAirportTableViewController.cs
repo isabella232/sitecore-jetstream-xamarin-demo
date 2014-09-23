@@ -8,6 +8,7 @@ namespace JetStreamIOS
   using MonoTouch.Foundation;
   using MonoTouch.UIKit;
 
+  using JetStreamIOS.Helpers;
   using JetStreamCommons;
   using JetStreamCommons.Airport;
   using JetStreamCommons.SearchAirports;

@@ -38,9 +38,9 @@ namespace JetStreamCommons.HtmlBuilders
 //      8 - depart flight number
 //      9 - return date: 8/29/2014 9:33 PM
 //      10 - return flight number
-//      11 - full depart price ($ only)
-//      12 - full returning price price ($ only)
-//      13 - summmary price ($ only)
+//      11 - full depart price
+//      12 - full returning price price
+//      13 - summmary price
       return null;
     }
 

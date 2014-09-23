@@ -1,9 +1,13 @@
-﻿using System;
-using JetStreamCommons.HtmlBuilders;
-using MonoTouch.Foundation;
-
-namespace JetStreamIOS
+﻿namespace JetStreamIOS
 {
+  using System;
+  using MonoTouch.Foundation;
+
+  using JetStreamCommons;
+  using JetStreamCommons.HtmlBuilders;
+  using JetStreamIOS.Helpers;
+
+
   public class IOSFlightDetailsHtmlBuilder : FlightDetailsHtmlBuilder
   {
     public IOSFlightDetailsHtmlBuilder()

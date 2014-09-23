@@ -7,30 +7,27 @@ using MonoTouch.UIKit;
 
 namespace ActionSheetDatePicker {
 	public class ActionSheetDatePickerView {
+
 		#region -= declarations =-
-		
-		UIActionSheet actionSheet;
+    UIView backgroundView;
+    UIView dataView;
+    UIDatePicker datePicker; 
 		UIButton doneButton = UIButton.FromType (UIButtonType.RoundedRect);
 		UIView owner;
 		UILabel titleLabel = new UILabel ();
-		
+    float titleBarHeight = 40;
 		#endregion
 		
 		#region -= properties =-
-		
-		/// <summary>
-		/// Set any datepicker properties here
-		/// </summary>
 		public UIDatePicker DatePicker
 		{
-			get { return datePicker; }
+      get 
+      { 
+        return this.datePicker; 
+      }
 			set { datePicker = value; }
 		}
-		UIDatePicker datePicker = new UIDatePicker(RectangleF.Empty);
-		
-		/// <summary>
-		/// The title that shows up for the date picker
-		/// </summary>
+
 		public string Title
 		{
 			get { return titleLabel.Text; }
@@ -42,69 +39,76 @@ namespace ActionSheetDatePicker {
       get { return doneButton.TitleLabel.Text; }
       set { doneButton.SetTitle (value, UIControlState.Normal); }
     }
-
 		#endregion
 		
 		#region -= constructor =-
-		
-		/// <summary>
-		/// 
-		/// </summary>
     public ActionSheetDatePickerView (UIView owner)
 		{
-			// save our uiview owner
 			this.owner = owner;
 	
-			// configure the title label
 			titleLabel.BackgroundColor = UIColor.Clear;
       titleLabel.TextColor = UIColor.Black;
-			titleLabel.Font = UIFont.BoldSystemFontOfSize (18);
+			titleLabel.Font = UIFont.BoldSystemFontOfSize(18);
 			
-			// configure the done button
 			doneButton.SetTitle ("Done", UIControlState.Normal);
-			doneButton.TouchUpInside += (s, e) => { actionSheet.DismissWithClickedButtonIndex (0, true); };
+      doneButton.TouchUpInside += (s, e) => { backgroundView.RemoveFromSuperview(); };
 			
-			// create + configure the action sheet
-			actionSheet = new UIActionSheet () { Style = UIActionSheetStyle.BlackTranslucent };
-			actionSheet.Clicked += (s, e) => { Console.WriteLine ("Clicked on item {0}", e.ButtonIndex); };
-	
+      this.backgroundView = new UIView(owner.Bounds);
+      this.backgroundView.BackgroundColor = new UIColor (0.3f, 0.3f, 0.3f, 0.6f);
+
+      this.dataView = new UIView(owner.Bounds);
+      this.dataView.BackgroundColor = UIColor.White;
+
+      this.datePicker = new UIDatePicker(RectangleF.Empty);
+
+      float tabBarOffset = 50.0f;
+      RectangleF dataViewFrame = new RectangleF (
+        0,
+        this.owner.Bounds.Height - this.datePicker.Frame.Height - this.titleBarHeight - tabBarOffset,
+        this.owner.Bounds.Width,
+        this.datePicker.Frame.Height + this.titleBarHeight + tabBarOffset
+      );
+      this.dataView.Frame = dataViewFrame;
+
+      RectangleF datePickerFrame = new RectangleF (
+        0,
+        this.titleBarHeight,
+        this.owner.Bounds.Width,
+        this.datePicker.Frame.Height
+      );
+      this.datePicker.Frame = datePickerFrame;
+
+      titleLabel.Frame = new RectangleF (10, 10, owner.Frame.Width - 100, 35);
+      SizeF doneButtonSize = new SizeF (71, 30);
+      doneButton.Frame = new RectangleF (datePickerFrame.Width - doneButtonSize.Width - 10, 10, doneButtonSize.Width, doneButtonSize.Height);
+
+
 			// add our controls to the action sheet
-			actionSheet.AddSubview (datePicker);
-			actionSheet.AddSubview (titleLabel);
-			actionSheet.AddSubview (doneButton);
+      this.backgroundView.AddSubview (this.dataView);
+      this.dataView.AddSubview (this.DatePicker);
+      this.dataView.AddSubview (titleLabel);
+      this.dataView.AddSubview (doneButton);
 		}
-		
 		#endregion
 		
 		#region -= public methods =-
-			
-		/// <summary>
-		/// Shows the action sheet picker from the view that was set as the owner.
-		/// </summary>
 		public void Show ()
 		{
-			// declare vars
-			float titleBarHeight = 40;
-			SizeF doneButtonSize = new SizeF (71, 30);
-			SizeF actionSheetSize = new SizeF (owner.Frame.Width, datePicker.Frame.Height + titleBarHeight);
-			RectangleF actionSheetFrame = new RectangleF (0, owner.Frame.Height - actionSheetSize.Height
-				, actionSheetSize.Width, actionSheetSize.Height);
-			
-			// show the action sheet and add the controls to it
-			actionSheet.ShowInView (owner);
-			
-			// resize the action sheet to fit our other stuff
-			actionSheet.Frame = actionSheetFrame;
-			
-			// move our picker to be at the bottom of the actionsheet (view coords are relative to the action sheet)
-			datePicker.Frame = new RectangleF 
-				(datePicker.Frame.X, titleBarHeight, datePicker.Frame.Width, datePicker.Frame.Height);
-			
-			// move our label to the top of the action sheet
-			titleLabel.Frame = new RectangleF (10, 4, owner.Frame.Width - 100, 35);
-			
-			// move our button
-			doneButton.Frame = new RectangleF (actionSheetSize.Width - doneButtonSize.Width - 10, 7, doneButtonSize.Width, doneButtonSize.Height);
+      this.owner.AddSubview(this.backgroundView);
+      RectangleF realFrame = this.dataView.Frame;
+      RectangleF fakeFrame = realFrame;
+      fakeFrame.Y += fakeFrame.Height;
+      this.dataView.Frame = fakeFrame;
+
+      UIView.Animate (
+        duration: 0.3f, 
+        delay: 0, 
+        options: UIViewAnimationOptions.CurveEaseInOut,
+        animation: () => {
+        this.dataView.Frame = realFrame;
+      },
+        completion: () => {}
+      );
 		}
 
     public void ShowWithDate(DateTime date)
@@ -112,15 +116,11 @@ namespace ActionSheetDatePicker {
       this.datePicker.SetDate(date, false);
       this.Show();
     }
-		
-		/// <summary>
-		/// Dismisses the action sheet date picker
-		/// </summary>
+
 		public void Hide (bool animated)
 		{
-			actionSheet.DismissWithClickedButtonIndex (0, animated);
+      this.backgroundView.RemoveFromSuperview();
 		}
-		
 		#endregion		
 	}
 }

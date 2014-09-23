@@ -11,9 +11,9 @@ namespace JetStreamCommons.HtmlBuilders
 
     protected virtual string FlightDetailsHtmlTemlate()
     {
-      //15 parameters must be in template string!!!
+      //13 parameters must be in template string!!!
 //      0 - flight number
-//      1 - flight price ($ only)
+//      1 - flight price
 //      2 - departure time
 //      3 - departure city
 //      4 - departure country
@@ -22,11 +22,9 @@ namespace JetStreamCommons.HtmlBuilders
 //      7 - arrival city
 //      8 - arrival country
 //      9 - arrival airport code
-//      10 - duration hours
-//      11 - duration minutes
-//      12 - first badge resource name
-//      13 - second badge resource name
-//      14 - third badge resource name
+//      10 - first badge resource name
+//      11 - second badge resource name
+//      12 - third badge resource name
       return null;
     }
 
@@ -54,8 +52,6 @@ namespace JetStreamCommons.HtmlBuilders
           order.DestinationAirport.City,
           order.DestinationAirport.Country,
           order.DestinationAirport.Code,
-          "7", // TODO: @igk duration hours
-          "22", // TODO: @igk duration minutes
           //badges hardcoded since item have no such information
           BadgeNames.BagBadgeResourceName(),
           BadgeNames.CrowBadgeResourceName(),

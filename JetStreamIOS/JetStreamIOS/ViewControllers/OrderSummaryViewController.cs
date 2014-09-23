@@ -6,7 +6,10 @@ namespace JetStreamIOS
 
   using MonoTouch.Foundation;
   using MonoTouch.UIKit;
+
   using JetStreamCommons;
+  using JetStreamIOS.Helpers;
+
 
   public partial class OrderSummaryViewController : UIViewController
   {
