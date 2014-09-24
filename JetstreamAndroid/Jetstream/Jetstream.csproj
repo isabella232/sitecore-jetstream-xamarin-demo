@@ -40,10 +40,12 @@
   <ItemGroup>
     <Compile Include="Adapters\AirportsFilter.cs" />
     <Compile Include="Adapters\AutoCompleteAdapter.cs" />
+    <Compile Include="JetstreamApp.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Fragments\BookFlightFragment.cs" />
     <Compile Include="Fragments\SettingsFragment.cs" />
     <Compile Include="JetstreamActionBarDrawerToggle.cs" />
+    <Compile Include="Models\FlightsContainer.cs" />
     <Compile Include="Prefs.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

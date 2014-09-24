@@ -8,6 +8,7 @@
   using Android.Views;
   using Android.Widget;
   using JetstreamAndroid.Adapters;
+  using JetstreamAndroid.Models;
   using JetstreamAndroid.Utils;
   using JetStreamCommons;
   using JetStreamCommons.Airport;
@@ -136,20 +137,28 @@
           input.DestinationAirport,
           input.ForwardFlightDepartureDate);
 
-        DaySummary yesterday = null;
-        DaySummary tomorrow = null;
-
         try
         {
           IEnumerable<IJetStreamFlight> flights = await loader.GetFlightsForTheGivenDateAsync();
-          yesterday = await loader.GetPreviousDayAsync();
-          tomorrow = await loader.GetNextDayAsync();
+          DaySummary yesterday = await loader.GetPreviousDayAsync();
+          DaySummary tomorrow = await loader.GetNextDayAsync();
 
           this.OnOperationFinished();
           this.searchButton.Enabled = true;
 
           var message = string.Format("Received {0} tickets", new List<IJetStreamFlight>(flights).Count);
           DialogHelper.ShowSimpleDialog(Activity, "Received", message);
+
+          var flightsContainer = new FlightsContainer
+          {
+            FlightSearchUserInput = input,
+            Flights = flights,
+            YesterdaySummary = yesterday,
+            TomorrowSummary = tomorrow
+          };
+
+          JetstreamApp app = JetstreamApp.From(Activity);
+          app.FlightsContainer = flightsContainer;
         }
         catch (System.Exception exception)
         {
