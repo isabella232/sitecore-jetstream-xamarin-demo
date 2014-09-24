@@ -65,6 +65,9 @@
     <Reference Include="Sitecore.MobileSDK">
       <HintPath>..\..\SitecoreMobileSDK-Full\Sitecore.MobileSDK.dll</HintPath>
     </Reference>
+    <Reference Include="SitecoreMobileSdkPasswordProvider">
+      <HintPath>..\..\SitecoreMobileSDK-Full\SitecoreMobileSdkPasswordProvider.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Helpers\" />

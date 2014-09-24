@@ -1,5 +1,6 @@
 namespace JetstreamAndroid.Adapters
 {
+  using System.Linq;
   using System.Collections.Generic;
   using System.Diagnostics;
   using System.Threading.Tasks;
@@ -34,12 +35,12 @@ namespace JetstreamAndroid.Adapters
       this.searchedAirports.Clear();
 
       var threshold = context.Resources.GetInteger(Resource.Integer.airport_form_threshold);
-      if (constraint == null || constraint.Length() < threshold)
+      if(constraint == null || constraint.Length() < threshold)
       {
         return null;
       }
 
-      if (this.allAirports == null)
+      if(this.allAirports == null)
       {
         try
         {
@@ -55,7 +56,7 @@ namespace JetstreamAndroid.Adapters
         }
       }
 
-      if (this.allAirports != null)
+      if(this.allAirports != null)
       {
         var searchEngine = new AirportsCaseInsensitiveSearchEngine(constraint.ToString());
         this.searchedAirports = new List<IJetStreamAirport>(searchEngine.SearchAirports(this.allAirports));
@@ -66,19 +67,27 @@ namespace JetstreamAndroid.Adapters
 
     private void ReceiveAirports()
     {
-      var session = Prefs.From(this.context).Session;
-      using (var restManager = new RestManager(session))
+      try
       {
-        var airportsTask = restManager.SearchAllAirports();
-        Task.WhenAll(airportsTask);
+        var session = Prefs.From(this.context).Session;
+        using (var restManager = new RestManager(session))
+        {
+          var airportsTask = restManager.SearchAllAirports();
+          Task.WhenAll(airportsTask);
 
-        this.allAirports = airportsTask.Result;
+          this.allAirports = airportsTask.Result;
+        }
+      }
+      catch (Exception exception)
+      {
+        LogUtils.Error(typeof(AirportsFilter), "Exception during retrieving airports list", exception);
+        this.allAirports = Enumerable.Empty<IJetStreamAirport>();
       }
     }
 
     protected override void PublishResults(ICharSequence constraint, FilterResults results)
     {
-      if (this.searchedAirports.Count == 0)
+      if(this.searchedAirports.Count == 0)
         this.adapter.NotifyDataSetInvalidated();
       else
       {

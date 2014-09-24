@@ -1,3 +1,5 @@
+using SitecoreMobileSdkPasswordProvider.API;
+
 namespace JetstreamAndroid
 {
   using Android.Content;
@@ -55,6 +57,38 @@ namespace JetstreamAndroid
 
     #endregion Login
 
+    #region Database
+    public string Database
+    {
+      get
+      {
+        return "master";
+      }
+
+      set
+      {
+//        this.PutString(this.context.GetString(Resource.String.key_login), value);
+      }
+    }
+
+    #endregion Database
+
+    #region Language
+    public string Language
+    {
+      get
+      {
+        return "en";
+      }
+
+      set
+      {
+        //        this.PutString(this.context.GetString(Resource.String.key_login), value);
+      }
+    }
+
+    #endregion Language
+
     #region Password
     public string Password
     {
@@ -87,11 +121,15 @@ namespace JetstreamAndroid
 
           session = SitecoreWebApiSessionBuilder.AuthenticatedSessionWithHost(this.InstanceUrl)
             .Credentials(credentials)
+            .DefaultDatabase(this.Database)
+            .DefaultLanguage(this.Language)
             .BuildSession();
         }
         else
         {
           session = SitecoreWebApiSessionBuilder.AnonymousSessionWithHost(this.InstanceUrl)
+            .DefaultDatabase(this.Database)
+            .DefaultLanguage(this.Language)
             .BuildSession();
         }
 

@@ -1,4 +1,6 @@
-﻿namespace JetStreamCommons
+﻿using SitecoreMobileSdkPasswordProvider.API;
+
+namespace JetStreamCommons
 {
   using System;
   using Sitecore.MobileSDK.API;
