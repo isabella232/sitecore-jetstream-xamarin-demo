@@ -8,7 +8,7 @@
   <string name="key_password">pass</string>
 
   <string name="text_default_instance_url">http://jetstream.test24dk1.dk.sitecore.net/</string>
-  <string name="text_default_login">admin</string>
+  <string name="text_default_login">sitecore\\admin</string>
   <string name="text_default_password">b</string>
 
   <string name="text_button_ok">OK</string>
