@@ -2,9 +2,9 @@
 {
   using System;
   using System.Collections.Generic;
-  using System.Threading.Tasks;
   using Android.App;
   using Android.OS;
+  using Android.Text;
   using Android.Views;
   using Android.Widget;
   using JetstreamAndroid.Adapters;
@@ -34,6 +34,7 @@
 
     private Button departDateButton;
     private Button returnDateButton;
+    private Button searchButton;
 
     private TextView returnDateTextView;
 
@@ -42,7 +43,23 @@
     private Spinner numberOfTicketSpinner;
     private Spinner ticketClassSpinner;
 
+    private AutoCompleteTextView toAirportField;
+    private AutoCompleteTextView fromAirportField;
+
     #endregion
+
+    #region Additional variables
+
+    private AutoCompleteAdapter autoCompleteAdapter;
+    private AirportsFilter filter;
+
+    #endregion
+
+    public override void OnCreate(Bundle savedInstanceState)
+    {
+      base.OnCreate(savedInstanceState);
+      RetainInstance = true;
+    }
 
     public override View OnCreateView(LayoutInflater inflater, ViewGroup viewGroup, Bundle bundle)
     {
@@ -80,36 +97,16 @@
 
     private void InitFields(View root)
     {
-      var autoCompleteAdapter = new AutoCompleteAdapter(Activity, Android.Resource.Layout.SimpleDropDownItem1Line, new string[] { });
-      var filter = new AirportsFilter(this.Activity, autoCompleteAdapter, this);
+      if (this.autoCompleteAdapter == null)
+      {
+        this.autoCompleteAdapter = new AutoCompleteAdapter(Activity, Android.Resource.Layout.SimpleDropDownItem1Line, new string[] { });
+        this.filter = new AirportsFilter(this.Activity, autoCompleteAdapter, this);
+      }
 
       autoCompleteAdapter.AirportsFilter = filter;
 
-      var fromField = root.FindViewById<AutoCompleteTextView>(Resource.Id.field_from_location);
-      var toField = root.FindViewById<AutoCompleteTextView>(Resource.Id.field_to_location);
-
-      fromField.TextChanged += (sender, args) =>
-      {
-        this.fromAirport = null;
-      };
-
-      fromField.ItemClick += delegate(object sender, AdapterView.ItemClickEventArgs args)
-      {
-        this.fromAirport = autoCompleteAdapter.SearchedAirports[args.Position];
-      };
-
-      toField.ItemClick += delegate(object sender, AdapterView.ItemClickEventArgs args)
-      {
-        this.toAirport = autoCompleteAdapter.SearchedAirports[args.Position];
-      };
-
-      toField.TextChanged += (sender, args) =>
-      {
-        this.toAirport = null;
-      };
-
-      fromField.Adapter = autoCompleteAdapter;
-      toField.Adapter = autoCompleteAdapter;
+      this.fromAirportField = root.FindViewById<AutoCompleteTextView>(Resource.Id.field_from_location);
+      this.toAirportField = root.FindViewById<AutoCompleteTextView>(Resource.Id.field_to_location);
     }
 
     private void InitializeButtons(View root)
@@ -120,16 +117,17 @@
       this.returnDateButton = root.FindViewById<Button>(Resource.Id.button_return_date);
       this.returnDateButton.Click += (sender, args) => this.ShowDialogForDate(returnDate, DialogReturn);
 
-      var searchButton = root.FindViewById<Button>(Resource.Id.button_search_tickets);
-      searchButton.Click += (sender, args) => this.ReloadData();
+      this.searchButton = root.FindViewById<Button>(Resource.Id.button_search_tickets);
+      this.searchButton.Click += (sender, args) => this.SearchTickets();
     }
 
-    private async void ReloadData()
+    private async void SearchTickets()
     {
       this.OnOperationStarted();
+      this.searchButton.Enabled = false;
 
       ISitecoreWebApiSession webApiSession = Prefs.From(Activity).Session;
-      var input = this.prepareFlightSearchUserInput();
+      var input = this.PrepareFlightSearchUserInput();
 
       using (var jetStreamSession = new RestManager(webApiSession))
       {
@@ -144,26 +142,42 @@
         try
         {
           IEnumerable<IJetStreamFlight> flights = await loader.GetFlightsForTheGivenDateAsync();
-          //                  this.allFlights = flights;
-          //                  flights = this.FilterFlights(flights);
           yesterday = await loader.GetPreviousDayAsync();
           tomorrow = await loader.GetNextDayAsync();
 
           this.OnOperationFinished();
+          this.searchButton.Enabled = true;
 
           var message = string.Format("Received {0} tickets", new List<IJetStreamFlight>(flights).Count);
           DialogHelper.ShowSimpleDialog(Activity, "Received", message);
         }
-        catch
+        catch (System.Exception exception)
         {
           this.OnOperationFailed();
+          this.searchButton.Enabled = true;
+
+          LogUtils.Error(typeof(BookFlightFragment), "Exception during searching tickets\n" + exception);
           DialogHelper.ShowSimpleDialog(Activity, "Error", "Failed to search tickets");
         }
       }
 
     }
 
-    private IFlightSearchUserInput prepareFlightSearchUserInput()
+    public override void OnResume()
+    {
+      base.OnResume();
+
+      this.fromAirportField.Adapter = autoCompleteAdapter;
+      this.toAirportField.Adapter = autoCompleteAdapter;
+
+      this.fromAirportField.TextChanged += this.HandleFromAirportFieldTextChanged;
+      this.toAirportField.TextChanged += this.HandleToAirportFieldTextChanged;
+
+      this.fromAirportField.ItemClick += this.HandleFromAirportFieldItemClick;
+      this.toAirportField.ItemClick += this.HandleToAirportFieldItemClick;
+    }
+
+    private IFlightSearchUserInput PrepareFlightSearchUserInput()
     {
       var userInput = new MutableFlightSearchUserInput
       {
@@ -216,6 +230,26 @@
     {
       this.returnDate = date.Date;
       this.returnDateButton.Text = date.Date.ToShortDateString();
+    }
+
+    private void HandleToAirportFieldTextChanged(object sender, TextChangedEventArgs e)
+    {
+      this.toAirport = null;
+    }
+
+    private void HandleToAirportFieldItemClick(object sender, AdapterView.ItemClickEventArgs e)
+    {
+      this.toAirport = this.autoCompleteAdapter.SearchedAirports[e.Position];
+    }
+
+    private void HandleFromAirportFieldTextChanged(object sender, TextChangedEventArgs e)
+    {
+      this.fromAirport = null;
+    }
+
+    private void HandleFromAirportFieldItemClick(object sender, AdapterView.ItemClickEventArgs e)
+    {
+      this.fromAirport = this.autoCompleteAdapter.SearchedAirports[e.Position];
     }
 
     private void UpdateDepartDate(DateTime date)

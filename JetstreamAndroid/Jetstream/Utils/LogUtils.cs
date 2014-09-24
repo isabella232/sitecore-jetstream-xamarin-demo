@@ -1,18 +1,18 @@
-﻿namespace JetstreamAndroid
+﻿namespace JetstreamAndroid.Utils
 {
   using System;
   using Android.Util;
 
   public class LogUtils
   {
-    private const string LOG_PREFIX = "jetstream_";
+    private const string LogPrefix = "jetstream_";
 
     private static string MakeLogTag(Type type)
     {
-      return LOG_PREFIX + type.Name;
+      return LogPrefix + type.Name;
     }
 
-    public static void Error(Type type, string message, Exception cause)
+    public static void Error(Type type, string message, Exception cause = null)
     {
       Log.Error(MakeLogTag(type), message, cause);
     }

@@ -76,11 +76,12 @@ namespace JetstreamAndroid.Adapters
           Task.WhenAll(airportsTask);
 
           this.allAirports = airportsTask.Result;
+          LogUtils.Info(typeof(AirportsFilter), string.Format("Found {0} airports", this.allAirports.Count()));
         }
       }
-      catch (Exception exception)
+      catch (System.Exception exception)
       {
-        LogUtils.Error(typeof(AirportsFilter), "Exception during retrieving airports list", exception);
+        LogUtils.Error(typeof(AirportsFilter), "Exception during retrieving airports list\n" + exception);
         this.allAirports = Enumerable.Empty<IJetStreamAirport>();
       }
     }
