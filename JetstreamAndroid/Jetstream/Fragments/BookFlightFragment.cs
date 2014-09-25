@@ -1,12 +1,14 @@
 ﻿namespace JetstreamAndroid.Fragments
 {
-  using System;
   using System.Collections.Generic;
   using Android.App;
+  using System;
   using Android.OS;
   using Android.Text;
   using Android.Views;
+  using Android.Content;
   using Android.Widget;
+  using JetstreamAndroid.Activities;
   using JetstreamAndroid.Adapters;
   using JetstreamAndroid.Models;
   using JetstreamAndroid.Utils;
@@ -16,7 +18,7 @@
   using JetStreamCommons.FlightSearch;
   using Sitecore.MobileSDK.API.Session;
 
-  public class BookFlightFragment : Fragment, IOperationListener
+  public class BookFlightFragment : Android.Support.V4.App.Fragment, IOperationListener
   {
     private const int DialogDepart = 1;
     private const int DialogReturn = 2;
@@ -159,6 +161,8 @@
 
           JetstreamApp app = JetstreamApp.From(Activity);
           app.FlightsContainer = flightsContainer;
+
+          Activity.StartActivity(typeof(FlightsActvity));
         }
         catch (System.Exception exception)
         {

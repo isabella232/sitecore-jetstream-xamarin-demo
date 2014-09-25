@@ -1,11 +1,12 @@
 namespace JetstreamAndroid.Fragments
 {
-  using Android.App;
   using Android.OS;
   using Android.Views;
   using Android.Widget;
+  using Android.Support.V4.App;
+  using Android.App;
 
-  public class SettingsFragment : Fragment
+  public class SettingsFragment : Android.Support.V4.App.Fragment
   {
     private EditText instanceUrl;
     private EditText login;

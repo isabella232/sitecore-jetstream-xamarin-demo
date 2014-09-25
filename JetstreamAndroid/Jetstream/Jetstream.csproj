@@ -9,7 +9,7 @@
     <RootNamespace>JetstreamAndroid</RootNamespace>
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
-    <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
+    <AndroidUseLatestPlatformSdk>False</AndroidUseLatestPlatformSdk>
     <AndroidApplication>True</AndroidApplication>
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
     <AndroidResgenClass>Resource</AndroidResgenClass>
@@ -40,6 +40,8 @@
   <ItemGroup>
     <Compile Include="Adapters\AirportsFilter.cs" />
     <Compile Include="Adapters\AutoCompleteAdapter.cs" />
+    <Compile Include="Adapters\PageIndicator.cs" />
+    <Compile Include="Adapters\TabPageIndicator.cs" />
     <Compile Include="JetstreamApp.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Fragments\BookFlightFragment.cs" />
@@ -52,15 +54,24 @@
     <Compile Include="Utils\DialogHelper.cs" />
     <Compile Include="Utils\OperationListener.cs" />
     <Compile Include="Utils\LogUtils.cs" />
+    <Compile Include="Activities\FlightsActvity.cs" />
+    <Compile Include="Adapters\FragmentPagerAdapter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
-    <None Include="Properties\AndroidManifest.xml" />
+    <None Include="Properties\AndroidManifest.xml">
+      <SubType>Designer</SubType>
+    </None>
     <AndroidResource Include="Resources\layout\fragment_settings.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\activity_main.axml" />
+    <AndroidResource Include="Resources\layout\activity_flights.axml" />
+    <None Include="packages.config" />
+    <AndroidResource Include="Resources\layout\tab_item.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\Strings.xml">
@@ -78,13 +89,16 @@
       <HintPath>..\..\SitecoreMobileSDK-Full\Sitecore.MobileSDK.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
-    <Reference Include="Xamarin.Android.Support.v13">
-      <HintPath>..\..\Solutions\Components\xamandroidsupportv13-18-20.0.0.4\lib\android\Xamarin.Android.Support.v13.dll</HintPath>
-    </Reference>
     <Reference Include="SitecoreMobileSdkPasswordProvider">
       <HintPath>..\..\SitecoreMobileSDK-Full\SitecoreMobileSdkPasswordProvider.dll</HintPath>
     </Reference>
     <Reference Include="System.Core" />
+    <Reference Include="Xamarin.Android.Support.v13">
+      <HintPath>..\..\Solutions\packages\Xamarin.Android.Support.v13.20.0.0.4\lib\MonoAndroid32\Xamarin.Android.Support.v13.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Android.Support.v4">
+      <HintPath>..\..\Solutions\packages\Xamarin.Android.Support.v4.20.0.0.4\lib\MonoAndroid32\Xamarin.Android.Support.v4.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\integers.xml" />
@@ -117,15 +131,55 @@
     <AndroidResource Include="Resources\Drawable-xhdpi\ic_drawer_light.png" />
   </ItemGroup>
   <ItemGroup>
-    <XamarinComponentReference Include="xamandroidsupportv13-18">
-      <Version>20.0.0.4</Version>
-      <Visible>False</Visible>
-    </XamarinComponentReference>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\JetStreamCommons\JetStreamCommons\JetStreamCommons.csproj">
       <Project>{040C24CF-4B83-4917-B837-ED8157960B5F}</Project>
       <Name>JetStreamCommons</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\values\styles.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\Drawable\tab_indicator.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\Drawable-hdpi\tab_selected_focused_holo.9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\Drawable-hdpi\tab_selected_holo.9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\Drawable-hdpi\tab_selected_pressed_holo.9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\Drawable-hdpi\tab_unselected_focused_holo.9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\Drawable-hdpi\tab_unselected_holo.9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\Drawable-hdpi\tab_unselected_pressed_holo.9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\Drawable-xhdpi\tab_selected_focused_holo.9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\Drawable-xhdpi\tab_selected_holo.9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\Drawable-xhdpi\tab_selected_pressed_holo.9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\Drawable-xhdpi\tab_unselected_focused_holo.9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\Drawable-xhdpi\tab_unselected_holo.9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\Drawable-xhdpi\tab_unselected_pressed_holo.9.png" />
   </ItemGroup>
 </Project>

@@ -1,6 +1,8 @@
-﻿namespace JetstreamAndroid
+﻿using Android.Support.V4.App;
+using Android.App;
+
+namespace JetstreamAndroid
 {
-  using Android.App;
   using Android.Content.PM;
   using Android.Content.Res;
   using Android.OS;
@@ -10,7 +12,7 @@
   using JetstreamAndroid.Fragments;
 
   [Activity(Label = "Jetstream", MainLauncher = true, ScreenOrientation = ScreenOrientation.Portrait, Icon = "@drawable/icon")]
-  public class MainActivity : Activity
+  public class MainActivity : FragmentActivity
   {
     private DrawerLayout drawer;
     private JetstreamActionBarDrawerToggle drawerToggle;
@@ -77,7 +79,7 @@
 
     private void SelectItem(int position)
     {
-      Fragment fragment;
+      Android.Support.V4.App.Fragment fragment;
       switch (position)
       {
         case 0:
@@ -101,7 +103,7 @@
           break;
       }
 
-      this.FragmentManager.BeginTransaction()
+      this.SupportFragmentManager.BeginTransaction()
           .Replace(Resource.Id.content_frame, fragment)
           .Commit();
 
