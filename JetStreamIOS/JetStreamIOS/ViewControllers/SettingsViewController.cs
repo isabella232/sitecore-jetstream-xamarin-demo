@@ -11,6 +11,7 @@ namespace JetStreamIOS
   using Sitecore.MobileSDK.API;
   using Sitecore.MobileSDK.API.Session;
 
+  using  SecureStringPasswordProvider.iOS;
 
 
 	public partial class SettingsViewController : UIViewController
@@ -139,7 +140,7 @@ namespace JetStreamIOS
       {
         try
         {
-          using (var credentials = new WebApiCredentialsPODInsequredDemo(userName, password))
+          using (var credentials = new SecureStringPasswordProvider(userName, password))
           using (
             var session = SitecoreWebApiSessionBuilder.AuthenticatedSessionWithHost(this.InstanceUrlField.Text)
             .Credentials(credentials)

@@ -7,7 +7,8 @@
   using Sitecore.MobileSDK.API;
   using Sitecore.MobileSDK.API.Session;
 
-  // @adk : copypasted from WhiteLabel.app
+  using  SecureStringPasswordProvider.iOS;
+
 
   //TODO: NSUserDefaults is not secure enough for credentials.
   //  Please use either of :
@@ -43,7 +44,7 @@
       using 
         (
           var credentials = 
-          new WebApiCredentialsPODInsequredDemo(
+          new SecureStringPasswordProvider(
             this.InstanceLogin, 
             this.InstancePassword)
         )
