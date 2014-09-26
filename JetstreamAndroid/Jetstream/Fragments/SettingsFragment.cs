@@ -1,10 +1,12 @@
 namespace JetstreamAndroid.Fragments
 {
+  using System;
   using Android.OS;
   using Android.Views;
   using Android.Widget;
   using Android.Support.V4.App;
   using Android.App;
+  using JetstreamAndroid.Utils;
   using JetStreamCommons;
   using Sitecore.MobileSDK.API;
   using Sitecore.MobileSDK.API.Session;
@@ -67,7 +69,15 @@ namespace JetstreamAndroid.Fragments
       Activity.SetProgressBarIndeterminateVisibility(true);
       this.saveButton.Enabled = false;
 
-      bool isValid = await session.AuthenticateAsync();
+      bool isValid = false;
+      try
+      {
+        isValid = await session.AuthenticateAsync();
+      }
+      catch (System.Exception exception)
+      {
+        LogUtils.Info(typeof(SettingsFragment), "Failed to connect to " + instanceUrl);
+      }
 
       this.saveButton.Enabled = true;
       Activity.SetProgressBarIndeterminateVisibility(false);
