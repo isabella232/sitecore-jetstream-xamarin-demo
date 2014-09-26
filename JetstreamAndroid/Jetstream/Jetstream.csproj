@@ -40,8 +40,7 @@
   <ItemGroup>
     <Compile Include="Adapters\AirportsFilter.cs" />
     <Compile Include="Adapters\AutoCompleteAdapter.cs" />
-    <Compile Include="Adapters\PageIndicator.cs" />
-    <Compile Include="Adapters\TabPageIndicator.cs" />
+    <Compile Include="Fragments\FlightsListFragment.cs" />
     <Compile Include="JetstreamApp.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Fragments\BookFlightFragment.cs" />
@@ -51,6 +50,8 @@
     <Compile Include="Prefs.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tabs\PageIndicator.cs" />
+    <Compile Include="Tabs\TabPageIndicator.cs" />
     <Compile Include="Utils\DialogHelper.cs" />
     <Compile Include="Utils\OperationListener.cs" />
     <Compile Include="Utils\LogUtils.cs" />

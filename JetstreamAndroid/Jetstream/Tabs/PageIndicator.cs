@@ -1,4 +1,4 @@
-namespace JetstreamAndroid.Adapters
+namespace JetstreamAndroid.Tabs
 {
   using Android.Support.V4.View;
 

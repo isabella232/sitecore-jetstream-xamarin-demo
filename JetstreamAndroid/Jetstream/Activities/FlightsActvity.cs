@@ -8,6 +8,7 @@
   using JetstreamAndroid.Adapters;
   using JetstreamAndroid.Fragments;
   using JetstreamAndroid.Models;
+  using JetstreamAndroid.Tabs;
 
   [Activity(Label = "FlightsActvity", ScreenOrientation = ScreenOrientation.Portrait)]
   public class FlightsActvity : FragmentActivity

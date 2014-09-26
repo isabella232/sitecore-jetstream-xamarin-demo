@@ -1,15 +1,12 @@
-namespace JetstreamAndroid.Adapters
+namespace JetstreamAndroid.Tabs
 {
   using System;
-  using System.Collections.Generic;
   using Android.Content;
   using Android.Support.V4.View;
   using Android.Util;
   using Android.Views;
   using Android.Widget;
   using Java.Lang;
-  using JetstreamAndroid.Activities;
-  using JetStreamCommons.Flight;
   using JetStreamCommons.FlightSearch;
 
   public class TabPageIndicator : HorizontalScrollView, PageIndicator

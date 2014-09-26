@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <view
     style="@style/Widget.TabPageIndicator"
-    class="jetstreamandroid.adapters.TabPageIndicator_TabView"
+    class="jetstreamandroid.tabs.TabPageIndicator_TabView"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
   <LinearLayout
