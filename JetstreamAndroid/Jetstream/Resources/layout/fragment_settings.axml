@@ -11,12 +11,14 @@
             android:id="@+id/field_instance_url"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:singleLine="true"
             android:hint="Instance URL" />
         <View
             android:layout_width="match_parent"
             android:layout_height="30dp" />
         <EditText
             android:id="@+id/field_instance_login"
+            android:singleLine="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Login" />
@@ -24,6 +26,7 @@
             android:id="@+id/field_instance_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:singleLine="true"
             android:hint="Password"
             android:inputType="textPassword" />
     </LinearLayout>
@@ -32,5 +35,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="Save" />
+        android:text="Check connection" />
 </RelativeLayout>
