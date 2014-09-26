@@ -1,6 +1,7 @@
 ﻿namespace JetstreamAndroid.Fragments
 {
   using System.Collections.Generic;
+  using System.Linq;
   using Android.App;
   using System;
   using Android.OS;
@@ -29,6 +30,8 @@
 
     private IJetStreamAirport fromAirport;
     private IJetStreamAirport toAirport;
+
+    private bool isRoundTrip = false;
 
     #endregion
 
@@ -76,7 +79,8 @@
       this.roundTripCheckBox = root.FindViewById<CheckBox>(Resource.Id.checkBox_roundtrip);
       this.roundTripCheckBox.Click += (o, e) =>
       {
-        if (this.roundTripCheckBox.Checked)
+        this.isRoundTrip = this.roundTripCheckBox.Checked;
+        if (this.isRoundTrip)
         {
           this.ShowReturnDate();
         }
@@ -86,7 +90,13 @@
         }
       };
 
-      this.UpdateDepartDate(DateTime.Today);
+      this.roundTripCheckBox.Checked = this.isRoundTrip;
+      if (this.isRoundTrip)
+      {
+        this.ShowReturnDate();
+      }
+
+      this.UpdateDepartDate(this.departDate);
       this.InitFields(root);
       return root;
     }
@@ -147,16 +157,22 @@
           this.OnOperationFinished();
           this.searchButton.Enabled = true;
 
-          var message = string.Format("Received {0} tickets", new List<IJetStreamFlight>(flights).Count);
+          var jetStreamFlights = flights as IJetStreamFlight[] ?? flights.ToArray();
+          var message = string.Format("Received {0} tickets", jetStreamFlights.Length);
           Toast.MakeText(Activity, message, ToastLength.Short).Show();
 
           var flightsContainer = new FlightsContainer
           {
             FlightSearchUserInput = input,
-            Flights = flights,
+            Flights = jetStreamFlights,
             YesterdaySummary = yesterday,
             TomorrowSummary = tomorrow
           };
+
+          if (jetStreamFlights.Length == 0)
+          {
+            return;
+          }
 
           JetstreamApp app = JetstreamApp.From(Activity);
           app.FlightsContainer = flightsContainer;
@@ -198,7 +214,7 @@
         ForwardFlightDepartureDate = this.departDate
       };
 
-      if (this.roundTripCheckBox.Checked)
+      if (this.isRoundTrip)
       {
         userInput.ReturnFlightDepartureDate = this.returnDate;
       }
@@ -280,6 +296,7 @@
     {
       this.returnDateButton.Visibility = ViewStates.Visible;
       this.returnDateTextView.Visibility = ViewStates.Visible;
+      this.UpdateReturnDate(this.returnDate);
     }
 
     public void OnOperationStarted()
