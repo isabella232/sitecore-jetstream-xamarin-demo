@@ -5,12 +5,18 @@ namespace JetstreamAndroid.Fragments
   using Android.Widget;
   using Android.Support.V4.App;
   using Android.App;
+  using JetStreamCommons;
+  using Sitecore.MobileSDK.API;
+  using Sitecore.MobileSDK.API.Session;
 
   public class SettingsFragment : Android.Support.V4.App.Fragment
   {
+    #region Views
     private EditText instanceUrl;
     private EditText login;
     private EditText password;
+    private Button saveButton;
+    #endregion
 
     private Prefs prefs;
 
@@ -22,24 +28,62 @@ namespace JetstreamAndroid.Fragments
       this.login = root.FindViewById<EditText>(Resource.Id.field_instance_login);
       this.password = root.FindViewById<EditText>(Resource.Id.field_instance_password);
 
-      var saveButton = root.FindViewById<Button>(Resource.Id.button_save);
+      this.saveButton = root.FindViewById<Button>(Resource.Id.button_save);
 
-      saveButton.Click += (sender, args) =>
-      {
-        this.SaveFieldsToPrefs();
-        Toast.MakeText(Activity, "Saved", ToastLength.Short).Show();
-      };
+      this.saveButton.Click += (sender, args) => this.CheckAndSaveToPrefs();
 
       this.InitFields();
 
       return root;
     }
 
-    private void SaveFieldsToPrefs()
+    private async void CheckAndSaveToPrefs()
     {
-      this.prefs.InstanceUrl = this.instanceUrl.Text;
-      this.prefs.Login = this.login.Text;
-      this.prefs.Password = this.password.Text;
+      var instanceUrl = this.instanceUrl.Text;
+      var login = this.login.Text;
+      var pass = this.password.Text;
+
+      bool isAuthenticated = !string.IsNullOrEmpty(login) && !string.IsNullOrEmpty(pass);
+
+      ISitecoreWebApiSession session;
+      if (isAuthenticated)
+      {
+        var credentials = new WebApiCredentialsPODInsequredDemo(login, pass);
+
+        session = SitecoreWebApiSessionBuilder.AuthenticatedSessionWithHost(instanceUrl)
+          .Credentials(credentials)
+          .DefaultDatabase("master")
+          .DefaultLanguage("en")
+          .BuildSession();
+      }
+      else
+      {
+        session = SitecoreWebApiSessionBuilder.AnonymousSessionWithHost(instanceUrl)
+          .DefaultDatabase("master")
+          .DefaultLanguage("en")
+          .BuildSession();
+      }
+
+      Activity.SetProgressBarIndeterminateVisibility(true);
+      this.saveButton.Enabled = false;
+
+      bool isValid = await session.AuthenticateAsync();
+
+      this.saveButton.Enabled = true;
+      Activity.SetProgressBarIndeterminateVisibility(false);
+
+      if (isValid)
+      {
+        this.prefs.InstanceUrl = instanceUrl;
+        this.prefs.Login = login;
+        this.prefs.Password = pass;
+
+        Toast.MakeText(Activity, "Connected. The settings is saved", ToastLength.Long).Show();
+      }
+      else
+      {
+        Toast.MakeText(Activity, "Please check your data and network availibility", ToastLength.Long).Show();
+      }
     }
 
     public override void OnAttach(Activity activity)

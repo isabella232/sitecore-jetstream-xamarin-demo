@@ -1,15 +1,15 @@
-﻿using Android.Support.V4.App;
-using Android.App;
-
-namespace JetstreamAndroid
+﻿namespace JetstreamAndroid
 {
+  using Android.App;
   using Android.Content.PM;
   using Android.Content.Res;
   using Android.OS;
+  using Android.Support.V4.App;
   using Android.Support.V4.Widget;
   using Android.Views;
   using Android.Widget;
   using JetstreamAndroid.Fragments;
+  using JetstreamAndroid.Utils;
 
   [Activity(Label = "Jetstream", MainLauncher = true, ScreenOrientation = ScreenOrientation.Portrait, Icon = "@drawable/icon")]
   public class MainActivity : FragmentActivity
