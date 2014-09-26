@@ -6,32 +6,53 @@
   using Android.Support.V4.App;
   using Android.Support.V4.View;
   using JetstreamAndroid.Adapters;
+  using JetstreamAndroid.Fragments;
+  using JetstreamAndroid.Models;
 
-  [Activity(Label = "FlightsActvity", ScreenOrientation = ScreenOrientation.Portrait)]			
+  [Activity(Label = "FlightsActvity", ScreenOrientation = ScreenOrientation.Portrait)]
   public class FlightsActvity : FragmentActivity
   {
-    public Adapters.FragmentPagerAdapter MPagerAdapter;
+    private JetstreamPagerAdapter pagerAdapter;
     public ViewPager mPager;
-
-    static readonly string Tag = "ActionBarTabsSupport";
-
     Android.Support.V4.App.Fragment[] _fragments;
+
+    private FlightsContainer flightsContainer;
 
     protected override void OnCreate(Bundle bundle)
     {
       base.OnCreate(bundle);
       this.SetContentView(Resource.Layout.activity_flights);
 
-      this.MPagerAdapter = new Adapters.FragmentPagerAdapter (this.SupportFragmentManager);
+      this.flightsContainer = JetstreamApp.From(this).FlightsContainer;
 
-      this.mPager = this.FindViewById<ViewPager> (Resource.Id.pager);
-      this.mPager.Adapter = this.MPagerAdapter;
+      this.InitFragmentPagerAdapter();
 
-      var mIndicator = this.FindViewById<TabPageIndicator> (Resource.Id.indicator);
-      mIndicator.SetViewPager (this.mPager);
-      mIndicator.AddTab("1", 0);
-      mIndicator.AddTab("2", 1);
-      mIndicator.AddTab("3", 2);
+      this.mPager = this.FindViewById<ViewPager>(Resource.Id.pager);
+      this.mPager.Adapter = this.pagerAdapter;
+      this.mPager.SetCurrentItem(1, true);
+
+      this.InitTabsIndicator();
+    }
+
+    private void InitFragmentPagerAdapter()
+    {
+      this.pagerAdapter = new JetstreamPagerAdapter(this.SupportFragmentManager);
+      this.pagerAdapter.Fragments = new[]
+      {
+        new SettingsFragment(), new SettingsFragment(), new SettingsFragment()
+      };
+    }
+
+    private void InitTabsIndicator()
+    {
+      var indicator = this.FindViewById<TabPageIndicator>(Resource.Id.indicator);
+      indicator.SetViewPager(this.mPager);
+
+      indicator.AddDayBeforeTab(this.flightsContainer.YesterdaySummary);
+      indicator.AddTodayTab(this.flightsContainer.FlightSearchUserInput);
+      indicator.AddDayAfterTab(this.flightsContainer.TomorrowSummary);
+
+      indicator.SetCurrentItem(1);
     }
   }
 }

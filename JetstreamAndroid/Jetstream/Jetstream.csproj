@@ -55,7 +55,7 @@
     <Compile Include="Utils\OperationListener.cs" />
     <Compile Include="Utils\LogUtils.cs" />
     <Compile Include="Activities\FlightsActvity.cs" />
-    <Compile Include="Adapters\FragmentPagerAdapter.cs" />
+    <Compile Include="Adapters\JetstreamPagerAdapter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

@@ -6,7 +6,6 @@
   using Android.OS;
   using Android.Text;
   using Android.Views;
-  using Android.Content;
   using Android.Widget;
   using JetstreamAndroid.Activities;
   using JetstreamAndroid.Adapters;
@@ -149,7 +148,7 @@
           this.searchButton.Enabled = true;
 
           var message = string.Format("Received {0} tickets", new List<IJetStreamFlight>(flights).Count);
-          DialogHelper.ShowSimpleDialog(Activity, "Received", message);
+          Toast.MakeText(Activity, message, ToastLength.Short).Show();
 
           var flightsContainer = new FlightsContainer
           {

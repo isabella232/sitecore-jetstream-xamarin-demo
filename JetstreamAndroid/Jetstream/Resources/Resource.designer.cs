@@ -115,11 +115,11 @@ namespace JetstreamAndroid
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f08000a
-			public const int button_depart_date = 2131230730;
+			// aapt resource value: 0x7f080008
+			public const int button_depart_date = 2131230728;
 			
-			// aapt resource value: 0x7f08000c
-			public const int button_return_date = 2131230732;
+			// aapt resource value: 0x7f08000a
+			public const int button_return_date = 2131230730;
 			
 			// aapt resource value: 0x7f080011
 			public const int button_save = 2131230737;
@@ -160,17 +160,20 @@ namespace JetstreamAndroid
 			// aapt resource value: 0x7f080001
 			public const int pager = 2131230721;
 			
-			// aapt resource value: 0x7f080009
-			public const int spinner_classes = 2131230729;
-			
-			// aapt resource value: 0x7f080008
-			public const int spinner_number_of_tickets = 2131230728;
-			
-			// aapt resource value: 0x7f080012
-			public const int text1 = 2131230738;
+			// aapt resource value: 0x7f08000c
+			public const int spinner_classes = 2131230732;
 			
 			// aapt resource value: 0x7f08000b
-			public const int textview_return_date = 2131230731;
+			public const int spinner_number_of_tickets = 2131230731;
+			
+			// aapt resource value: 0x7f080013
+			public const int textview_day_date = 2131230739;
+			
+			// aapt resource value: 0x7f080012
+			public const int textview_day_price = 2131230738;
+			
+			// aapt resource value: 0x7f080009
+			public const int textview_return_date = 2131230729;
 			
 			static Id()
 			{

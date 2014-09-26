@@ -1,12 +1,16 @@
 namespace JetstreamAndroid.Adapters
 {
   using System;
+  using System.Collections.Generic;
   using Android.Content;
   using Android.Support.V4.View;
   using Android.Util;
   using Android.Views;
   using Android.Widget;
   using Java.Lang;
+  using JetstreamAndroid.Activities;
+  using JetStreamCommons.Flight;
+  using JetStreamCommons.FlightSearch;
 
   public class TabPageIndicator : HorizontalScrollView, PageIndicator
   {
@@ -97,10 +101,12 @@ namespace JetstreamAndroid.Adapters
       }
     }
 
-    public void AddTab(string text, int index)
+    public void AddTab(string price, string date, int index)
     {
       var tabView = (TabView)this.mInflater.Inflate(Resource.Layout.tab_item, null);
-      tabView.Init(this, text, index);
+
+      tabView.Init(this, price, date, index);
+
       tabView.Focusable = true;
       tabView.Click += delegate(object sender, EventArgs e)
       {
@@ -152,19 +158,19 @@ namespace JetstreamAndroid.Adapters
     public void NotifyDataSetChanged()
     {
       //TODO : change if requested
-//      this.mTabLayout.RemoveAllViews();
-//
-//      int count = this.mViewPager.Adapter.Count;
-//      for (int i = 0; i < count; i++)
-//      {
-//        AddTab((i + 1).ToString(), i);
-//      }
-//      if (mSelectedTabIndex > count)
-//      {
-//        mSelectedTabIndex = count - 1;
-//      }
-//      SetCurrentItem(mSelectedTabIndex);
-//      this.RequestLayout();
+      //      this.mTabLayout.RemoveAllViews();
+      //
+      //      int count = this.mViewPager.Adapter.Count;
+      //      for (int i = 0; i < count; i++)
+      //      {
+      //        AddTab((i + 1).ToString(), i);
+      //      }
+      //      if (mSelectedTabIndex > count)
+      //      {
+      //        mSelectedTabIndex = count - 1;
+      //      }
+      //      SetCurrentItem(mSelectedTabIndex);
+      //      this.RequestLayout();
     }
 
     public void SetViewPager(ViewPager view, int initialPosition)
@@ -178,6 +184,21 @@ namespace JetstreamAndroid.Adapters
       this.mListener = listener;
     }
 
+    public void AddDayBeforeTab(DaySummary yesterdaySummary)
+    {
+      this.AddTab(yesterdaySummary.LowestPrice.ToString(), yesterdaySummary.DepartureDate.ToShortDateString(), 0);
+    }
+
+    public void AddTodayTab(IFlightSearchUserInput input)
+    {
+      this.AddTab(null, input.ForwardFlightDepartureDate.ToShortDateString(), 1);
+    }
+
+    public void AddDayAfterTab(DaySummary tomorrowSummary)
+    {
+      this.AddTab(tomorrowSummary.LowestPrice.ToString(), tomorrowSummary.DepartureDate.ToShortDateString(), 2);
+    }
+
     public class TabView : LinearLayout
     {
       private TabPageIndicator mParent;
@@ -188,13 +209,24 @@ namespace JetstreamAndroid.Adapters
       {
       }
 
-      public void Init(TabPageIndicator parent, string text, int index)
+      public void Init(TabPageIndicator parent, string price, string date, int index)
       {
         this.mParent = parent;
         this.mIndex = index;
 
-        var textView = this.FindViewById<TextView>(Resource.Id.text1);
-        textView.Text = text;
+        var priceText = this.FindViewById<TextView>(Resource.Id.textview_day_price);
+        var dateText = this.FindViewById<TextView>(Resource.Id.textview_day_date);
+        
+        dateText.Text = date;
+        if (price != null)
+        {
+          priceText.Text = price;
+        }
+        else
+        {
+          priceText.Visibility = ViewStates.Gone;
+          dateText.Gravity = GravityFlags.Center;
+        }
       }
 
       protected override void OnMeasure(int widthMeasureSpec, int heightMeasureSpec)

@@ -4,7 +4,7 @@ namespace JetstreamAndroid
   using Android.Content;
   using JetstreamAndroid.Models;
 
-  [Application]
+  [Application(Theme = "@android:style/Theme.Holo.Light")]
   public class JetstreamApp : Application
   {
     public JetstreamApp(System.IntPtr javaReference, Android.Runtime.JniHandleOwnership transfer) : base(javaReference, transfer)
