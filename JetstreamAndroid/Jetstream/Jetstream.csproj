@@ -69,10 +69,10 @@
     </AndroidResource>
     <AndroidResource Include="Resources\layout\activity_main.axml" />
     <AndroidResource Include="Resources\layout\activity_flights.axml" />
-    <None Include="packages.config" />
     <AndroidResource Include="Resources\layout\tab_item.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\Strings.xml">
@@ -96,9 +96,6 @@
     <Reference Include="System.Core" />
     <Reference Include="Xamarin.Android.Support.v13">
       <HintPath>..\..\Solutions\packages\Xamarin.Android.Support.v13.20.0.0.4\lib\MonoAndroid32\Xamarin.Android.Support.v13.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Android.Support.v4">
-      <HintPath>..\..\Solutions\packages\Xamarin.Android.Support.v4.20.0.0.4\lib\MonoAndroid32\Xamarin.Android.Support.v4.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

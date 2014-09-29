@@ -183,7 +183,7 @@ namespace JetstreamAndroid.Tabs
 
     public void AddDayBeforeTab(DaySummary yesterdaySummary)
     {
-      this.AddTab(yesterdaySummary.LowestPrice.ToString(), yesterdaySummary.DepartureDate.ToShortDateString(), 0);
+      this.AddTab("$" + yesterdaySummary.LowestPrice.ToString(), yesterdaySummary.DepartureDate.ToShortDateString(), 0);
     }
 
     public void AddTodayTab(IFlightSearchUserInput input)
@@ -193,7 +193,7 @@ namespace JetstreamAndroid.Tabs
 
     public void AddDayAfterTab(DaySummary tomorrowSummary)
     {
-      this.AddTab(tomorrowSummary.LowestPrice.ToString(), tomorrowSummary.DepartureDate.ToShortDateString(), 2);
+      this.AddTab("$" + tomorrowSummary.LowestPrice.ToString(), tomorrowSummary.DepartureDate.ToShortDateString(), 2);
     }
 
     public class TabView : LinearLayout

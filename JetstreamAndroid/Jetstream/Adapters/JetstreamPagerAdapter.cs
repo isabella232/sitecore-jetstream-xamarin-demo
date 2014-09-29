@@ -1,9 +1,9 @@
 namespace JetstreamAndroid.Adapters
 {
-  using FragmentManager = Android.Support.V4.App.FragmentManager;
-  using Fragment = Android.Support.V4.App.Fragment;
+  using Android.Support.V13.App;
+  using Android.App;
 
-  public class JetstreamPagerAdapter : Android.Support.V4.App.FragmentPagerAdapter
+  public class JetstreamPagerAdapter : FragmentPagerAdapter
   {
     public Fragment[] Fragments { get; set; }
 
