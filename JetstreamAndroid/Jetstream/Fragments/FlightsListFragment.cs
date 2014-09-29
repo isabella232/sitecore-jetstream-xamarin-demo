@@ -65,6 +65,8 @@ namespace JetstreamAndroid.Fragments
 
       var adapter = this.PrepareAdapter(this.flights);
       ListAdapter = adapter;
+
+      SetEmptyText("No tickets avalible");
     }
 
     private async void LoadFlightsForYesterday()

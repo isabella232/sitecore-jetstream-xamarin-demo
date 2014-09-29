@@ -39,7 +39,8 @@
 
       var flight = this[position];
 
-      var departText = this.context.GetString(Resource.String.text_deaprt_time) + flight.DepartureTime.ToLocalTime();
+      var departText = this.context.GetString(Resource.String.text_deaprt_time) + 
+        DateTime.SpecifyKind(flight.DepartureTime, DateTimeKind.Local);
       var arrivalText = this.context.GetString(Resource.String.text_arrival_time) + flight.ArrivalTime.ToLocalTime();
 
       priceTextView.Text = "$" + flight.Price;
