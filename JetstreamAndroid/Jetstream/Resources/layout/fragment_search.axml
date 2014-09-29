@@ -4,138 +4,118 @@
     android:layout_height="fill_parent"
     android:padding="8dp"
     android:weightSum="8">
-
-  <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:orientation="vertical">
-
-    <AutoCompleteTextView
-        android:id="@+id/field_from_location"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="From" />
-
-    <AutoCompleteTextView
-        android:id="@+id/field_to_location"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="To" />
-
-    <CheckBox
-        android:id="@+id/checkBox_roundtrip"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:checked="false"
-        android:gravity="center"
-        android:text="Roundtrip" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="horizontal"
-        android:weightSum="2">
-
-      <LinearLayout
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:layout_weight="1"
-          android:orientation="vertical">
-
-        <TextView
+        android:orientation="vertical">
+        <AutoCompleteTextView
+            android:id="@+id/field_from_location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Depart"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <Button
-            android:id="@+id/button_depart_date"
+            android:hint="From" />
+        <AutoCompleteTextView
+            android:id="@+id/field_to_location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text=".." />
-
-      </LinearLayout>
-
-      <LinearLayout
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:layout_weight="1"
-          android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/textview_return_date"
+            android:hint="To" />
+        <CheckBox
+            android:id="@+id/checkBox_roundtrip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:checked="false"
+            android:gravity="center"
+            android:paddingLeft="3dp"
+            android:text="Roundtrip" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Return"
-            android:visibility="gone"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <Button
-            android:id="@+id/button_return_date"
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="2">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Depart" />
+                <Button
+                    android:id="@+id/button_depart_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=".." />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/textview_return_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Return"
+                    android:visibility="gone" />
+                <Button
+                    android:id="@+id/button_return_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=".."
+                    android:visibility="gone" />
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:text=".." />
-
-      </LinearLayout>
-
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="2">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Count"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+                <Spinner
+                    android:id="@+id/spinner_number_of_tickets"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/number_of_tickets"
+                    android:minWidth="100dp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Class"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+                <Spinner
+                    android:id="@+id/spinner_classes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/ticket_class"
+                    android:gravity="right" />
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
-
-    <LinearLayout
+    <Button
+        android:id="@+id/button_search_tickets"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="horizontal"
-        android:weightSum="2">
-
-      <LinearLayout
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:layout_weight="1"
-          android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Count"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
-
-        <Spinner
-            android:id="@+id/spinner_number_of_tickets"
-            android:layout_width="wrap_content"
-            android:entries="@array/number_of_tickets"
-            android:layout_height="wrap_content"
-            android:minWidth="100dp" />
-      </LinearLayout>
-
-      <LinearLayout
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:layout_weight="1"
-          android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Class"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
-
-        <Spinner
-            android:id="@+id/spinner_classes"
-            android:layout_width="wrap_content"
-            android:entries="@array/ticket_class"
-            android:layout_height="wrap_content"
-            android:gravity="right" />
-      </LinearLayout>
-    </LinearLayout>
-  </LinearLayout>
-
-  <Button
-      android:id="@+id/button_search_tickets"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_alignParentBottom="true"
-      android:text="Search" />
+        android:layout_alignParentBottom="true"
+        android:text="Search" />
 </RelativeLayout>
