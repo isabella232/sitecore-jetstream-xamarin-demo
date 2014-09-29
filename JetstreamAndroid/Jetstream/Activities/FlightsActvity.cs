@@ -17,7 +17,7 @@ namespace JetstreamAndroid.Activities
   {
     private JetstreamPagerAdapter pagerAdapter;
     private ViewPager mPager;
-    private Android.App.Fragment[] _fragments;
+    private Fragment[] _fragments;
 
     private FlightsContainer flightsContainer;
 
@@ -42,7 +42,7 @@ namespace JetstreamAndroid.Activities
     {
       this.pagerAdapter = new JetstreamPagerAdapter(this.FragmentManager)
       {
-        Fragments = new[]
+        Fragments = new Fragment[]
         {
           FlightsListFragment.NewInstance(FragmentType.YesterdayFlights),
           FlightsListFragment.NewInstance(FragmentType.TodayFlights),
@@ -56,9 +56,9 @@ namespace JetstreamAndroid.Activities
       var indicator = this.FindViewById<TabPageIndicator>(Resource.Id.indicator);
       indicator.SetViewPager(this.mPager);
 
-      indicator.AddDayBeforeTab(this.flightsContainer.YesterdaySummary);
+      indicator.AddYesterdayTab(this.flightsContainer.YesterdaySummary);
       indicator.AddTodayTab(this.flightsContainer.FlightSearchUserInput);
-      indicator.AddDayAfterTab(this.flightsContainer.TomorrowSummary);
+      indicator.AddTommorowTab(this.flightsContainer.TomorrowSummary);
 
       indicator.SetCurrentItem(1);
     }

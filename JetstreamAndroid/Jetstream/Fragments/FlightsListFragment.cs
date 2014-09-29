@@ -5,6 +5,7 @@ namespace JetstreamAndroid.Fragments
   using Android.App;
   using Android.OS;
   using Android.Widget;
+  using JetstreamAndroid.Adapters;
   using JetstreamAndroid.Utils;
   using JetStreamCommons;
   using JetStreamCommons.Flight;
@@ -39,14 +40,14 @@ namespace JetstreamAndroid.Fragments
 
     public override void OnActivityCreated(Bundle savedInstanceState)
     {
-      
+
       base.OnActivityCreated(savedInstanceState);
       app = JetstreamApp.From(Activity);
 
       FragmentType type;
       Enum.TryParse(Arguments.GetString(FragmentTypeKey), out type);
 
-      if(this.flights == null)
+      if (this.flights == null)
       {
         switch (type)
         {
@@ -117,24 +118,10 @@ namespace JetstreamAndroid.Fragments
       Activity.SetProgressBarIndeterminateVisibility(false);
     }
 
-    private ArrayAdapter<string> PrepareAdapter(IEnumerable<IJetStreamFlight> flights)
+    private BaseAdapter<IJetStreamFlight> PrepareAdapter(IEnumerable<IJetStreamFlight> flights)
     {
-      List<IJetStreamFlight> flightsList;
-      if(flights == null)
-      {
-        flightsList = new List<IJetStreamFlight>();
-      }
-      else
-      {
-        flightsList = new List<IJetStreamFlight>(flights);
-      }
-
-      FragmentType type;
-      var isParsed = Enum.TryParse(Arguments.GetString(FragmentTypeKey), out type);
-      System.Diagnostics.Debug.WriteLine(type + " : Count" + flightsList.Count);
-
-      var data = flightsList.ConvertAll(input => input.FlightNumber);
-      return new ArrayAdapter<String>(Activity, Android.Resource.Layout.SimpleListItem1, data);
+      List<IJetStreamFlight> flightsList = flights == null ? new List<IJetStreamFlight>() : new List<IJetStreamFlight>(flights);
+      return new FlightsListAdapter(Activity, flightsList);
     }
   }
 
@@ -142,7 +129,8 @@ namespace JetstreamAndroid.Fragments
   {
     YesterdayFlights,
     TodayFlights,
-    TommorowFlights}
+    TommorowFlights
+  }
 
   ;
 }

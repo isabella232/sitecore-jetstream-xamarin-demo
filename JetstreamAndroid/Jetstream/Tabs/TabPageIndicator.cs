@@ -173,7 +173,7 @@ namespace JetstreamAndroid.Tabs
     public void SetViewPager(ViewPager view, int initialPosition)
     {
       this.SetViewPager(view);
-      this.SetCurrentItem(initialPosition);
+      this.SetCurrentItem(initialPosition); 
     }
 
     public void SetOnPageChangeListener(ViewPager.IOnPageChangeListener listener)
@@ -181,9 +181,9 @@ namespace JetstreamAndroid.Tabs
       this.mListener = listener;
     }
 
-    public void AddDayBeforeTab(DaySummary yesterdaySummary)
+    public void AddYesterdayTab(DaySummary yesterdaySummary)
     {
-      this.AddTab("$" + yesterdaySummary.LowestPrice.ToString(), yesterdaySummary.DepartureDate.ToShortDateString(), 0);
+      this.AddTab(yesterdaySummary.LowestPrice.ToString(), yesterdaySummary.DepartureDate.ToShortDateString(), 0);
     }
 
     public void AddTodayTab(IFlightSearchUserInput input)
@@ -191,9 +191,9 @@ namespace JetstreamAndroid.Tabs
       this.AddTab(null, input.ForwardFlightDepartureDate.ToShortDateString(), 1);
     }
 
-    public void AddDayAfterTab(DaySummary tomorrowSummary)
+    public void AddTommorowTab(DaySummary tomorrowSummary)
     {
-      this.AddTab("$" + tomorrowSummary.LowestPrice.ToString(), tomorrowSummary.DepartureDate.ToShortDateString(), 2);
+      this.AddTab(tomorrowSummary.LowestPrice.ToString(), tomorrowSummary.DepartureDate.ToShortDateString(), 2);
     }
 
     public class TabView : LinearLayout
@@ -215,9 +215,9 @@ namespace JetstreamAndroid.Tabs
         var dateText = this.FindViewById<TextView>(Resource.Id.textview_day_date);
         
         dateText.Text = date;
-        if (price != null)
+        if (!string.IsNullOrEmpty(price))
         {
-          priceText.Text = price;
+          priceText.Text = "$" + price;
         }
         else
         {
