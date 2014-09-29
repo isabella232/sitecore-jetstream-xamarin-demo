@@ -25,7 +25,6 @@
             android:layout_gravity="left"
             android:checked="false"
             android:gravity="center"
-            android:paddingLeft="3dp"
             android:text="Roundtrip" />
         <View
             android:layout_width="match_parent"
