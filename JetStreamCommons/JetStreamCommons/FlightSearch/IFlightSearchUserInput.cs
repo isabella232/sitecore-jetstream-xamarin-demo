@@ -6,7 +6,7 @@
 
   public interface IFlightSearchUserInput
   {
-    IJetStreamAirport SourceAirport { get; }
+    IJetStreamAirport DepartureAirport { get; }
     IJetStreamAirport DestinationAirport { get; }
 
     DateTime ForwardFlightDepartureDate { get; }

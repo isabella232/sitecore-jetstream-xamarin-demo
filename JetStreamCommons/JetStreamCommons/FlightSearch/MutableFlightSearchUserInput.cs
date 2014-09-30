@@ -5,7 +5,7 @@
 
   public class MutableFlightSearchUserInput : IFlightSearchUserInput
   {
-    public IJetStreamAirport SourceAirport { get; set; }
+    public IJetStreamAirport DepartureAirport { get; set; }
     public IJetStreamAirport DestinationAirport { get; set; }
 
     public DateTime ForwardFlightDepartureDate { get; set; }

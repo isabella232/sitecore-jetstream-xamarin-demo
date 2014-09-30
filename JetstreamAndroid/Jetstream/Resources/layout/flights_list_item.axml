@@ -4,7 +4,8 @@
     android:layout_height="fill_parent"
     android:gravity="center_vertical"
     android:padding="5dp"
-    android:weightSum="5">
+    android:weightSum="5"
+    android:descendantFocusability="blocksDescendants">
     <TextView
         android:id="@+id/textview_flight_price"
         android:layout_width="0dp"

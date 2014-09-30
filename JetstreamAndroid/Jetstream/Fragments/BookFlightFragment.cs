@@ -144,7 +144,7 @@
       using (var jetStreamSession = new RestManager(webApiSession))
       {
         var loader = new FlightSearchLoader(jetStreamSession,
-          input.SourceAirport,
+          input.DepartureAirport,
           input.DestinationAirport,
           input.ForwardFlightDepartureDate);
 
@@ -209,7 +209,7 @@
     {
       var userInput = new MutableFlightSearchUserInput
       {
-        SourceAirport = this.fromAirport,
+        DepartureAirport = this.fromAirport,
         DestinationAirport = this.toAirport,
         ForwardFlightDepartureDate = this.departDate
       };

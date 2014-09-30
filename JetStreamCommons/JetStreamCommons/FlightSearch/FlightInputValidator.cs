@@ -7,7 +7,7 @@ namespace JetStreamCommons.FlightSearch
   {
     public static bool IsFlightInputValid(IFlightSearchUserInput flightInput)
     {
-      bool isSourceAirportSet = ( null != flightInput.SourceAirport );
+      bool isSourceAirportSet = ( null != flightInput.DepartureAirport );
       bool isDestinationAirportSet = ( null != flightInput.DestinationAirport );
 
       return isSourceAirportSet && isDestinationAirportSet;
@@ -15,7 +15,7 @@ namespace JetStreamCommons.FlightSearch
 
     public static void CheckIsDataCorrectWithException(IFlightSearchUserInput flightInput)
     {
-      if (null == flightInput.SourceAirport)
+      if (null == flightInput.DepartureAirport)
       {
         throw new ArgumentNullException("FROM_AIRPORT_IS_NULL");
       }

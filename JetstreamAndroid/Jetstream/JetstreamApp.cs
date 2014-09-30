@@ -3,6 +3,7 @@ namespace JetstreamAndroid
   using Android.App;
   using Android.Content;
   using JetstreamAndroid.Models;
+  using JetStreamCommons.Flight;
 
   [Application(Theme = "@android:style/Theme.Holo.Light")]
   public class JetstreamApp : Application
@@ -17,5 +18,6 @@ namespace JetstreamAndroid
     }
 
     public FlightsContainer FlightsContainer { get; set; }
+    public IJetStreamFlight SelectedFlight { get; set; }
   }
 }

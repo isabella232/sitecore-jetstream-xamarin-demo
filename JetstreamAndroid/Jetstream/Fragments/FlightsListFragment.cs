@@ -2,9 +2,14 @@ namespace JetstreamAndroid.Fragments
 {
   using System;
   using System.Collections.Generic;
+  using System.Linq;
   using Android.App;
+  using Android.Content;
   using Android.OS;
+  using Android.Views;
   using Android.Widget;
+  using Java.IO;
+  using JetstreamAndroid.Activities;
   using JetstreamAndroid.Adapters;
   using JetstreamAndroid.Utils;
   using JetStreamCommons;
@@ -69,6 +74,13 @@ namespace JetstreamAndroid.Fragments
       SetEmptyText("No tickets avalible");
     }
 
+    public override void OnListItemClick(ListView l, View v, int position, long id)
+    {
+      var flight = this.flights.ToList()[position];
+      this.app.SelectedFlight = flight;
+      Activity.StartActivity(typeof(FlightDetailedActivity));
+    }
+
     private async void LoadFlightsForYesterday()
     {
       ISitecoreWebApiSession webApiSession = Prefs.From(app).Session;
@@ -77,7 +89,7 @@ namespace JetstreamAndroid.Fragments
       using (var jetStreamSession = new RestManager(webApiSession))
       {
         var loader = new FlightSearchLoader(jetStreamSession,
-                       app.FlightsContainer.FlightSearchUserInput.SourceAirport,
+                       app.FlightsContainer.FlightSearchUserInput.DepartureAirport,
                        app.FlightsContainer.FlightSearchUserInput.DestinationAirport,
                        app.FlightsContainer.FlightSearchUserInput.ForwardFlightDepartureDate.AddDays(-1));
 
@@ -103,7 +115,7 @@ namespace JetstreamAndroid.Fragments
       using (var jetStreamSession = new RestManager(webApiSession))
       {
         var loader = new FlightSearchLoader(jetStreamSession,
-                       app.FlightsContainer.FlightSearchUserInput.SourceAirport,
+                       app.FlightsContainer.FlightSearchUserInput.DepartureAirport,
                        app.FlightsContainer.FlightSearchUserInput.DestinationAirport,
                        app.FlightsContainer.FlightSearchUserInput.ForwardFlightDepartureDate.AddDays(1));
 
