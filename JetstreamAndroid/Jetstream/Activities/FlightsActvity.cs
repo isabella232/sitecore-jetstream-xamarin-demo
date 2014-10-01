@@ -24,7 +24,6 @@
 
     #region Stuff with data
     private IFlightSearchUserInput userInput;
-    private FlightSearchLoader loader;
     #endregion
 
     protected override void OnCreate(Bundle bundle)
