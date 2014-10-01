@@ -39,6 +39,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Activities\FlightDetailedActivity.cs" />
+    <Compile Include="Activities\SummaryActivity.cs" />
     <Compile Include="Adapters\AirportsFilter.cs" />
     <Compile Include="Adapters\AutoCompleteAdapter.cs" />
     <Compile Include="Fragments\FlightsListFragment.cs" />
@@ -77,7 +78,9 @@
     </AndroidResource>
     <None Include="packages.config" />
     <AndroidResource Include="Resources\layout\flights_list_item.axml" />
-    <AndroidResource Include="Resources\layout\activity_flight_details.axml" />
+    <AndroidResource Include="Resources\layout\activity_webiew_teemplate.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\Strings.xml">

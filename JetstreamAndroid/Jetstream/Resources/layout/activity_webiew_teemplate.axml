@@ -12,9 +12,9 @@
       android:layout_height="0dp" />
 
   <Button
+      android:id="@+id/button_template"
       android:layout_below="@id/webView_flight_details"
       android:layout_width="match_parent"
       android:layout_height="0dp"
-      android:layout_weight="1"
-      android:text="Order" />
+      android:layout_weight="1" />
 </LinearLayout>

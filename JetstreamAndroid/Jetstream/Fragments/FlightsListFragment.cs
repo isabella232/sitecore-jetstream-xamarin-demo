@@ -68,7 +68,7 @@ namespace JetstreamAndroid.Fragments
     public override void OnListItemClick(ListView l, View v, int position, long id)
     {
       var flight = this.flights.ToList()[position];
-      this.app.SelectedFlight = flight;
+      this.app.DepartureFlight = flight;
       Activity.StartActivity(typeof(FlightDetailedActivity));
     }
 

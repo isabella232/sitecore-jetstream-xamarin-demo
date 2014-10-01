@@ -9,8 +9,8 @@ namespace JetstreamAndroid.Activities
   using JetstreamAndroid.Utils;
   using JetStreamCommons;
 
-  [Activity(Label = "FlightDetailedActivity", ScreenOrientation = ScreenOrientation.Portrait)]
-  public class FlightDetailedActivity : Activity
+  [Activity(Label = "SummaryActivity", ScreenOrientation = ScreenOrientation.Portrait)]
+  public class SummaryActivity : Activity
   {
     private JetstreamApp app;
     protected override void OnCreate(Bundle bundle)
@@ -23,21 +23,25 @@ namespace JetstreamAndroid.Activities
 
       var userInput = this.app.FlightUserInput;
 
+      var departureFlight = this.app.DepartureFlight;
+      var returnFlight = this.app.ReturnFlight;
+
       var order = new JetStreamOrder(
-        this.app.DepartureFlight, 
-        null,
+        departureFlight,
+        returnFlight,
         userInput.DepartureAirport,
         userInput.DestinationAirport,
         userInput.TicketsCount);
 
-      var htmlBuilder = new AndroidFlightDetailsHtmlBuilder(this);
-      var html = htmlBuilder.GetHtmlStringWithFlight(this.app.DepartureFlight, order);
+      var htmlBuilder = new AndroidOrderSummaryHtmlBuilder(this);
+      var html = htmlBuilder.GetHtmlStringWithOrder(order);
 
       var button = this.FindViewById<Button>(Resource.Id.button_template);
-      button.Text = "Order";
-      button.Click += (sender, args) => this.StartActivity(typeof(SummaryActivity));
-      
+      button.Text = "Purchase";
+      button.Click += (sender, args) => Toast.MakeText(this, "Tickets purchased", ToastLength.Long).Show();
+
       var webView = this.FindViewById<WebView>(Resource.Id.webView_flight_details);
+
       webView.Settings.JavaScriptEnabled = true;
       webView.LoadDataWithBaseURL("file:///android_asset/", html, "text/html", "UTF-8", null);
     }

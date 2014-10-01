@@ -22,7 +22,8 @@ namespace JetstreamAndroid
     }
 
     public IFlightSearchUserInput FlightUserInput { get; set; }
-    public IJetStreamFlight SelectedFlight { get; set; }
+    public IJetStreamFlight DepartureFlight { get; set; }
+    public IJetStreamFlight ReturnFlight { get; set; }
 
     public FlightSearchLoader FlightSearchLoaderForDate(DateTime date)
     {
