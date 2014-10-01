@@ -133,11 +133,11 @@ namespace JetstreamAndroid
 			// aapt resource value: 0x7f08000c
 			public const int checkBox_roundtrip = 2131230732;
 			
-			// aapt resource value: 0x7f080004
-			public const int content_frame = 2131230724;
-			
 			// aapt resource value: 0x7f080003
-			public const int drawer_layout = 2131230723;
+			public const int content_frame = 2131230723;
+			
+			// aapt resource value: 0x7f080002
+			public const int drawer_layout = 2131230722;
 			
 			// aapt resource value: 0x7f08000a
 			public const int field_from_location = 2131230730;
@@ -154,14 +154,14 @@ namespace JetstreamAndroid
 			// aapt resource value: 0x7f08000b
 			public const int field_to_location = 2131230731;
 			
+			// aapt resource value: 0x7f080000
+			public const int indicator = 2131230720;
+			
+			// aapt resource value: 0x7f080004
+			public const int left_drawer = 2131230724;
+			
 			// aapt resource value: 0x7f080001
-			public const int indicator = 2131230721;
-			
-			// aapt resource value: 0x7f080005
-			public const int left_drawer = 2131230725;
-			
-			// aapt resource value: 0x7f080002
-			public const int pager = 2131230722;
+			public const int pager = 2131230721;
 			
 			// aapt resource value: 0x7f080011
 			public const int spinner_classes = 2131230737;
@@ -187,8 +187,8 @@ namespace JetstreamAndroid
 			// aapt resource value: 0x7f08000e
 			public const int textview_return_date = 2131230734;
 			
-			// aapt resource value: 0x7f080000
-			public const int webView_flight_details = 2131230720;
+			// aapt resource value: 0x7f080005
+			public const int webView_flight_details = 2131230725;
 			
 			static Id()
 			{
@@ -220,13 +220,13 @@ namespace JetstreamAndroid
 		{
 			
 			// aapt resource value: 0x7f030000
-			public const int activity_flight_details = 2130903040;
+			public const int activity_flights = 2130903040;
 			
 			// aapt resource value: 0x7f030001
-			public const int activity_flights = 2130903041;
+			public const int activity_main = 2130903041;
 			
 			// aapt resource value: 0x7f030002
-			public const int activity_main = 2130903042;
+			public const int activity_webiew_teemplate = 2130903042;
 			
 			// aapt resource value: 0x7f030003
 			public const int flights_list_item = 2130903043;
