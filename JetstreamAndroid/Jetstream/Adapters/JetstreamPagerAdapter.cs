@@ -1,11 +1,12 @@
 namespace JetstreamAndroid.Adapters
 {
+  using System.Collections.Generic;
   using Android.Support.V13.App;
   using Android.App;
 
   public class JetstreamPagerAdapter : FragmentPagerAdapter
   {
-    public Fragment[] Fragments { get; set; }
+    public List<Fragment> Fragments { get; set; }
 
     public JetstreamPagerAdapter(FragmentManager fm)
       : base(fm)
@@ -21,7 +22,7 @@ namespace JetstreamAndroid.Adapters
     {
       get
       {
-        return Fragments.Length;
+        return Fragments.Count;
       }
     }
   }

@@ -7,7 +7,6 @@ namespace JetstreamAndroid.Tabs
   using Android.Views;
   using Android.Widget;
   using Java.Lang;
-  using JetStreamCommons.FlightSearch;
 
   public class TabPageIndicator : HorizontalScrollView, PageIndicator
   {
@@ -15,8 +14,18 @@ namespace JetstreamAndroid.Tabs
     private ViewPager mViewPager;
     private ViewPager.IOnPageChangeListener mListener;
     private readonly LayoutInflater mInflater;
-    int mMaxTabWidth;
+
+    public int MaxTabWidth { get; private set; }
+
     private int mSelectedTabIndex;
+
+    public int TabsCount
+    {
+      get
+      {
+        return mTabLayout.ChildCount;
+      }
+    }
 
     public TabPageIndicator(Context context)
       : base(context, null)
@@ -45,16 +54,16 @@ namespace JetstreamAndroid.Tabs
       {
         if (childCount > 2)
         {
-          this.mMaxTabWidth = (int)(MeasureSpec.GetSize(widthMeasureSpec) * 0.4f);
+          this.MaxTabWidth = (int)(MeasureSpec.GetSize(widthMeasureSpec) * 0.4f);
         }
         else
         {
-          this.mMaxTabWidth = MeasureSpec.GetSize(widthMeasureSpec) / 2;
+          this.MaxTabWidth = MeasureSpec.GetSize(widthMeasureSpec) / 2;
         }
       }
       else
       {
-        this.mMaxTabWidth = -1;
+        this.MaxTabWidth = -1;
       }
 
       int oldWidth = this.MeasuredWidth;
@@ -69,7 +78,7 @@ namespace JetstreamAndroid.Tabs
 
     private void AnimateToTab(int position)
     {
-      var tabView = this.mTabLayout.GetChildAt(position);
+      var tabView = (TabView)this.mTabLayout.GetChildAt(position);
 
       this.Post(() =>
       {
@@ -86,23 +95,40 @@ namespace JetstreamAndroid.Tabs
       }
       this.mSelectedTabIndex = item;
       var tabCount = this.mTabLayout.ChildCount;
-      for (int i = 0; i < tabCount; i++)
+      for (var i = 0; i < tabCount; i++)
       {
-        var child = this.mTabLayout.GetChildAt(i);
+        var child = (TabView)this.mTabLayout.GetChildAt(i);
         var isSelected = (i == item);
         child.Selected = isSelected;
         if (isSelected)
         {
+          child.ShowOrHidePrice(false);
           this.AnimateToTab(item);
+        }
+        else
+        {
+          child.ShowOrHidePrice(true);
         }
       }
     }
 
-    public void AddTab(string price, string date, int index)
+    public void RefreshTabs()
+    {
+      var tabCount = this.mTabLayout.ChildCount;
+      for (var i = 0; i < tabCount; i++)
+      {
+        var child = (TabView)this.mTabLayout.GetChildAt(i);
+        var isSelected = (i == this.mSelectedTabIndex);
+        child.Selected = isSelected;
+        child.ShowOrHidePrice(!isSelected);
+      }
+    }
+
+    public void AddTab(DateTime date, int index)
     {
       var tabView = (TabView)this.mInflater.Inflate(Resource.Layout.tab_item, null);
 
-      tabView.Init(this, price, date, index);
+      tabView.Init(this, date, index);
 
       tabView.Focusable = true;
       tabView.Click += delegate(object sender, EventArgs e)
@@ -140,108 +166,26 @@ namespace JetstreamAndroid.Tabs
       }
     }
 
-    public void SetViewPager(ViewPager view)
+    public void SetViewPager(ViewPager pager)
     {
-      var adapter = view.Adapter;
+      var adapter = pager.Adapter;
       if (adapter == null)
       {
         throw new IllegalStateException("ViewPager does not have adapter instance.");
       }
-      this.mViewPager = view;
-      view.SetOnPageChangeListener(this);
-      this.NotifyDataSetChanged();
+      this.mViewPager = pager;
+      pager.SetOnPageChangeListener(this);
     }
 
-    public void NotifyDataSetChanged()
+    public void SetViewPager(ViewPager pager, int initialPosition)
     {
-      //TODO : change if requested
-      //      this.mTabLayout.RemoveAllViews();
-      //
-      //      int count = this.mViewPager.Adapter.Count;
-      //      for (int i = 0; i < count; i++)
-      //      {
-      //        AddTab((i + 1).ToString(), i);
-      //      }
-      //      if (mSelectedTabIndex > count)
-      //      {
-      //        mSelectedTabIndex = count - 1;
-      //      }
-      //      SetCurrentItem(mSelectedTabIndex);
-      //      this.RequestLayout();
-    }
-
-    public void SetViewPager(ViewPager view, int initialPosition)
-    {
-      this.SetViewPager(view);
-      this.SetCurrentItem(initialPosition); 
+      this.SetViewPager(pager);
+      this.SetCurrentItem(initialPosition);
     }
 
     public void SetOnPageChangeListener(ViewPager.IOnPageChangeListener listener)
     {
       this.mListener = listener;
-    }
-
-    public void AddYesterdayTab(DaySummary yesterdaySummary)
-    {
-      this.AddTab(yesterdaySummary.LowestPrice.ToString(), yesterdaySummary.DepartureDate.ToShortDateString(), 0);
-    }
-
-    public void AddTodayTab(IFlightSearchUserInput input)
-    {
-      this.AddTab(null, input.ForwardFlightDepartureDate.ToShortDateString(), 1);
-    }
-
-    public void AddTommorowTab(DaySummary tomorrowSummary)
-    {
-      this.AddTab(tomorrowSummary.LowestPrice.ToString(), tomorrowSummary.DepartureDate.ToShortDateString(), 2);
-    }
-
-    public class TabView : LinearLayout
-    {
-      private TabPageIndicator mParent;
-      private int mIndex;
-
-      public TabView(Context context, IAttributeSet attrs)
-        : base(context, attrs)
-      {
-      }
-
-      public void Init(TabPageIndicator parent, string price, string date, int index)
-      {
-        this.mParent = parent;
-        this.mIndex = index;
-
-        var priceText = this.FindViewById<TextView>(Resource.Id.textview_day_price);
-        var dateText = this.FindViewById<TextView>(Resource.Id.textview_day_date);
-        
-        dateText.Text = date;
-        if (!string.IsNullOrEmpty(price))
-        {
-          priceText.Text = "$" + price;
-        }
-        else
-        {
-          priceText.Visibility = ViewStates.Gone;
-          dateText.Gravity = GravityFlags.Center;
-        }
-      }
-
-      protected override void OnMeasure(int widthMeasureSpec, int heightMeasureSpec)
-      {
-        base.OnMeasure(widthMeasureSpec, heightMeasureSpec);
-
-        // Re-measure if we went beyond our maximum size.
-        if (this.mParent.mMaxTabWidth > 0 && this.MeasuredWidth > this.mParent.mMaxTabWidth)
-        {
-          base.OnMeasure(MeasureSpec.MakeMeasureSpec(this.mParent.mMaxTabWidth, MeasureSpecMode.Exactly), heightMeasureSpec);
-        }
-
-      }
-
-      public int GetIndex()
-      {
-        return this.mIndex;
-      }
     }
   }
 }

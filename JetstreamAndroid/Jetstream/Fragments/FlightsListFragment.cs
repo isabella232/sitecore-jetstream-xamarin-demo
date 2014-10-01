@@ -4,33 +4,28 @@ namespace JetstreamAndroid.Fragments
   using System.Collections.Generic;
   using System.Linq;
   using Android.App;
-  using Android.Content;
   using Android.OS;
   using Android.Views;
   using Android.Widget;
-  using Java.IO;
   using JetstreamAndroid.Activities;
   using JetstreamAndroid.Adapters;
   using JetstreamAndroid.Utils;
-  using JetStreamCommons;
   using JetStreamCommons.Flight;
   using JetStreamCommons.FlightSearch;
-  using Sitecore.MobileSDK.API.Session;
 
   public class FlightsListFragment : ListFragment
   {
-    private const string FragmentTypeKey = "fragment_type";
+    private const string FragmentDateKey = "fragment_date";
 
     private JetstreamApp app;
     private IEnumerable<IJetStreamFlight> flights;
 
-    public static FlightsListFragment NewInstance(FragmentType type)
+    public static FlightsListFragment NewInstance(DateTime date)
     {
-      System.Diagnostics.Debug.WriteLine(type + " : NewInstance");
       var fragment = new FlightsListFragment();
 
       var arguments = new Bundle();
-      arguments.PutString(FragmentTypeKey, type.ToString());
+      arguments.PutString(FragmentDateKey, date.ToString());
 
       fragment.Arguments = arguments;
 
@@ -49,29 +44,25 @@ namespace JetstreamAndroid.Fragments
       base.OnActivityCreated(savedInstanceState);
       app = JetstreamApp.From(Activity);
 
-      FragmentType type;
-      Enum.TryParse(Arguments.GetString(FragmentTypeKey), out type);
+      DateTime dateTime = DateTime.Parse(Arguments.GetString(FragmentDateKey));
+      var loader = this.app.FlightSearchLoaderForDate(dateTime);
 
-      if (this.flights == null)
+      this.SetEmptyText("No tickets avalible");
+
+      this.UpdateFligths(loader);
+    }
+
+    private async void UpdateFligths(FlightSearchLoader loader)
+    {
+      try
       {
-        switch (type)
-        {
-          case FragmentType.TodayFlights:
-            this.flights = app.FlightsContainer.Flights;
-            break;
-          case FragmentType.TommorowFlights:
-            this.LoadFlightsForTommorow();
-            break;
-          case FragmentType.YesterdayFlights:
-            this.LoadFlightsForYesterday();
-            break;
-        }
+        this.flights  = await loader.GetFlightsForTheGivenDateAsync();
+        this.InitAndSetAdapter();
       }
-
-      var adapter = this.PrepareAdapter(this.flights);
-      ListAdapter = adapter;
-
-      SetEmptyText("No tickets avalible");
+      catch (System.Exception exception)
+      {
+        LogUtils.Error(typeof(BookFlightFragment), "Exception during searching tickets\n" + exception);
+      }
     }
 
     public override void OnListItemClick(ListView l, View v, int position, long id)
@@ -81,70 +72,10 @@ namespace JetstreamAndroid.Fragments
       Activity.StartActivity(typeof(FlightDetailedActivity));
     }
 
-    private async void LoadFlightsForYesterday()
+    private void InitAndSetAdapter()
     {
-      ISitecoreWebApiSession webApiSession = Prefs.From(app).Session;
-      Activity.SetProgressBarIndeterminateVisibility(true);
-
-      using (var jetStreamSession = new RestManager(webApiSession))
-      {
-        var loader = new FlightSearchLoader(jetStreamSession,
-                       app.FlightsContainer.FlightSearchUserInput.DepartureAirport,
-                       app.FlightsContainer.FlightSearchUserInput.DestinationAirport,
-                       app.FlightsContainer.FlightSearchUserInput.ForwardFlightDepartureDate.AddDays(-1));
-
-        try
-        {
-          this.flights = await loader.GetFlightsForTheGivenDateAsync();
-        }
-        catch (System.Exception exception)
-        {
-          LogUtils.Error(typeof(BookFlightFragment), "Exception during searching tickets\n" + exception);
-          DialogHelper.ShowSimpleDialog(Activity, "Error", "Failed to search tickets");
-        }
-      }
-
-      Activity.SetProgressBarIndeterminateVisibility(false);
-    }
-
-    private async void LoadFlightsForTommorow()
-    {
-      Activity.SetProgressBarIndeterminateVisibility(true);
-
-      ISitecoreWebApiSession webApiSession = Prefs.From(app).Session;
-      using (var jetStreamSession = new RestManager(webApiSession))
-      {
-        var loader = new FlightSearchLoader(jetStreamSession,
-                       app.FlightsContainer.FlightSearchUserInput.DepartureAirport,
-                       app.FlightsContainer.FlightSearchUserInput.DestinationAirport,
-                       app.FlightsContainer.FlightSearchUserInput.ForwardFlightDepartureDate.AddDays(1));
-
-        try
-        {
-          this.flights = await loader.GetFlightsForTheGivenDateAsync();
-        }
-        catch (System.Exception exception)
-        {
-          LogUtils.Error(typeof(BookFlightFragment), "Exception during searching tickets\n" + exception);
-          DialogHelper.ShowSimpleDialog(Activity, "Error", "Failed to search tickets");
-        }
-      }
-      Activity.SetProgressBarIndeterminateVisibility(false);
-    }
-
-    private BaseAdapter<IJetStreamFlight> PrepareAdapter(IEnumerable<IJetStreamFlight> flights)
-    {
-      List<IJetStreamFlight> flightsList = flights == null ? new List<IJetStreamFlight>() : new List<IJetStreamFlight>(flights);
-      return new FlightsListAdapter(Activity, flightsList);
+      var flightsList = flights == null ? new List<IJetStreamFlight>() : new List<IJetStreamFlight>(this.flights);
+      ListAdapter = new FlightsListAdapter(Activity, flightsList);
     }
   }
-
-  public enum FragmentType
-  {
-    YesterdayFlights,
-    TodayFlights,
-    TommorowFlights
-  }
-
-  ;
 }

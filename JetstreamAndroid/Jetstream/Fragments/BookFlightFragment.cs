@@ -10,7 +10,6 @@
   using Android.Widget;
   using JetstreamAndroid.Activities;
   using JetstreamAndroid.Adapters;
-  using JetstreamAndroid.Models;
   using JetstreamAndroid.Utils;
   using JetStreamCommons;
   using JetStreamCommons.Airport;
@@ -133,61 +132,17 @@
       this.searchButton.Click += (sender, args) => this.SearchTickets();
     }
 
-    private async void SearchTickets()
+    private void SearchTickets()
     {
-      this.OnOperationStarted();
-      this.searchButton.Enabled = false;
-
-      ISitecoreWebApiSession webApiSession = Prefs.From(Activity).Session;
-      var input = this.PrepareFlightSearchUserInput();
-
-      using (var jetStreamSession = new RestManager(webApiSession))
+      if (!this.CheckUserInput())
       {
-        var loader = new FlightSearchLoader(jetStreamSession,
-          input.DepartureAirport,
-          input.DestinationAirport,
-          input.ForwardFlightDepartureDate);
-
-        try
-        {
-          IEnumerable<IJetStreamFlight> flights = await loader.GetFlightsForTheGivenDateAsync();
-          DaySummary yesterday = await loader.GetPreviousDayAsync();
-          DaySummary tomorrow = await loader.GetNextDayAsync();
-
-          this.OnOperationFinished();
-          this.searchButton.Enabled = true;
-
-          var jetStreamFlights = flights as IJetStreamFlight[] ?? flights.ToArray();
-          var message = string.Format("Received {0} tickets", jetStreamFlights.Length);
-          Toast.MakeText(Activity, message, ToastLength.Short).Show();
-
-          var flightsContainer = new FlightsContainer
-          {
-            FlightSearchUserInput = input,
-            Flights = jetStreamFlights,
-            YesterdaySummary = yesterday,
-            TomorrowSummary = tomorrow
-          };
-
-          if (jetStreamFlights.Length == 0)
-          {
-            return;
-          }
-
-          JetstreamApp app = JetstreamApp.From(Activity);
-          app.FlightsContainer = flightsContainer;
-
-          Activity.StartActivity(typeof(FlightsActvity));
-        }
-        catch (System.Exception exception)
-        {
-          this.OnOperationFailed();
-          this.searchButton.Enabled = true;
-
-          LogUtils.Error(typeof(BookFlightFragment), "Exception during searching tickets\n" + exception);
-          DialogHelper.ShowSimpleDialog(Activity, "Error", "Failed to search tickets");
-        }
+        return;
       }
+
+      JetstreamApp app = JetstreamApp.From(Activity);
+      app.FlightUserInput = this.PrepareFlightSearchUserInput();
+
+      Activity.StartActivity(typeof(FlightsActvity));
 
     }
 
@@ -203,6 +158,25 @@
 
       this.fromAirportField.ItemClick += this.HandleFromAirportFieldItemClick;
       this.toAirportField.ItemClick += this.HandleToAirportFieldItemClick;
+    }
+
+    private bool CheckUserInput()
+    {
+      if (this.fromAirport == null)
+      {
+        Toast.MakeText(Activity, "Please select airport from list", ToastLength.Long).Show();
+        this.fromAirportField.Error = "Please select airport from list";
+        return false;
+      }
+
+      if (this.toAirport == null)
+      {
+        Toast.MakeText(Activity, "Please select airport from list", ToastLength.Long).Show();
+        this.toAirportField.Error = "Please select airport from list";
+        return false;
+      }
+
+      return true;
     }
 
     private IFlightSearchUserInput PrepareFlightSearchUserInput()

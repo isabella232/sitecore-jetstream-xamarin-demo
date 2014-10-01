@@ -47,12 +47,12 @@
     <Compile Include="Fragments\BookFlightFragment.cs" />
     <Compile Include="Fragments\SettingsFragment.cs" />
     <Compile Include="JetstreamActionBarDrawerToggle.cs" />
-    <Compile Include="Models\FlightsContainer.cs" />
     <Compile Include="Prefs.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tabs\PageIndicator.cs" />
     <Compile Include="Tabs\TabPageIndicator.cs" />
+    <Compile Include="Tabs\TabView.cs" />
     <Compile Include="Utils\AndroidFlightDetailsHtmlBuilder.cs" />
     <Compile Include="Utils\DialogHelper.cs" />
     <Compile Include="Utils\OperationListener.cs" />

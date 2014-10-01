@@ -7,17 +7,17 @@ namespace JetstreamAndroid.Tabs
 		/**
 	     * Bind the indicator to a ViewPager.
 	     *
-	     * @param view
+	     * @param pager
 	     */
-		void SetViewPager (ViewPager view);
+		void SetViewPager (ViewPager pager);
 	
 		/**
 	     * Bind the indicator to a ViewPager.
 	     *
-	     * @param view
+	     * @param pager
 	     * @param initialPosition
 	     */
-		void SetViewPager (ViewPager view, int initialPosition);
+		void SetViewPager (ViewPager pager, int initialPosition);
 	
 		/**
 	     * <p>Set the current page of both the ViewPager and indicator.</p>
@@ -35,12 +35,6 @@ namespace JetstreamAndroid.Tabs
 	     * @param listener
 	     */
 		void SetOnPageChangeListener (ViewPager.IOnPageChangeListener listener);
-	
-		/**
-	     * Notify the indicator that the fragment list has changed.
-	     */
-		void NotifyDataSetChanged ();
 	}
-
 }
 

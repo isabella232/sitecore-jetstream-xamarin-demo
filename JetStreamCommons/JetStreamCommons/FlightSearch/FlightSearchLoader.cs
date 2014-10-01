@@ -15,7 +15,7 @@
     private IFlightsLoader flightsDataSource;
     private IJetStreamAirport sourceAirport;
     private IJetStreamAirport destinationAirport;
-    private DateTime flightDate;
+    public DateTime FlightDate { get; set; }
 
     public FlightSearchLoader(
       IFlightsLoader flightsDataSource,
@@ -26,12 +26,12 @@
       this.flightsDataSource = flightsDataSource;
       this.sourceAirport = sourceAirport;
       this.destinationAirport = destinationAirport;
-      this.flightDate = flightDate;
+      this.FlightDate = flightDate;
     }
 
     public async Task<IEnumerable<IJetStreamFlight>> GetFlightsForTheGivenDateAsync()
     {
-      DateTime today = this.flightDate.Date;
+      DateTime today = this.FlightDate.Date;
 
       SearchFlightsRequest request = new SearchFlightsRequest(
         this.sourceAirport.Id,
@@ -53,9 +53,14 @@
       return await this.GetDayWithOffsetAsync(+1);
     }
 
+    public async Task<DaySummary> GetCurrentDayAsync()
+    {
+      return await this.GetDayWithOffsetAsync(0);
+    }
+
     private async Task<DaySummary> GetDayWithOffsetAsync(int offset)
     {
-      DateTime otherDay = this.flightDate.AddDays(offset).Date;
+      DateTime otherDay = this.FlightDate.AddDays(offset).Date;
 
       SearchFlightsRequest request = new SearchFlightsRequest(
         this.sourceAirport.Id,

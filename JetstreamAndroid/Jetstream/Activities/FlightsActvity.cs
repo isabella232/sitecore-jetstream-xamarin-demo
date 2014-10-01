@@ -1,25 +1,31 @@
-﻿using Android.Support.V4.View;
-
-namespace JetstreamAndroid.Activities
+﻿namespace JetstreamAndroid.Activities
 {
+  using System;
+  using System.Collections.Generic;
   using Android.App;
   using Android.Content.PM;
   using Android.OS;
+  using Android.Support.V4.View;
   using Android.Views;
   using JetstreamAndroid.Adapters;
   using JetstreamAndroid.Fragments;
-  using JetstreamAndroid.Models;
   using JetstreamAndroid.Tabs;
+  using JetStreamCommons.FlightSearch;
 
 
   [Activity(Label = "FlightsActvity", ScreenOrientation = ScreenOrientation.Portrait)]
-  public class FlightsActvity : Activity
+  public class FlightsActvity : Activity, ViewPager.IOnPageChangeListener
   {
+    #region Stuff associated with Views
     private JetstreamPagerAdapter pagerAdapter;
-    private ViewPager mPager;
-    private Fragment[] _fragments;
+    private ViewPager viewPager;
+    private TabPageIndicator tabsPageIndicator;
+    #endregion
 
-    private FlightsContainer flightsContainer;
+    #region Stuff with data
+    private IFlightSearchUserInput userInput;
+    private FlightSearchLoader loader;
+    #endregion
 
     protected override void OnCreate(Bundle bundle)
     {
@@ -27,40 +33,66 @@ namespace JetstreamAndroid.Activities
       this.RequestWindowFeature(WindowFeatures.IndeterminateProgress);
       this.SetContentView(Resource.Layout.activity_flights);
 
-      this.flightsContainer = JetstreamApp.From(this).FlightsContainer;
+      this.userInput = JetstreamApp.From(this).FlightUserInput;
 
       this.InitFragmentPagerAdapter();
 
-      this.mPager = this.FindViewById<ViewPager>(Resource.Id.pager);
-      this.mPager.Adapter = this.pagerAdapter;
-      this.mPager.SetCurrentItem(1, true);
+      this.viewPager = this.FindViewById<ViewPager>(Resource.Id.pager);
+      this.viewPager.Adapter = this.pagerAdapter;
+      this.viewPager.SetCurrentItem(1, true);
 
       this.InitTabsIndicator();
     }
 
     private void InitFragmentPagerAdapter()
     {
+      var fragments = new List<Fragment>
+      {
+        FlightsListFragment.NewInstance(this.userInput.ForwardFlightDepartureDate.AddDays(-1)),
+        FlightsListFragment.NewInstance(this.userInput.ForwardFlightDepartureDate),
+        FlightsListFragment.NewInstance(this.userInput.ForwardFlightDepartureDate.AddDays(1))
+      };
+
       this.pagerAdapter = new JetstreamPagerAdapter(this.FragmentManager)
       {
-        Fragments = new Fragment[]
-        {
-          FlightsListFragment.NewInstance(FragmentType.YesterdayFlights),
-          FlightsListFragment.NewInstance(FragmentType.TodayFlights),
-          FlightsListFragment.NewInstance(FragmentType.TommorowFlights)
-        }
+        Fragments = fragments
       };
     }
 
     private void InitTabsIndicator()
     {
-      var indicator = this.FindViewById<TabPageIndicator>(Resource.Id.indicator);
-      indicator.SetViewPager(this.mPager);
+      this.tabsPageIndicator = this.FindViewById<TabPageIndicator>(Resource.Id.indicator);
+      this.tabsPageIndicator.SetViewPager(this.viewPager);
+      this.tabsPageIndicator.SetOnPageChangeListener(this);
 
-      indicator.AddYesterdayTab(this.flightsContainer.YesterdaySummary);
-      indicator.AddTodayTab(this.flightsContainer.FlightSearchUserInput);
-      indicator.AddTommorowTab(this.flightsContainer.TomorrowSummary);
+      DateTime flightDate = this.userInput.ForwardFlightDepartureDate;
 
-      indicator.SetCurrentItem(1);
+      this.tabsPageIndicator.AddTab(flightDate.AddDays(-1), 0);
+      this.tabsPageIndicator.AddTab(flightDate, 1);
+      this.tabsPageIndicator.AddTab(flightDate.AddDays(1), 2);
+
+      this.tabsPageIndicator.SetCurrentItem(1);
+    }
+
+    public void OnPageScrollStateChanged(int state)
+    {
+    }
+
+    public void OnPageScrolled(int position, float positionOffset, int positionOffsetPixels)
+    {
+    }
+
+    public void OnPageSelected(int position)
+    {
+      if (position == this.tabsPageIndicator.TabsCount - 1)
+      {
+        var date = this.userInput.ForwardFlightDepartureDate;
+        FlightsListFragment newFragment = FlightsListFragment.NewInstance(date.AddDays(this.tabsPageIndicator.TabsCount - 1));
+        this.pagerAdapter.Fragments.Add(newFragment);
+        this.pagerAdapter.NotifyDataSetChanged();
+
+        this.tabsPageIndicator.AddTab(date.AddDays(this.tabsPageIndicator.TabsCount - 1), this.tabsPageIndicator.TabsCount);
+      }
     }
   }
 }

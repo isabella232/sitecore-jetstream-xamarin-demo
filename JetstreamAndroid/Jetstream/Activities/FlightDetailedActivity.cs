@@ -18,13 +18,13 @@ namespace JetstreamAndroid.Activities
 
       this.app = JetstreamApp.From(this);
 
-      var container = this.app.FlightsContainer;
+      var userInput = this.app.FlightUserInput;
 
       var order = new JetStreamOrder(
         this.app.SelectedFlight, 
         null,
-        container.FlightSearchUserInput.DepartureAirport,
-        container.FlightSearchUserInput.DestinationAirport,
+        userInput.DepartureAirport,
+        userInput.DestinationAirport,
         1);
 
       var htmlBuilder = new AndroidFlightDetailsHtmlBuilder(this);
