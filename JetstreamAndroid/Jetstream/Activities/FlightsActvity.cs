@@ -31,6 +31,7 @@
       base.OnCreate(bundle);
       this.RequestWindowFeature(WindowFeatures.IndeterminateProgress);
       this.SetContentView(Resource.Layout.activity_flights);
+      ActionBar.SetDisplayHomeAsUpEnabled(true);
 
       this.userInput = JetstreamApp.From(this).FlightUserInput;
 
@@ -92,6 +93,17 @@
 
         this.tabsPageIndicator.AddTab(date.AddDays(this.tabsPageIndicator.TabsCount - 1), this.tabsPageIndicator.TabsCount);
       }
+    }
+
+    public override bool OnOptionsItemSelected(IMenuItem item)
+    {
+      switch (item.ItemId)
+      {
+        case Android.Resource.Id.Home:
+          this.Finish();
+          return true;
+      }
+      return base.OnOptionsItemSelected(item);
     }
   }
 }
