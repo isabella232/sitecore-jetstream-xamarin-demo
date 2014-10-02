@@ -22,7 +22,7 @@ namespace JetstreamAndroid.Utils
 
     protected override string LocalizedStringFromDate(DateTime date)
     {
-      return date.ToLongDateString();
+      return String.Format("{0:g}", date);
     }
   }
 }
