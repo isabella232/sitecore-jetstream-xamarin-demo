@@ -1,6 +1,7 @@
 namespace JetstreamAndroid.Activities
 {
   using Android.App;
+  using Android.Content;
   using Android.Content.PM;
   using Android.OS;
   using Android.Views;
@@ -35,7 +36,17 @@ namespace JetstreamAndroid.Activities
 
       var button = this.FindViewById<Button>(Resource.Id.button_template);
       button.Text = "Order";
-      button.Click += (sender, args) => this.StartActivity(typeof(SummaryActivity));
+      button.Click += (sender, args) =>
+      {
+        if (this.app.FlightUserInput.IsRoundTrip)
+        {
+          var intent = new Intent(this, typeof(FlightsActvity));
+          intent.PutExtra(FlightsActvity.ActivityReturnMode, true);
+
+          StartActivity(intent);
+        }
+        this.StartActivity(typeof(SummaryActivity));
+      };
       
       var webView = this.FindViewById<WebView>(Resource.Id.webView_flight_details);
       webView.Settings.JavaScriptEnabled = true;

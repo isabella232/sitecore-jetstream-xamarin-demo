@@ -19,6 +19,7 @@ namespace JetstreamAndroid.Fragments
 
     private JetstreamApp app;
     private IEnumerable<IJetStreamFlight> flights;
+    private FlightsListAdapter.IFlightOrderSelectedListener flightOrderSelectedListener;
 
     public static FlightsListFragment NewInstance(DateTime date)
     {
@@ -36,6 +37,12 @@ namespace JetstreamAndroid.Fragments
     {
       base.OnCreate(savedInstanceState);
       RetainInstance = true;
+    }
+
+    public override void OnAttach(Activity activity)
+    {
+      base.OnAttach(activity);
+      this.flightOrderSelectedListener = (FlightsListAdapter.IFlightOrderSelectedListener)activity;
     }
 
     public override void OnActivityCreated(Bundle savedInstanceState)
@@ -56,7 +63,7 @@ namespace JetstreamAndroid.Fragments
     {
       try
       {
-        this.flights  = await loader.GetFlightsForTheGivenDateAsync();
+        this.flights = await loader.GetFlightsForTheGivenDateAsync();
         this.InitAndSetAdapter();
       }
       catch (System.Exception exception)
@@ -68,14 +75,23 @@ namespace JetstreamAndroid.Fragments
     public override void OnListItemClick(ListView l, View v, int position, long id)
     {
       var flight = this.flights.ToList()[position];
-      this.app.DepartureFlight = flight;
+
+      var activity = (FlightsActvity)Activity;
+      if (activity.IsReturnMode)
+      {
+        this.app.ReturnFlight = flight;
+      }
+      else
+      {
+        this.app.DepartureFlight = flight;
+      }
       Activity.StartActivity(typeof(FlightDetailedActivity));
     }
 
     private void InitAndSetAdapter()
     {
       var flightsList = flights == null ? new List<IJetStreamFlight>() : new List<IJetStreamFlight>(this.flights);
-      ListAdapter = new FlightsListAdapter(Activity, flightsList);
+      ListAdapter = new FlightsListAdapter(Activity, flightsList, this.flightOrderSelectedListener);
     }
   }
 }

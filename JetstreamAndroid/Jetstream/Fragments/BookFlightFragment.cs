@@ -4,6 +4,7 @@
   using System.Linq;
   using Android.App;
   using System;
+  using Android.Content;
   using Android.OS;
   using Android.Text;
   using Android.Views;
@@ -140,10 +141,17 @@
       }
 
       JetstreamApp app = JetstreamApp.From(Activity);
+
+      app.FlightUserInput = null;
+      app.DepartureFlight = null;
+      app.ReturnFlight = null;
+
       app.FlightUserInput = this.PrepareFlightSearchUserInput();
 
-      Activity.StartActivity(typeof(FlightsActvity));
+      var intent = new Intent(Activity, typeof(FlightsActvity));
+      intent.PutExtra(FlightsActvity.ActivityReturnMode, false);
 
+      StartActivity(intent);
     }
 
     public override void OnResume()

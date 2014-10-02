@@ -5,16 +5,26 @@
   using Android.Content;
   using Android.Views;
   using Android.Widget;
+  using Java.Security;
+  using JetstreamAndroid.Activities;
   using JetStreamCommons.Flight;
 
   public class FlightsListAdapter : BaseAdapter<IJetStreamFlight>
   {
+    public interface IFlightOrderSelectedListener
+    {
+      void OnFlightOrderSelected(IJetStreamFlight flight);
+    }
+
     private readonly List<IJetStreamFlight> flights;
     private readonly LayoutInflater layoutInflater;
     private readonly Context context;
 
-    public FlightsListAdapter(Context context, List<IJetStreamFlight> fligths)
+    private readonly IFlightOrderSelectedListener orderSelectedListener;
+
+    public FlightsListAdapter(Context context, List<IJetStreamFlight> fligths, IFlightOrderSelectedListener orderSelectedListener)
     {
+      this.orderSelectedListener = orderSelectedListener;
       this.flights = fligths;
       this.context = context;
       this.layoutInflater = LayoutInflater.From(context);
@@ -39,17 +49,20 @@
 
       var flight = this[position];
 
-      var departText = this.context.GetString(Resource.String.text_deaprt_time) + 
+      var departText = this.context.GetString(Resource.String.text_deaprt_time) +
         DateTime.SpecifyKind(flight.DepartureTime, DateTimeKind.Local);
       var arrivalText = this.context.GetString(Resource.String.text_arrival_time) + flight.ArrivalTime.ToLocalTime();
 
       priceTextView.Text = "$" + flight.Price;
       departTextView.Text = departText;
       arrivalTextView.Text = arrivalText;
-      
-      orderButton.Click += delegate(object sender, EventArgs args)
+
+      orderButton.Click += (sender, args) =>
       {
-        
+        if (this.orderSelectedListener != null)
+        {
+          this.orderSelectedListener.OnFlightOrderSelected(flight);
+        }
       };
 
       return convertView;
