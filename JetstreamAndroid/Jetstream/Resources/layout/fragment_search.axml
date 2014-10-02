@@ -12,11 +12,13 @@
             android:id="@+id/field_from_location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:singleLine="true"
             android:hint="From" />
         <AutoCompleteTextView
             android:id="@+id/field_to_location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:singleLine="true"
             android:hint="To" />
         <CheckBox
             android:id="@+id/checkBox_roundtrip"
