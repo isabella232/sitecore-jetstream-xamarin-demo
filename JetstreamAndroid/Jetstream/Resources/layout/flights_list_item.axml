@@ -2,36 +2,67 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:descendantFocusability="blocksDescendants"
     android:gravity="center_vertical"
     android:padding="5dp"
-    android:weightSum="5"
-    android:descendantFocusability="blocksDescendants">
-    <TextView
-        android:id="@+id/textview_flight_price"
-        android:layout_width="0dp"
-        android:gravity="center"
-        android:layout_height="wrap_content"
-        android:layout_weight="1" />
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="3"
-        android:orientation="vertical">
-        <TextView
-            android:id="@+id/textview_flight_depart"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="3" />
-        <TextView
-            android:id="@+id/textview_flight_arrival"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="3" />
-    </LinearLayout>
-    <Button
-        android:id="@+id/button_order_ticket"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Order" />
+    android:weightSum="5">
+
+  <TextView
+      android:id="@+id/textview_flight_price"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:gravity="center" />
+
+  <LinearLayout
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="3"
+      android:paddingLeft="5dp"
+      android:paddingRight="5dp"
+      android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignParentLeft="true"
+          android:text="@string/text_deaprt_time" />
+
+      <TextView
+          android:id="@+id/textview_flight_depart"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignParentRight="true"
+          android:text="12.36PM" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignParentLeft="true"
+          android:text="@string/text_arrival_time" />
+
+      <TextView
+          android:id="@+id/textview_flight_arrival"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignParentRight="true" />
+    </RelativeLayout>
+
+  </LinearLayout>
+
+  <Button
+      android:id="@+id/button_order_ticket"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:text="Order" />
 </LinearLayout>
