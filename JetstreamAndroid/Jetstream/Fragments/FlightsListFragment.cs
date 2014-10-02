@@ -4,6 +4,7 @@ namespace JetstreamAndroid.Fragments
   using System.Collections.Generic;
   using System.Linq;
   using Android.App;
+  using Android.Content;
   using Android.OS;
   using Android.Views;
   using Android.Widget;
@@ -75,17 +76,12 @@ namespace JetstreamAndroid.Fragments
     public override void OnListItemClick(ListView l, View v, int position, long id)
     {
       var flight = this.flights.ToList()[position];
+      this.app.SelectedFlight = flight;
 
-      var activity = (FlightsActvity)Activity;
-      if (activity.IsReturnMode)
-      {
-        this.app.ReturnFlight = flight;
-      }
-      else
-      {
-        this.app.DepartureFlight = flight;
-      }
-      Activity.StartActivity(typeof(FlightDetailedActivity));
+      var intent = new Intent(Activity, typeof(FlightDetailedActivity));
+      intent.PutExtra(FlightDetailedActivity.IsDepartFlight, Activity.GetType() == typeof(DepartFlightsActivity));
+
+      StartActivity(intent);
     }
 
     private void InitAndSetAdapter()

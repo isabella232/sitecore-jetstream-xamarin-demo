@@ -38,7 +38,9 @@
     <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Activities\DepartFlightsActivity.cs" />
     <Compile Include="Activities\FlightDetailedActivity.cs" />
+    <Compile Include="Activities\ReturnFlightsActivity.cs" />
     <Compile Include="Activities\SummaryActivity.cs" />
     <Compile Include="Adapters\AirportsFilter.cs" />
     <Compile Include="Adapters\AutoCompleteAdapter.cs" />
@@ -59,7 +61,7 @@
     <Compile Include="Utils\DialogHelper.cs" />
     <Compile Include="Utils\OperationListener.cs" />
     <Compile Include="Utils\LogUtils.cs" />
-    <Compile Include="Activities\FlightsActvity.cs" />
+    <Compile Include="Activities\BaseFlightsActvity.cs" />
     <Compile Include="Adapters\JetstreamPagerAdapter.cs" />
     <Compile Include="Adapters\FlightsListAdapter.cs" />
   </ItemGroup>

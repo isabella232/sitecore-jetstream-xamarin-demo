@@ -148,10 +148,7 @@
 
       app.FlightUserInput = this.PrepareFlightSearchUserInput();
 
-      var intent = new Intent(Activity, typeof(FlightsActvity));
-      intent.PutExtra(FlightsActvity.ActivityReturnMode, false);
-
-      StartActivity(intent);
+      Activity.StartActivity(typeof(DepartFlightsActivity));
     }
 
     public override void OnResume()

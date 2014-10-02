@@ -13,6 +13,8 @@ namespace JetstreamAndroid.Activities
   [Activity(Label = "FlightDetailedActivity", ScreenOrientation = ScreenOrientation.Portrait)]
   public class FlightDetailedActivity : Activity
   {
+    public const string IsDepartFlight = "flight_tag";
+
     private JetstreamApp app;
     protected override void OnCreate(Bundle bundle)
     {
@@ -20,19 +22,20 @@ namespace JetstreamAndroid.Activities
       SetContentView(Resource.Layout.activity_webiew_teemplate);
       ActionBar.SetDisplayHomeAsUpEnabled(true);
 
+      var isDepartFlight = Intent.Extras.GetBoolean(IsDepartFlight);
       this.app = JetstreamApp.From(this);
 
       var userInput = this.app.FlightUserInput;
 
       var order = new JetStreamOrder(
-        this.app.DepartureFlight, 
+        this.app.SelectedFlight, 
         null,
         userInput.DepartureAirport,
         userInput.DestinationAirport,
         userInput.TicketsCount);
 
       var htmlBuilder = new AndroidFlightDetailsHtmlBuilder(this);
-      var html = htmlBuilder.GetHtmlStringWithFlight(this.app.DepartureFlight, order);
+      var html = htmlBuilder.GetHtmlStringWithFlight(this.app.SelectedFlight, order);
 
       var button = this.FindViewById<Button>(Resource.Id.button_template);
       button.Text = "Order";
@@ -40,12 +43,28 @@ namespace JetstreamAndroid.Activities
       {
         if (this.app.FlightUserInput.IsRoundTrip)
         {
-          var intent = new Intent(this, typeof(FlightsActvity));
-          intent.PutExtra(FlightsActvity.ActivityReturnMode, true);
+          if (isDepartFlight)
+          {
+            this.app.DepartureFlight = this.app.SelectedFlight;
+            this.app.SelectedFlight = null;
 
-          StartActivity(intent);
+            StartActivity(typeof(ReturnFlightsActivity));
+          }
+          else
+          {
+            this.app.ReturnFlight = this.app.SelectedFlight;
+            this.app.SelectedFlight = null;
+
+            StartActivity(typeof(SummaryActivity));
+          }
         }
-        this.StartActivity(typeof(SummaryActivity));
+        else
+        {
+          this.app.DepartureFlight = this.app.SelectedFlight;
+          this.app.SelectedFlight = null;
+
+          StartActivity(typeof(SummaryActivity));
+        }
       };
       
       var webView = this.FindViewById<WebView>(Resource.Id.webView_flight_details);

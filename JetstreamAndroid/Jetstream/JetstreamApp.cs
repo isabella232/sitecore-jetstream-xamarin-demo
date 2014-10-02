@@ -12,7 +12,8 @@ namespace JetstreamAndroid
   {
     private IFlightsLoader restManager;
 
-    public JetstreamApp(System.IntPtr javaReference, Android.Runtime.JniHandleOwnership transfer) : base(javaReference, transfer)
+    public JetstreamApp(System.IntPtr javaReference, Android.Runtime.JniHandleOwnership transfer)
+      : base(javaReference, transfer)
     {
     }
 
@@ -22,8 +23,10 @@ namespace JetstreamAndroid
     }
 
     public IFlightSearchUserInput FlightUserInput { get; set; }
+
     public IJetStreamFlight DepartureFlight { get; set; }
     public IJetStreamFlight ReturnFlight { get; set; }
+    public IJetStreamFlight SelectedFlight { get; set; }
 
     public FlightSearchLoader FlightSearchLoaderForDate(DateTime date)
     {
