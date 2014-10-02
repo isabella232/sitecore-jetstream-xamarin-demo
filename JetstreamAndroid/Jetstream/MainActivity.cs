@@ -19,7 +19,6 @@
     private ListView drawerList;
 
     private BookFlightFragment bookFlightFragment;
-    private SettingsFragment settingsFragment;
 
     private string drawerTitle;
     private string title;
@@ -91,11 +90,7 @@
 
           break;
         case 1:
-          if (this.settingsFragment == null)
-          {
-             this.settingsFragment = new SettingsFragment();  
-          }
-          fragment = this.settingsFragment;
+          fragment = new SettingsFragment();
 
           break;
         default:
