@@ -6,6 +6,8 @@ namespace JetstreamAndroid
   using Android.Preferences;
   using Sitecore.MobileSDK.API;
   using Sitecore.MobileSDK.API.Session;
+  using SitecoreMobileSdkPasswordProvider.API;
+  using SecureStringPasswordProvider.Android;
 
   public class Prefs
   {
@@ -114,9 +116,15 @@ namespace JetstreamAndroid
       {
         bool isAuthentiated = !string.IsNullOrEmpty(this.Login) && !string.IsNullOrEmpty(this.Password);
 
-        ISitecoreWebApiSession session;
+        ISitecoreWebApiSession session = null;
         if (isAuthentiated)
         {
+		  using (var credentials = new SecureStringPasswordProvider (this.Login, this.Password)) 
+		  {
+		    session = SitecoreWebApiSessionBuilder.AuthenticatedSessionWithHost(this.InstanceUrl)
+              .Credentials(credentials)
+              .BuildSession();
+		  }
           var credentials = new Credentials(this.Login, this.Password);
 
           session = SitecoreWebApiSessionBuilder.AuthenticatedSessionWithHost(this.InstanceUrl)
@@ -153,45 +161,6 @@ namespace JetstreamAndroid
       ISharedPreferencesEditor editor = this.prefs.Edit();
       editor.PutString(key, value);
       editor.Apply();
-    }
-
-    class Credentials : IWebApiCredentials
-    {
-      private string login;
-      private string password;
-
-      public Credentials(string login, string password)
-      {
-        this.login = login;
-        this.password = password;
-      }
-
-      public IWebApiCredentials CredentialsShallowCopy()
-      {
-        return new Credentials(this.login, this.password);
-      }
-
-      public void Dispose()
-      {
-        this.login = null;
-        this.password = null;
-      }
-
-      public string Username
-      {
-        get
-        {
-          return this.login;
-        }
-      }
-
-      public string Password
-      {
-        get
-        {
-          return this.password;
-        }
-      }
     }
   }
 }
