@@ -18,7 +18,7 @@
     private DateTime tabDate;
     private decimal? price;
 
-    private bool isPriceUpdated = false;
+    private bool isPriceUpdated;
     private bool toShowPrice = true;
 
     public TabView(Context context, IAttributeSet attrs)

@@ -10,18 +10,18 @@ namespace JetstreamAndroid.Activities
   {
     public override DateTime GetDateTime()
     {
-      return (DateTime)this.userInput.ReturnFlightDepartureDate;
+      return (DateTime)this.UserInput.ReturnFlightDepartureDate;
     }
 
     public override void OnFlightOrderSelected(IJetStreamFlight flight)
     {
-      this.app.ReturnFlight = flight;
+      this.App.ReturnFlight = flight;
       this.StartActivity(typeof(SummaryActivity));
     }
 
     public override void OnBackPressed()
     {
-      this.app.ReturnFlight = null;
+      this.App.ReturnFlight = null;
       base.OnBackPressed();
     }
   }

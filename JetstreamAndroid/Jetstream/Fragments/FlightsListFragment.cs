@@ -20,6 +20,7 @@ namespace JetstreamAndroid.Fragments
 
     private JetstreamApp app;
     private IEnumerable<IJetStreamFlight> flights;
+
     private FlightsListAdapter.IFlightOrderSelectedListener flightOrderSelectedListener;
 
     public static FlightsListFragment NewInstance(DateTime date)
@@ -50,10 +51,12 @@ namespace JetstreamAndroid.Fragments
     {
 
       base.OnActivityCreated(savedInstanceState);
-      app = JetstreamApp.From(Activity);
+      this.app = JetstreamApp.From(Activity);
 
-      DateTime dateTime = DateTime.Parse(Arguments.GetString(FragmentDateKey));
-      var loader = this.app.FlightSearchLoaderForDate(dateTime);
+      var dateString = Arguments.GetString(FragmentDateKey);
+
+      var date = DateTime.Parse(dateString);
+      var loader = this.app.FlightSearchLoaderForDate(date);
 
       this.SetEmptyText("No tickets avalible");
 

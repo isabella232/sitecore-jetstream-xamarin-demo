@@ -1,12 +1,9 @@
 ﻿namespace JetstreamAndroid.Adapters
 {
-  using System;
   using System.Collections.Generic;
   using Android.Content;
   using Android.Views;
   using Android.Widget;
-  using Java.Security;
-  using JetstreamAndroid.Activities;
   using JetStreamCommons.Flight;
 
   public class FlightsListAdapter : BaseAdapter<IJetStreamFlight>
