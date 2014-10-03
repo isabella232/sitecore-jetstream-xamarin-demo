@@ -50,7 +50,7 @@ namespace JetstreamAndroid.Fragments
       ISitecoreWebApiSession session;
       if (isAuthenticated)
       {
-        var credentials = new WebApiCredentialsPODInsequredDemo(login, pass);
+        var credentials = new SecureStringPasswordProvider.Android.SecureStringPasswordProvider(login, pass);
 
         session = SitecoreWebApiSessionBuilder.AuthenticatedSessionWithHost(instanceUrl)
           .Credentials(credentials)

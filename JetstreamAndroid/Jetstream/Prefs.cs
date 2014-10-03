@@ -69,7 +69,6 @@ namespace JetstreamAndroid
 
       set
       {
-//        this.PutString(this.context.GetString(Resource.String.key_login), value);
       }
     }
 
@@ -85,7 +84,6 @@ namespace JetstreamAndroid
 
       set
       {
-        //        this.PutString(this.context.GetString(Resource.String.key_login), value);
       }
     }
 
@@ -119,19 +117,14 @@ namespace JetstreamAndroid
         ISitecoreWebApiSession session = null;
         if (isAuthentiated)
         {
-		  using (var credentials = new SecureStringPasswordProvider (this.Login, this.Password)) 
-		  {
-		    session = SitecoreWebApiSessionBuilder.AuthenticatedSessionWithHost(this.InstanceUrl)
-              .Credentials(credentials)
-              .BuildSession();
-		  }
-          var credentials = new Credentials(this.Login, this.Password);
-
-          session = SitecoreWebApiSessionBuilder.AuthenticatedSessionWithHost(this.InstanceUrl)
-            .Credentials(credentials)
-            .DefaultDatabase(this.Database)
-            .DefaultLanguage(this.Language)
-            .BuildSession();
+          using (var credentials = new SecureStringPasswordProvider(this.Login, this.Password))
+          {
+            session = SitecoreWebApiSessionBuilder.AuthenticatedSessionWithHost(this.InstanceUrl)
+                      .Credentials(credentials)
+                      .DefaultDatabase(this.Database)
+                      .DefaultLanguage(this.Language)
+                      .BuildSession();
+          }
         }
         else
         {
