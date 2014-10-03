@@ -1,12 +1,9 @@
-using SitecoreMobileSdkPasswordProvider.API;
-
 namespace JetstreamAndroid
 {
   using Android.Content;
   using Android.Preferences;
   using Sitecore.MobileSDK.API;
   using Sitecore.MobileSDK.API.Session;
-  using SitecoreMobileSdkPasswordProvider.API;
   using SecureStringPasswordProvider.Android;
 
   public class Prefs
