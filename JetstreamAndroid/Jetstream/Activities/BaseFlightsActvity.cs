@@ -2,6 +2,7 @@
 {
   using System;
   using System.Collections.Generic;
+  using System.Linq;
   using Android.App;
   using Android.OS;
   using Android.Support.V4.View;
@@ -15,6 +16,8 @@
   [Activity]
   public abstract class BaseFlightsActvity : Activity, FlightsListAdapter.IFlightOrderSelectedListener
   {
+    private const int NumberOfDatesFragments = 10;
+
     #region Stuff associated with Views
     private JetstreamPagerAdapter pagerAdapter;
     private ViewPager viewPager;
@@ -41,23 +44,35 @@
       this.App = JetstreamApp.From(this);
       this.UserInput = JetstreamApp.From(this).FlightUserInput;
 
-      this.InitFragmentPagerAdapter();
+      var dates = this.InitDatesList();
+
+      this.InitFragmentPagerAdapter(dates);
 
       this.viewPager = this.FindViewById<ViewPager>(Resource.Id.pager);
       this.viewPager.Adapter = this.pagerAdapter;
-      this.viewPager.SetCurrentItem(1, true);
+      this.viewPager.SetCurrentItem(dates.Count / 2, true);
 
-      this.InitTabsIndicator();
+      this.InitTabsIndicator(dates);
     }
 
-    private void InitFragmentPagerAdapter()
+    private List<DateTime> InitDatesList()
     {
-      var fragments = new List<FlightsListFragment>
+      var date = this.GetDateTime();
+      var dateList = new List<DateTime>();
+
+      const int NumberOfSideFragments = NumberOfDatesFragments / 2;
+
+      for (int i = (-NumberOfSideFragments); i <= NumberOfSideFragments; i++)
       {
-        FlightsListFragment.NewInstance(this.GetDateTime().AddDays(-1)),
-        FlightsListFragment.NewInstance(this.GetDateTime()),
-        FlightsListFragment.NewInstance(this.GetDateTime().AddDays(1))
-      };
+        dateList.Add(date.AddDays(i));  
+      }
+
+      return dateList;
+    }
+
+    private void InitFragmentPagerAdapter(IEnumerable<DateTime> dates)
+    {
+      var fragments = dates.Select(FlightsListFragment.NewInstance).ToList();
 
       this.pagerAdapter = new JetstreamPagerAdapter(this.FragmentManager)
       {
@@ -65,16 +80,17 @@
       };
     }
 
-    private void InitTabsIndicator()
+    private void InitTabsIndicator(IList<DateTime> dates)
     {
       this.tabsPageIndicator = this.FindViewById<TabPageIndicator>(Resource.Id.indicator);
       this.tabsPageIndicator.SetViewPager(this.viewPager);
 
-      this.tabsPageIndicator.AddTab(this.GetDateTime().AddDays(-1), 0);
-      this.tabsPageIndicator.AddTab(this.GetDateTime(), 1);
-      this.tabsPageIndicator.AddTab(this.GetDateTime().AddDays(1), 2);
+      foreach (var date in dates)
+      {
+        this.tabsPageIndicator.AddTab(date, dates.IndexOf(date));
+      }
 
-      this.tabsPageIndicator.SetCurrentItem(1);
+      this.tabsPageIndicator.SetCurrentItem(dates.Count / 2);
     }
 
     public override bool OnOptionsItemSelected(IMenuItem item)
