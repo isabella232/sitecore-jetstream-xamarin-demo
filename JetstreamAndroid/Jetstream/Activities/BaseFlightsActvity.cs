@@ -12,9 +12,8 @@
   using JetStreamCommons.Flight;
   using JetStreamCommons.FlightSearch;
 
-
   [Activity]
-  public abstract class BaseFlightsActvity : Activity, ViewPager.IOnPageChangeListener, FlightsListAdapter.IFlightOrderSelectedListener
+  public abstract class BaseFlightsActvity : Activity, FlightsListAdapter.IFlightOrderSelectedListener
   {
     #region Stuff associated with Views
     private JetstreamPagerAdapter pagerAdapter;
@@ -23,10 +22,10 @@
     #endregion
 
     #region Stuff with data
-    protected IFlightSearchUserInput userInput;
+    protected IFlightSearchUserInput UserInput;
     #endregion
 
-    protected JetstreamApp app;
+    protected JetstreamApp App;
 
     public abstract DateTime GetDateTime();
 
@@ -35,12 +34,12 @@
     protected override void OnCreate(Bundle bundle)
     {
       base.OnCreate(bundle);
-      
+
       ActionBar.SetDisplayHomeAsUpEnabled(true);
       this.SetContentView(Resource.Layout.activity_flights);
 
-      this.app = JetstreamApp.From(this);
-      this.userInput = JetstreamApp.From(this).FlightUserInput;
+      this.App = JetstreamApp.From(this);
+      this.UserInput = JetstreamApp.From(this).FlightUserInput;
 
       this.InitFragmentPagerAdapter();
 
@@ -53,7 +52,7 @@
 
     private void InitFragmentPagerAdapter()
     {
-      var fragments = new List<Fragment>
+      var fragments = new List<FlightsListFragment>
       {
         FlightsListFragment.NewInstance(this.GetDateTime().AddDays(-1)),
         FlightsListFragment.NewInstance(this.GetDateTime()),
@@ -70,36 +69,12 @@
     {
       this.tabsPageIndicator = this.FindViewById<TabPageIndicator>(Resource.Id.indicator);
       this.tabsPageIndicator.SetViewPager(this.viewPager);
-      this.tabsPageIndicator.SetOnPageChangeListener(this);
-
-
 
       this.tabsPageIndicator.AddTab(this.GetDateTime().AddDays(-1), 0);
       this.tabsPageIndicator.AddTab(this.GetDateTime(), 1);
       this.tabsPageIndicator.AddTab(this.GetDateTime().AddDays(1), 2);
 
       this.tabsPageIndicator.SetCurrentItem(1);
-    }
-
-    public void OnPageScrollStateChanged(int state)
-    {
-    }
-
-    public void OnPageScrolled(int position, float positionOffset, int positionOffsetPixels)
-    {
-    }
-
-    public void OnPageSelected(int position)
-    {
-      if (position == this.tabsPageIndicator.TabsCount - 1)
-      {
-
-        FlightsListFragment newFragment = FlightsListFragment.NewInstance(this.GetDateTime().AddDays(this.tabsPageIndicator.TabsCount - 1));
-        this.pagerAdapter.Fragments.Add(newFragment);
-        this.pagerAdapter.NotifyDataSetChanged();
-
-        this.tabsPageIndicator.AddTab(this.GetDateTime().AddDays(this.tabsPageIndicator.TabsCount - 1), this.tabsPageIndicator.TabsCount);
-      }
     }
 
     public override bool OnOptionsItemSelected(IMenuItem item)
