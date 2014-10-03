@@ -46,7 +46,7 @@
     <Compile Include="Adapters\AutoCompleteAdapter.cs" />
     <Compile Include="Fragments\FlightsListFragment.cs" />
     <Compile Include="JetstreamApp.cs" />
-    <Compile Include="MainActivity.cs" />
+    <Compile Include="Activities\MainActivity.cs" />
     <Compile Include="Fragments\BookFlightFragment.cs" />
     <Compile Include="Fragments\SettingsFragment.cs" />
     <Compile Include="JetstreamActionBarDrawerToggle.cs" />
