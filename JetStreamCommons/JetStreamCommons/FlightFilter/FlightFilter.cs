@@ -3,10 +3,8 @@
   using System;
   using System.Linq;
   using System.Collections.Generic;
-  using System.Diagnostics;
 
   using JetStreamCommons.Flight;
-
 
   public class FlightFilter
   {
@@ -87,7 +85,7 @@
         return allFlights;
       }
 
-      return allFlights.Where( singleFlight => this.IsFlightMatchingPredicate(singleFlight) );
+      return allFlights.Where( this.IsFlightMatchingPredicate );
     }
 
   }

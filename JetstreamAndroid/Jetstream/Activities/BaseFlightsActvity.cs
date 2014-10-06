@@ -100,8 +100,18 @@
         case Android.Resource.Id.Home:
           this.Finish();
           return true;
+        case Resource.Id.filter:
+          FilterFragment fragment = FilterFragment.NewInstance();
+          fragment.Show(FragmentManager, "dialog");
+          return true;
       }
       return base.OnOptionsItemSelected(item);
+    }
+
+    public override bool OnCreateOptionsMenu(IMenu menu)
+    {
+      MenuInflater.Inflate(Resource.Menu.flights, menu);
+      return base.OnPrepareOptionsMenu(menu);
     }
   }
 }
