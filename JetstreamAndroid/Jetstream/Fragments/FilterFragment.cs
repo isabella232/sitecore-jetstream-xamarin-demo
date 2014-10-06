@@ -18,6 +18,9 @@ namespace JetstreamAndroid.Fragments
       ExtendedFlightsFilterSettings GetFilter();
     }
 
+    private const int DialogEarliestTime = 1;
+    private const int DialogLatestTime = 2;
+
     private IFilterActionListener filterActionListener;
     private ExtendedFlightsFilterSettings oldFilter;
 
@@ -34,7 +37,6 @@ namespace JetstreamAndroid.Fragments
     private CheckBox foodServiceCheckBox;
     private CheckBox flightWifiCheckBox;
     private CheckBox entertainmentCheckBox;
-
     #endregion
 
     public static FilterFragment NewInstance()
@@ -75,18 +77,8 @@ namespace JetstreamAndroid.Fragments
 
       this.InitViews(rootView);
 
-      var filter = new ExtendedFlightsFilterSettings
-      {
-        MaxAvaliblePrice = 1500,
-        MaxPrice = 1375,
-        IsFoodServiceIncluded = true,
-        IsInFlightWifiIncluded = true,
-        EarliestDepartureTime = DateTime.Now,
-        LatestDepartureTime = DateTime.Now.AddHours(5)
-      };
-      this.oldFilter = filter;
-
-      this.UpdateVews(filter);
+      this.oldFilter = this.filterActionListener.GetFilter();
+      this.UpdateVews(this.oldFilter);
 
       return rootView;
     }
@@ -97,7 +89,10 @@ namespace JetstreamAndroid.Fragments
       this.seekBarValue = root.FindViewById<TextView>(Resource.Id.textView_seekbar_value);
 
       this.earliestTimeButon = root.FindViewById<Button>(Resource.Id.button_earliest_departure_time);
+      earliestTimeButon.Click += (sender, args) => this.ShowDialogForDate(this.earliestTime, DialogEarliestTime);
+
       this.latestTimeButon = root.FindViewById<Button>(Resource.Id.button_latest_departure_time);
+      latestTimeButon.Click += (sender, args) => this.ShowDialogForDate(this.latestTime, DialogLatestTime);
 
       this.flightWifiCheckBox = root.FindViewById<CheckBox>(Resource.Id.checkBox_flight_wifi);
       this.entertainmentCheckBox = root.FindViewById<CheckBox>(Resource.Id.checkBox_personal_entertainment);
@@ -124,6 +119,29 @@ namespace JetstreamAndroid.Fragments
 
       this.earliestTimeButon.Text = this.earliestTime.ToShortTimeString();
       this.latestTimeButon.Text = this.latestTime.ToShortTimeString();
+    }
+
+    private void ShowDialogForDate(DateTime time, int dialogId)
+    {
+      EventHandler<TimePickerDialog.TimeSetEventArgs> action = (sender, args) =>
+      {
+        var ts = new TimeSpan(args.HourOfDay, args.Minute, 0);
+        switch (dialogId)
+        {
+          case DialogEarliestTime:
+            this.earliestTime = this.earliestTime.Date + ts;
+            this.earliestTimeButon.Text = this.earliestTime.ToShortTimeString();
+
+            break;
+          case DialogLatestTime:
+            this.latestTime = this.latestTime.Date + ts;
+            this.latestTimeButon.Text = this.latestTime.ToShortTimeString();
+
+            break;
+        }
+      };
+
+      new TimePickerDialog(Activity, action, time.Hour, time.Minute, false).Show();
     }
 
     private void ApplyFilter()
