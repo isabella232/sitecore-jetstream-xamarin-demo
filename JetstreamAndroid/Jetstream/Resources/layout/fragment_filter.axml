@@ -10,7 +10,7 @@
         android:textSize="@dimen/default_text_size"
         android:text="Price per Flight Limit" />
     <SeekBar
-        android:id="@+id/seekBar"
+        android:id="@+id/seekBar_max_price"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <TextView
@@ -18,8 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:textSize="@dimen/default_text_size"
-        android:text="Value" />
+        android:textSize="@dimen/default_text_size" />
     <View
         android:layout_width="match_parent"
         android:layout_height="10dp" />
@@ -55,7 +54,7 @@
         <Button
             android:id="@+id/button_latest_departure_time"
             android:layout_width="0dp"
-            android:text="00:00"
+            android:textSize="@dimen/default_text_size"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
     </LinearLayout>

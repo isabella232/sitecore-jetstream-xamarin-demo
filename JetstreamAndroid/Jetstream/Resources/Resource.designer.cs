@@ -204,7 +204,7 @@ namespace JetstreamAndroid
 			public const int pager = 2131361793;
 			
 			// aapt resource value: 0x7f0a000b
-			public const int seekBar = 2131361803;
+			public const int seekBar_max_price = 2131361803;
 			
 			// aapt resource value: 0x7f0a001a
 			public const int spinner_classes = 2131361818;
