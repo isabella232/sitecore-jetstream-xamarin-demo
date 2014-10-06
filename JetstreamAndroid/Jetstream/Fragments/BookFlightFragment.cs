@@ -1,10 +1,7 @@
 ﻿namespace JetstreamAndroid.Fragments
 {
-  using System.Collections.Generic;
-  using System.Linq;
   using Android.App;
   using System;
-  using Android.Content;
   using Android.OS;
   using Android.Text;
   using Android.Views;
@@ -12,11 +9,8 @@
   using JetstreamAndroid.Activities;
   using JetstreamAndroid.Adapters;
   using JetstreamAndroid.Utils;
-  using JetStreamCommons;
   using JetStreamCommons.Airport;
-  using JetStreamCommons.Flight;
   using JetStreamCommons.FlightSearch;
-  using Sitecore.MobileSDK.API.Session;
 
   public class BookFlightFragment : Android.Support.V4.App.Fragment, IOperationListener
   {

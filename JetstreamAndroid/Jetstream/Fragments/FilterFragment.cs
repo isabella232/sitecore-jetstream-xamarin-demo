@@ -3,10 +3,8 @@ namespace JetstreamAndroid.Fragments
   using System;
   using Android.App;
   using Android.OS;
-  using Android.Text;
   using Android.Views;
   using Android.Widget;
-  using Java.IO;
   using JetstreamAndroid.Utils;
 
   public class FilterFragment : DialogFragment
