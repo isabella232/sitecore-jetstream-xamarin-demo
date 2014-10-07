@@ -88,6 +88,8 @@
     <AndroidResource Include="Resources\layout\fragment_filter.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\Drawable-hdpi\Icon.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\Icon.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\Strings.xml">
@@ -138,9 +140,6 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\integers.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\Drawable\Icon.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Drawable-hdpi\drawer_shadow_dark.9.png" />
