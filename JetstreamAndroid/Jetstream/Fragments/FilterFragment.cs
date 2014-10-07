@@ -11,9 +11,10 @@ namespace JetstreamAndroid.Fragments
   {
     public interface IFilterActionListener
     {
-      void ApplyFilter(ExtendedFlightsFilterSettings input);
+      void ApplyFilter(ExtendedFlightsFilterSettings filter);
       void ClearFilter();
       ExtendedFlightsFilterSettings GetFilter();
+      ExtendedFlightsFilterSettings GetDefaultFilter();
     }
 
     private const int DialogEarliestTime = 1;
@@ -75,7 +76,8 @@ namespace JetstreamAndroid.Fragments
 
       this.InitViews(rootView);
 
-      this.oldFilter = this.filterActionListener.GetFilter();
+      this.oldFilter = this.filterActionListener.GetFilter() ?? this.filterActionListener.GetDefaultFilter();
+
       this.UpdateVews(this.oldFilter);
 
       return rootView;

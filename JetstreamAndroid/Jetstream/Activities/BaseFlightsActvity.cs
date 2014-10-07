@@ -7,14 +7,16 @@
   using Android.OS;
   using Android.Support.V4.View;
   using Android.Views;
+  using Android.Widget;
   using JetstreamAndroid.Adapters;
   using JetstreamAndroid.Fragments;
   using JetstreamAndroid.Tabs;
+  using JetstreamAndroid.Utils;
   using JetStreamCommons.Flight;
   using JetStreamCommons.FlightSearch;
 
   [Activity]
-  public abstract class BaseFlightsActvity : Activity, FlightsListAdapter.IFlightOrderSelectedListener
+  public abstract class BaseFlightsActvity : Activity, FlightsListAdapter.IFlightOrderSelectedListener, FilterFragment.IFilterActionListener
   {
     private const int NumberOfDatesFragments = 10;
 
@@ -26,6 +28,7 @@
 
     #region Stuff with data
     protected IFlightSearchUserInput UserInput;
+    protected ExtendedFlightsFilterSettings FlightsFilterSettings;
     #endregion
 
     protected JetstreamApp App;
@@ -64,7 +67,7 @@
 
       for (int i = (-NumberOfSideFragments); i <= NumberOfSideFragments; i++)
       {
-        dateList.Add(date.AddDays(i));  
+        dateList.Add(date.AddDays(i));
       }
 
       return dateList;
@@ -101,8 +104,7 @@
           this.Finish();
           return true;
         case Resource.Id.filter:
-          FilterFragment fragment = FilterFragment.NewInstance();
-          fragment.Show(FragmentManager, "dialog");
+          FilterFragment.NewInstance().Show(FragmentManager, "dialog");
           return true;
       }
       return base.OnOptionsItemSelected(item);
@@ -112,6 +114,38 @@
     {
       MenuInflater.Inflate(Resource.Menu.flights, menu);
       return base.OnPrepareOptionsMenu(menu);
+    }
+
+    public void ApplyFilter(ExtendedFlightsFilterSettings filter)
+    {
+      Toast.MakeText(this, "Filter Applied", ToastLength.Short).Show();
+
+      this.FlightsFilterSettings = filter;
+      this.UpdateFragmentFilter();
+    }
+
+    private void UpdateFragmentFilter()
+    {
+      var fragment = pagerAdapter.Fragments[viewPager.CurrentItem];
+      fragment.PerformFiltering();
+    }
+
+    public void ClearFilter()
+    {
+      Toast.MakeText(this, "Filter Cleared", ToastLength.Short).Show();
+      this.FlightsFilterSettings = null;
+      this.UpdateFragmentFilter();
+    }
+
+    public ExtendedFlightsFilterSettings GetFilter()
+    {
+      return this.FlightsFilterSettings;
+    }
+
+    public ExtendedFlightsFilterSettings GetDefaultFilter()
+    {
+      var fragment = this.pagerAdapter.Fragments[this.viewPager.CurrentItem];
+      return fragment.CreateDefaultFilter();
     }
   }
 }

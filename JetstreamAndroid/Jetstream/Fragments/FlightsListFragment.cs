@@ -12,6 +12,7 @@ namespace JetstreamAndroid.Fragments
   using JetstreamAndroid.Adapters;
   using JetstreamAndroid.Utils;
   using JetStreamCommons.Flight;
+  using JetStreamCommons.FlightFilter;
   using JetStreamCommons.FlightSearch;
 
   public class FlightsListFragment : ListFragment
@@ -19,9 +20,11 @@ namespace JetstreamAndroid.Fragments
     private const string FragmentDateKey = "fragment_date";
 
     private JetstreamApp app;
-    private IEnumerable<IJetStreamFlight> flights;
+    private IEnumerable<IJetStreamFlight> allFlights;
+    private IEnumerable<IJetStreamFlight> filteredFlights;
 
     private FlightsListAdapter.IFlightOrderSelectedListener flightOrderSelectedListener;
+    private FilterFragment.IFilterActionListener filterActionListener;
 
     public static FlightsListFragment NewInstance(DateTime date)
     {
@@ -45,6 +48,7 @@ namespace JetstreamAndroid.Fragments
     {
       base.OnAttach(activity);
       this.flightOrderSelectedListener = (FlightsListAdapter.IFlightOrderSelectedListener)activity;
+      this.filterActionListener = (FilterFragment.IFilterActionListener)activity;
     }
 
     public override void OnActivityCreated(Bundle savedInstanceState)
@@ -67,7 +71,8 @@ namespace JetstreamAndroid.Fragments
     {
       try
       {
-        this.flights = await loader.GetFlightsForTheGivenDateAsync();
+        this.allFlights = await loader.GetFlightsForTheGivenDateAsync();
+        this.FilterResults();
         this.InitAndSetAdapter();
       }
       catch (System.Exception exception)
@@ -76,9 +81,28 @@ namespace JetstreamAndroid.Fragments
       }
     }
 
+    private void FilterResults()
+    {
+      if (this.allFlights == null || this.filterActionListener.GetFilter() == null)
+      {
+        this.filteredFlights = this.allFlights;
+      }
+      else
+      {
+        var filter = new FlightFilter(this.filterActionListener.GetFilter());
+        this.filteredFlights = filter.FilterFlights(this.allFlights);
+      }
+    }
+
+    public void PerformFiltering()
+    {
+      this.FilterResults();
+      this.InitAndSetAdapter();
+    }
+
     public override void OnListItemClick(ListView l, View v, int position, long id)
     {
-      var flight = this.flights.ToList()[position];
+      var flight = this.allFlights.ToList()[position];
       this.app.SelectedFlight = flight;
 
       var intent = new Intent(Activity, typeof(FlightDetailedActivity));
@@ -87,9 +111,38 @@ namespace JetstreamAndroid.Fragments
       StartActivity(intent);
     }
 
+    public ExtendedFlightsFilterSettings CreateDefaultFilter()
+    {
+      var midnight = DateTime.Now + new TimeSpan(0, 0, 0);
+
+      return new ExtendedFlightsFilterSettings()
+      {
+        MaxPrice = Convert.ToDecimal(this.GetMaxPrice()),
+        MaxAvaliblePrice = Convert.ToDecimal(this.GetMaxPrice()),
+
+        IsRedEyeFlight = false,
+        IsInFlightWifiIncluded = false,
+        IsPersonalEntertainmentIncluded = false,
+        IsFoodServiceIncluded = false,
+
+        EarliestDepartureTime = midnight,
+        LatestDepartureTime = midnight.AddDays(1).AddSeconds(-1)
+      };
+    }
+
+    private decimal GetMaxPrice()
+    {
+      if (this.allFlights != null && this.allFlights.Count() > 0)
+      {
+        return this.allFlights.Max(singleFlight => singleFlight.Price);
+      }
+
+      return 10000;
+    }
+
     private void InitAndSetAdapter()
     {
-      var flightsList = flights == null ? new List<IJetStreamFlight>() : new List<IJetStreamFlight>(this.flights);
+      var flightsList = this.filteredFlights == null ? new List<IJetStreamFlight>() : new List<IJetStreamFlight>(this.filteredFlights);
       ListAdapter = new FlightsListAdapter(Activity, flightsList, this.flightOrderSelectedListener);
     }
   }
