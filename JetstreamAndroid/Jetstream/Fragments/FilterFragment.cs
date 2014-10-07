@@ -117,8 +117,8 @@ namespace JetstreamAndroid.Fragments
       this.earliestTime = filter.EarliestDepartureTime;
       this.latestTime = filter.LatestDepartureTime;
 
-      this.earliestTimeButon.Text = this.earliestTime.ToShortTimeString();
-      this.latestTimeButon.Text = this.latestTime.ToShortTimeString();
+      this.earliestTimeButon.Text = DateTimeHelper.DateTimeTo24HourFormat(this.earliestTime);
+      this.latestTimeButon.Text = DateTimeHelper.DateTimeTo24HourFormat(this.latestTime);
     }
 
     private void ShowDialogForDate(DateTime time, int dialogId)
@@ -130,18 +130,18 @@ namespace JetstreamAndroid.Fragments
         {
           case DialogEarliestTime:
             this.earliestTime = this.earliestTime.Date + ts;
-            this.earliestTimeButon.Text = this.earliestTime.ToShortTimeString();
+            this.earliestTimeButon.Text = DateTimeHelper.DateTimeTo24HourFormat(this.earliestTime);
 
             break;
           case DialogLatestTime:
             this.latestTime = this.latestTime.Date + ts;
-            this.latestTimeButon.Text = this.latestTime.ToShortTimeString();
+            this.latestTimeButon.Text = DateTimeHelper.DateTimeTo24HourFormat(this.latestTime);
 
             break;
         }
       };
 
-      new TimePickerDialog(Activity, action, time.Hour, time.Minute, false).Show();
+      new TimePickerDialog(Activity, action, time.Hour, time.Minute, true).Show();
     }
 
     private void ApplyFilter()

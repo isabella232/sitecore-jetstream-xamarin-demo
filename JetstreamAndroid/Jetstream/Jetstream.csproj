@@ -59,6 +59,7 @@
     <Compile Include="Tabs\TabView.cs" />
     <Compile Include="Utils\AndroidFlightDetailsHtmlBuilder.cs" />
     <Compile Include="Utils\AndroidOrderSummaryHtmlBuilder.cs" />
+    <Compile Include="Utils\DateTimeHelper.cs" />
     <Compile Include="Utils\DialogHelper.cs" />
     <Compile Include="Utils\ExtendedFlightsFilterSettings.cs" />
     <Compile Include="Utils\OperationListener.cs" />
