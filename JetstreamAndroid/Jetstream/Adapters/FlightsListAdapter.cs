@@ -15,7 +15,6 @@
 
     private readonly List<IJetStreamFlight> flights;
     private readonly LayoutInflater layoutInflater;
-    private readonly Context context;
 
     private readonly IFlightOrderSelectedListener orderSelectedListener;
 
@@ -23,7 +22,6 @@
     {
       this.orderSelectedListener = orderSelectedListener;
       this.flights = fligths;
-      this.context = context;
       this.layoutInflater = LayoutInflater.From(context);
     }
 
@@ -52,6 +50,8 @@
       priceTextView.Text = "$" + flight.Price;
       departTextView.Text = departText;
       arrivalTextView.Text = arrivalText;
+
+      orderButton.Click += null;
 
       orderButton.Click += (sender, args) =>
       {
