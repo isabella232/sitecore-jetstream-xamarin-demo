@@ -124,11 +124,11 @@ namespace JetstreamAndroid.Tabs
       }
     }
 
-    public void AddTab(DateTime date, int index)
+    public void AddTab(DateTime date, int index, bool isCurrentDay)
     {
       var tabView = (TabView)this.mInflater.Inflate(Resource.Layout.tab_item, null);
 
-      tabView.Init(this, date, index);
+      tabView.Init(this, date, index, isCurrentDay);
 
       tabView.Focusable = true;
       tabView.Click += delegate(object sender, EventArgs e)

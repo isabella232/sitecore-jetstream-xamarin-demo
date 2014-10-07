@@ -21,5 +21,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="14sp"/>
+
+    <ImageView
+        android:visibility="invisible"
+        android:id="@+id/imageview_current_day"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/icon_current_day"/>
   </LinearLayout>
 </view>
