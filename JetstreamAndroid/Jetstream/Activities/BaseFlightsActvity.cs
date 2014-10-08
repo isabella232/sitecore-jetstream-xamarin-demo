@@ -16,7 +16,8 @@
   using JetStreamCommons.FlightSearch;
 
   [Activity]
-  public abstract class BaseFlightsActvity : Activity, FlightsListAdapter.IFlightOrderSelectedListener, FilterFragment.IFilterActionListener
+  public abstract class BaseFlightsActvity : Activity, FlightsListAdapter.IFlightOrderSelectedListener,
+    FilterFragment.IFilterActionListener, ViewPager.IOnPageChangeListener
   {
     private const int NumberOfDatesFragments = 10;
 
@@ -87,6 +88,7 @@
     {
       this.tabsPageIndicator = this.FindViewById<TabPageIndicator>(Resource.Id.indicator);
       this.tabsPageIndicator.SetViewPager(this.viewPager);
+      this.tabsPageIndicator.SetOnPageChangeListener(this);
 
       foreach (var date in dates)
       {
@@ -148,7 +150,7 @@
       {
         return null;
       }
-      
+
       return new ExtendedFlightsFilterSettings(one)
       {
         MaxAvaliblePrice = two.MaxAvaliblePrice
@@ -173,6 +175,20 @@
       };
 
       return resultFilter;
+    }
+
+    public void OnPageScrollStateChanged(int state)
+    {
+    }
+
+    public void OnPageScrolled(int position, float positionOffset, int positionOffsetPixels)
+    {
+    }
+
+    public void OnPageSelected(int position)
+    {
+      var fragment = pagerAdapter.Fragments[position];
+      fragment.PerformFiltering();
     }
   }
 }

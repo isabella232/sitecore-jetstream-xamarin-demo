@@ -109,10 +109,10 @@ namespace JetstreamAndroid.Fragments
         var filterInput = this.filterActionListener.GetFilterInput();
 
         var newEarliest = new DateTime(
-          this.date.Year, 
-          this.date.Month, 
-          this.date.Day, 
-          filterInput.EarliestDepartureTime.Hour, 
+          this.date.Year,
+          this.date.Month,
+          this.date.Day,
+          filterInput.EarliestDepartureTime.Hour,
           filterInput.EarliestDepartureTime.Minute, 0);
 
 
@@ -130,8 +130,6 @@ namespace JetstreamAndroid.Fragments
         };
 
         this.filteredFlights = new FlightFilter(newFilter).FilterFlights(this.allFlights);
-        LogUtils.Error(typeof(FlightsListFragment), "Fragment (" + this.date.ToShortDateString() + ") : filtered = " + 
-          new List<IJetStreamFlight>(this.filteredFlights).Count);
       }
     }
 
