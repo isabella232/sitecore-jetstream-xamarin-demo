@@ -13,7 +13,7 @@ namespace JetstreamAndroid.Fragments
     {
       void ApplyFilter(ExtendedFlightsFilterSettings filter);
       void ClearFilter();
-      ExtendedFlightsFilterSettings GetFilter();
+      ExtendedFlightsFilterSettings GetFilterInput();
       ExtendedFlightsFilterSettings GetDefaultFilter();
     }
 
@@ -76,7 +76,7 @@ namespace JetstreamAndroid.Fragments
 
       this.InitViews(rootView);
 
-      this.oldFilter = this.filterActionListener.GetFilter() ?? this.filterActionListener.GetDefaultFilter();
+      this.oldFilter = this.filterActionListener.GetFilterInput() ?? this.filterActionListener.GetDefaultFilter();
 
       this.UpdateVews(this.oldFilter);
 

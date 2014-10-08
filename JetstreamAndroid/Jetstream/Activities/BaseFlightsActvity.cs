@@ -138,9 +138,22 @@
       this.UpdateFragmentFilter();
     }
 
-    public ExtendedFlightsFilterSettings GetFilter()
+    public ExtendedFlightsFilterSettings GetFilterInput()
     {
-      return this.FlightsFilterSettings;
+      return this.MergeFilters(this.FlightsFilterSettings, this.GetDefaultFilter());
+    }
+
+    private ExtendedFlightsFilterSettings MergeFilters(ExtendedFlightsFilterSettings one, ExtendedFlightsFilterSettings two)
+    {
+      if (one == null)
+      {
+        return null;
+      }
+      
+      return new ExtendedFlightsFilterSettings(one)
+      {
+        MaxAvaliblePrice = two.MaxAvaliblePrice
+      };
     }
 
     public ExtendedFlightsFilterSettings GetDefaultFilter()

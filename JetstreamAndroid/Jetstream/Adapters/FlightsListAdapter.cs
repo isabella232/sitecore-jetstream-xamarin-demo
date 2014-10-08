@@ -13,7 +13,7 @@
       void OnFlightOrderSelected(IJetStreamFlight flight);
     }
 
-    private readonly List<IJetStreamFlight> flights;
+    public List<IJetStreamFlight> Fligths { get; set; }
     private readonly LayoutInflater layoutInflater;
 
     private readonly IFlightOrderSelectedListener orderSelectedListener;
@@ -21,7 +21,7 @@
     public FlightsListAdapter(Context context, List<IJetStreamFlight> fligths, IFlightOrderSelectedListener orderSelectedListener)
     {
       this.orderSelectedListener = orderSelectedListener;
-      this.flights = fligths;
+      this.Fligths = fligths;
       this.layoutInflater = LayoutInflater.From(context);
     }
 
@@ -68,7 +68,7 @@
     {
       get
       {
-        return this.flights.Count;
+        return this.Fligths.Count;
       }
     }
 
@@ -76,7 +76,7 @@
     {
       get
       {
-        return this.flights[position];
+        return this.Fligths[position];
       }
     }
   }

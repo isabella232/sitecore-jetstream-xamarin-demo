@@ -23,6 +23,8 @@ namespace JetstreamAndroid.Fragments
     private IEnumerable<IJetStreamFlight> allFlights;
     private IEnumerable<IJetStreamFlight> filteredFlights;
 
+    private DateTime date;
+
     private FlightsListAdapter.IFlightOrderSelectedListener flightOrderSelectedListener;
     private FilterFragment.IFilterActionListener filterActionListener;
 
@@ -53,51 +55,16 @@ namespace JetstreamAndroid.Fragments
 
     public override void OnActivityCreated(Bundle savedInstanceState)
     {
-
       base.OnActivityCreated(savedInstanceState);
       this.app = JetstreamApp.From(Activity);
 
       var dateString = Arguments.GetString(FragmentDateKey);
 
-      var date = DateTime.Parse(dateString);
+      this.date = DateTime.Parse(dateString);
       var loader = this.app.FlightSearchLoaderForDate(date);
 
       this.SetEmptyText("No tickets avalible");
-
       this.UpdateFligths(loader);
-    }
-
-    private async void UpdateFligths(FlightSearchLoader loader)
-    {
-      try
-      {
-        this.allFlights = await loader.GetFlightsForTheGivenDateAsync();
-        this.FilterResults();
-        this.InitAndSetAdapter();
-      }
-      catch (System.Exception exception)
-      {
-        LogUtils.Error(typeof(BookFlightFragment), "Exception during searching tickets\n" + exception);
-      }
-    }
-
-    private void FilterResults()
-    {
-      if (this.allFlights == null || this.filterActionListener.GetFilter() == null)
-      {
-        this.filteredFlights = this.allFlights;
-      }
-      else
-      {
-        var filter = new FlightFilter(this.filterActionListener.GetFilter());
-        this.filteredFlights = filter.FilterFlights(this.allFlights);
-      }
-    }
-
-    public void PerformFiltering()
-    {
-      this.FilterResults();
-      this.InitAndSetAdapter();
     }
 
     public override void OnListItemClick(ListView l, View v, int position, long id)
@@ -105,10 +72,73 @@ namespace JetstreamAndroid.Fragments
       var flight = this.allFlights.ToList()[position];
       this.app.SelectedFlight = flight;
 
-      var intent = new Intent(Activity, typeof(FlightDetailedActivity));
-      intent.PutExtra(FlightDetailedActivity.IsDepartFlight, Activity.GetType() == typeof(DepartFlightsActivity));
+      var intent = new Intent(this.Activity, typeof(FlightDetailedActivity));
+      intent.PutExtra(FlightDetailedActivity.IsDepartFlight, this.Activity.GetType() == typeof(DepartFlightsActivity));
 
-      StartActivity(intent);
+      this.StartActivity(intent);
+    }
+
+    private async void UpdateFligths(FlightSearchLoader loader)
+    {
+      if (this.allFlights != null)
+      {
+        this.PerformFiltering();
+        return;
+      }
+
+      try
+      {
+        this.allFlights = await loader.GetFlightsForTheGivenDateAsync();
+        this.FilterResults();
+      }
+      catch (System.Exception exception)
+      {
+        LogUtils.Error(typeof(BookFlightFragment), "Exception during searching tickets\n" + exception);
+      }
+      this.UpdateAdapterFligths();
+    }
+
+    private void FilterResults()
+    {
+      if (this.allFlights == null || this.filterActionListener.GetFilterInput() == null)
+      {
+        this.filteredFlights = this.allFlights;
+      }
+      else
+      {
+        var filterInput = this.filterActionListener.GetFilterInput();
+
+        var newEarliest = new DateTime(
+          this.date.Year, 
+          this.date.Month, 
+          this.date.Day, 
+          filterInput.EarliestDepartureTime.Hour, 
+          filterInput.EarliestDepartureTime.Minute, 0);
+
+
+        var newLatest = new DateTime(
+          this.date.Year,
+          this.date.Month,
+          this.date.Day,
+          filterInput.LatestDepartureTime.Hour,
+          filterInput.LatestDepartureTime.Minute, 0);
+
+        var newFilter = new ExtendedFlightsFilterSettings(filterInput)
+        {
+          EarliestDepartureTime = newEarliest,
+          LatestDepartureTime = newLatest
+        };
+
+        this.filteredFlights = new FlightFilter(newFilter).FilterFlights(this.allFlights);
+        LogUtils.Error(typeof(FlightsListFragment), "Fragment (" + this.date.ToShortDateString() + ") : filtered = " + 
+          new List<IJetStreamFlight>(this.filteredFlights).Count);
+      }
+    }
+
+    public void PerformFiltering()
+    {
+      this.FilterResults();
+      this.UpdateAdapterFligths();
     }
 
     public ExtendedFlightsFilterSettings CreateDefaultFilter()
@@ -130,10 +160,22 @@ namespace JetstreamAndroid.Fragments
       return 10000;
     }
 
-    private void InitAndSetAdapter()
+    private void UpdateAdapterFligths()
     {
-      var flightsList = this.filteredFlights == null ? new List<IJetStreamFlight>() : new List<IJetStreamFlight>(this.filteredFlights);
-      ListAdapter = new FlightsListAdapter(Activity, flightsList, this.flightOrderSelectedListener);
+      if (this.IsVisible)
+      {
+        var flightsList = this.filteredFlights == null ? new List<IJetStreamFlight>() : new List<IJetStreamFlight>(this.filteredFlights);
+
+        if (this.ListAdapter == null)
+        {
+          ListAdapter = new FlightsListAdapter(Activity, flightsList, this.flightOrderSelectedListener);
+        }
+        else
+        {
+          ((FlightsListAdapter)ListAdapter).Fligths = flightsList;
+          ((FlightsListAdapter)ListAdapter).NotifyDataSetChanged();
+        }
+      }
     }
   }
 }
