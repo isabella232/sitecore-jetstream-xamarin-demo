@@ -26,7 +26,7 @@
     {
     }
 
-    public void Init(TabPageIndicator parent, DateTime date, int index, bool isCurrentDay)
+    public void Init(TabPageIndicator parent, DateTime date, int index)
     {
       this.mParent = parent;
       this.mIndex = index;
@@ -34,12 +34,6 @@
 
       this.priceTextView = this.FindViewById<TextView>(Resource.Id.textview_day_price);
       this.dateTextView = this.FindViewById<TextView>(Resource.Id.textview_day_date);
-      var currentDayIcon = this.FindViewById<ImageView>(Resource.Id.imageview_current_day);
-
-      if (isCurrentDay)
-      {
-        currentDayIcon.Visibility = ViewStates.Visible;
-      }
 
       this.dateTextView.Text = date.ToShortDateString();
       this.UpdatePrice();

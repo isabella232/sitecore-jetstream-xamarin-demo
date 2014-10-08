@@ -90,8 +90,7 @@
 
       foreach (var date in dates)
       {
-        bool isCurrentDay = date.Equals(this.GetDateTime());
-        this.tabsPageIndicator.AddTab(date, dates.IndexOf(date), isCurrentDay);
+        this.tabsPageIndicator.AddTab(date, dates.IndexOf(date));
       }
 
       this.tabsPageIndicator.SetCurrentItem(dates.Count / 2);
