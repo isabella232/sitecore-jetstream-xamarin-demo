@@ -13,8 +13,8 @@
 
   <string name="text_button_ok">OK</string>
 
-  <string name="text_deaprt_time">Departs : </string>
-  <string name="text_arrival_time">Arrives : </string>
+  <string name="text_deaprt_time">Departs: </string>
+  <string name="text_arrival_time">Arrives: </string>
   
   <string-array name="fragment_names_array">
     <item>Book a flight</item>
