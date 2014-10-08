@@ -113,20 +113,10 @@ namespace JetstreamAndroid.Fragments
 
     public ExtendedFlightsFilterSettings CreateDefaultFilter()
     {
-      var midnight = DateTime.Now + new TimeSpan(0, 0, 0);
-
       return new ExtendedFlightsFilterSettings()
       {
         MaxPrice = Convert.ToDecimal(this.GetMaxPrice()),
         MaxAvaliblePrice = Convert.ToDecimal(this.GetMaxPrice()),
-
-        IsRedEyeFlight = false,
-        IsInFlightWifiIncluded = false,
-        IsPersonalEntertainmentIncluded = false,
-        IsFoodServiceIncluded = false,
-
-        EarliestDepartureTime = midnight,
-        LatestDepartureTime = midnight.AddDays(1).AddSeconds(-1)
       };
     }
 

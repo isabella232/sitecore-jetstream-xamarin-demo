@@ -146,7 +146,21 @@
     public ExtendedFlightsFilterSettings GetDefaultFilter()
     {
       var fragment = this.pagerAdapter.Fragments[this.viewPager.CurrentItem];
-      return fragment.CreateDefaultFilter();
+      var fragmentFilter = fragment.CreateDefaultFilter();
+
+      var midnight = this.GetDateTime() + new TimeSpan(0, 0, 0);
+
+      var resultFilter = new ExtendedFlightsFilterSettings(fragmentFilter)
+      {
+        IsRedEyeFlight = false,
+        IsInFlightWifiIncluded = false,
+        IsPersonalEntertainmentIncluded = false,
+        IsFoodServiceIncluded = false,
+        EarliestDepartureTime = midnight,
+        LatestDepartureTime = midnight.AddDays(1).AddSeconds(-1)
+      };
+
+      return resultFilter;
     }
   }
 }
