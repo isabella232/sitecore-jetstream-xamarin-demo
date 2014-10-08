@@ -16,7 +16,8 @@
   using JetStreamCommons.FlightSearch;
 
   [Activity]
-  public abstract class BaseFlightsActvity : Activity, FlightsListAdapter.IFlightOrderSelectedListener, FilterFragment.IFilterActionListener
+  public abstract class BaseFlightsActvity : Activity, FlightsListAdapter.IFlightOrderSelectedListener,
+    FilterFragment.IFilterActionListener, ViewPager.IOnPageChangeListener
   {
     private const int NumberOfDatesFragments = 10;
 
@@ -87,11 +88,11 @@
     {
       this.tabsPageIndicator = this.FindViewById<TabPageIndicator>(Resource.Id.indicator);
       this.tabsPageIndicator.SetViewPager(this.viewPager);
+      this.tabsPageIndicator.SetOnPageChangeListener(this);
 
       foreach (var date in dates)
       {
-        bool isCurrentDay = date.Equals(this.GetDateTime());
-        this.tabsPageIndicator.AddTab(date, dates.IndexOf(date), isCurrentDay);
+        this.tabsPageIndicator.AddTab(date, dates.IndexOf(date));
       }
 
       this.tabsPageIndicator.SetCurrentItem(dates.Count / 2);
@@ -138,9 +139,22 @@
       this.UpdateFragmentFilter();
     }
 
-    public ExtendedFlightsFilterSettings GetFilter()
+    public ExtendedFlightsFilterSettings GetFilterInput()
     {
-      return this.FlightsFilterSettings;
+      return this.MergeFilters(this.FlightsFilterSettings, this.GetDefaultFilter());
+    }
+
+    private ExtendedFlightsFilterSettings MergeFilters(ExtendedFlightsFilterSettings one, ExtendedFlightsFilterSettings two)
+    {
+      if (one == null)
+      {
+        return null;
+      }
+
+      return new ExtendedFlightsFilterSettings(one)
+      {
+        MaxAvaliblePrice = two.MaxAvaliblePrice
+      };
     }
 
     public ExtendedFlightsFilterSettings GetDefaultFilter()
@@ -161,6 +175,20 @@
       };
 
       return resultFilter;
+    }
+
+    public void OnPageScrollStateChanged(int state)
+    {
+    }
+
+    public void OnPageScrolled(int position, float positionOffset, int positionOffsetPixels)
+    {
+    }
+
+    public void OnPageSelected(int position)
+    {
+      var fragment = pagerAdapter.Fragments[position];
+      fragment.PerformFiltering();
     }
   }
 }

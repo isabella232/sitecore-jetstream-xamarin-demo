@@ -244,7 +244,4 @@
   <ItemGroup>
     <AndroidResource Include="Resources\values\dimen.xml" />
   </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\Drawable\icon_current_day.png" />
-  </ItemGroup>
 </Project>

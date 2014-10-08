@@ -9,19 +9,13 @@
         android:orientation="vertical">
         <TextView
             android:id="@+id/textview_day_price"
-            android:layout_width="wrap_content"
-            android:textStyle="bold"
             android:textSize="@dimen/default_text_size"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
             android:id="@+id/textview_day_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-        <ImageView
-            android:visibility="invisible"
-            android:id="@+id/imageview_current_day"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/icon_current_day" />
     </LinearLayout>
 </view>
