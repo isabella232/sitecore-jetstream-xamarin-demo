@@ -33,7 +33,7 @@
             android:checked="false"
             android:gravity="center"
             android:textSize="@dimen/default_text_size"
-            android:text="Roundtrip" />
+            android:text="@string/text_roundtrip" />
         <View
             android:layout_width="match_parent"
             android:layout_height="10dp" />
@@ -52,13 +52,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingLeft="5dp"
-                    android:text="Depart" />
+                    android:text="@string/text_depart_date_label" />
                 <Button
                     android:id="@+id/button_depart_date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/default_text_size"
-                    android:text=".." />
+                    android:textSize="@dimen/default_text_size" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="0dp"
@@ -69,13 +68,12 @@
                     android:id="@+id/textview_return_date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Return"
+                    android:text="@string/text_return_date_label"
                     android:visibility="gone" />
                 <Button
                     android:id="@+id/button_return_date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text=".."
                     android:visibility="gone" />
             </LinearLayout>
         </LinearLayout>
@@ -98,7 +96,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="5dp"
-                    android:text="Count"
+                    android:text="@string/text_tickets_count"
                     android:textAppearance="?android:attr/textAppearanceSmall" />
                 <Spinner
                     android:id="@+id/spinner_number_of_tickets"
@@ -117,7 +115,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="5dp"
-                    android:text="Class"
+                    android:text="@string/text_ticket_class"
                     android:textAppearance="?android:attr/textAppearanceSmall" />
                 <Spinner
                     android:id="@+id/spinner_classes"
@@ -134,5 +132,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="Search" />
+        android:text="@string/text_button_search_tickets" />
 </RelativeLayout>
