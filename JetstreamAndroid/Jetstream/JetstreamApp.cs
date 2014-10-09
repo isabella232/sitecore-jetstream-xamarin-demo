@@ -3,8 +3,10 @@ namespace JetstreamAndroid
   using System;
   using Android.App;
   using Android.Content;
+  using Java.Util;
   using JetStreamCommons;
   using JetStreamCommons.Flight;
+  using Android.Content.Res;
   using JetStreamCommons.FlightSearch;
 
   [Application(Theme = "@android:style/Theme.Holo.Light")]
@@ -15,6 +17,20 @@ namespace JetstreamAndroid
     public JetstreamApp(System.IntPtr javaReference, Android.Runtime.JniHandleOwnership transfer)
       : base(javaReference, transfer)
     {
+    }
+
+    public override void OnCreate()
+    {
+      base.OnCreate();
+
+      var locale = new Locale("en");
+      Locale.Default = locale;
+
+      var config = new Configuration
+      {
+        Locale = locale
+      };
+      Resources.UpdateConfiguration(config, Resources.DisplayMetrics);
     }
 
     public static JetstreamApp From(Context context)
