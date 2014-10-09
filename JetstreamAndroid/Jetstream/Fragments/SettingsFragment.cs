@@ -88,11 +88,11 @@ namespace JetstreamAndroid.Fragments
         this.prefs.Login = login;
         this.prefs.Password = pass;
 
-        Toast.MakeText(Activity, "Connected. The settings is saved", ToastLength.Long).Show();
+        Toast.MakeText(Activity, Resource.String.text_successful_instance_connect, ToastLength.Long).Show();
       }
       else
       {
-        Toast.MakeText(Activity, "Please check your data and network availibility", ToastLength.Long).Show();
+        Toast.MakeText(Activity, Resource.String.text_instance_connect_failed, ToastLength.Long).Show();
       }
     }
 

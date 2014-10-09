@@ -37,8 +37,8 @@ namespace JetstreamAndroid.Activities
       var html = htmlBuilder.GetHtmlStringWithOrder(order);
 
       var button = this.FindViewById<Button>(Resource.Id.button_template);
-      button.Text = "Purchase";
-      button.Click += (sender, args) => Toast.MakeText(this, "Tickets purchased", ToastLength.Long).Show();
+      button.Text = GetString(Resource.String.text_button_purchase);
+      button.Click += (sender, args) => Toast.MakeText(this, Resource.String.text_tickets_purchased, ToastLength.Long).Show();
 
       var webView = this.FindViewById<WebView>(Resource.Id.webView_flight_details);
 

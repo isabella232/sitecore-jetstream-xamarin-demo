@@ -14,10 +14,5 @@ namespace JetstreamAndroid.Utils
     }
 
     public decimal MaxAvaliblePrice { get; set; }
-
-    public override string ToString()
-    {
-      return string.Format("{0}, MaxAvaliblePrice: {1}", base.ToString(), this.MaxAvaliblePrice);
-    }
   }
 }

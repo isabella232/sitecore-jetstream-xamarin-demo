@@ -63,7 +63,7 @@ namespace JetstreamAndroid.Fragments
       this.date = DateTime.Parse(dateString);
       var loader = this.app.FlightSearchLoaderForDate(date);
 
-      this.SetEmptyText("No tickets avalible");
+      this.SetEmptyText(this.GetString(Resource.String.text_no_tickets));
       this.UpdateFligths(loader);
     }
 

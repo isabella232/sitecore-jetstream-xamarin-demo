@@ -120,7 +120,7 @@
 
     public void ApplyFilter(ExtendedFlightsFilterSettings filter)
     {
-      Toast.MakeText(this, "Filter Applied", ToastLength.Short).Show();
+      Toast.MakeText(this, GetString(Resource.String.text_filter_applied), ToastLength.Short).Show();
 
       this.FlightsFilterSettings = filter;
       this.UpdateFragmentFilter();
@@ -134,7 +134,7 @@
 
     public void ClearFilter()
     {
-      Toast.MakeText(this, "Filter Cleared", ToastLength.Short).Show();
+      Toast.MakeText(this, GetString(Resource.String.text_filter_cleared), ToastLength.Short).Show();
       this.FlightsFilterSettings = null;
       this.UpdateFragmentFilter();
     }

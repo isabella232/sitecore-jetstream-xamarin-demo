@@ -76,7 +76,7 @@ namespace JetstreamAndroid.Adapters
           Task.WhenAll(airportsTask);
 
           this.allAirports = airportsTask.Result;
-          LogUtils.Info(typeof(AirportsFilter), string.Format("Found {0} airports", this.allAirports.Count()));
+          LogUtils.Info(typeof(AirportsFilter), context.GetString(Resource.String.text_num_of_airpots_found, this.allAirports.Count()));
         }
       }
       catch (System.Exception exception)

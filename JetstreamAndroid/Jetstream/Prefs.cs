@@ -61,7 +61,7 @@ namespace JetstreamAndroid
     {
       get
       {
-        return "master";
+        return context.GetString(Resource.String.text_default_database);
       }
 
       set
@@ -76,7 +76,7 @@ namespace JetstreamAndroid
     {
       get
       {
-        return "en";
+        return context.GetString(Resource.String.text_default_language);
       }
 
       set

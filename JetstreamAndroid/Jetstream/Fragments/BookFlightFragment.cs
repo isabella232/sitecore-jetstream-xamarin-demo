@@ -163,15 +163,15 @@
     {
       if (this.fromAirport == null)
       {
-        Toast.MakeText(Activity, "Please select airport from list", ToastLength.Long).Show();
-        this.fromAirportField.Error = "Please select airport from list";
+        Toast.MakeText(Activity, Resource.String.text_error_select_airport, ToastLength.Long).Show();
+        this.fromAirportField.Error = GetString(Resource.String.text_error_select_airport);
         return false;
       }
 
       if (this.toAirport == null)
       {
-        Toast.MakeText(Activity, "Please select airport from list", ToastLength.Long).Show();
-        this.toAirportField.Error = "Please select airport from list";
+        Toast.MakeText(Activity, Resource.String.text_error_select_airport, ToastLength.Long).Show();
+        this.toAirportField.Error = GetString(Resource.String.text_error_select_airport);
         return false;
       }
 
