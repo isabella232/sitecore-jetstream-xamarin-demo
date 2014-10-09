@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="hello">Hello World, Click Me!</string>
-	<string name="app_name">Jetstream</string>
+  <string name="app_name">Jetstream</string>
 
   <string name="key_instance_url">instance_url</string>
   <string name="key_login">login</string>
@@ -10,11 +9,44 @@
   <string name="text_default_instance_url">http://jetstream.test24dk1.dk.sitecore.net/</string>
   <string name="text_default_login">sitecore\\admin</string>
   <string name="text_default_password">b</string>
+  <string name="text_default_database">master</string>
+  <string name="text_default_language">en</string>
 
   <string name="text_button_ok">OK</string>
-
+  <string name="text_button_order">Order</string>
+  <string name="text_button_purchase">Purchase</string>
+  <string name="text_button_apply_filter">Apply</string>
+  <string name="text_button_clear_filter">Clear</string>
+  <string name="text_button_search_tickets">Search</string>
+  <string name="text_button_check_connection">Check connection</string>
+  
   <string name="text_deaprt_time">Departs: </string>
   <string name="text_arrival_time">Arrives: </string>
+  <string name="text_roundtrip">Roundtrip</string>
+  <string name="text_depart_date_label">Depart date</string>
+  <string name="text_return_date_label">Return date</string>
+  <string name="text_tickets_count">Count</string>
+  <string name="text_ticket_class">Class</string>
+
+  <string name="text_successful_instance_connect">Connected. The settings is saved</string>
+  <string name="text_instance_connect_failed">Please check your data and network availibility</string>
+
+  <string name="text_filter_title">Filter</string>
+  <string name="text_filter_applied">Filter Applied</string>
+  <string name="text_filter_cleared">Filter Cleared</string>
+  <string name="text_price_per_flight">Price per Flight Limit</string>
+  <string name="text_earliest_deparuture_time">Earliest Departure Time</string>
+  <string name="text_latest_deparuture_time">Latest Departure Time</string>
+  <string name="text_personal_entertainment">Personal Entertainment</string>
+  <string name="text_flight_wifi">In Flight WiFi</string>
+  <string name="text_food_service">Food Service</string>
+
+  <string name="text_num_of_airpots_found">Found %1$d airports</string>
+  <string name="text_no_tickets">No tickets avalible</string>
+  
+  <string name="text_tickets_purchased">Tickets purchased</string>
+
+  <string name="text_error_select_airport">Please select airport from list</string>
   
   <string-array name="fragment_names_array">
     <item>Book a flight</item>

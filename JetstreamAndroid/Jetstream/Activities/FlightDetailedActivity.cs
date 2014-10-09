@@ -38,7 +38,7 @@ namespace JetstreamAndroid.Activities
       var html = htmlBuilder.GetHtmlStringWithFlight(this.app.SelectedFlight, order);
 
       var button = this.FindViewById<Button>(Resource.Id.button_template);
-      button.Text = "Order";
+      button.Text = GetString(Resource.String.text_button_order);
       button.Click += (sender, args) =>
       {
         if (this.app.FlightUserInput.IsRoundTrip)

@@ -53,15 +53,15 @@ namespace JetstreamAndroid.Fragments
     {
       var builder = new AlertDialog.Builder(Activity);
 
-      builder.SetTitle("Filter");
+      builder.SetTitle(GetString(Resource.String.text_filter_title));
       builder.SetView(this.CreateView());
-      builder.SetPositiveButton("Apply", (sender, args) =>
+      builder.SetPositiveButton(GetString(Resource.String.text_button_apply_filter), (sender, args) =>
       {
         this.ApplyFilter();
         this.Dialog.Dismiss();
       });
 
-      builder.SetNegativeButton("Clear", (sender, args) =>
+      builder.SetNegativeButton(GetString(Resource.String.text_button_clear_filter), (sender, args) =>
       {
         this.ClearFilter();
         this.Dialog.Cancel();

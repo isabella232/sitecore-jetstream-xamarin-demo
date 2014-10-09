@@ -28,6 +28,8 @@ namespace JetstreamAndroid.Fragments
     private FlightsListAdapter.IFlightOrderSelectedListener flightOrderSelectedListener;
     private FilterFragment.IFilterActionListener filterActionListener;
 
+    private bool isFlightsUpdated = false;
+
     public static FlightsListFragment NewInstance(DateTime date)
     {
       var fragment = new FlightsListFragment();
@@ -63,7 +65,7 @@ namespace JetstreamAndroid.Fragments
       this.date = DateTime.Parse(dateString);
       var loader = this.app.FlightSearchLoaderForDate(date);
 
-      this.SetEmptyText("No tickets avalible");
+      this.SetEmptyText(this.GetString(Resource.String.text_no_tickets));
       this.UpdateFligths(loader);
     }
 
@@ -95,6 +97,7 @@ namespace JetstreamAndroid.Fragments
       {
         LogUtils.Error(typeof(BookFlightFragment), "Exception during searching tickets\n" + exception);
       }
+      this.isFlightsUpdated = true;
       this.UpdateAdapterFligths();
     }
 
@@ -135,6 +138,10 @@ namespace JetstreamAndroid.Fragments
 
     public void PerformFiltering()
     {
+      if (!this.isFlightsUpdated)
+      {
+        return;
+      }
       this.FilterResults();
       this.UpdateAdapterFligths();
     }

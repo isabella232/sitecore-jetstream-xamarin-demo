@@ -1,4 +1,4 @@
-﻿namespace JetstreamAndroid
+﻿namespace JetstreamAndroid.Activities
 {
   using Android.App;
   using Android.Content.PM;
@@ -9,7 +9,6 @@
   using Android.Views;
   using Android.Widget;
   using JetstreamAndroid.Fragments;
-  using JetstreamAndroid.Utils;
 
   [Activity(Label = "Jetstream", MainLauncher = true, ScreenOrientation = ScreenOrientation.Portrait, Icon = "@drawable/icon")]
   public class MainActivity : FragmentActivity
@@ -28,7 +27,7 @@
     {
       base.OnCreate(savedInstanceState);
 
-      RequestWindowFeature(WindowFeatures.IndeterminateProgress);
+      this.RequestWindowFeature(WindowFeatures.IndeterminateProgress);
 
       this.SetContentView(Resource.Layout.activity_main);
 
@@ -38,10 +37,10 @@
       this.drawer.SetDrawerShadow(Resource.Drawable.drawer_shadow_dark, (int)GravityFlags.Start);
 
       this.title = this.drawerTitle = this.Title;
-      this.titles = Resources.GetStringArray(Resource.Array.fragment_names_array);
+      this.titles = this.Resources.GetStringArray(Resource.Array.fragment_names_array);
 
       this.drawerList.Adapter = new ArrayAdapter<string>(this,
-          Android.Resource.Layout.SimpleListItem1, titles);
+          Android.Resource.Layout.SimpleListItem1, this.titles);
       this.drawerList.ItemClick += (sender, args) => this.SelectItem(args.Position);
 
 
