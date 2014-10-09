@@ -68,6 +68,7 @@
                 <TextView
                     android:id="@+id/textview_return_date"
                     android:layout_width="match_parent"
+                    android:paddingLeft="5dp"
                     android:layout_height="wrap_content"
                     android:text="Return"
                     android:visibility="gone" />
@@ -92,7 +93,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:paddingRight="40dp"
+                android:paddingRight="30dp"
                 android:orientation="vertical">
                 <TextView
                     android:layout_width="wrap_content"
@@ -111,7 +112,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:paddingRight="40dp"
+                android:paddingRight="30dp"
                 android:orientation="vertical">
                 <TextView
                     android:layout_width="wrap_content"
