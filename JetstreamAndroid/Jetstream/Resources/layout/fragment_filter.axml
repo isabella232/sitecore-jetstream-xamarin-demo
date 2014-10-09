@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:padding="15dp">
+    android:padding="16dp">
     <TextView
         android:padding="8dp"
         android:layout_width="wrap_content"
@@ -21,7 +21,7 @@
         android:textSize="@dimen/default_text_size" />
     <View
         android:layout_width="match_parent"
-        android:layout_height="20dp" />
+        android:layout_height="16dp" />
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -61,7 +61,7 @@
     </LinearLayout>
     <View
         android:layout_width="match_parent"
-        android:layout_height="20dp" />
+        android:layout_height="16dp" />
     <CheckBox
         android:id="@+id/checkBox_flight_wifi"
         android:layout_width="match_parent"
