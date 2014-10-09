@@ -18,8 +18,8 @@
   <string name="text_button_apply_filter">Apply</string>
   <string name="text_button_clear_filter">Clear</string>
   
-  <string name="text_deaprt_time">Departs : </string>
-  <string name="text_arrival_time">Arrives : </string>
+  <string name="text_deaprt_time">Departs: </string>
+  <string name="text_arrival_time">Arrives: </string>
 
   <string name="text_successful_instance_connect">Connected. The settings is saved</string>
   <string name="text_instance_connect_failed">Please check your data and network availibility</string>

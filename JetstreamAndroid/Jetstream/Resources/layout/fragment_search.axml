@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:padding="8dp"
+    android:padding="15dp"
     android:weightSum="8">
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,13 +13,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:singleLine="true"
+            android:textSize="@dimen/default_text_size"
             android:hint="From" />
         <AutoCompleteTextView
             android:id="@+id/field_to_location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:singleLine="true"
+            android:textSize="@dimen/default_text_size"
             android:hint="To" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
         <CheckBox
             android:id="@+id/checkBox_roundtrip"
             android:layout_width="wrap_content"
@@ -27,10 +32,11 @@
             android:layout_gravity="left"
             android:checked="false"
             android:gravity="center"
+            android:textSize="@dimen/default_text_size"
             android:text="Roundtrip" />
         <View
             android:layout_width="match_parent"
-            android:layout_height="20dp" />
+            android:layout_height="10dp" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -45,11 +51,13 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingLeft="5dp"
                     android:text="Depart" />
                 <Button
                     android:id="@+id/button_depart_date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textSize="@dimen/default_text_size"
                     android:text=".." />
             </LinearLayout>
             <LinearLayout
@@ -71,6 +79,9 @@
                     android:visibility="gone" />
             </LinearLayout>
         </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -81,33 +92,38 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:paddingRight="40dp"
                 android:orientation="vertical">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingLeft="5dp"
                     android:text="Count"
                     android:textAppearance="?android:attr/textAppearanceSmall" />
                 <Spinner
                     android:id="@+id/spinner_number_of_tickets"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:entries="@array/number_of_tickets"
-                    android:minWidth="100dp" />
+                    android:textSize="@dimen/default_text_size"
+                    android:entries="@array/number_of_tickets" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:paddingRight="40dp"
                 android:orientation="vertical">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingLeft="5dp"
                     android:text="Class"
                     android:textAppearance="?android:attr/textAppearanceSmall" />
                 <Spinner
                     android:id="@+id/spinner_classes"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textSize="@dimen/default_text_size"
                     android:entries="@array/ticket_class"
                     android:gravity="right" />
             </LinearLayout>
