@@ -94,9 +94,6 @@ namespace JetstreamAndroid.Adapters
       {
         this.adapter.SearchedAirports = this.searchedAirports;
 
-        this.adapter.Clear();
-        this.adapter.AddAll(this.searchedAirports.ConvertAll(input => input.DisplayName));
-
         this.adapter.NotifyDataSetChanged();
       }
     }

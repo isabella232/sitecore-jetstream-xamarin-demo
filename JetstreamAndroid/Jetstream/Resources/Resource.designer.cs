@@ -131,41 +131,41 @@ namespace JetstreamAndroid
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f0a0016
-			public const int button_depart_date = 2131361814;
-			
-			// aapt resource value: 0x7f0a000d
-			public const int button_earliest_departure_time = 2131361805;
+			// aapt resource value: 0x7f0a0018
+			public const int button_depart_date = 2131361816;
 			
 			// aapt resource value: 0x7f0a000f
-			public const int button_latest_departure_time = 2131361807;
+			public const int button_earliest_departure_time = 2131361807;
 			
-			// aapt resource value: 0x7f0a000a
-			public const int button_order_ticket = 2131361802;
+			// aapt resource value: 0x7f0a0011
+			public const int button_latest_departure_time = 2131361809;
 			
-			// aapt resource value: 0x7f0a0018
-			public const int button_return_date = 2131361816;
+			// aapt resource value: 0x7f0a000c
+			public const int button_order_ticket = 2131361804;
 			
-			// aapt resource value: 0x7f0a001f
-			public const int button_save = 2131361823;
+			// aapt resource value: 0x7f0a001a
+			public const int button_return_date = 2131361818;
 			
-			// aapt resource value: 0x7f0a001b
-			public const int button_search_tickets = 2131361819;
+			// aapt resource value: 0x7f0a0021
+			public const int button_save = 2131361825;
+			
+			// aapt resource value: 0x7f0a001d
+			public const int button_search_tickets = 2131361821;
 			
 			// aapt resource value: 0x7f0a0006
 			public const int button_template = 2131361798;
 			
-			// aapt resource value: 0x7f0a0010
-			public const int checkBox_flight_wifi = 2131361808;
-			
 			// aapt resource value: 0x7f0a0012
-			public const int checkBox_food_service = 2131361810;
+			public const int checkBox_flight_wifi = 2131361810;
 			
-			// aapt resource value: 0x7f0a0011
-			public const int checkBox_personal_entertainment = 2131361809;
+			// aapt resource value: 0x7f0a0014
+			public const int checkBox_food_service = 2131361812;
 			
-			// aapt resource value: 0x7f0a0015
-			public const int checkBox_roundtrip = 2131361813;
+			// aapt resource value: 0x7f0a0013
+			public const int checkBox_personal_entertainment = 2131361811;
+			
+			// aapt resource value: 0x7f0a0017
+			public const int checkBox_roundtrip = 2131361815;
 			
 			// aapt resource value: 0x7f0a0003
 			public const int content_frame = 2131361795;
@@ -173,23 +173,23 @@ namespace JetstreamAndroid
 			// aapt resource value: 0x7f0a0002
 			public const int drawer_layout = 2131361794;
 			
-			// aapt resource value: 0x7f0a0013
-			public const int field_from_location = 2131361811;
+			// aapt resource value: 0x7f0a0015
+			public const int field_from_location = 2131361813;
 			
-			// aapt resource value: 0x7f0a001d
-			public const int field_instance_login = 2131361821;
+			// aapt resource value: 0x7f0a001f
+			public const int field_instance_login = 2131361823;
+			
+			// aapt resource value: 0x7f0a0020
+			public const int field_instance_password = 2131361824;
 			
 			// aapt resource value: 0x7f0a001e
-			public const int field_instance_password = 2131361822;
+			public const int field_instance_url = 2131361822;
 			
-			// aapt resource value: 0x7f0a001c
-			public const int field_instance_url = 2131361820;
+			// aapt resource value: 0x7f0a0016
+			public const int field_to_location = 2131361814;
 			
-			// aapt resource value: 0x7f0a0014
-			public const int field_to_location = 2131361812;
-			
-			// aapt resource value: 0x7f0a0022
-			public const int filter = 2131361826;
+			// aapt resource value: 0x7f0a0024
+			public const int filter = 2131361828;
 			
 			// aapt resource value: 0x7f0a0000
 			public const int indicator = 2131361792;
@@ -197,41 +197,47 @@ namespace JetstreamAndroid
 			// aapt resource value: 0x7f0a0004
 			public const int left_drawer = 2131361796;
 			
-			// aapt resource value: 0x7f0a000e
-			public const int linearLayout = 2131361806;
+			// aapt resource value: 0x7f0a0010
+			public const int linearLayout = 2131361808;
 			
 			// aapt resource value: 0x7f0a0001
 			public const int pager = 2131361793;
 			
-			// aapt resource value: 0x7f0a000b
-			public const int seekBar_max_price = 2131361803;
+			// aapt resource value: 0x7f0a000d
+			public const int seekBar_max_price = 2131361805;
 			
-			// aapt resource value: 0x7f0a001a
-			public const int spinner_classes = 2131361818;
+			// aapt resource value: 0x7f0a001c
+			public const int spinner_classes = 2131361820;
 			
-			// aapt resource value: 0x7f0a0019
-			public const int spinner_number_of_tickets = 2131361817;
+			// aapt resource value: 0x7f0a001b
+			public const int spinner_number_of_tickets = 2131361819;
 			
-			// aapt resource value: 0x7f0a000c
-			public const int textView_seekbar_value = 2131361804;
-			
-			// aapt resource value: 0x7f0a0021
-			public const int textview_day_date = 2131361825;
-			
-			// aapt resource value: 0x7f0a0020
-			public const int textview_day_price = 2131361824;
-			
-			// aapt resource value: 0x7f0a0009
-			public const int textview_flight_arrival = 2131361801;
+			// aapt resource value: 0x7f0a000e
+			public const int textView_seekbar_value = 2131361806;
 			
 			// aapt resource value: 0x7f0a0008
-			public const int textview_flight_depart = 2131361800;
+			public const int textview_airport_city = 2131361800;
 			
 			// aapt resource value: 0x7f0a0007
-			public const int textview_flight_price = 2131361799;
+			public const int textview_airport_title = 2131361799;
 			
-			// aapt resource value: 0x7f0a0017
-			public const int textview_return_date = 2131361815;
+			// aapt resource value: 0x7f0a0023
+			public const int textview_day_date = 2131361827;
+			
+			// aapt resource value: 0x7f0a0022
+			public const int textview_day_price = 2131361826;
+			
+			// aapt resource value: 0x7f0a000b
+			public const int textview_flight_arrival = 2131361803;
+			
+			// aapt resource value: 0x7f0a000a
+			public const int textview_flight_depart = 2131361802;
+			
+			// aapt resource value: 0x7f0a0009
+			public const int textview_flight_price = 2131361801;
+			
+			// aapt resource value: 0x7f0a0019
+			public const int textview_return_date = 2131361817;
 			
 			// aapt resource value: 0x7f0a0005
 			public const int webView_flight_details = 2131361797;
@@ -275,19 +281,22 @@ namespace JetstreamAndroid
 			public const int activity_webiew_teemplate = 2130903042;
 			
 			// aapt resource value: 0x7f030003
-			public const int flights_list_item = 2130903043;
+			public const int airport_item = 2130903043;
 			
 			// aapt resource value: 0x7f030004
-			public const int fragment_filter = 2130903044;
+			public const int flights_list_item = 2130903044;
 			
 			// aapt resource value: 0x7f030005
-			public const int fragment_search = 2130903045;
+			public const int fragment_filter = 2130903045;
 			
 			// aapt resource value: 0x7f030006
-			public const int fragment_settings = 2130903046;
+			public const int fragment_search = 2130903046;
 			
 			// aapt resource value: 0x7f030007
-			public const int tab_item = 2130903047;
+			public const int fragment_settings = 2130903047;
+			
+			// aapt resource value: 0x7f030008
+			public const int tab_item = 2130903048;
 			
 			static Layout()
 			{

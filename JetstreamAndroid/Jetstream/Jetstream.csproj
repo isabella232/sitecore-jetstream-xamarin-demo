@@ -91,6 +91,7 @@
     </AndroidResource>
     <AndroidResource Include="Resources\Drawable-hdpi\Icon.png" />
     <AndroidResource Include="Resources\Drawable-xhdpi\Icon.png" />
+    <AndroidResource Include="Resources\layout\airport_item.axml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\Strings.xml">

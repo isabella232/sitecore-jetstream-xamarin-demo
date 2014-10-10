@@ -105,7 +105,7 @@
     {
       if (this.autoCompleteAdapter == null)
       {
-        this.autoCompleteAdapter = new AutoCompleteAdapter(Activity, Android.Resource.Layout.SimpleDropDownItem1Line, new string[] { });
+        this.autoCompleteAdapter = new AutoCompleteAdapter(Activity);
         this.filter = new AirportsFilter(this.Activity, autoCompleteAdapter, this);
       }
 
