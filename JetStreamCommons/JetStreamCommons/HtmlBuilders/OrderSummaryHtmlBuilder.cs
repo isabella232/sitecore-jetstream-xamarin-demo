@@ -88,7 +88,7 @@ namespace JetStreamCommons.HtmlBuilders
           order.DestinationAirport.Code,
           departDate,
           order.DepartureFlight.FlightNumber,
-          fullPrice.ToString()
+          fullPrice.ToString("C")
         );
       }
       catch
@@ -117,7 +117,7 @@ namespace JetStreamCommons.HtmlBuilders
         decimal fullPrice = departPrice + returnPrice;
 
         resultHtmlString = String.Format (templateHtmlString,
-          order.TicketsCount.ToString (),
+          order.TicketsCount.ToString(),
           order.DepartureAirport.City,
           order.DepartureAirport.Country,
           order.DepartureAirport.Code,
@@ -128,9 +128,9 @@ namespace JetStreamCommons.HtmlBuilders
           order.DepartureFlight.FlightNumber,
           returnDate,
           order.ReturnFlight.FlightNumber,
-          departPrice.ToString (),
-          returnPrice.ToString (),
-          fullPrice.ToString ());
+          departPrice.ToString("C"),
+          returnPrice.ToString("C"),
+          fullPrice.ToString("C"));
       }
       catch
       {
