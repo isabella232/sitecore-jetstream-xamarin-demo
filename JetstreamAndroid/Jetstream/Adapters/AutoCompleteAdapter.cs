@@ -4,6 +4,7 @@ namespace JetstreamAndroid.Adapters
   using Android.Content;
   using Android.Views;
   using Android.Widget;
+  using Java.Lang;
   using JetStreamCommons.Airport;
 
   class AutoCompleteAdapter : BaseAdapter<string>, IFilterable
@@ -34,6 +35,15 @@ namespace JetstreamAndroid.Adapters
       airpotCity.Text = airport.City;
 
       return convertView;
+    }
+
+    public override Object GetItem(int position)
+    {
+      if (this.SearchedAirports == null)
+      {
+        return "";
+      }
+      return this.SearchedAirports[position].DisplayName;
     }
 
     public override long GetItemId(int position)
