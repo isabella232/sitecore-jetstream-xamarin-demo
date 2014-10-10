@@ -44,7 +44,7 @@
       base.OnMeasure(widthMeasureSpec, heightMeasureSpec);
 
       // Re-measure if we went beyond our maximum size.
-      if (this.mParent.MaxTabWidth > 0 && this.MeasuredWidth > this.mParent.MaxTabWidth)
+      if(this.mParent.MaxTabWidth > 0 && this.MeasuredWidth > this.mParent.MaxTabWidth)
       {
         base.OnMeasure(MeasureSpec.MakeMeasureSpec(this.mParent.MaxTabWidth, MeasureSpecMode.Exactly), heightMeasureSpec);
       }
@@ -65,26 +65,19 @@
     private void ShowPrice()
     {
       this.priceTextView.Visibility = ViewStates.Visible;
-      if (this.price != null)
-      {
-        this.priceTextView.Text = "$" + this.price;
-      }
-      else
-      {
-        this.priceTextView.Text = "N/A";
-      }
+      this.priceTextView.Text = CurrencyUtil.ConvertPriceToLocalString(this.price);
     }
 
     private async void UpdatePrice()
     {
-      if (price == null && this.isPriceUpdated == false)
+      if(price == null && this.isPriceUpdated == false)
       {
         try
         {
           var loader = JetstreamApp.From(this.mParent.Context).FlightSearchLoaderForDate(this.tabDate);
 
           var summary = await loader.GetCurrentDayAsync();
-          if (summary != null)
+          if(summary != null)
           {
             this.isPriceUpdated = true;
             this.price = summary.LowestPrice;
@@ -101,7 +94,7 @@
     public void ShowOrHidePrice(bool toShow)
     {
       this.toShowPrice = toShow;
-      if (this.toShowPrice)
+      if(this.toShowPrice)
       {
         this.ShowPrice();
       }

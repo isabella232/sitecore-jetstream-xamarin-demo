@@ -67,6 +67,7 @@
     <Compile Include="Activities\BaseFlightsActvity.cs" />
     <Compile Include="Adapters\JetstreamPagerAdapter.cs" />
     <Compile Include="Adapters\FlightsListAdapter.cs" />
+    <Compile Include="Utils\CurrencyUtil.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

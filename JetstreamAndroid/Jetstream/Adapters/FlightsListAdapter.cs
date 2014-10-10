@@ -47,7 +47,7 @@
       var departText = flight.DepartureTime.ToShortTimeString();
       var arrivalText = flight.ArrivalTime.ToShortTimeString();
 
-      priceTextView.Text = "$" + flight.Price;
+      priceTextView.Text = CurrencyUtil.ConvertPriceToLocalString(flight.Price);
       departTextView.Text = departText;
       arrivalTextView.Text = arrivalText;
 
