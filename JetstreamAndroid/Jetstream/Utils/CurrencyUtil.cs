@@ -1,4 +1,4 @@
-﻿namespace JetstreamAndroid
+﻿namespace JetstreamAndroid.Utils
 {
   public class CurrencyUtil
   {

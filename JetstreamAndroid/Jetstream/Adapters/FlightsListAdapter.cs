@@ -4,6 +4,7 @@
   using Android.Content;
   using Android.Views;
   using Android.Widget;
+  using JetstreamAndroid.Utils;
   using JetStreamCommons.Flight;
 
   public class FlightsListAdapter : BaseAdapter<IJetStreamFlight>
