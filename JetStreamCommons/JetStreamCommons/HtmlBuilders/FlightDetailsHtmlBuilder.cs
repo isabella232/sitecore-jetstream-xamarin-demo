@@ -43,7 +43,7 @@ namespace JetStreamCommons.HtmlBuilders
 
         resultHtmlString = String.Format(templateHtmlString,
           flight.FlightNumber,
-          flight.Price,
+          flight.Price.ToString("C"),
           this.LocalizedStringFromDate(flight.DepartureTime),
           order.DepartureAirport.City,
           order.DepartureAirport.Country,
