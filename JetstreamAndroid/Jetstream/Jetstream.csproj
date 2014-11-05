@@ -68,6 +68,7 @@
     <Compile Include="Adapters\JetstreamPagerAdapter.cs" />
     <Compile Include="Adapters\FlightsListAdapter.cs" />
     <Compile Include="Utils\CurrencyUtil.cs" />
+    <Compile Include="Fragments\AboutFragment.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -93,6 +94,9 @@
     <AndroidResource Include="Resources\Drawable-xhdpi\Icon.png" />
     <AndroidResource Include="Resources\layout\airport_item.axml" />
     <None Include="packages.config" />
+    <AndroidResource Include="Resources\layout\fragment_about.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\Strings.xml">

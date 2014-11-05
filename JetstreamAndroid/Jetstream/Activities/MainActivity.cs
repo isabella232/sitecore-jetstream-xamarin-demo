@@ -93,7 +93,7 @@
 
           break;
         default:
-          fragment = new BookFlightFragment();
+          fragment = new AboutFragment();
           break;
       }
 
