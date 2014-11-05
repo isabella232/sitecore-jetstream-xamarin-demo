@@ -78,7 +78,6 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\activity_main.axml" />
-    <None Include="packages.config" />
     <AndroidResource Include="Resources\layout\activity_flights.axml" />
     <AndroidResource Include="Resources\layout\tab_item.axml">
       <SubType>Designer</SubType>
@@ -93,6 +92,7 @@
     <AndroidResource Include="Resources\Drawable-hdpi\Icon.png" />
     <AndroidResource Include="Resources\Drawable-xhdpi\Icon.png" />
     <AndroidResource Include="Resources\layout\airport_item.axml" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\Strings.xml">
@@ -109,36 +109,36 @@
     <Reference Include="System" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
-    <Reference Include="Xamarin.Android.Support.v13">
-      <HintPath>..\..\Solutions\packages\Xamarin.Android.Support.v13.20.0.0.4\lib\MonoAndroid32\Xamarin.Android.Support.v13.dll</HintPath>
-    </Reference>
-    <Reference Include="SitecoreMobileSdkPasswordProvider">
-      <HintPath>..\..\Solutions\packages\Sitecore.MobileSDK.PasswordProvider.Interface.1.0.0\lib\portable-win+net4+sl5+wp8\SitecoreMobileSdkPasswordProvider.dll</HintPath>
-    </Reference>
+    <Reference Include="System.Net.Http" />
     <Reference Include="Microsoft.Threading.Tasks">
       <HintPath>..\..\Solutions\packages\Microsoft.Bcl.Async.1.0.168\lib\portable-net45+win8+wpa81\Microsoft.Threading.Tasks.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Threading.Tasks.Extensions">
       <HintPath>..\..\Solutions\packages\Microsoft.Bcl.Async.1.0.168\lib\portable-net45+win8+wpa81\Microsoft.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
-    <Reference Include="System.Net.Http" />
-    <Reference Include="Sitecore.MobileSDK">
-      <HintPath>..\..\Solutions\packages\Sitecore.MobileSDK.PCL.1.0.0\lib\portable-win+net4+sl5+wp8\Sitecore.MobileSDK.dll</HintPath>
-    </Reference>
-    <Reference Include="SecureStringPasswordProvider-Android">
-      <HintPath>..\..\Solutions\packages\Sitecore.MobileSDK.PasswordProvider.1.0.0\lib\MonoAndroid44\SecureStringPasswordProvider-Android.dll</HintPath>
-    </Reference>
-    <Reference Include="crypto">
-      <HintPath>..\..\Solutions\packages\Portable.BouncyCastle.1.7.0.1\lib\portable-net4+sl5+wp8+win8+wpa81\crypto.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\Solutions\packages\Newtonsoft.Json.6.0.5\lib\portable-net45+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System.Net.Http.Extensions">
       <HintPath>..\..\Solutions\packages\Microsoft.Net.Http.2.2.28\lib\monoandroid\System.Net.Http.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http.Primitives">
       <HintPath>..\..\Solutions\packages\Microsoft.Net.Http.2.2.28\lib\monoandroid\System.Net.Http.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\Solutions\packages\Newtonsoft.Json.6.0.6\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="crypto">
+      <HintPath>..\..\Solutions\packages\Portable.BouncyCastle.1.7.0.1\lib\portable-net4+sl5+wp8+win8+wpa81\crypto.dll</HintPath>
+    </Reference>
+    <Reference Include="Sitecore.MobileSDK">
+      <HintPath>..\..\Solutions\packages\Sitecore.MobileSDK.PCL.1.0.0\lib\portable-win+net4+sl5+wp8\Sitecore.MobileSDK.dll</HintPath>
+    </Reference>
+    <Reference Include="Sitecore.MobileSDK.PasswordProvider.Interface">
+      <HintPath>..\..\Solutions\packages\Sitecore.MobileSDK.PCL.1.0.0\lib\portable-win+net4+sl5+wp8\Sitecore.MobileSDK.PasswordProvider.Interface.dll</HintPath>
+    </Reference>
+    <Reference Include="Sitecore.MobileSDK.PasswordProvider.Android">
+      <HintPath>..\..\Solutions\packages\Sitecore.MobileSDK.PasswordProvider.1.0.0\lib\MonoAndroid44\Sitecore.MobileSDK.PasswordProvider.Android.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Android.Support.v13">
+      <HintPath>..\..\Solutions\packages\Xamarin.Android.Support.v13.20.0.0.4\lib\MonoAndroid32\Xamarin.Android.Support.v13.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -245,5 +245,11 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\dimen.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <XamarinComponentReference Include="xamandroidsupportv13-18">
+      <Version>20.0.0.4</Version>
+      <Visible>False</Visible>
+    </XamarinComponentReference>
   </ItemGroup>
 </Project>
