@@ -73,9 +73,9 @@
     <Folder Include="HtmlBuilders\" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="SitecoreMobileSdkPasswordProvider">
-      <HintPath>..\..\Solutions\packages\Sitecore.MobileSDK.PasswordProvider.Interface.1.0.0\lib\portable-win+net4+sl5+wp8\SitecoreMobileSdkPasswordProvider.dll</HintPath>
-    </Reference>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="Microsoft.Threading.Tasks">
       <HintPath>..\..\Solutions\packages\Microsoft.Bcl.Async.1.0.168\lib\portable-net45+win8+wp8+wpa81\Microsoft.Threading.Tasks.dll</HintPath>
     </Reference>
@@ -100,8 +100,8 @@
     <Reference Include="System.Net.Http.Primitives">
       <HintPath>..\..\Solutions\packages\Microsoft.Net.Http.2.2.28\lib\portable-net40+sl4+win8+wp71+wpa81\System.Net.Http.Primitives.dll</HintPath>
     </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
+    <Reference Include="Sitecore.MobileSDK.PasswordProvider.Interface">
+      <HintPath>..\..\Solutions\packages\Sitecore.MobileSDK.PCL.1.0.0\lib\portable-win+net4+sl5+wp8\Sitecore.MobileSDK.PasswordProvider.Interface.dll</HintPath>
+    </Reference>
   </ItemGroup>
 </Project>

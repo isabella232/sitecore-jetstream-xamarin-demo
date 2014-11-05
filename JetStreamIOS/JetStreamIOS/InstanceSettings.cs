@@ -7,7 +7,7 @@
   using Sitecore.MobileSDK.API;
   using Sitecore.MobileSDK.API.Session;
 
-  using  SecureStringPasswordProvider.iOS;
+  using Sitecore.MobileSDK.PasswordProvider.iOS;
 
 
   //TODO: NSUserDefaults is not secure enough for credentials.
