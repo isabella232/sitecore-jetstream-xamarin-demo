@@ -11,7 +11,7 @@ scripts\pickles\Pickles.exe -feature-directory=%features_directory% -output-dire
 
 ::Cleaning website root except version file.
 :: I used powershell here because I can't imagine how to implement this with batch.
-powershell scripts\clean_website_root.ps1 %website_root_directory% %changes_file_name%
+powershell -noprofile -executionpolicy RemoteSigned -file scripts\clean_website_root.ps1 %website_root_directory% %changes_file_name%
 
 :: Copying website pages from workspace into website root.
 xcopy /e /i %output_directory% %website_root_directory%
