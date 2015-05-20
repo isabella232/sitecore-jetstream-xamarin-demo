@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+    <TextView
+        android:padding="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/text_price_per_flight" />
+    <SeekBar
+        android:id="@+id/seekBar_max_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/textView_seekbar_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textSize="@dimen/default_text_size" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="16dp" />
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="3">
+        <TextView
+            android:padding="8dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:text="@string/text_earliest_deparuture_time" />
+        <Button
+            android:id="@+id/button_earliest_departure_time"
+            android:textSize="@dimen/default_text_size"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="3">
+        <TextView
+            android:padding="8dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/text_latest_deparuture_time"
+            android:layout_width="fill_parent" />
+        <Button
+            android:id="@+id/button_latest_departure_time"
+            android:layout_width="fill_parent"
+            android:textSize="@dimen/default_text_size"
+            android:layout_height="wrap_content"
+            android:layout_weight="2" />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="16dp" />
+    <CheckBox
+        android:id="@+id/checkBox_flight_wifi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checked="false"
+        android:textSize="@dimen/default_text_size"
+        android:text="@string/text_flight_wifi" />
+    <CheckBox
+        android:id="@+id/checkBox_personal_entertainment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="false"
+        android:textSize="@dimen/default_text_size"
+        android:text="@string/text_personal_entertainment" />
+    <CheckBox
+        android:id="@+id/checkBox_food_service"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="false"
+        android:textSize="@dimen/default_text_size"
+        android:text="@string/text_food_service" />
+</LinearLayout>
