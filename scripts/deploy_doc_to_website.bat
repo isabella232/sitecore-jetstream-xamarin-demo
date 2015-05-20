@@ -24,3 +24,6 @@ Build ID : %BUILD_ID%^
 
 Build URL: %BUILD_URL% >>%website_root_directory%\%changes_file_name% 
 
+
+"C:\Program Files\7-Zip\7zG.exe" a -tzip output_directory\webiste.zip *.png
+
