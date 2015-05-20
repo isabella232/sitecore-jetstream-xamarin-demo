@@ -21,7 +21,6 @@ build
 # JetBrains
 .idea
 
-
 # MS Visual Studio
 bin
 obj
@@ -40,7 +39,3 @@ UpgradeLog.htm
 packages
 *.exe
 *.dgml
-
-JetStreamCommons/JetStreamCommons/bin/
-JetStreamIOS/JetStreamIOS/bin/
-*.userprefs
