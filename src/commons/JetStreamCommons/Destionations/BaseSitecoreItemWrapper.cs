@@ -1,4 +1,4 @@
-﻿namespace JetStreamCommons.Destionations
+﻿namespace JetStreamCommons.Destinations
 {
   using System.Collections.Generic;
   using Sitecore.MobileSDK.API.Fields;
