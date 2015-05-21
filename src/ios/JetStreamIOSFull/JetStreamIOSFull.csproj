@@ -122,6 +122,7 @@
     </Compile>
     <Compile Include="Helpers\AlertHelper.cs" />
     <Compile Include="MapDelegate.cs" />
+    <Compile Include="Helpers\ImageResize.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
