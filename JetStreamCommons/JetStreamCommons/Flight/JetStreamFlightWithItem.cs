@@ -1,14 +1,21 @@
-﻿namespace JetStreamCommons.Flight
+﻿using JetStreamCommons.Airport;
+
+namespace JetStreamCommons.Flight
 {
   using System;
   using Sitecore.MobileSDK.API.Items;
 
 
-  public class JetStreamFlightWithItem : IJetStreamFlight
+  public class JetStreamFlightWithItem : IJetStreamFlightWithAirports
   {
-    public JetStreamFlightWithItem(ISitecoreItem flight)
+    public JetStreamFlightWithItem(
+      ISitecoreItem flight,
+      IJetStreamAirportWithTimeZone departureAirport,
+      IJetStreamAirportWithTimeZone arrivalAirport)
     {
       this.Flight = flight;
+      this.DepartureAirport = departureAirport;
+      this.ArrivalAirport = arrivalAirport;
     }
 
     private ISitecoreItem Flight
@@ -120,6 +127,18 @@
         string rawResult = this.Flight["Food Service"].RawValue;
         return RawValueConverter.ToBoolean(rawResult);
       }
+    }
+  
+  
+    public IJetStreamAirportWithTimeZone DepartureAirport
+    { 
+      get;
+      private set;
+    }
+    public IJetStreamAirportWithTimeZone ArrivalAirport
+    { 
+      get; 
+      private set;
     }
   }
 }

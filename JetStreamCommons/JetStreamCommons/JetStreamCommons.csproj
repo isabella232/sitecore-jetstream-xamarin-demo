@@ -58,6 +58,11 @@
     <Compile Include="Helpers\BadgeNames.cs" />
     <Compile Include="FlightFilter\MutableFlightsFilterSettings.cs" />
     <Compile Include="FlightFilter\FlightFilter.cs" />
+    <Compile Include="Flight\IJetStreamFlightWithAirports.cs" />
+    <Compile Include="Airport\IJetStreamAirportWithTimeZone.cs" />
+    <Compile Include="TimeZone\ITimeZoneInfo.cs" />
+    <Compile Include="TimeZone\ITimeZoneProvider.cs" />
+    <Compile Include="TimeZone\TimeZoneInfoWithItem.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
@@ -70,6 +75,7 @@
     <Folder Include="FlightSearch\" />
     <Folder Include="FlightFilter\" />
     <Folder Include="HtmlBuilders\" />
+    <Folder Include="TimeZone\" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="SitecoreMobileSdkPasswordProvider">

@@ -172,6 +172,7 @@
     <Compile Include="Helpers\DateConverter.cs" />
     <Compile Include="HtmlBuilders\IOSOrderSummaryHtmlBuilder.cs" />
     <Compile Include="HtmlBuilders\IOSFlightDetailsHtmlBuilder.cs" />
+    <Compile Include="Helpers\TimezoneProviderForIOS.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard.storyboard" />

@@ -88,6 +88,7 @@ namespace JetStreamIOS
       try
       {
         FlightInputValidator.CheckIsDataCorrectWithException(this.userInput);
+        StoryboardHelper.NavigateToDepartureFlightsListFromViewController(this);
       }
       catch(ArgumentException e) 
       {
@@ -103,10 +104,7 @@ namespace JetStreamIOS
         }
 
         AlertHelper.ShowLocalizedAlertWithOkOption(title, message);
-        return;
       }
-
-      StoryboardHelper.NavigateToDepartureFlightsListFromViewController(this);
     }
 
     partial void OnDepartDateButtonTouched(MonoTouch.UIKit.UIButton sender)
