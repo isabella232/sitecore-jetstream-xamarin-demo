@@ -1,0 +1,28 @@
+namespace JetstreamAndroid.Utils
+{
+  using Android.App;
+  using Android.Content;
+  using JetstreamAndroid;
+
+  public class DialogHelper
+  {
+    public static void ShowSimpleDialog(Context context, int titleId, int messageId)
+    {
+      var titleString = context.GetString(titleId);
+      var message = context.GetString(messageId);
+      ShowSimpleDialog(context, titleString, message);
+    }
+
+    public static void ShowSimpleDialog(Context context, string title, string message)
+    {
+      var builder = new AlertDialog.Builder(context);
+      builder.SetTitle(title);
+      builder.SetMessage(message);
+
+      AlertDialog dialog = builder.Create();
+      dialog.SetButton(context.GetString(Resource.String.text_button_ok),
+        (sender, args) => dialog.Dismiss());
+      dialog.Show();
+    }
+  }
+}
