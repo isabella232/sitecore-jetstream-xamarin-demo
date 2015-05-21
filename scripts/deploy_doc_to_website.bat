@@ -4,6 +4,8 @@ set project_version="2.0"
 set output_directory="generated_doc_webiste"
 set features_directory="doc\Features"
 set changes_file_name="changes.txt"
+set feature_images_directory="doc\Feature_images"
+
 
 :: Generating website pages from feature files
 :: format 
@@ -15,6 +17,9 @@ powershell -noprofile -executionpolicy RemoteSigned -file scripts\clean_website_
 
 :: Copying website pages from workspace into website root.
 xcopy /e /i %output_directory% %website_root_directory%
+
+:: Copying feature images from workspace into website /img folder.
+xcopy /e /i %feature_images_directory%\* %website_root_directory%\img\Feature_images
 
 echo ------------------------^
 
