@@ -4,6 +4,8 @@ Feature: Display destinations in the app
 > *I want to see Jetstream destinations in the app*  
 > *So that I can reuse already created Jetstream content for the app*  
 
+![alt text](/img/Feature_images/02Destinations_DisplayAllDestinationsOnTheMap.png)
+
 Scenario: Display all destinations from Jetstream on a map  
  Given destination items in Jetstream backend  
  When Caroline opens the app  
