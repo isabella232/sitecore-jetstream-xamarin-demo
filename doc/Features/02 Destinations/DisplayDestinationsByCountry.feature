@@ -4,6 +4,8 @@ Feature: Display destinations by country
 > *I want to see destinations grouped by country*
 > *So that I ensure that content in the app reflects backend items structure*
 
+[#56080](http://tfs4dk1.dk.sitecore.net/tfs/PD-Products-01/Products/_workitems/edit/56080)
+
 Scenario: Display all countries on a map  
  Given country items in Jetstream backend  
  When Caroline opens the app  
