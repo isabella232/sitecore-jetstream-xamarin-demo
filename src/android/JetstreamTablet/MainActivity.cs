@@ -1,29 +1,57 @@
-﻿using Android.App;
-using Android.Widget;
-using Android.OS;
-
-namespace JetstreamTablet
+﻿namespace JetstreamTablet
 {
+  using Android.App;
+  using Android.OS;
+  using Android.Widget;
+  using JetStreamCommons;
+  using Sitecore.MobileSDK.API;
+  using Sitecore.MobileSDK.API.Session;
+  using Sitecore.MobileSDK.PasswordProvider.Android;
+
   [Activity(MainLauncher = true, Icon = "@drawable/icon")]
   public class MainActivity : Activity
   {
-    int count = 1;
-
     protected override void OnCreate(Bundle bundle)
     {
       base.OnCreate(bundle);
 
-      // Set our view from the "main" layout resource
-      SetContentView(Resource.Layout.Main);
+      this.SetContentView(Resource.Layout.Main);
 
-      // Get our button from the layout resource,
-      // and attach an event to it
-      Button button = FindViewById<Button>(Resource.Id.myButton);
-			
-      button.Click += delegate
+      var button = this.FindViewById<Button>(Resource.Id.myButton);
+
+      button.Click += async delegate
       {
-        button.Text = string.Format("{0} clicks!", count++);
+        var manager = new DestinationsLoader(this.Session);
+        var response = await manager.LoadOnlyDestionations();
+
+        Toast.MakeText(this, "Loaded destionations: " + response.Count, ToastLength.Long).Show();
       };
+    }
+
+    public ISitecoreWebApiSession Session
+    {
+      get
+      {
+        ISitecoreWebApiSession session = null;
+        //        if (isAuthentiated)
+        //        {
+        using (var credentials = new SecureStringPasswordProvider("sitecore\\admin", "b"))
+        {
+          session = SitecoreWebApiSessionBuilder.AuthenticatedSessionWithHost("jetstream800394rev150402.test24dk1.dk.sitecore.net")
+                    .Credentials(credentials)
+                      .DefaultDatabase("web")
+                    .BuildSession();
+        }
+        //        }
+        //        else
+        //        {
+        //        session = SitecoreWebApiSessionBuilder.AnonymousSessionWithHost("jetstream800394rev150402.test24dk1.dk.sitecore.net")
+        //          .DefaultDatabase("web")
+        //            .BuildSession();
+        //        }
+
+        return session;
+      }
     }
   }
 }

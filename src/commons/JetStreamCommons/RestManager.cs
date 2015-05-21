@@ -4,16 +4,14 @@
   using System.Diagnostics;
   using System.Linq;
   using System.Threading.Tasks;
-  using System.Collections;
   using System.Collections.Generic;
 
   using JetStreamCommons.Flight;
   using JetStreamCommons.Airport;
-
+  using JetStreamCommons.Helpers;
   using Sitecore.MobileSDK.API;
   using Sitecore.MobileSDK.API.Session;
   using Sitecore.MobileSDK.API.Items;
-
 
   public class RestManager : IFlightsLoader, IDisposable
   {
