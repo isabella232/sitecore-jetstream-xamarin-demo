@@ -4,7 +4,7 @@ Feature: About screen
 >*I want to see actual content from another part of my website in the app*  
 >*So that I can keep all in app content up to date from backend only*  
 
-Scenario: Open About screen  
+Scenario: Display About item info  
   Given Destination screen opened in the app  
   When Caroline select "About" in app menu  
   Then about screen appears with "About" item info
