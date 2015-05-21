@@ -7,7 +7,7 @@ Feature: Display destinations in the app
 [#56096](http://tfs4dk1.dk.sitecore.net/tfs/PD-Products-01/Products/_workitems/edit/56096),
 [#56077](http://tfs4dk1.dk.sitecore.net/tfs/PD-Products-01/Products/_workitems/edit/56077)
 
-##Description 
+
 **All destinations**  
 The Start Screen of the app is organized as the world map.  
 Jetstream destinations appear on the map as map markers that the user can tap on to view the details page of a specific destination.  

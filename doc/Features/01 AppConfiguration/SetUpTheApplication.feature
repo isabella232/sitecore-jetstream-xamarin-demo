@@ -6,7 +6,7 @@ Feature: Set up the application
 
 [#56061](http://tfs4dk1.dk.sitecore.net/tfs/PD-Products-01/Products/_workitems/edit/56061)
 
-##Description
+**Description**  
 To show content from a Jetstream instance the app need to be "connected" to that Jetstream demo instance. Demo person should enter the working URL to the app "Settings" screen.  
 *Screen:*  
 ![alt text](/img/Feature_images/01AppConfiguration_ConnectToJetstreamInstance.png)

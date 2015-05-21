@@ -6,7 +6,7 @@ Feature: Set up the application
 
 [#56096](http://tfs4dk1.dk.sitecore.net/tfs/PD-Products-01/Products/_workitems/edit/56096)
 
-##Description
+**Description**  
 In the "About" section, user cass view the Jetstream About information.  
 *Screen:*  
 ![alt text](/img/Feature_images/01AppConfiguration_ConnectToJetstreamInstance.png)
