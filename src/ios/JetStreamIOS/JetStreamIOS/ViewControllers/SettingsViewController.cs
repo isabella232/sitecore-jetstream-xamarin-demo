@@ -11,7 +11,7 @@ namespace JetStreamIOS
   using Sitecore.MobileSDK.API;
   using Sitecore.MobileSDK.API.Session;
   using Sitecore.MobileSDK.PasswordProvider.iOS;
-
+  using InstanceSettings;
 
 	public partial class SettingsViewController : UIViewController
 	{

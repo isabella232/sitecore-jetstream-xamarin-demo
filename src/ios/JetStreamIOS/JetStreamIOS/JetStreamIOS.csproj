@@ -22,6 +22,7 @@
     <MtouchLink>None</MtouchLink>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <MtouchDebug>true</MtouchDebug>
+    <CodesignKey>iPhone Developer</CodesignKey>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>full</DebugType>
@@ -85,35 +86,17 @@
     <Reference Include="System.Core" />
     <Reference Include="monotouch" />
     <Reference Include="System.Net.Http" />
-    <Reference Include="Microsoft.Threading.Tasks">
-      <HintPath>..\..\Solutions\packages\Microsoft.Bcl.Async.1.0.168\lib\portable-net45+win8+wpa81\Microsoft.Threading.Tasks.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Threading.Tasks.Extensions">
-      <HintPath>..\..\Solutions\packages\Microsoft.Bcl.Async.1.0.168\lib\portable-net45+win8+wpa81\Microsoft.Threading.Tasks.Extensions.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Net.Http.Primitives">
-      <HintPath>..\..\Solutions\packages\Microsoft.Net.Http.2.2.22\lib\monotouch\System.Net.Http.Primitives.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Net.Http.Extensions">
-      <HintPath>..\..\Solutions\packages\Microsoft.Net.Http.2.2.22\lib\monotouch\System.Net.Http.Extensions.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\Solutions\packages\Newtonsoft.Json.6.0.3\lib\portable-net40+sl4+wp7+win8\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="crypto">
-      <HintPath>..\..\Solutions\packages\Portable.BouncyCastle.1.7.0\lib\portable-net4+sl5+wp8+win8\crypto.dll</HintPath>
-    </Reference>
     <Reference Include="Sitecore.MobileSDK">
-      <HintPath>..\..\Solutions\packages\Sitecore.MobileSDK.PCL.1.0.0\lib\portable-win+net4+sl5+wp8\Sitecore.MobileSDK.dll</HintPath>
+      <HintPath>..\..\..\..\Solutions\packages\Sitecore.MobileSDK.Xamarin.1.0.0\lib\portable-win+net4+sl5+wp8\Sitecore.MobileSDK.dll</HintPath>
     </Reference>
     <Reference Include="Sitecore.MobileSDK.PasswordProvider.Interface">
-      <HintPath>..\..\Solutions\packages\Sitecore.MobileSDK.PCL.1.0.0\lib\portable-win+net4+sl5+wp8\Sitecore.MobileSDK.PasswordProvider.Interface.dll</HintPath>
+      <HintPath>..\..\..\..\Solutions\packages\Sitecore.MobileSDK.Xamarin.1.0.0\lib\portable-win+net4+sl5+wp8\Sitecore.MobileSDK.PasswordProvider.Interface.dll</HintPath>
     </Reference>
     <Reference Include="Sitecore.MobileSDK.PasswordProvider.iOS">
-      <HintPath>..\..\Solutions\packages\Sitecore.MobileSDK.PasswordProvider.1.0.0\lib\MonoTouch10\Sitecore.MobileSDK.PasswordProvider.iOS.dll</HintPath>
+      <HintPath>..\..\..\..\Solutions\packages\Sitecore.MobileSDK.PasswordProvider.1.0.1\lib\MonoTouch10\Sitecore.MobileSDK.PasswordProvider.iOS.dll</HintPath>
     </Reference>
     <Reference Include="Humanizer">
-      <HintPath>..\..\Solutions\packages\Humanizer.1.29.0\lib\portable-win+net40+sl50+wp8+wpa81\Humanizer.dll</HintPath>
+      <HintPath>..\..\..\..\Solutions\packages\Humanizer.1.35.0\lib\portable-win+net40+sl50+wp8+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Humanizer.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -145,7 +128,6 @@
     <Compile Include="ViewControllers\SearchAirports\AirportsSearchBarDelegate.cs" />
     <Compile Include="ViewControllers\SearchAirports\SearchAirportsDelegate.cs" />
     <Compile Include="Helpers\LoadingOverlay.cs" />
-    <Compile Include="InstanceSettings.cs" />
     <Compile Include="Helpers\StoryboardHelper.cs" />
     <Compile Include="ViewControllers\FlightListViewController.cs" />
     <Compile Include="ViewControllers\FlightListViewController.designer.cs">
@@ -192,16 +174,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\..\JetStreamCommons\JetStreamCommons\JetStreamCommons.csproj">
-      <Project>{040C24CF-4B83-4917-B837-ED8157960B5F}</Project>
-      <Name>JetStreamCommons</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Action_Sheet_DatePicker\ActionSheetDatePicker.csproj">
-      <Project>{83F74907-47F6-47A6-8499-436D755BD65A}</Project>
-      <Name>ActionSheetDatePicker</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Helpers\" />
     <Folder Include="ViewControllers\" />
     <Folder Include="Resources\en.lproj\" />
@@ -209,5 +181,15 @@
     <Folder Include="ViewControllers\FlightsTable\" />
     <Folder Include="Resources\Badges\" />
     <Folder Include="HtmlBuilders\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Action_Sheet_DatePicker\ActionSheetDatePicker.csproj">
+      <Project>{83F74907-47F6-47A6-8499-436D755BD65A}</Project>
+      <Name>ActionSheetDatePicker</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\commons\JetStreamCommons\JetStreamCommons.csproj">
+      <Project>{040C24CF-4B83-4917-B837-ED8157960B5F}</Project>
+      <Name>JetStreamCommons</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>

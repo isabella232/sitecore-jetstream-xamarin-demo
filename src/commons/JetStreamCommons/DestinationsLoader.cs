@@ -5,7 +5,7 @@
   using System.Diagnostics;
   using System.Linq;
   using System.Threading.Tasks;
-  using JetStreamCommons.Destionations;
+  using JetStreamCommons.Destinations;
   using JetStreamCommons.Helpers;
   using Sitecore.MobileSDK.API;
   using Sitecore.MobileSDK.API.Items;
@@ -31,17 +31,18 @@
       return await Task.Factory.StartNew(() => this.MatchRegionsCountriesAndDestionations(regionsAndCountries, destionations));
     }
 
-    public async Task<List<Destionation>> LoadOnlyDestionations()
+    public async Task<List<IDestination>> LoadOnlyDestionations()
     {
       string destionationsQuery = QueryHelpers.QueryToSearchAllCityItems();
 
       var destinationsRequest = ItemWebApiRequestBuilder.ReadItemsRequestWithSitecoreQuery(destionationsQuery)
         .Build();
 
-      var destionationsResponce = await this.session.ReadItemAsync(destinationsRequest);
-      var destionations = destionationsResponce.Select(item => new Destionation(item));
+      var destinationsResponce = await this.session.ReadItemAsync(destinationsRequest);
 
-      return destionations.ToList();
+      var destinations = destinationsResponce.Select(item => new Destination(item) as IDestination);
+
+      return destinations.ToList();
     }
 
     #endregion Public API
@@ -57,7 +58,7 @@
       return await this.session.ReadItemAsync(regionsAndCountriesRequest);
     }
 
-    private List<Region> MatchRegionsCountriesAndDestionations(ScItemsResponse regionsAndCountriesResponse, IEnumerable<Destionation> destionations)
+    private List<Region> MatchRegionsCountriesAndDestionations(ScItemsResponse regionsAndCountriesResponse, IEnumerable<IDestination> destionations)
     {
       //TODO: Please notice that sometimes countries can have nested country like United Kingdom -> England
       var countries = regionsAndCountriesResponse.Where((item, i) => item.Template.Equals(Country.TemplateName))

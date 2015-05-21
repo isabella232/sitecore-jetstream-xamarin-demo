@@ -1,4 +1,4 @@
-﻿namespace JetStreamCommons.Destionations
+﻿namespace JetStreamCommons.Destinations
 {
   using System.Collections.Generic;
   using JetStreamCommons.Helpers;
@@ -8,9 +8,9 @@
   {
     public const string TemplateName = "Jetstream/Destinations/Country Item";
 
-    public IEnumerable<Destionation> Destionations { get; private set; }
+    public IEnumerable<IDestination> Destionations { get; private set; }
 
-    public Country(IEnumerable<Destionation> destionations, ISitecoreItem wrapped)
+    public Country(IEnumerable<IDestination> destionations, ISitecoreItem wrapped)
       : base(wrapped)
     {
       this.Destionations = destionations;

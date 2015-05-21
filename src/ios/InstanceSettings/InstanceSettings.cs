@@ -1,9 +1,9 @@
-﻿namespace JetStreamIOS
+﻿using Foundation;
+
+namespace InstanceSettings
 {
   using System;
-  using MonoTouch.Foundation;
 
-  using JetStreamCommons;
   using Sitecore.MobileSDK.API;
   using Sitecore.MobileSDK.API.Session;
 
@@ -97,7 +97,7 @@
       { 
         if (this.instanceUrl == null) 
         {
-          this.instanceUrl = "http://jetstream.test24dk1.dk.sitecore.net";
+          this.instanceUrl = "http://jetstream800394rev150402.test24dk1.dk.sitecore.net/";
         }
 
         return this.instanceUrl;
