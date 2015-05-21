@@ -10,6 +10,7 @@ namespace JetStreamCommons.Destinations
     private float latitude;
     private float longitude;
     private string countryName;
+    private string imagePath;
 
     public Destination(ISitecoreItem wrapped) : base(wrapped)
     {
@@ -22,6 +23,8 @@ namespace JetStreamCommons.Destinations
       float longitude;
       float.TryParse(wrapped["Longitude"].RawValue, NumberStyles.Any, new CultureInfo("en-US"), out longitude);
       this.longitude = longitude;
+
+      this.imagePath = MediaPathExtractor.GetImagePathFromImageRawValue(wrapped["Image"].RawValue);
     }
 
     public string CountryName
@@ -45,6 +48,14 @@ namespace JetStreamCommons.Destinations
       get
       { 
         return this.longitude;
+      }
+    }
+
+    public string ImagePath
+    {
+      get
+      { 
+        return this.imagePath;
       }
     }
   }
