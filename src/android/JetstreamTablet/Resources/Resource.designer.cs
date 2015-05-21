@@ -9,9 +9,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: global::Android.Runtime.ResourceDesignerAttribute("JetstreamTablet.Resource", IsApplication=true)]
+[assembly: global::Android.Runtime.ResourceDesignerAttribute("Jetstream.Resource", IsApplication=true)]
 
-namespace JetstreamTablet
+namespace Jetstream
 {
 	
 	
@@ -1603,26 +1603,26 @@ namespace JetstreamTablet
 			// aapt resource value: 0x7f0b0039
 			public const int list_item = 2131427385;
 			
-			// aapt resource value: 0x7f0b0053
-			public const int map = 2131427411;
+			// aapt resource value: 0x7f0b0054
+			public const int map = 2131427412;
 			
 			// aapt resource value: 0x7f0b002a
 			public const int match_parent = 2131427370;
 			
-			// aapt resource value: 0x7f0b0057
-			public const int media_route_control_frame = 2131427415;
-			
 			// aapt resource value: 0x7f0b0058
-			public const int media_route_disconnect_button = 2131427416;
+			public const int media_route_control_frame = 2131427416;
 			
-			// aapt resource value: 0x7f0b0054
-			public const int media_route_list = 2131427412;
+			// aapt resource value: 0x7f0b0059
+			public const int media_route_disconnect_button = 2131427417;
 			
 			// aapt resource value: 0x7f0b0055
-			public const int media_route_volume_layout = 2131427413;
+			public const int media_route_list = 2131427413;
 			
 			// aapt resource value: 0x7f0b0056
-			public const int media_route_volume_slider = 2131427414;
+			public const int media_route_volume_layout = 2131427414;
+			
+			// aapt resource value: 0x7f0b0057
+			public const int media_route_volume_slider = 2131427415;
 			
 			// aapt resource value: 0x7f0b0015
 			public const int middle = 2131427349;
@@ -1650,6 +1650,9 @@ namespace JetstreamTablet
 			
 			// aapt resource value: 0x7f0b003f
 			public const int radio = 2131427391;
+			
+			// aapt resource value: 0x7f0b0053
+			public const int refresher = 2131427411;
 			
 			// aapt resource value: 0x7f0b0026
 			public const int sandbox = 2131427366;
