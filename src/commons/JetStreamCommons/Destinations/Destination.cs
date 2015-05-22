@@ -1,16 +1,15 @@
-﻿using System.Globalization;
-
-namespace JetStreamCommons.Destinations
+﻿namespace JetStreamCommons.Destinations
 {
+  using System.Globalization;
   using JetStreamCommons.Helpers;
   using Sitecore.MobileSDK.API.Items;
 
   public class Destination : BaseSitecoreItemWrapper, IDestination
   {
-    private float latitude;
-    private float longitude;
-    private string countryName;
-    private string imagePath;
+    private readonly float latitude;
+    private readonly float longitude;
+    private readonly string countryName;
+    private readonly string imagePath;
 
     public Destination(ISitecoreItem wrapped) : base(wrapped)
     {

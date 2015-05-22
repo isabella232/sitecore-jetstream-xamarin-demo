@@ -1,8 +1,9 @@
-﻿namespace JetStreamCommons
+﻿using JetStreamCommons.Destinations;
+
+namespace JetStreamCommons
 {
   using System;
   using System.Collections.Generic;
-  using System.Diagnostics;
   using System.Linq;
   using System.Threading.Tasks;
   using JetStreamCommons.Destinations;
@@ -23,19 +24,19 @@
     }
 
     #region Public API
-    public async Task<List<Region>> LoadAllDestionations()
+    public async Task<List<Region>> LoadAllDestinations()
     {
-      var destionations = await this.LoadOnlyDestionations();
+      var destination = await this.LoadOnlyDestinations();
       var regionsAndCountries = await this.LoadRegionsAndCountries();
 
-      return await Task.Factory.StartNew(() => this.MatchRegionsCountriesAndDestionations(regionsAndCountries, destionations));
+      return await Task.Factory.StartNew(() => this.MatchRegionsCountriesAndDestinations(regionsAndCountries, destination));
     }
 
-    public async Task<List<IDestination>> LoadOnlyDestionations()
+    public async Task<List<IDestination>> LoadOnlyDestinations()
     {
-      string destionationsQuery = QueryHelpers.QueryToSearchAllCityItems();
+      string destinationsQuery = QueryHelpers.QueryToSearchAllCityItems();
 
-      var destinationsRequest = ItemWebApiRequestBuilder.ReadItemsRequestWithSitecoreQuery(destionationsQuery)
+      var destinationsRequest = ItemWebApiRequestBuilder.ReadItemsRequestWithSitecoreQuery(destinationsQuery)
         .Build();
 
       var destinationsResponce = await this.session.ReadItemAsync(destinationsRequest);
@@ -58,14 +59,14 @@
       return await this.session.ReadItemAsync(regionsAndCountriesRequest);
     }
 
-    private List<Region> MatchRegionsCountriesAndDestionations(ScItemsResponse regionsAndCountriesResponse, IEnumerable<IDestination> destionations)
+    private List<Region> MatchRegionsCountriesAndDestinations(ScItemsResponse regionsAndCountriesResponse, IEnumerable<IDestination> destionations)
     {
       //TODO: Please notice that sometimes countries can have nested country like United Kingdom -> England
       var countries = regionsAndCountriesResponse.Where((item, i) => item.Template.Equals(Country.TemplateName))
         .Select(country =>
         {
-          var countryDestionation = destionations.Where(dest => dest.CountryName.Equals(country.DisplayName));
-          return new Country(countryDestionation, country);
+          var countryDestination = destionations.Where(dest => dest.CountryName.Equals(country.DisplayName));
+          return new Country(countryDestination, country);
         });
 
       var regions = regionsAndCountriesResponse.Where(item => item.Template.Equals(Region.TemplateName))
