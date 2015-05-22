@@ -1,16 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Jetstream.View.ScrollChildSwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/refresher"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fragment_container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="7dp">
-    <RelativeLayout
+    android:layout_height="match_parent">
+    <fragment
+        class="Jetstream.UI.Fragments.DestinationsOnMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <fragment
-            android:id="@+id/map"
-            class="com.google.android.gms.maps.MapFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </RelativeLayout>
-</Jetstream.View.ScrollChildSwipeRefreshLayout>
+        android:layout_height="match_parent" />
+</FrameLayout>

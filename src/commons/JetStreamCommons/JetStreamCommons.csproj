@@ -67,6 +67,7 @@
     <Compile Include="Helpers\BadgeNames.cs" />
     <Compile Include="FlightFilter\MutableFlightsFilterSettings.cs" />
     <Compile Include="FlightFilter\FlightFilter.cs" />
+    <Compile Include="SitecoreWebApiSessionExt.cs" />
     <Compile Include="TimeZone\ITimeZoneInfo.cs" />
     <Compile Include="TimeZone\ITimeZoneProvider.cs" />
     <Compile Include="TimeZone\TimeZoneInfoWithItem.cs" />
