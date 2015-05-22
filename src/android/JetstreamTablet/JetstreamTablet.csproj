@@ -13,9 +13,9 @@
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
-    <AndroidUseLatestPlatformSdk>False</AndroidUseLatestPlatformSdk>
+    <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
     <AssemblyName>JetstreamTablet</AssemblyName>
-    <TargetFrameworkVersion>v4.4</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\solutions\</SolutionDir>
     <RestorePackages>true</RestorePackages>
   </PropertyGroup>
@@ -46,6 +46,7 @@
     <AndroidSupportedAbis>armeabi;armeabi-v7a;x86;arm64-v8a;x86_64</AndroidSupportedAbis>
     <Debugger>Xamarin</Debugger>
     <DevInstrumentationEnabled>False</DevInstrumentationEnabled>
+    <AndroidLinkMode>Full</AndroidLinkMode>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DBeattie.SnackbarSharp">
