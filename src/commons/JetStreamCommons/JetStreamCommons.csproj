@@ -33,9 +33,9 @@
   <ItemGroup>
     <Compile Include="Airport\IJetStreamAirportWithTimeZone.cs" />
     <Compile Include="DestinationsLoader.cs" />
-    <Compile Include="Destionations\Region.cs" />
-    <Compile Include="Destionations\BaseSitecoreItemWrapper.cs" />
-    <Compile Include="Destionations\Country.cs" />
+    <Compile Include="Destinations\Region.cs" />
+    <Compile Include="Destinations\BaseSitecoreItemWrapper.cs" />
+    <Compile Include="Destinations\Country.cs" />
     <Compile Include="Flight\IJetStreamFlightWithAirports.cs" />
     <Compile Include="Helpers\SitecoreItemUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -70,8 +70,8 @@
     <Compile Include="TimeZone\ITimeZoneInfo.cs" />
     <Compile Include="TimeZone\ITimeZoneProvider.cs" />
     <Compile Include="TimeZone\TimeZoneInfoWithItem.cs" />
-    <Compile Include="Destionations\IDestination.cs" />
-    <Compile Include="Destionations\Destination.cs" />
+    <Compile Include="Destinations\IDestination.cs" />
+    <Compile Include="Destinations\Destination.cs" />
     <Compile Include="Helpers\MediaPathExtractor.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />

@@ -8,12 +8,12 @@
   {
     public const string TemplateName = "Jetstream/Destinations/Country Item";
 
-    public IEnumerable<IDestination> Destionations { get; private set; }
+    public IEnumerable<IDestination> Destinations { get; private set; }
 
-    public Country(IEnumerable<IDestination> destionations, ISitecoreItem wrapped)
+    public Country(IEnumerable<IDestination> destinations, ISitecoreItem wrapped)
       : base(wrapped)
     {
-      this.Destionations = destionations;
+      this.Destinations = destinations;
     }
 
     public string RegionName

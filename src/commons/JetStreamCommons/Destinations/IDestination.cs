@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace JetStreamCommons.Destinations
+﻿namespace JetStreamCommons.Destinations
 {
   public interface IDestination
   {
@@ -23,6 +21,8 @@ namespace JetStreamCommons.Destinations
     {
       get;
     }
+
+    string DisplayName { get; }
   }
 }
 
