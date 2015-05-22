@@ -6,6 +6,11 @@ Feature: Display destinations by country
 
 [#56080](http://tfs4dk1.dk.sitecore.net/tfs/PD-Products-01/Products/_workitems/edit/56080)
 
+<h2>Description</h2>
+There is a countries carousel at the bottom of the map. Tapping on a country image the correspondent country is shown at the centre of the screen with destinations from that country only.
+*Screen:*  
+![alt text](/img/Feature_images/02Destinations_DisplayAllDestinationsOnTheMap.png)
+
 Scenario: Display all countries on a map  
  Given country items in Jetstream backend  
  When Caroline opens the app  

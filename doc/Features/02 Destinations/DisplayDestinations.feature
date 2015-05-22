@@ -9,10 +9,10 @@ Feature: Display destinations in the app
 
 <h2>Description</h2>
 **All destinations**  
-The Start Screen of the app is organized as the world map.  
-Jetstream destinations appear on the map as map markers that the user can tap on to view the details page of a specific destination.  
+The Start Screen of the app is organized as the world map. Jetstream destinations appear on the map as map markers that the user can tap on to view the details page of a specific destination.  
 *Screen:*  
-![alt text](/img/Feature_images/02Destinations_DisplayAllDestinationsOnTheMap.png)
+![alt text](/img/Feature_images/02Destinations_DisplayAllDestinationsOnTheMap.jpg)
+
 
 **Destination details**  
 In the details page, user can view an image of the destination chose, as well as information about it.  

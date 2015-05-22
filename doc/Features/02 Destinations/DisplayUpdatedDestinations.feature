@@ -18,7 +18,7 @@ Scenario: Edit Destination
  And Caroline presses refresh button on the destination screen  
  Then updated "destination1" image is shown in the app  
 
-Scenario: Delete destination  
+Scenario: Delete Destination  
  Given "destination1" item exists in Jetstream backend  
  When Caroline deletes "destination1" item in Jetstream backend  
  And publish Destinations folder item  

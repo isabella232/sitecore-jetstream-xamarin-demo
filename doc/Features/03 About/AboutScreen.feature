@@ -9,7 +9,7 @@ Feature: About screen
 <h2>Description</h2>
 In the "About" section, user can view the Jetstream About information.  
 *Screen:*  
-![alt text](/img/Feature_images/01AppConfiguration_ConnectToJetstreamInstance.png)
+![alt text](/img/Feature_images/03About_DisplayAboutItemInfo.png)
 
 
 Scenario: Display About item info  
