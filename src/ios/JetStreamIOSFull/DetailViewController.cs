@@ -7,13 +7,15 @@ using System.Collections;
 using JetStreamCommons.Destinations;
 using MapKit;
 using CoreLocation;
+using Foundation;
 
 namespace JetStreamIOSFull
 {
-  public partial class DetailViewController : UIViewController, MKMapViewDelegate
+  public partial class DetailViewController : UIViewController, IMKMapViewDelegate
   {
     public object DetailItem { get; set; }
     private IEnumerable destinations;
+    private InstanceSettings.InstanceSettings endpoint;
 
     public DetailViewController(IntPtr handle) : base(handle)
     {
@@ -45,18 +47,9 @@ namespace JetStreamIOSFull
 
       this.destinations = await this.DownloadAllDestinations();
       this.RefreshMap();
-      this.map.WeakDelegate = this;
-    }
-
-    public virtual MKAnnotationView GetViewForAnnotation(MKMapView mapView, IMKAnnotation annotation)
-    {
-      string annotationIdentifier = @"AnnotationIdentifier";
-
-      MKAnnotationView annotationView = new MKAnnotationView (annotation, annotationIdentifier);
-      annotationView.CanShowCallout = false;
-      annotationView.Image 
-
-      return annotationView;
+      MapDelegate mapDelegate = new MapDelegate();
+      mapDelegate.endpoint = this.endpoint;
+      this.map.Delegate = mapDelegate;
     }
 
     private void RefreshMap()
@@ -69,9 +62,8 @@ namespace JetStreamIOSFull
         if (coordinatesAvailable)
         {
           this.map.AddAnnotation(new MKPointAnnotation () {
-            Title = elem.CountryName,
+            Title = elem.ImagePath,
             Coordinate = new CLLocationCoordinate2D (elem.Latitude, elem.Longitude),
-           
           });
         }
       }
@@ -87,9 +79,9 @@ namespace JetStreamIOSFull
       try
       {
         // It will automatically get values from the NSUserDefaults singleton
-        var endpoint = new InstanceSettings.InstanceSettings();
+        this.endpoint = new InstanceSettings.InstanceSettings();
 
-        var session = endpoint.GetSession();
+        var session = this.endpoint.GetSession();
         using (var loader = new DestinationsLoader(session))
         {
           return await loader.LoadOnlyDestionations();

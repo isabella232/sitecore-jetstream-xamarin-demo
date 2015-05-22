@@ -72,6 +72,7 @@
     <Compile Include="TimeZone\TimeZoneInfoWithItem.cs" />
     <Compile Include="Destionations\IDestination.cs" />
     <Compile Include="Destionations\Destination.cs" />
+    <Compile Include="Helpers\MediaPathExtractor.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\..\Solutions\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\Solutions\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />

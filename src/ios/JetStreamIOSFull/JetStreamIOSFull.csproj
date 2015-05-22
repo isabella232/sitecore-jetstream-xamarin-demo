@@ -93,6 +93,9 @@
     <Reference Include="Sitecore.MobileSDK.PasswordProvider.Interface">
       <HintPath>..\..\..\Solutions\packages\Sitecore.MobileSDK.Xamarin.1.0.0\lib\portable-win+net4+sl5+wp8\Sitecore.MobileSDK.PasswordProvider.Interface.dll</HintPath>
     </Reference>
+    <Reference Include="SDWebImage">
+      <HintPath>..\..\..\Solutions\Components\sdwebimage-3.7.1.4\lib\ios-unified\SDWebImage.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Contents.json" />
@@ -118,6 +121,8 @@
       <DependentUpon>DetailViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\AlertHelper.cs" />
+    <Compile Include="MapDelegate.cs" />
+    <Compile Include="Helpers\ImageResize.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
@@ -132,5 +137,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Helpers\" />
+  </ItemGroup>
+  <ItemGroup>
+    <XamarinComponentReference Include="sdwebimage">
+      <Version>3.7.1.4</Version>
+      <Visible>False</Visible>
+    </XamarinComponentReference>
   </ItemGroup>
 </Project>
