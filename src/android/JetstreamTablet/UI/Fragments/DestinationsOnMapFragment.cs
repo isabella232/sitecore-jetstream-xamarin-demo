@@ -1,31 +1,34 @@
 namespace Jetstream.UI.Fragments
 {
+  using System;
   using System.Collections.Generic;
   using Android.App;
   using Android.Gms.Maps;
   using Android.Gms.Maps.Model;
+  using Android.Graphics;
   using Android.OS;
   using Android.Support.V4.Widget;
   using Android.Util;
   using Android.Views;
+  using com.dbeattie;
   using Com.Lilarcor.Cheeseknife;
   using Jetstream.Bitmap;
   using JetStreamCommons;
   using JetStreamCommons.Destinations;
   using Squareup.Picasso;
 
-  public class DestinationsOnMapFragment : Fragment, IOnMapReadyCallback
+  public class DestinationsOnMapFragment : Fragment, IOnMapReadyCallback, IActionClickListener
   {
     const double Tolerance = 0.01;
 
     GoogleMap map;
 
-    [InjectView(Resource.Id.refresher)]
+    [InjectView(Jetstream.Resource.Id.refresher)]
     SwipeRefreshLayout refresher;
 
     public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-      var view = inflater.Inflate(Resource.Layout.fragment_map_destinations, container, false);
+      var view = inflater.Inflate(Jetstream.Resource.Layout.fragment_map_destinations, container, false);
 
       Cheeseknife.Inject(this, view);
 
@@ -35,8 +38,7 @@ namespace Jetstream.UI.Fragments
        Android.Resource.Color.HoloGreenDark);
 
       this.refresher.SetProgressViewOffset(false, 0, (int)TypedValue.ApplyDimension(ComplexUnitType.Dip, 24, this.Resources.DisplayMetrics));
-      this.refresher.Refreshing = true;
-
+      
       return view;
     }
 
@@ -44,7 +46,7 @@ namespace Jetstream.UI.Fragments
     {
       base.OnResume();
 
-      var fragment = this.ChildFragmentManager.FindFragmentById<MapFragment>(Resource.Id.map);
+      var fragment = this.ChildFragmentManager.FindFragmentById<MapFragment>(Jetstream.Resource.Id.map);
       if (fragment != null)
       {
         fragment.GetMapAsync(this);
@@ -60,11 +62,34 @@ namespace Jetstream.UI.Fragments
 
     async void LoadDestinations()
     {
-      var loader = new DestinationsLoader(this.Activity.Session);
-      var destinations = await loader.LoadOnlyDestinations();
-      this.refresher.Refreshing = false;
+      try
+      {
+        this.refresher.Refreshing = true;
 
-      this.ShowDestinationsOnMap(destinations);
+        var loader = new DestinationsLoader(this.Activity.Session);
+        var destinations = await loader.LoadOnlyDestinations();
+        this.refresher.Refreshing = false;
+
+        this.ShowDestinationsOnMap(destinations);
+      }
+      catch (Exception exception)
+      {
+        Log.Error("Jetstream", "Failed to load destinations. Reason: " + exception.Message);
+        
+        this.refresher.Refreshing = false;
+
+        SnackbarManager.Show(
+          Snackbar.With(this.Activity)
+            .ActionLabel("Retry")
+            .ActionColor(Color.Yellow) 
+            .ActionListener(this)
+            .Text("Failed to load destinations, please check your internet connection."));
+      }
+    }
+
+    public void OnActionClicked(Snackbar snackbar)
+    {
+      this.LoadDestinations();
     }
 
     private new MainActivity Activity
@@ -108,11 +133,10 @@ namespace Jetstream.UI.Fragments
           Picasso.With(this.Activity).Load(url).Resize(100, 100).Into(new MarkerTarget(dest, marker));
         }
       }
-      catch (System.Exception exception)
+      catch (Exception exception)
       {
         //TODO: Add logger message here
       }
     }
-
   }
 }
