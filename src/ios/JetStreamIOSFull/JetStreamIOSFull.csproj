@@ -137,11 +137,15 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Helpers\" />
+    <Folder Include="Resources\en.lproj\" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="sdwebimage">
       <Version>3.7.1.4</Version>
       <Visible>False</Visible>
     </XamarinComponentReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\en.lproj\Localizable.strings" />
   </ItemGroup>
 </Project>
