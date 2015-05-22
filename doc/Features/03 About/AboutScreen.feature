@@ -1,26 +1,25 @@
-Feature: Set up the application
+Feature: About screen
 
-> *As demo person*  
-> *I want to have my Jestream app working on my device*  
-> *So that I want to use Jestream app to demo mobile story*  
+>*As Content Author ([Caroline](http://intranet/Project-Rooms/UX/Sitecore-personas/Marketing-personas/Caroline.aspx))*  
+>*I want to see actual content from another part of my website in the app*  
+>*So that I can keep all in app content up to date from backend only*  
 
 [#56096](http://tfs4dk1.dk.sitecore.net/tfs/PD-Products-01/Products/_workitems/edit/56096)
 
-**Description**  
-In the "About" section, user cass view the Jetstream About information.  
+<h2>Description</h2>
+In the "About" section, user can view the Jetstream About information.  
 *Screen:*  
 ![alt text](/img/Feature_images/01AppConfiguration_ConnectToJetstreamInstance.png)
 
-Scenario: Connect to Jetstream instance  
- Given Jetstream1 instance is available from device  
- And Annonimous read access is granted for Jetstream1 instance  
- When demo person set Jetstream1 instance url in the app settings  
- Then app is connected to Jetstream1 instance  
- And content form Jetstream1 instance displayed in the app
 
-Scenario: Connect to another Jetstream instance 
- Given app connected to Jetstream1 instance  
- When demo person set Jetstream2 instance url in the app settings  
- Then app is connected to Jetstream2 instance  
-And content from Jetstream1 instance disappeared  
-And content form Jetstream2 instance displayed in the app
+Scenario: Display About item info  
+  Given Destination screen opened in the app  
+  When Caroline select "About" in app menu  
+  Then about screen appears with "About" item info
+
+Scenario: Display updated About item info  
+  Given about screen with "About" item info in the app  
+  When Caroline publish new version of About item with updated info in Jetstream backend  
+  And Caroline select "About" in app menu  
+  Then about screen appears with updated "About" item info  
+  

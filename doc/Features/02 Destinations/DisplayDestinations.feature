@@ -1,13 +1,13 @@
 Feature: Display destinations in the app
 
-> *As Content Author ([Caroline](http://intranet/Project-Rooms/UX/Sitecore-personas/Marketing-personas/Caroline.aspx))*  *  
+> *As Content Author ([Caroline](http://intranet/Project-Rooms/UX/Sitecore-personas/Marketing-personas/Caroline.aspx))*  
 > *I want to see Jetstream destinations in the app*  
 > *So that I can reuse already created Jetstream content for the app*  
 
 [#56096](http://tfs4dk1.dk.sitecore.net/tfs/PD-Products-01/Products/_workitems/edit/56096),
 [#56077](http://tfs4dk1.dk.sitecore.net/tfs/PD-Products-01/Products/_workitems/edit/56077)
 
-
+<h2>Description</h2>
 **All destinations**  
 The Start Screen of the app is organized as the world map.  
 Jetstream destinations appear on the map as map markers that the user can tap on to view the details page of a specific destination.  

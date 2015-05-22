@@ -1,7 +1,7 @@
 Feature: Display destinations by country
 
-> *As Content Author ([Caroline](http://intranet/Project-Rooms/UX/Sitecore-personas/Marketing-personas/Caroline.aspx))*  *
-> *I want to see destinations grouped by country*
+> *As Content Author ([Caroline](http://intranet/Project-Rooms/UX/Sitecore-personas/Marketing-personas/Caroline.aspx))*  
+> *I want to see destinations grouped by country*  
 > *So that I ensure that content in the app reflects backend items structure*
 
 [#56080](http://tfs4dk1.dk.sitecore.net/tfs/PD-Products-01/Products/_workitems/edit/56080)
