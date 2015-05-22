@@ -1,7 +1,7 @@
 LAUNCH_DIR=$PWD
 SOLUTIONS_DIR="$LAUNCH_DIR/Solutions"
-RELEASE_DIR="$LAUNCH_DIR/JetStreamIOS/JetStreamIOS/bin/iPhone/Release"
-IPA_FILE="$RELEASE_DIR/JetStreamIOS.ipa"
+RELEASE_DIR="$LAUNCH_DIR/src/ios/JetStreamIOSFull/bin/iPhone/Release"
+IPA_FILE="$RELEASE_DIR/JetStreamIOSFull.ipa"
 
 MDTOOL_EXE="/Applications/Xamarin Studio.app/Contents/MacOS/mdtool"
 
@@ -27,7 +27,7 @@ function make_ipa_file
 	cd $RELEASE_DIR
 
 	mkdir -p "Payload"
-	cp -r  "JetStreamIOS.app" "Payload/JetStreamIOS.app"
+	cp -r  "JetStreamIOSFull.app" "Payload/JetStreamIOSFull.app"
 	zip $IPA_FILE -r "Payload"
 	
 	cd "$LAUNCH_DIR"
@@ -52,4 +52,4 @@ function upload_ipa_to_testflight
 restore_nuget_packages
 build_application
 make_ipa_file
-upload_ipa_to_testflight
+# upload_ipa_to_testflight
