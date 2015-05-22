@@ -54,6 +54,7 @@ namespace Jetstream.UI.Fragments
     public void OnMapReady(GoogleMap googleMap)
     {
       this.map = googleMap;
+      this.map.MapType = GoogleMap.MapTypeSatellite;
       this.LoadDestinations();
     }
 
