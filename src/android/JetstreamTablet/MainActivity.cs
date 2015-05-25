@@ -13,6 +13,7 @@
   using Com.Mikepenz.Materialdrawer.Accountswitcher;
   using Com.Mikepenz.Materialdrawer.Model;
   using Com.Mikepenz.Materialdrawer.Model.Interfaces;
+  using Jetstream.UI.Fragments;
   using Sitecore.MobileSDK;
   using Sitecore.MobileSDK.API;
   using Sitecore.MobileSDK.API.Session;
@@ -88,6 +89,10 @@
                 .WithSavedInstance(savedInstanceState)
                 .WithActionBarDrawerToggleAnimated(true)
                 .Build();
+
+      var mapFragment = new DestinationsOnMapFragment();
+
+      this.FragmentManager.BeginTransaction().Replace(Resource.Id.frame_container, mapFragment).Commit();
     }
 
     public override void OnBackPressed()

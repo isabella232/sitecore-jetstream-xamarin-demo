@@ -46,7 +46,7 @@ namespace Jetstream.UI.Fragments
     {
       base.OnResume();
 
-      var fragment = this.ChildFragmentManager.FindFragmentById<MapFragment>(Jetstream.Resource.Id.map);
+      var fragment = this.FragmentManager.FindFragmentById<MapFragment>(Jetstream.Resource.Id.map);
       if (fragment != null)
       {
         fragment.GetMapAsync(this);
