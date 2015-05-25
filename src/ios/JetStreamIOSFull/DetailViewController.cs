@@ -34,6 +34,7 @@ namespace JetStreamIOSFull
       MapDelegate mapDelegate = new MapDelegate();
       mapDelegate.endpoint = this.endpoint;
       this.map.Delegate = mapDelegate;
+
     }
 
     private void RefreshMap()
