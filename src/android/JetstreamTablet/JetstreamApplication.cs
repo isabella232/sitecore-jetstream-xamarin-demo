@@ -7,7 +7,7 @@
   using JetStreamCommons.Logging;
   using Squareup.Picasso;
 
-  [Application]
+  [Application(Theme = "@style/MaterialDrawerTheme.Light.DarkToolbar")]
   public class JetstreamApplication : Application
   {
     public JetstreamApplication(IntPtr handle, JniHandleOwnership ownerShip)

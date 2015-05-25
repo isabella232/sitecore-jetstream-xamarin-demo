@@ -1,5 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="hello">Hello World, Click Me!</string>
 	<string name="app_name">Jetstream</string>
+
+  <string name="text_destinations_item">Destinations</string>
+  <string name="text_settings_item">Settings</string>
+  
+  <string name="text_default_user">Johny Sitecored</string>
 </resources>

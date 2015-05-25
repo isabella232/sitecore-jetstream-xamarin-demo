@@ -49,8 +49,14 @@
     <AndroidLinkMode>Full</AndroidLinkMode>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="android-iconics-0.9.1.2">
+      <HintPath>..\..\..\solutions\packages\Mikepenz.Android.Iconics.Xamarin.Binding.0.9.1.2\lib\MonoAndroid\android-iconics-0.9.1.2.dll</HintPath>
+    </Reference>
     <Reference Include="DBeattie.SnackbarSharp">
       <HintPath>..\..\..\solutions\packages\SnackbarSharp.dll.1.0.7\lib\MonoAndroid\DBeattie.SnackbarSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="material-drawer-3.0.0">
+      <HintPath>libs\material-drawer-3.0.0.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Net.Http" />
@@ -118,6 +124,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <AndroidAsset Include="Assets\fonts\google_material_design.ttf" />
+    <AndroidAsset Include="Assets\fonts\fontawesome-webfont-4.3.0.ttf" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Properties\AndroidManifest.xml" />
     <None Include="Assets\AboutAssets.txt" />
@@ -127,7 +135,9 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Main.axml" />
-    <AndroidResource Include="Resources\values\Strings.xml" />
+    <AndroidResource Include="Resources\values\Strings.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
     <AndroidResource Include="Resources\drawable-hdpi\Icon.png" />
     <AndroidResource Include="Resources\drawable-mdpi\Icon.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\Icon.png" />
@@ -157,7 +167,10 @@
       <Visible>False</Visible>
     </XamarinComponentReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="libs\material-drawer-3.0.0.dll" />
+    <AndroidResource Include="Resources\drawable\header.jpg" />
+  </ItemGroup>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
