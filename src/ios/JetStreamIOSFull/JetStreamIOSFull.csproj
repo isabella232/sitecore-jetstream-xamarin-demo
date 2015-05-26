@@ -123,6 +123,11 @@
     <Compile Include="Helpers\AlertHelper.cs" />
     <Compile Include="MapDelegate.cs" />
     <Compile Include="Helpers\ImageResize.cs" />
+    <Compile Include="CountriesDataSource.cs" />
+    <Compile Include="Navigation\NavigationManagerViewController.cs" />
+    <Compile Include="Navigation\NavigationManagerViewController.designer.cs">
+      <DependentUpon>NavigationManagerViewController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
@@ -138,6 +143,7 @@
   <ItemGroup>
     <Folder Include="Helpers\" />
     <Folder Include="Resources\en.lproj\" />
+    <Folder Include="Navigation\" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="sdwebimage">

@@ -13,6 +13,9 @@ namespace JetStreamIOSFull
 	partial class DetailViewController
 	{
 		[Outlet]
+		UIKit.UICollectionView countriesCarousel { get; set; }
+
+		[Outlet]
 		UIKit.UILabel detailDescriptionLabel { get; set; }
 
 		[Outlet]
@@ -28,14 +31,19 @@ namespace JetStreamIOSFull
 				detailDescriptionLabel = null;
 			}
 
+			if (map != null) {
+				map.Dispose ();
+				map = null;
+			}
+
 			if (toolbar != null) {
 				toolbar.Dispose ();
 				toolbar = null;
 			}
 
-			if (map != null) {
-				map.Dispose ();
-				map = null;
+			if (countriesCarousel != null) {
+				countriesCarousel.Dispose ();
+				countriesCarousel = null;
 			}
 		}
 	}

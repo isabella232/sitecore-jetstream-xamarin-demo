@@ -28,9 +28,11 @@ namespace JetStreamIOSFull
       var splitViewController = (UISplitViewController)Window.RootViewController;
       splitViewController.PresentsWithGesture = false;
       splitViewController.PreferredDisplayMode = UISplitViewControllerDisplayMode.PrimaryHidden;
-      var navigationController = (UINavigationController)splitViewController.ViewControllers [1];
-      navigationController.TopViewController.NavigationItem.LeftBarButtonItem = splitViewController.DisplayModeButtonItem;
       splitViewController.WeakDelegate = this;
+
+      NavigationManagerViewController navigationManager = (NavigationManagerViewController)splitViewController.ViewControllers[1];
+      navigationManager.MenuButton = splitViewController.DisplayModeButtonItem;
+
       return true;
     }
 
