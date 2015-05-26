@@ -1,5 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="hello">Hello World, Click Me!</string>
 	<string name="app_name">Jetstream</string>
-</resources>
+
+  <string name="text_destinations_item">Destinations</string>
+  <string name="text_settings_item">Settings</string>
+  <string name="text_default_user">Johny Sitecored</string>
+  <string name="text_button_apply">Apply</string>
+  <string name="text_button_cancel">Cancel</string>
+  
+  <string name="hint_sitecore_url">Sitecore URL</string>
+  
+  <string name="error_wrong_url">Url should not be empty</string>
+  </resources>

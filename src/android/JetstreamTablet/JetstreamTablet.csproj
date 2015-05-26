@@ -24,7 +24,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug</OutputPath>
-    <DefineConstants>DEBUG;</DefineConstants>
+    <DefineConstants>DEBUG;LOGGING</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
@@ -49,6 +49,9 @@
     <AndroidLinkMode>Full</AndroidLinkMode>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="android-iconics-0.9.1.2">
+      <HintPath>..\..\..\solutions\packages\Mikepenz.Android.Iconics.Xamarin.Binding.0.9.1.2\lib\MonoAndroid\android-iconics-0.9.1.2.dll</HintPath>
+    </Reference>
     <Reference Include="DBeattie.SnackbarSharp">
       <HintPath>..\..\..\solutions\packages\SnackbarSharp.dll.1.0.7\lib\MonoAndroid\DBeattie.SnackbarSharp.dll</HintPath>
     </Reference>
@@ -105,29 +108,52 @@
     <Reference Include="Xamarin.Android.Support.v7.RecyclerView">
       <HintPath>..\..\..\solutions\packages\Xamarin.Android.Support.v7.RecyclerView.22.1.1.1\lib\MonoAndroid403\Xamarin.Android.Support.v7.RecyclerView.dll</HintPath>
     </Reference>
+    <Reference Include="material-drawer-3.0.0">
+      <HintPath>libs\material-drawer-3.0.0.dll</HintPath>
+    </Reference>
+    <Reference Include="MaterialEditText-2.1.3">
+      <HintPath>libs\MaterialEditText-2.1.3.dll</HintPath>
+    </Reference>
+    <Reference Include="NineOldAndroids">
+      <HintPath>..\..\..\solutions\packages\Xamarin.NineOldAndroids.0.0.1\lib\MonoAndroid\NineOldAndroids.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bitmap\BitmapUtils.cs" />
     <Compile Include="Bitmap\MarkerTarget.cs" />
     <Compile Include="MainActivity.cs" />
+    <Compile Include="Prefs.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UI\Fragments\DestinationsOnMapFragment.cs" />
+    <Compile Include="Utils\SitecoreUrlValidator.cs" />
     <Compile Include="View\ScrollChildSwipeRefreshLayout.cs" />
     <Compile Include="JetstreamApplication.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <AndroidAsset Include="Assets\fonts\google_material_design.ttf" />
+    <AndroidAsset Include="Assets\fonts\fontawesome-webfont-4.3.0.ttf" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Properties\AndroidManifest.xml" />
     <None Include="Assets\AboutAssets.txt" />
     <None Include="packages.config" />
     <None Include="libs\Picasso.dll" />
     <AndroidResource Include="Resources\layout\fragment_map_destinations.axml" />
+    <None Include="libs\MaterialEditText-2.1.3.dll" />
+    <AndroidResource Include="Resources\values\strings.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\values\colors.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\edit_text_cursor_drawable.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\fragment_settings.axml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Main.axml" />
-    <AndroidResource Include="Resources\values\Strings.xml" />
     <AndroidResource Include="Resources\drawable-hdpi\Icon.png" />
     <AndroidResource Include="Resources\drawable-mdpi\Icon.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\Icon.png" />
@@ -157,7 +183,12 @@
       <Visible>False</Visible>
     </XamarinComponentReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\header.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="libs\material-drawer-3.0.0.dll" />
+  </ItemGroup>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

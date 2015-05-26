@@ -40,6 +40,8 @@
     <Compile Include="Destinations\Country.cs" />
     <Compile Include="Flight\IJetStreamFlightWithAirports.cs" />
     <Compile Include="Helpers\SitecoreItemUtil.cs" />
+    <Compile Include="Logging\EmptyLogger.cs" />
+    <Compile Include="Logging\ILogger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RestManager.cs" />
     <Compile Include="Helpers\QueryHelpers.cs" />
@@ -120,9 +122,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="New Folder\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
