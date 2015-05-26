@@ -4,6 +4,9 @@ Feature: Display updated destinations in the app
 > *I want to see updated destinations in the app*  
 > *So that I do not need to contact IT specialists to update content in the app*
 
+<h2>Description</h2>
+Destinations are used to show how the app could reuse the content from the website. Content mangers could create, update and remove the content items in the platform and see the changes in the app. The changes are applied after publishing, as it makes the content managers just do their job.  
+
 Scenario: Create Destination  
  Given destination items in Jetstream backend  
  When Caroline adds "destination1" item to Jetstream backend  
