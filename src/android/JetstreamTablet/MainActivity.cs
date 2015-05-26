@@ -28,6 +28,9 @@
     private AccountHeader headerResult = null;
     private Drawer result = null;
 
+    private DestinationsOnMapFragment mapFragment;
+    private SettingsFragment settingsFragment;
+
     protected override void OnCreate(Bundle savedInstanceState)
     {
       base.OnCreate(savedInstanceState);
@@ -90,9 +93,8 @@
                 .WithActionBarDrawerToggleAnimated(true)
                 .Build();
 
-      var mapFragment = new DestinationsOnMapFragment();
-
-      this.FragmentManager.BeginTransaction().Replace(Resource.Id.frame_container, mapFragment).Commit();
+      this.mapFragment = new DestinationsOnMapFragment();
+      this.FragmentManager.BeginTransaction().Replace(Resource.Id.map_fragment_container, mapFragment).Commit();
     }
 
     public override void OnBackPressed()
@@ -118,11 +120,37 @@
 
     public bool OnItemClick(AdapterView parent, Android.Views.View view, int position, long id, IDrawerItem drawerItem)
     {
+      if (drawerItem == null)
+      {
+        return true;
+      }
+
       this.result.SetSelectionByIdentifier(drawerItem.Identifier, false);
 
-      if (drawerItem != null && drawerItem.Identifier == 1)
+      switch (drawerItem.Identifier)
       {
-        //TODO: add click handling here.
+        case 1:
+          if (this.mapFragment == null)
+          {
+            this.mapFragment = new DestinationsOnMapFragment();
+            this.FragmentManager.BeginTransaction().Replace(Resource.Id.map_fragment_container, this.mapFragment).Commit();
+          }
+
+          this.FragmentManager.BeginTransaction().Show(this.mapFragment).Commit();
+          this.FragmentManager.BeginTransaction().Hide(this.settingsFragment).Commit();
+
+          break;
+
+        case 2:
+          if (this.settingsFragment == null)
+          {
+            this.settingsFragment = new SettingsFragment();
+            this.FragmentManager.BeginTransaction().Replace(Resource.Id.settings_fragment_container, this.settingsFragment).Commit();
+          }
+
+          this.FragmentManager.BeginTransaction().Hide(this.mapFragment).Commit();
+          this.FragmentManager.BeginTransaction().Show(this.settingsFragment).Commit();
+          break;
       }
 
       return false;

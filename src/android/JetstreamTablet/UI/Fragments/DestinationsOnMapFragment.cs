@@ -3,6 +3,7 @@ namespace Jetstream.UI.Fragments
   using System;
   using System.Collections.Generic;
   using Android.App;
+  using Android.Gms.Common;
   using Android.Gms.Maps;
   using Android.Gms.Maps.Model;
   using Android.Graphics;
@@ -26,6 +27,9 @@ namespace Jetstream.UI.Fragments
     [InjectView(Jetstream.Resource.Id.refresher)]
     SwipeRefreshLayout refresher;
 
+    [InjectView(Jetstream.Resource.Id.mapview)]
+    MapView mapView;
+
     public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
       var view = inflater.Inflate(Jetstream.Resource.Layout.fragment_map_destinations, container, false);
@@ -38,19 +42,16 @@ namespace Jetstream.UI.Fragments
        Android.Resource.Color.HoloGreenDark);
 
       this.refresher.SetProgressViewOffset(false, 0, (int)TypedValue.ApplyDimension(ComplexUnitType.Dip, 24, this.Resources.DisplayMetrics));
-      
-      return view;
-    }
 
-    public override void OnResume()
-    {
-      base.OnResume();
+      this.mapView.OnCreate(savedInstanceState);
 
-      var fragment = this.FragmentManager.FindFragmentById<MapFragment>(Jetstream.Resource.Id.map);
-      if (fragment != null)
-      {
-        fragment.GetMapAsync(this);
+      try {
+        MapsInitializer.Initialize(this.Activity);
+      } catch (GooglePlayServicesNotAvailableException e) {
+        //TODO: Log error here
       }
+
+      return view;
     }
 
     public void OnMapReady(GoogleMap googleMap)
@@ -92,14 +93,6 @@ namespace Jetstream.UI.Fragments
       this.LoadDestinations();
     }
 
-    private new MainActivity Activity
-    {
-      get
-      {
-        return base.Activity as MainActivity;
-      }
-    }
-
     void ShowDestinationsOnMap(List<IDestination> destinations)
     {
       try
@@ -109,8 +102,8 @@ namespace Jetstream.UI.Fragments
           var longitude = dest.Longitude;
           var latitude = dest.Latitude;
 
-          var longZero = System.Math.Abs(longitude) < Tolerance;
-          var latZero = System.Math.Abs(latitude) < Tolerance;
+          var longZero = Math.Abs(longitude) < Tolerance;
+          var latZero = Math.Abs(latitude) < Tolerance;
 
           if (longZero || latZero)
           {
@@ -128,8 +121,6 @@ namespace Jetstream.UI.Fragments
           //TODO: Fix this hardcoded url prefix. 
           var url = "http://" + this.Activity.Session.MediaDownloadUrl(dest.ImagePath);
 
-          Picasso.With(this.Activity).LoggingEnabled = true;
-
           Picasso.With(this.Activity).Load(url).Resize(100, 100).Into(new MarkerTarget(dest, marker));
         }
       }
@@ -137,6 +128,43 @@ namespace Jetstream.UI.Fragments
       {
         //TODO: Add logger message here
       }
+    }
+
+    private new MainActivity Activity
+    {
+      get
+      {
+        return base.Activity as MainActivity;
+      }
+    }
+
+    public override void OnResume()
+    {
+      base.OnResume();
+
+      this.mapView.OnResume();
+      this.mapView.GetMapAsync(this);
+    }
+
+    public override void OnDestroy()
+    {
+      base.OnDestroy();
+
+      this.mapView.OnDestroy();
+    }
+
+    public override void OnPause()
+    {
+      base.OnPause();
+
+      this.mapView.OnPause();
+    }
+
+    public override void OnLowMemory()
+    {
+      base.OnLowMemory();
+
+      this.mapView.OnLowMemory();
     }
   }
 }
