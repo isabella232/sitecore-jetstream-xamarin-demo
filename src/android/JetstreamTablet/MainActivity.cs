@@ -1,6 +1,5 @@
 ﻿namespace Jetstream
 {
-  using System;
   using Android.App;
   using Android.Content;
   using Android.Graphics;
@@ -54,27 +53,7 @@
       this.SupportActionBar.SetDisplayHomeAsUpEnabled(true);
       this.SupportActionBar.SetHomeButtonEnabled(false);
 
-      var profile = new ProfileDrawerItem()
-        .WithName(this.GetString(Resource.String.text_default_user))
-        .WithIcon(
-                      new IconicsDrawable(this, GoogleMaterial.Icon.GmdVerifiedUser)
-            .ActionBarSize()
-            .PaddingDp(5)
-            .Color(Color.Black));
-
-      this.header = new AccountHeaderBuilder()
-        .WithActivity(this)
-        .WithCompactStyle(true)
-        .WithSelectionListEnabled(false)
-        .WithHeaderBackground(Resource.Drawable.header)
-        .AddProfiles(profile)
-        .WithSavedInstance(savedInstanceState)
-        .Build();
-
-      this.header.View.Clickable = false;
-
-      var email = this.header.View.FindViewById<TextView>(Resource.Id.account_header_drawer_email);
-      email.Visibility = ViewStates.Gone;
+      this.PrepareHeader(savedInstanceState);
 
       var destinations = new PrimaryDrawerItem();
       destinations.WithName(Resource.String.text_destinations_item);
@@ -103,9 +82,33 @@
       this.FragmentManager.BeginTransaction().Replace(Resource.Id.map_fragment_container, this.mapFragment).Commit();
     }
 
+    private void PrepareHeader(Bundle savedInstanceState)
+    {
+      var profile = new ProfileDrawerItem()
+        .WithName(this.GetString(Resource.String.text_default_user))
+        .WithIcon(
+              new IconicsDrawable(this, GoogleMaterial.Icon.GmdVerifiedUser)
+        .ActionBarSize()
+        .PaddingDp(5)
+        .Color(Color.Black));
+
+      this.header = new AccountHeaderBuilder()
+        .WithActivity(this)
+        .WithCompactStyle(true)
+        .WithSelectionListEnabled(false)
+        .WithHeaderBackground(Resource.Drawable.header)
+        .AddProfiles(profile)
+        .WithSavedInstance(savedInstanceState)
+        .Build();
+
+      this.header.View.Clickable = false;
+
+      var email = this.header.View.FindViewById<TextView>(Resource.Id.account_header_drawer_email);
+      email.Visibility = ViewStates.Gone;
+    }
+
     public override void OnBackPressed()
     {
-      //handle the back press :D close the drawer first and if the drawer is closed close the activity
       if (this.drawer != null && this.drawer.IsDrawerOpen)
       {
         this.drawer.CloseDrawer();
@@ -118,7 +121,6 @@
 
     protected override void OnSaveInstanceState(Bundle outState)
     {
-      //add the values which need to be saved from the drawer to the bundle
       outState = this.drawer.SaveInstanceState(outState);
       outState = this.header.SaveInstanceState(outState);
       base.OnSaveInstanceState(outState);
@@ -209,7 +211,7 @@
         //        {
         using (var credentials = new SecureStringPasswordProvider("sitecore\\admin", "b"))
         {
-          session = SitecoreWebApiSessionBuilder.AuthenticatedSessionWithHost("jetstream800394rev150402.test24dk1.dk.sitecore.net")
+          session = SitecoreWebApiSessionBuilder.AuthenticatedSessionWithHost(this.prefs.InstanceUrl)
                         .Credentials(credentials)
                           .DefaultDatabase("web")
                         .BuildSession();
