@@ -10,7 +10,7 @@ namespace Jetstream.UI.Dialogs
   using DSoft.Messaging;
   using Jetstream.Utils;
 
-  public class SettingsDialog : DialogFragment
+  public class SettingsDialog : DialogFragment, View.IOnClickListener
   {
     private readonly Prefs prefs;
 
@@ -21,22 +21,37 @@ namespace Jetstream.UI.Dialogs
 
     public override Dialog OnCreateDialog(Bundle savedInstanceState)
     {
-      var rootView = LayoutInflater.From(this.Activity).Inflate(Resource.Layout.dialog_settings, null, false);
-
+      var rootView = this.InitContentView();
       var sitecoreUrlField = this.InitSitecoreUrlField(rootView);
 
       var builder = new Android.Support.V7.App.AlertDialog.Builder(this.Activity);
-      builder.SetTitle(this.GetString(Resource.String.text_settings_item));
-
       builder.SetPositiveButton(this.GetString(Resource.String.text_button_apply), handler: null);
       builder.SetNegativeButton(this.GetString(Resource.String.text_button_cancel), handler: null);
-
       builder.SetView(rootView);
+      
+      
       var dialog = builder.Show();
-
       dialog.GetButton((int)DialogButtonType.Positive).SetOnClickListener(new ApplyButtonClickListener(sitecoreUrlField, this.prefs, dialog));
-
+      dialog.SetCanceledOnTouchOutside(false);
       return dialog;
+    }
+
+    private View InitContentView()
+    {
+      View v = LayoutInflater.From(this.Activity).Inflate(Resource.Layout.dialog_settings, null, false);
+
+      var toolbar = v.FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
+      
+      toolbar.SetNavigationIcon(Resource.Drawable.abc_ic_ab_back_mtrl_am_alpha);
+      toolbar.SetNavigationOnClickListener(this);
+      toolbar.Title = this.GetString(Resource.String.text_settings_item);
+
+      return v;
+    }
+
+    public void OnClick(View v)
+    {
+      this.Dialog.Dismiss();
     }
 
     private MaterialAutoCompleteTextView InitSitecoreUrlField(View rootView)

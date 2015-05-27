@@ -3175,8 +3175,8 @@ namespace Jetstream
 			// aapt resource value: 0x7f0c004f
 			public const int expanded_menu = 2131492943;
 			
-			// aapt resource value: 0x7f0c0067
-			public const int field_sitecore_url = 2131492967;
+			// aapt resource value: 0x7f0c0068
+			public const int field_sitecore_url = 2131492968;
 			
 			// aapt resource value: 0x7f0c0038
 			public const int grayscale = 2131492920;
@@ -3217,8 +3217,8 @@ namespace Jetstream
 			// aapt resource value: 0x7f0c006c
 			public const int map_fragment_container = 2131492972;
 			
-			// aapt resource value: 0x7f0c0069
-			public const int mapview = 2131492969;
+			// aapt resource value: 0x7f0c006a
+			public const int mapview = 2131492970;
 			
 			// aapt resource value: 0x7f0c0032
 			public const int match_parent = 2131492914;
@@ -3271,8 +3271,8 @@ namespace Jetstream
 			// aapt resource value: 0x7f0c0052
 			public const int radio = 2131492946;
 			
-			// aapt resource value: 0x7f0c0068
-			public const int refresher = 2131492968;
+			// aapt resource value: 0x7f0c0069
+			public const int refresher = 2131492969;
 			
 			// aapt resource value: 0x7f0c0086
 			public const int route_name = 2131492998;
@@ -3412,8 +3412,8 @@ namespace Jetstream
 			// aapt resource value: 0x7f0c0081
 			public const int toggle = 2131492993;
 			
-			// aapt resource value: 0x7f0c006a
-			public const int toolbar = 2131492970;
+			// aapt resource value: 0x7f0c0067
+			public const int toolbar = 2131492967;
 			
 			// aapt resource value: 0x7f0c0046
 			public const int topPanel = 2131492934;

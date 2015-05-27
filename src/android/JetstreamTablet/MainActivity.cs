@@ -37,7 +37,7 @@
 
       this.prefs = Prefs.From(this);
 
-      this.toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
+      this.toolbar = this.FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
 
       this.InitDrawer(savedInstanceState);
     }
