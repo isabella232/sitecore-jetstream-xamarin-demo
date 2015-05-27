@@ -6,7 +6,6 @@
   using Android.Support.V7.App;
   using Android.Views;
   using Android.Widget;
-  using Com.Lilarcor.Cheeseknife;
   using Com.Mikepenz.Google_material_typeface_library;
   using Com.Mikepenz.Iconics;
   using Com.Mikepenz.Materialdrawer;
@@ -23,7 +22,6 @@
   [Activity(MainLauncher = true, Icon = "@drawable/icon")]
   public class MainActivity : AppCompatActivity, Drawer.IOnDrawerItemClickListener
   {
-    [InjectView(Resource.Id.toolbar)]
     private Android.Support.V7.Widget.Toolbar toolbar;
 
     private AccountHeader header = null;
@@ -39,7 +37,7 @@
 
       this.prefs = Prefs.From(this);
 
-      Cheeseknife.Inject(this);
+      this.toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
 
       this.InitDrawer(savedInstanceState);
     }

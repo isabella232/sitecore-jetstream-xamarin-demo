@@ -12,7 +12,6 @@ namespace Jetstream.UI.Fragments
   using Android.Util;
   using Android.Views;
   using com.dbeattie;
-  using Com.Lilarcor.Cheeseknife;
   using Jetstream.Bitmap;
   using JetStreamCommons;
   using JetStreamCommons.Destinations;
@@ -24,17 +23,15 @@ namespace Jetstream.UI.Fragments
 
     GoogleMap map;
 
-    [InjectView(Jetstream.Resource.Id.refresher)]
     SwipeRefreshLayout refresher;
-
-    [InjectView(Jetstream.Resource.Id.mapview)]
     MapView mapView;
 
     public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
       var view = inflater.Inflate(Jetstream.Resource.Layout.fragment_map_destinations, container, false);
 
-      Cheeseknife.Inject(this, view);
+      this.refresher = view.FindViewById<SwipeRefreshLayout>(Jetstream.Resource.Id.refresher);
+      this.mapView = view.FindViewById<MapView>(Jetstream.Resource.Id.mapview);
 
       this.refresher.SetColorScheme(Android.Resource.Color.HoloBlueDark,
        Android.Resource.Color.HoloPurple,
