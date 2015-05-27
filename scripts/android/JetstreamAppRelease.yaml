@@ -9,7 +9,6 @@ tasks:
         - directory: $(deployment_directory)
     - restore_nuget_packages:
         - nuget_exe : $(nuget)
-        - params: "-NoCache"
         - solution: $(sln)
     - restore_xam_components:
         - xam_exe: $(xamarin_component)
