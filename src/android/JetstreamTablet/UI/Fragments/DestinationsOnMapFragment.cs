@@ -12,7 +12,7 @@ namespace Jetstream.UI.Fragments
   using Android.Util;
   using Android.Views;
   using com.dbeattie;
-  using Com.Lilarcor.Cheeseknife;
+  using DSoft.Messaging;
   using Jetstream.Bitmap;
   using JetStreamCommons;
   using JetStreamCommons.Destinations;
@@ -23,18 +23,17 @@ namespace Jetstream.UI.Fragments
     const double Tolerance = 0.01;
 
     GoogleMap map;
-
-    [InjectView(Jetstream.Resource.Id.refresher)]
     SwipeRefreshLayout refresher;
-
-    [InjectView(Jetstream.Resource.Id.mapview)]
     MapView mapView;
+
+    MessageBusEventHandler updateInstanceUrlEventHandler;
 
     public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
       var view = inflater.Inflate(Jetstream.Resource.Layout.fragment_map_destinations, container, false);
 
-      Cheeseknife.Inject(this, view);
+      this.refresher = view.FindViewById<SwipeRefreshLayout>(Jetstream.Resource.Id.refresher);
+      this.mapView = view.FindViewById<MapView>(Jetstream.Resource.Id.mapview);
 
       this.refresher.SetColorScheme(Android.Resource.Color.HoloBlueDark,
        Android.Resource.Color.HoloPurple,
@@ -119,7 +118,7 @@ namespace Jetstream.UI.Fragments
           var marker = this.map.AddMarker(markerOptions);
 
           //TODO: Fix this hardcoded url prefix. 
-          var url = "http://" + this.Activity.Session.MediaDownloadUrl(dest.ImagePath);
+          var url = this.GetFixedUrl(this.Activity.Session.MediaDownloadUrl(dest.ImagePath));
 
           Picasso.With(this.Activity).Load(url).Resize(100, 100).Into(new MarkerTarget(dest, marker));
         }
@@ -128,6 +127,16 @@ namespace Jetstream.UI.Fragments
       {
         //TODO: Add logger message here
       }
+    }
+
+    private string GetFixedUrl(string url)
+    {
+      if (url.StartsWith("http"))
+      {
+        return url;
+      }
+
+      return "http://" + url;
     }
 
     private new MainActivity Activity
@@ -144,6 +153,24 @@ namespace Jetstream.UI.Fragments
 
       this.mapView.OnResume();
       this.mapView.GetMapAsync(this);
+
+      if (this.updateInstanceUrlEventHandler == null)
+      {
+        this.updateInstanceUrlEventHandler = new MessageBusEventHandler()
+        {
+          EventId = EventIdsContainer.SitecoreInstanceUrlUpdateEvent,
+          EventAction = (sender, evnt) =>
+          {
+            this.Activity.RunOnUiThread(delegate
+            {
+              this.LoadDestinations();
+              this.map.Clear();
+            });
+          }
+        };
+      }
+
+      MessageBus.Default.Register(this.updateInstanceUrlEventHandler);
     }
 
     public override void OnDestroy()
@@ -158,6 +185,8 @@ namespace Jetstream.UI.Fragments
       base.OnPause();
 
       this.mapView.OnPause();
+
+      MessageBus.Default.DeRegister(this.updateInstanceUrlEventHandler);
     }
 
     public override void OnLowMemory()

@@ -25,12 +25,13 @@ def restore_nuget(config, params):
     check_if_all_params_specified(params, 'solution', 'nuget_exe')
     nuget_path = get_param_value('nuget_exe', params, config)
     sln = get_param_value('solution', params, config)
+    nuget_params = get_param_value('params', params, config)
 
     print('Nuget.exe path: ' + nuget_path)
     print('Restoring nuget packages: ' + sln)
 
     nuGet = NuGet(nuget_path)
-    nuGet.restore_nuget_packages(sln)
+    nuGet.restore_nuget_packages(sln, nuget_params)
 
 
 def fulfill_file_template(config, params):

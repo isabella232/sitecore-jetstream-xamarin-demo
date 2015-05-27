@@ -1,5 +1,5 @@
 ---
-# Build script
+# Builds Jetstream app in Release mode with enebled logging.
 sln : 'solutions\JetstreamAndroidTablet.sln'
 nuget: 'solutions\.nuget\NuGet.exe'
 xamarin_component: 'solutions\xamarin-component\xamarin-component.exe'

@@ -47,6 +47,11 @@
     <Debugger>Xamarin</Debugger>
     <DevInstrumentationEnabled>False</DevInstrumentationEnabled>
     <AndroidLinkMode>Full</AndroidLinkMode>
+    <AndroidKeyStore>True</AndroidKeyStore>
+    <AndroidSigningKeyStore>..\JetstreamAndroid\keystore\sitecore-jetstream.keystore</AndroidSigningKeyStore>
+    <AndroidSigningStorePass>sitecore</AndroidSigningStorePass>
+    <AndroidSigningKeyAlias>key</AndroidSigningKeyAlias>
+    <AndroidSigningKeyPass>sitecore</AndroidSigningKeyPass>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="android-iconics-0.9.1.2">
@@ -90,9 +95,6 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\..\solutions\packages\Newtonsoft.Json.6.0.8\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Cheeseknife">
-      <HintPath>..\..\..\solutions\Components\cheeseknife-1.0\lib\android\Cheeseknife.dll</HintPath>
-    </Reference>
     <Reference Include="Picasso">
       <HintPath>libs\Picasso.dll</HintPath>
     </Reference>
@@ -101,9 +103,6 @@
     </Reference>
     <Reference Include="Xamarin.Android.Support.v7.MediaRouter">
       <HintPath>..\..\..\solutions\packages\Xamarin.Android.Support.v7.MediaRouter.22.1.1.1\lib\MonoAndroid403\Xamarin.Android.Support.v7.MediaRouter.dll</HintPath>
-    </Reference>
-    <Reference Include="GooglePlayServicesLib">
-      <HintPath>..\..\..\solutions\packages\Xamarin.GooglePlayServices.22.0.0.2\lib\MonoAndroid41\GooglePlayServicesLib.dll</HintPath>
     </Reference>
     <Reference Include="Xamarin.Android.Support.v7.RecyclerView">
       <HintPath>..\..\..\solutions\packages\Xamarin.Android.Support.v7.RecyclerView.22.1.1.1\lib\MonoAndroid403\Xamarin.Android.Support.v7.RecyclerView.dll</HintPath>
@@ -117,14 +116,22 @@
     <Reference Include="NineOldAndroids">
       <HintPath>..\..\..\solutions\packages\Xamarin.NineOldAndroids.0.0.1\lib\MonoAndroid\NineOldAndroids.dll</HintPath>
     </Reference>
+    <Reference Include="GooglePlayServicesLib">
+      <HintPath>..\..\..\solutions\packages\Xamarin.GooglePlayServices.22.0.0.0\lib\MonoAndroid41\GooglePlayServicesLib.dll</HintPath>
+    </Reference>
+    <Reference Include="DSoft.Messaging">
+      <HintPath>..\..\..\solutions\Components\messagebus-1.4\lib\android\DSoft.Messaging.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bitmap\BitmapUtils.cs" />
     <Compile Include="Bitmap\MarkerTarget.cs" />
+    <Compile Include="EventIdsContainer.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Prefs.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UI\Dialogs\SettingsDialog.cs" />
     <Compile Include="UI\Fragments\DestinationsOnMapFragment.cs" />
     <Compile Include="Utils\SitecoreUrlValidator.cs" />
     <Compile Include="View\ScrollChildSwipeRefreshLayout.cs" />
@@ -150,7 +157,7 @@
     <AndroidResource Include="Resources\drawable\edit_text_cursor_drawable.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\fragment_settings.axml" />
+    <AndroidResource Include="Resources\layout\dialog_settings.axml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Main.axml" />
@@ -178,8 +185,8 @@
       <Version>22.0.0.0</Version>
       <Visible>False</Visible>
     </XamarinComponentReference>
-    <XamarinComponentReference Include="cheeseknife">
-      <Version>1.0</Version>
+    <XamarinComponentReference Include="messagebus">
+      <Version>1.4</Version>
       <Visible>False</Visible>
     </XamarinComponentReference>
   </ItemGroup>
