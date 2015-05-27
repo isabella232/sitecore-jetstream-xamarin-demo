@@ -1,7 +1,6 @@
 ﻿namespace Jetstream
 {
   using Android.App;
-  using Android.Content;
   using Android.Graphics;
   using Android.OS;
   using Android.Support.V7.App;
@@ -14,9 +13,8 @@
   using Com.Mikepenz.Materialdrawer.Accountswitcher;
   using Com.Mikepenz.Materialdrawer.Model;
   using Com.Mikepenz.Materialdrawer.Model.Interfaces;
-  using Com.Rengwuxian.Materialedittext;
+  using Jetstream.UI.Dialogs;
   using Jetstream.UI.Fragments;
-  using Jetstream.Utils;
   using Sitecore.MobileSDK;
   using Sitecore.MobileSDK.API;
   using Sitecore.MobileSDK.API.Session;
@@ -140,65 +138,14 @@
         case 1:
           break;
         case 2:
-          this.ShowSettingsDialog();
+          var settings = new SettingsDialog(this.prefs);
+          settings.Show(this.FragmentManager, "settings");
+          
+          new Handler().PostDelayed(() => this.drawer.SetSelectionByIdentifier(1, false), 500);
           break;
       }
 
       return false;
-    }
-
-    private void ShowSettingsDialog()
-    {
-      var rootView = LayoutInflater.From(this).Inflate(Resource.Layout.fragment_settings, null, false);
-
-      var sitecoreUrlField = rootView.FindViewById<MaterialEditText>(Resource.Id.field_sitecore_url);
-      sitecoreUrlField.Text = this.prefs.InstanceUrl;
-
-      sitecoreUrlField.AddValidator(new SitecoreUrlValidator(this.GetString(Resource.String.error_wrong_url)));
-
-      var builder = new Android.Support.V7.App.AlertDialog.Builder(this);
-      builder.SetTitle(this.GetString(Resource.String.text_settings_item));
-
-      builder.SetPositiveButton(this.GetString(Resource.String.text_button_apply), handler: null);
-      builder.SetNegativeButton(this.GetString(Resource.String.text_button_cancel), handler: null);
-
-      builder.SetView(rootView);
-      var dialog = builder.Show();
-
-      dialog.GetButton((int)DialogButtonType.Positive).SetOnClickListener(new ApplyButtonClickListener(sitecoreUrlField, this.prefs, dialog));
-
-      new Handler().PostDelayed(() => this.drawer.SetSelectionByIdentifier(1, false), 500);
-    }
-
-    private class ApplyButtonClickListener : Java.Lang.Object, Android.Views.View.IOnClickListener
-    {
-      private MaterialEditText urlField;
-      private Prefs prefs;
-      private readonly Dialog dialog;
-
-      protected internal ApplyButtonClickListener(MaterialEditText urlField, Prefs prefs, Dialog dialog)
-      {
-        this.urlField = urlField;
-        this.prefs = prefs;
-        this.dialog = dialog;
-      }
-
-      public void OnClick(Android.Views.View v)
-      {
-        if (this.urlField.Validate())
-        {
-          this.prefs.InstanceUrl = this.urlField.Text;
-          this.dialog.Dismiss();
-        }
-      }
-
-      protected override void Dispose(bool disposing)
-      {
-        base.Dispose(disposing);
-
-        this.urlField = null;
-        this.prefs = null;
-      }
     }
 
     //TODO:

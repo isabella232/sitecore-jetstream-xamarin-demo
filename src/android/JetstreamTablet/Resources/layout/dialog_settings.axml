@@ -7,8 +7,8 @@
     android:paddingTop="20dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <com.rengwuxian.materialedittext.MaterialEditText
-        android:id="@+id/field_sitecore_url"
+  <com.rengwuxian.materialedittext.MaterialAutoCompleteTextView
+      android:id="@+id/field_sitecore_url"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/hint_sitecore_url"

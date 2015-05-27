@@ -1,5 +1,6 @@
 namespace Jetstream
 {
+  using System.Collections.Generic;
   using Android.Content;
   using Android.Preferences;
 
@@ -8,6 +9,7 @@ namespace Jetstream
     private readonly ISharedPreferences prefs;
 
     private const string InstanceUrlKey = "instance_url_key";
+    private const string SavedInstanceUrlsKey = "saved_instance_urls_key";
 
     private Prefs(ISharedPreferences sharedPreferences)
     {
@@ -31,10 +33,48 @@ namespace Jetstream
       set
       {
         this.PutString(InstanceUrlKey, value);
+        this.AddUrlToHistory(value);
       }
     }
 
     #endregion Instance URL
+
+    #region Instance URLs history
+
+    public ICollection<string> SavedInstanceUrls
+    {
+      get
+      {
+        return this.GetStringSet(SavedInstanceUrlsKey);
+      }
+
+      private set
+      {
+        this.PutStringSet(SavedInstanceUrlsKey, value);
+      }
+    }
+
+    private void AddUrlToHistory(string url)
+    {
+      var urls = this.SavedInstanceUrls;
+      urls.Add(url);
+
+      this.SavedInstanceUrls = urls;
+    }
+
+    #endregion Instance URLs history
+
+    private ICollection<string> GetStringSet(string key)
+    {
+      return this.prefs.GetStringSet(key, new List<string>(0));
+    }
+
+    private void PutStringSet(string key, ICollection<string> values)
+    {
+      ISharedPreferencesEditor editor = this.prefs.Edit();
+      editor.PutStringSet(key, values);
+      editor.Apply();
+    }
 
     private bool GetBool(string key, bool defaultValue)
     {
