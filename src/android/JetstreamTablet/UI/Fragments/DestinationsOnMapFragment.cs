@@ -12,6 +12,7 @@ namespace Jetstream.UI.Fragments
   using Android.Util;
   using Android.Views;
   using com.dbeattie;
+  using DSoft.Messaging;
   using Jetstream.Bitmap;
   using JetStreamCommons;
   using JetStreamCommons.Destinations;
@@ -22,9 +23,10 @@ namespace Jetstream.UI.Fragments
     const double Tolerance = 0.01;
 
     GoogleMap map;
-
     SwipeRefreshLayout refresher;
     MapView mapView;
+
+    MessageBusEventHandler updateInstanceUrlEventHandler;
 
     public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
@@ -151,6 +153,20 @@ namespace Jetstream.UI.Fragments
 
       this.mapView.OnResume();
       this.mapView.GetMapAsync(this);
+
+      if (this.updateInstanceUrlEventHandler == null)
+      {
+        this.updateInstanceUrlEventHandler = new MessageBusEventHandler()
+        {
+          EventId = EventIdsContainer.SitecoreInstanceUrlUpdateEvent,
+          EventAction = (sender, evnt) =>
+          {
+            this.Activity.RunOnUiThread(this.LoadDestinations);
+          }
+        };
+      }
+
+      MessageBus.Default.Register(this.updateInstanceUrlEventHandler);
     }
 
     public override void OnDestroy()
@@ -165,6 +181,8 @@ namespace Jetstream.UI.Fragments
       base.OnPause();
 
       this.mapView.OnPause();
+
+      MessageBus.Default.DeRegister(this.updateInstanceUrlEventHandler);
     }
 
     public override void OnLowMemory()

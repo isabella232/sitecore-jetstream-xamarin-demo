@@ -114,10 +114,14 @@
     <Reference Include="GooglePlayServicesLib">
       <HintPath>..\..\..\solutions\packages\Xamarin.GooglePlayServices.22.0.0.0\lib\MonoAndroid41\GooglePlayServicesLib.dll</HintPath>
     </Reference>
+    <Reference Include="DSoft.Messaging">
+      <HintPath>..\..\..\solutions\Components\messagebus-1.4\lib\android\DSoft.Messaging.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bitmap\BitmapUtils.cs" />
     <Compile Include="Bitmap\MarkerTarget.cs" />
+    <Compile Include="EventIdsContainer.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Prefs.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
@@ -174,6 +178,10 @@
   <ItemGroup>
     <XamarinComponentReference Include="googleplayservices">
       <Version>22.0.0.0</Version>
+      <Visible>False</Visible>
+    </XamarinComponentReference>
+    <XamarinComponentReference Include="messagebus">
+      <Version>1.4</Version>
       <Visible>False</Visible>
     </XamarinComponentReference>
   </ItemGroup>

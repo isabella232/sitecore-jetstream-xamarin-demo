@@ -7,6 +7,7 @@ namespace Jetstream.UI.Dialogs
   using Android.Views;
   using Android.Widget;
   using Com.Rengwuxian.Materialedittext;
+  using DSoft.Messaging;
   using Jetstream.Utils;
 
   public class SettingsDialog : DialogFragment
@@ -71,6 +72,7 @@ namespace Jetstream.UI.Dialogs
         {
           this.prefs.InstanceUrl = this.urlField.Text;
           this.dialog.Dismiss();
+          MessageBus.PostEvent(EventIdsContainer.SitecoreInstanceUrlUpdateEvent);
         }
       }
 
