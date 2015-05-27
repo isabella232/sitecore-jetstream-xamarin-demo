@@ -127,9 +127,10 @@
     <Compile Include="Navigation\NavigationManagerViewController.designer.cs">
       <DependentUpon>NavigationManagerViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="MapHelpers\DestinationAnnotation.cs" />
-    <Compile Include="MapHelpers\MapDelegate.cs" />
-    <Compile Include="MapHelpers\AnnotationViewWithRoundedImage.cs" />
+    <Compile Include="MapUI\DestinationAnnotation.cs" />
+    <Compile Include="MapUI\MapDelegate.cs" />
+    <Compile Include="MapUI\AnnotationViewWithRoundedImage.cs" />
+    <Compile Include="MapUI\MapHelper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
@@ -146,7 +147,7 @@
     <Folder Include="Helpers\" />
     <Folder Include="Resources\en.lproj\" />
     <Folder Include="Navigation\" />
-    <Folder Include="MapHelpers\" />
+    <Folder Include="MapUI\" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="sdwebimage">

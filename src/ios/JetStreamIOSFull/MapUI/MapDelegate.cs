@@ -1,20 +1,18 @@
-﻿using System;
-using UIKit;
-using MapKit;
-using Foundation;
-using SDWebImage;
-using CoreAnimation;
+﻿using MapKit;
 using System.Collections.Generic;
+using UIKit;
+using System;
 
-namespace JetStreamIOSFull
+namespace JetStreamIOSFull.MapUI
 {
   public class MapDelegate : MKMapViewDelegate 
   {
-    private static double iphoneScaleFactorLatitude = 1024.0 / 100;
-    private static double iphoneScaleFactorLongitude = 768.0 / 100;
+    private const double iphoneScaleFactorLatitude = 1024.0 / 80;
+    private const double iphoneScaleFactorLongitude = 768.0 / 80;
+
+    private double prevZoomLevel = 0;
 
     protected string annotationIdentifier = "BasicAnnotation";
-    public InstanceSettings.InstanceSettings endpoint;
 
     private List<DestinationAnnotation> annotations = new List<DestinationAnnotation>();
 
@@ -53,16 +51,32 @@ namespace JetStreamIOSFull
         }
       }
 
+      annotationView.HiddenCountChanged(annotation.HiddenCount);
+
       return annotationView;
     }     
 
-    public void FilterAnnotations(MKMapView mapView)
+    private void ClearAnnotations(MKMapView mapView)
     {
       InvokeOnMainThread(() =>
       {
-        
-        double latDelta = Math.Truncate(mapView.Region.Span.LatitudeDelta/iphoneScaleFactorLatitude);
-        double longDelta = Math.Truncate(mapView.Region.Span.LongitudeDelta/iphoneScaleFactorLongitude);
+        for (int i = 0; i < this.annotations.Count; ++i)
+        {
+          DestinationAnnotation checkingLocation = this.annotations [i];
+          checkingLocation.HiddenCount = 1;
+          mapView.RemoveAnnotation(checkingLocation);
+        }
+      });
+    }
+
+    private void FilterAnnotations(MKMapView mapView)
+    {
+      this.ClearAnnotations(mapView);
+
+      InvokeOnMainThread(() =>
+      {
+        double latDelta = (mapView.Region.Span.LatitudeDelta/iphoneScaleFactorLatitude);
+        double longDelta = (mapView.Region.Span.LongitudeDelta/iphoneScaleFactorLongitude);
 
         List<DestinationAnnotation> shopsToShow = new List<DestinationAnnotation>();
 
@@ -84,9 +98,7 @@ namespace JetStreamIOSFull
               InvokeOnMainThread(() =>
               {
                 mapView.RemoveAnnotation(checkingLocation);
-                tempPlacemark.HiddenCount += checkingLocation.HiddenCount;
-                checkingLocation.HiddenCount = 0;
-                ++tempPlacemark.HiddenCount;
+                tempPlacemark.HiddenCount = tempPlacemark.HiddenCount + 1;
               });
               break;
             }
@@ -94,7 +106,6 @@ namespace JetStreamIOSFull
 
           if (!shouldBeHiden)
           {
-            checkingLocation.HiddenCount = 0;
             shopsToShow.Add(checkingLocation);
           }
 
@@ -102,18 +113,23 @@ namespace JetStreamIOSFull
 
         foreach (IMKAnnotation annotation in shopsToShow) 
         {
-          
           mapView.AddAnnotation(annotation);
         }
       });
 
     }
 
-      
     public override void RegionChanged (MKMapView mapView, bool animated)
     {
-      this.FilterAnnotations(mapView); 
+      double newZoomLevel = MapHelper.GetZoomLevel(mapView);
+
+      if (newZoomLevel != prevZoomLevel)
+      {
+        this.FilterAnnotations(mapView); 
+        prevZoomLevel = newZoomLevel;
+      }
     }
+
   }
 }
 

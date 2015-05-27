@@ -1,16 +1,19 @@
 ﻿using System;
-using UIKit; 
-using InstanceSettings;
-using JetStreamCommons;
-using System.Threading.Tasks;
 using System.Collections;
-using JetStreamCommons.Destinations;
-using MapKit;
-using CoreLocation;
-using Foundation;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+
+using UIKit;
+using MapKit;
+using Foundation;
+using CoreLocation;
+
 using SDWebImage;
-using CoreAnimation;
+
+using JetStreamCommons;
+using JetStreamIOSFull.MapUI;
+using JetStreamCommons.Destinations;
+
 
 namespace JetStreamIOSFull
 {
@@ -35,7 +38,6 @@ namespace JetStreamIOSFull
       this.destinations = await this.DownloadAllDestinations();
 
       this.mapDelegate = new MapDelegate();
-      mapDelegate.endpoint = this.endpoint;
       this.map.Delegate = mapDelegate;
 
       this.RefreshMap();

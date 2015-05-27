@@ -3,7 +3,7 @@ using CoreLocation;
 using MapKit;
 using UIKit;
 
-namespace JetStreamIOSFull
+namespace JetStreamIOSFull.MapUI
 {
   public class DestinationAnnotation : MKAnnotation
   {
@@ -11,6 +11,8 @@ namespace JetStreamIOSFull
     private CLLocationCoordinate2D coord;
     private UIImage image;
     private int hiddenCount;
+
+    private float IconSize = 90;
 
     public delegate void HiddenCountChanged(int count);
     public event HiddenCountChanged onHiddenCount;
@@ -36,7 +38,7 @@ namespace JetStreamIOSFull
       this.title = title;
       this.coord = coord;
 
-      UIImage resizedImage = ImageResize.ResizeImage(image, 90, 90);  
+      UIImage resizedImage = ImageResize.ResizeImage(image, this.IconSize, this.IconSize);  
       this.image = resizedImage;
     }
 
