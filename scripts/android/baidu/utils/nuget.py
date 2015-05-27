@@ -15,8 +15,12 @@ class NuGet:
         args = [self.nuGetExePath, 'update', '-Self']
         run_command(args, ignoreReturnCode)
 
-    def restore_nuget_packages(self, slnPath, ignoreReturnCode=False):
-        args = [self.nuGetExePath, 'restore', '-NoCache', slnPath]
+    def restore_nuget_packages(self, slnPath, params=None, ignoreReturnCode=False):
+        if params:
+            args = [self.nuGetExePath, 'restore', params, slnPath]
+        else:
+            args = [self.nuGetExePath, 'restore', slnPath]
+
         run_command(args, ignoreReturnCode)
 
     def _validate_nuget_exe(self):
