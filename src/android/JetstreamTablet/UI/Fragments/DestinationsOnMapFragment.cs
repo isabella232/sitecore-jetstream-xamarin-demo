@@ -119,7 +119,7 @@ namespace Jetstream.UI.Fragments
           var marker = this.map.AddMarker(markerOptions);
 
           //TODO: Fix this hardcoded url prefix. 
-          var url = "http://" + this.Activity.Session.MediaDownloadUrl(dest.ImagePath);
+          var url = this.GetFixedUrl(this.Activity.Session.MediaDownloadUrl(dest.ImagePath));
 
           Picasso.With(this.Activity).Load(url).Resize(100, 100).Into(new MarkerTarget(dest, marker));
         }
@@ -128,6 +128,16 @@ namespace Jetstream.UI.Fragments
       {
         //TODO: Add logger message here
       }
+    }
+
+    private string GetFixedUrl(string url)
+    {
+      if (url.StartsWith("http"))
+      {
+        return url;
+      }
+
+      return "http://" + url;
     }
 
     private new MainActivity Activity

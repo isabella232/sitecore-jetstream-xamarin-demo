@@ -3175,8 +3175,8 @@ namespace Jetstream
 			// aapt resource value: 0x7f0c004f
 			public const int expanded_menu = 2131492943;
 			
-			// aapt resource value: 0x7f0c0069
-			public const int field_sitecore_url = 2131492969;
+			// aapt resource value: 0x7f0c0067
+			public const int field_sitecore_url = 2131492967;
 			
 			// aapt resource value: 0x7f0c0038
 			public const int grayscale = 2131492920;
@@ -3217,8 +3217,8 @@ namespace Jetstream
 			// aapt resource value: 0x7f0c006c
 			public const int map_fragment_container = 2131492972;
 			
-			// aapt resource value: 0x7f0c0068
-			public const int mapview = 2131492968;
+			// aapt resource value: 0x7f0c0069
+			public const int mapview = 2131492969;
 			
 			// aapt resource value: 0x7f0c0032
 			public const int match_parent = 2131492914;
@@ -3271,8 +3271,8 @@ namespace Jetstream
 			// aapt resource value: 0x7f0c0052
 			public const int radio = 2131492946;
 			
-			// aapt resource value: 0x7f0c0067
-			public const int refresher = 2131492967;
+			// aapt resource value: 0x7f0c0068
+			public const int refresher = 2131492968;
 			
 			// aapt resource value: 0x7f0c0086
 			public const int route_name = 2131492998;
@@ -3563,10 +3563,10 @@ namespace Jetstream
 			public const int abc_simple_dropdown_hint = 2130903064;
 			
 			// aapt resource value: 0x7f030019
-			public const int fragment_map_destinations = 2130903065;
+			public const int dialog_settings = 2130903065;
 			
 			// aapt resource value: 0x7f03001a
-			public const int fragment_settings = 2130903066;
+			public const int fragment_map_destinations = 2130903066;
 			
 			// aapt resource value: 0x7f03001b
 			public const int Main = 2130903067;
