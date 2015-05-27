@@ -131,6 +131,7 @@
     <Compile Include="MapUI\MapDelegate.cs" />
     <Compile Include="MapUI\AnnotationViewWithRoundedImage.cs" />
     <Compile Include="MapUI\MapHelper.cs" />
+    <Compile Include="Helpers\AppearanceHelper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>

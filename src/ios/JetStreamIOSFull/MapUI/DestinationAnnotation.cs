@@ -2,6 +2,7 @@
 using CoreLocation;
 using MapKit;
 using UIKit;
+using JetStreamIOSFull.Helpers;
 
 namespace JetStreamIOSFull.MapUI
 {
@@ -12,7 +13,7 @@ namespace JetStreamIOSFull.MapUI
     private UIImage image;
     private int hiddenCount;
 
-    private float IconSize = 90;
+    private AppearanceHelper appearanceHelper = new AppearanceHelper();
 
     public delegate void HiddenCountChanged(int count);
     public event HiddenCountChanged onHiddenCount;
@@ -38,7 +39,7 @@ namespace JetStreamIOSFull.MapUI
       this.title = title;
       this.coord = coord;
 
-      UIImage resizedImage = ImageResize.ResizeImage(image, this.IconSize, this.IconSize);  
+      UIImage resizedImage = ImageResize.ResizeImage(image, appearanceHelper.DestinationIconSize, appearanceHelper.DestinationIconSize);  
       this.image = resizedImage;
     }
 

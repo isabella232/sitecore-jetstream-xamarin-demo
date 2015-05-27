@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using UIKit;
 using Foundation;
 
-namespace JetStreamIOSFull
+namespace JetStreamIOSFull.Helpers
 {
 	public class AlertHelper
 	{

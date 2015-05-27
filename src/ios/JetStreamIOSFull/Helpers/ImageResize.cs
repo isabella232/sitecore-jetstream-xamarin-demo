@@ -2,7 +2,7 @@
 using UIKit;
 using System.Drawing;
 
-namespace JetStreamIOSFull
+namespace JetStreamIOSFull.Helpers
 {
   public static class ImageResize
   {

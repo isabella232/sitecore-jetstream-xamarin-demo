@@ -13,6 +13,7 @@ using SDWebImage;
 using JetStreamCommons;
 using JetStreamIOSFull.MapUI;
 using JetStreamCommons.Destinations;
+using JetStreamIOSFull.Helpers;
 
 
 namespace JetStreamIOSFull

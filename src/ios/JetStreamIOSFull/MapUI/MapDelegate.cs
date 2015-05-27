@@ -91,7 +91,7 @@ namespace JetStreamIOSFull.MapUI
           foreach (DestinationAnnotation tempPlacemark in shopsToShow) 
           {
             shouldBeHiden = Math.Abs(tempPlacemark.Coordinate.Latitude - latitude) < latDelta
-                              && Math.Abs(tempPlacemark.Coordinate.Longitude - longitude) < longDelta;
+                         && Math.Abs(tempPlacemark.Coordinate.Longitude - longitude) < longDelta;
 
             if (shouldBeHiden)
             {
@@ -122,13 +122,24 @@ namespace JetStreamIOSFull.MapUI
     public override void RegionChanged (MKMapView mapView, bool animated)
     {
       double newZoomLevel = MapHelper.GetZoomLevel(mapView);
+      bool shouldRefilter = Math.Abs(newZoomLevel - prevZoomLevel) > 0.3;
 
-      if (newZoomLevel != prevZoomLevel)
+      if (shouldRefilter)
       {
         this.FilterAnnotations(mapView); 
         prevZoomLevel = newZoomLevel;
       }
     }
+
+//    public override void DidSelectAnnotationView(MKMapView mapView, MKAnnotationView view)
+//    {
+//      
+//    }
+//
+//    public override void DidDeselectAnnotationView(MKMapView mapView, MKAnnotationView view)
+//    {
+//
+//    }
 
   }
 }

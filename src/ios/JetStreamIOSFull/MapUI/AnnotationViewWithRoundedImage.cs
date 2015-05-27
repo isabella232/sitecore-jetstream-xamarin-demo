@@ -3,6 +3,7 @@ using MapKit;
 using UIKit;
 using CoreAnimation;
 using CoreGraphics;
+using JetStreamIOSFull.Helpers;
 
 namespace JetStreamIOSFull.MapUI
 {
@@ -10,9 +11,7 @@ namespace JetStreamIOSFull.MapUI
   {
     private UIImageView imageView;
     private UILabel label;
-
-    private nfloat HiddenLabelSize = 30;
-    private nfloat HiddenLabelFontSize = 20;
+    private AppearanceHelper appearanceHelper = new AppearanceHelper();
 
     public AnnotationViewWithRoundedImage(DestinationAnnotation annotation, string reuseIdentifier)
       : base(annotation, reuseIdentifier)
@@ -34,22 +33,27 @@ namespace JetStreamIOSFull.MapUI
     {
       this.label = new UILabel ();
       CALayer layer = this.label.Layer;
-      layer.CornerRadius = HiddenLabelSize/2;
+      layer.CornerRadius = appearanceHelper.HiddenLabelSize/2;
       layer.MasksToBounds = true;
 
-      this.label.BackgroundColor = UIColor.Red;
-      this.label.TextColor = UIColor.White;
-      this.label.Font = UIFont.SystemFontOfSize(HiddenLabelFontSize);
+      this.label.BackgroundColor = appearanceHelper.SelectionColor;
+      this.label.TextColor = appearanceHelper.MenuTextColor;
+      this.label.Font = UIFont.SystemFontOfSize(appearanceHelper.HiddenLabelFontSize);
       this.label.TextAlignment = UITextAlignment.Center;
-      CGRect frame = new CGRect (0, 0, HiddenLabelSize, HiddenLabelSize);
+      CGRect frame = new CGRect (0, 0, appearanceHelper.HiddenLabelSize, appearanceHelper.HiddenLabelSize);
       this.label.Frame = frame;
       this.AddSubview(this.label);
     }
 
     private void InitRoundedImage()
     {
+      
       this.imageView = new UIImageView (this.Bounds);
       this.AddSubview(this.imageView);
+
+      CALayer imageLayer = this.imageView.Layer;
+      imageLayer.BorderWidth = appearanceHelper.DestinationIconBorderSize;
+      imageLayer.MasksToBounds = true;
     }
 
     public void HiddenCountChanged(int count)
@@ -66,6 +70,20 @@ namespace JetStreamIOSFull.MapUI
           this.label.Hidden = true;
         }
       });
+    }
+
+    public override void SetSelected(bool selected, bool animated)
+    {
+      CALayer imageLayer = this.imageView.Layer;
+
+      if (selected)
+      {
+        imageLayer.BorderColor = appearanceHelper.OrangeColor.CGColor;
+      }
+      else
+      {
+        imageLayer.BorderColor = appearanceHelper.MenuBackgroundColor.CGColor;
+      }
     }
 
     public override UIImage Image
@@ -85,8 +103,7 @@ namespace JetStreamIOSFull.MapUI
 
           CALayer imageLayer = this.imageView.Layer;
           imageLayer.CornerRadius = value.Size.Height / 2;
-          imageLayer.BorderWidth = 1;
-          imageLayer.MasksToBounds = true;
+
           this.imageView.Image = value;
         });
       }
