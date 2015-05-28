@@ -23,6 +23,7 @@ namespace JetStreamIOSFull.MapUI
       this.InitUI();
 
       annotation.onHiddenCount += this.HiddenCountChanged;
+
       this.HiddenCountChanged(annotation.HiddenCount);
 
       this.DownloadImage(annotation.ImageUrl);
@@ -110,7 +111,17 @@ namespace JetStreamIOSFull.MapUI
       {
         if (value != null)
         {
+          DestinationAnnotation oldAnnotation = base.Annotation as DestinationAnnotation;
+
+          if (oldAnnotation != null)
+          {
+            oldAnnotation.onHiddenCount -= this.HiddenCountChanged;
+          }
+
           DestinationAnnotation annotation = value as DestinationAnnotation;
+
+          annotation.onHiddenCount += this.HiddenCountChanged;
+
           base.Annotation = annotation;
           this.DownloadImage(annotation.ImageUrl);
         }

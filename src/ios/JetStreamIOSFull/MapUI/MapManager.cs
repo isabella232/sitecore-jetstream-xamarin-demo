@@ -79,7 +79,6 @@ namespace JetStreamIOSFull.MapUI
 
       InvokeOnMainThread(() =>
       {
-        mapView.RemoveAnnotations(mapView.Annotations);
 
         double latDelta = (mapView.Region.Span.LatitudeDelta/iphoneScaleFactorLatitude);
         double longDelta = (mapView.Region.Span.LongitudeDelta/iphoneScaleFactorLongitude);
@@ -104,6 +103,7 @@ namespace JetStreamIOSFull.MapUI
               InvokeOnMainThread(() =>
               {
                 tempPlacemark.HiddenCount = tempPlacemark.HiddenCount + 1;
+                mapView.RemoveAnnotation(checkingLocation);
               });
               break;
             }
@@ -112,12 +112,8 @@ namespace JetStreamIOSFull.MapUI
           if (!shouldBeHiden)
           {
             shopsToShow.Add(checkingLocation);
+            mapView.AddAnnotation(checkingLocation);
           }
-        }
-
-        foreach (IMKAnnotation annotation in shopsToShow) 
-        {
-          mapView.AddAnnotation(annotation);
         }
       });
 
