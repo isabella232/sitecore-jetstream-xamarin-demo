@@ -54,17 +54,6 @@ namespace JetStreamIOSFull.MapUI
 
       annotationView.CanShowCallout = true;
 
-      if (annotation is DestinationAnnotation)
-      {
-        DestinationAnnotation castedAnnotation = annotation as DestinationAnnotation;
-        UIImage image = castedAnnotation.Image;
-
-        if ( image != null) 
-        {
-            annotationView.Image = image;
-        }
-      }
-
       annotationView.HiddenCountChanged(annotation.HiddenCount);
 
       return annotationView;

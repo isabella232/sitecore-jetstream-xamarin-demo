@@ -8,8 +8,6 @@ using MapKit;
 using Foundation;
 using CoreLocation;
 
-using SDWebImage;
-
 using JetStreamCommons;
 using JetStreamIOSFull.MapUI;
 using JetStreamCommons.Destinations;
@@ -84,25 +82,10 @@ namespace JetStreamIOSFull
 
           string instanceUrl = this.Endpoint.InstanceUrl;
           string imagePath = elem.ImagePath;
+          string imageUrl = String.Concat(instanceUrl, imagePath);
 
-          NSUrl imageUrl = new NSUrl(String.Concat(instanceUrl, imagePath));
-
-          SDWebImageDownloader.SharedDownloader.DownloadImage(
-            url: imageUrl,
-            options: SDWebImageDownloaderOptions.HighPriority,
-            progressHandler: (receivedSize, expectedSize) =>
-          {
-            // Track progress...
-          },
-            completedHandler: (image, data, error, finished) =>
-          {
-            if (image != null)
-            {
-              DestinationAnnotation annotation = new DestinationAnnotation(elem.DisplayName, image, coordinates, this.Appearance);
-              this.mapManager.AddAnnotationForMap(this.map, annotation);
-            }
-          }
-          );
+          DestinationAnnotation annotation = new DestinationAnnotation(elem.DisplayName, imageUrl, coordinates, this.Appearance);
+          this.mapManager.AddAnnotationForMap(this.map, annotation);
 
         }
       }

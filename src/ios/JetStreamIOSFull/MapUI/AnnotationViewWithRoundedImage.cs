@@ -4,6 +4,8 @@ using UIKit;
 using CoreAnimation;
 using CoreGraphics;
 using JetStreamIOSFull.Helpers;
+using Foundation;
+using SDWebImage;
 
 namespace JetStreamIOSFull.MapUI
 {
@@ -22,6 +24,8 @@ namespace JetStreamIOSFull.MapUI
 
       annotation.onHiddenCount += this.HiddenCountChanged;
       this.HiddenCountChanged(annotation.HiddenCount);
+
+      this.DownloadImage(annotation.ImageUrl);
     }
 
     private void InitUI()
@@ -45,6 +49,28 @@ namespace JetStreamIOSFull.MapUI
       CGRect frame = new CGRect (0, 0, appearanceHelper.HiddenLabelSize, appearanceHelper.HiddenLabelSize);
       this.label.Frame = frame;
       this.AddSubview(this.label);
+    }
+
+    private void DownloadImage(string imagePath)
+    {
+      NSUrl imageUrl = new NSUrl(imagePath);
+
+      SDWebImageDownloader.SharedDownloader.DownloadImage(
+        url: imageUrl,
+        options: SDWebImageDownloaderOptions.LowPriority,
+        progressHandler: (receivedSize, expectedSize) =>
+      {
+        // Track progress...
+      },
+        completedHandler: (image, data, error, finished) =>
+      {
+        if (image != null)
+        {
+          UIImage resizedImage = ImageResize.ResizeImage(image, appearanceHelper.DestinationIconSize, appearanceHelper.DestinationIconSize);  
+          this.Image = resizedImage;
+        }
+      }
+      );
     }
 
     private void InitRoundedImage()

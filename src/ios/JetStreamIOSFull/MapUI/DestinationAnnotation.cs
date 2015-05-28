@@ -10,23 +10,21 @@ namespace JetStreamIOSFull.MapUI
   {
     private string title;
     private CLLocationCoordinate2D coord;
-    private UIImage image;
     private int hiddenCount;
+    private string imageUrl;
 
     private IAppearanceHelper appearanceHelper;
 
     public delegate void HiddenCountChanged(int count);
     public event HiddenCountChanged onHiddenCount;
 
-    public DestinationAnnotation(string title, UIImage image, CLLocationCoordinate2D coord, IAppearanceHelper appearance)
+    public DestinationAnnotation(string title, string imageUrl, CLLocationCoordinate2D coord, IAppearanceHelper appearance)
     {
       this.appearanceHelper = appearance;
 
+      this.imageUrl = imageUrl;
       this.title = title;
       this.coord = coord;
-
-      UIImage resizedImage = ImageResize.ResizeImage(image, appearanceHelper.DestinationIconSize, appearanceHelper.DestinationIconSize);  
-      this.image = resizedImage;
     }
 
     public int HiddenCount
@@ -53,11 +51,11 @@ namespace JetStreamIOSFull.MapUI
       }
     }
 
-    public UIImage Image 
+    public string ImageUrl
     {
       get 
       {
-        return this.image;
+        return this.imageUrl;
       }
     }
 
