@@ -23,9 +23,17 @@ namespace JetStreamIOSFull
 
 		[Outlet]
 		UIKit.UIToolbar toolbar { get; set; }
+
+		[Action ("RefreshButtonTouched:")]
+		partial void RefreshButtonTouched (Foundation.NSObject sender);
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (countriesCarousel != null) {
+				countriesCarousel.Dispose ();
+				countriesCarousel = null;
+			}
+
 			if (detailDescriptionLabel != null) {
 				detailDescriptionLabel.Dispose ();
 				detailDescriptionLabel = null;
@@ -39,11 +47,6 @@ namespace JetStreamIOSFull
 			if (toolbar != null) {
 				toolbar.Dispose ();
 				toolbar = null;
-			}
-
-			if (countriesCarousel != null) {
-				countriesCarousel.Dispose ();
-				countriesCarousel = null;
 			}
 		}
 	}

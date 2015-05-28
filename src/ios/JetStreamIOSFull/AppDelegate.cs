@@ -11,6 +11,7 @@ namespace JetStreamIOSFull
   {
     // class-level declarations
     private IAppearanceHelper appearanceHelper = new AppearanceHelper();
+    private InstanceSettings.InstanceSettings endpoint = new InstanceSettings.InstanceSettings();
 
     public override UIWindow Window
     {
@@ -33,7 +34,10 @@ namespace JetStreamIOSFull
       splitViewController.WeakDelegate = this;
 
       NavigationManagerViewController navigationManager = (NavigationManagerViewController)splitViewController.ViewControllers[1];
+
       navigationManager.Appearance = this.appearanceHelper;
+      navigationManager.Endpoint = this.endpoint;
+
       navigationManager.MenuButton = splitViewController.DisplayModeButtonItem;
       navigationManager.LoadNavigationFlows();
 

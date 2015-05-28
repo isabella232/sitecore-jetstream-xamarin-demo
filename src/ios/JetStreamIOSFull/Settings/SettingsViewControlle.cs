@@ -5,7 +5,7 @@ using UIKit;
 
 namespace JetStreamIOSFull
 {
-  public partial class SettingsViewControlle : BaseVCWithAppearance
+  public partial class SettingsViewControlle : BaseViewController
 	{
 		public SettingsViewControlle (IntPtr handle) : base (handle)
 		{

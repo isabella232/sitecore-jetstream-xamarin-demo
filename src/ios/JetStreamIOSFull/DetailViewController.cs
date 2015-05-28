@@ -18,32 +18,43 @@ using JetStreamIOSFull.Helpers;
 
 namespace JetStreamIOSFull
 {
-  public partial class DetailViewController : BaseVCWithAppearance, IMKMapViewDelegate
+  public partial class DetailViewController : BaseViewController, IMKMapViewDelegate
   {
     private IEnumerable destinations;
-    private InstanceSettings.InstanceSettings endpoint;
-    private MapDelegate mapDelegate;
+
+    private MapManager mapManager;
 
     public DetailViewController(IntPtr handle) : base(handle)
     {
       
     }
 
-    public async override void ViewDidLoad()
+    public override void ViewDidLoad()
     {
       base.ViewDidLoad();
 
-      this.destinations = await this.DownloadAllDestinations();
+      this.mapManager = new MapManager(this.Appearance);
+      this.map.Delegate = mapManager;
 
-      this.mapDelegate = new MapDelegate(this.Appearance);
-      this.map.Delegate = mapDelegate;
+    }
+
+    public override void ViewDidAppear(bool animated)
+    {
+      base.ViewDidAppear(animated);
 
       this.RefreshMap();
     }
 
-    private void RefreshMap()
+    partial void RefreshButtonTouched(Foundation.NSObject sender)
     {
-      this.ClearMap();
+      this.RefreshMap();
+    }
+
+    private async void RefreshMap()
+    {
+      this.destinations = await this.DownloadAllDestinations();
+
+      this.mapManager.ResetMapState(this.map);
 
       foreach(IDestination elem in this.destinations)
       {
@@ -52,7 +63,7 @@ namespace JetStreamIOSFull
         {
           CLLocationCoordinate2D coordinates = new CLLocationCoordinate2D(elem.Latitude, elem.Longitude);
 
-          string instanceUrl = this.endpoint.InstanceUrl;
+          string instanceUrl = this.Endpoint.InstanceUrl;
           string imagePath = elem.ImagePath;
             
           NSUrl imageUrl = new NSUrl(String.Concat(instanceUrl, imagePath));
@@ -69,7 +80,7 @@ namespace JetStreamIOSFull
             if (image != null)
             {
               DestinationAnnotation annotation = new DestinationAnnotation(elem.DisplayName, image, coordinates, this.Appearance);
-              this.mapDelegate.AddAnnotationForMap(this.map, annotation);
+              this.mapManager.AddAnnotationForMap(this.map, annotation);
             }
           }
           );
@@ -78,19 +89,13 @@ namespace JetStreamIOSFull
       }
     }
 
-    private void ClearMap()
-    {
-      map.RemoveAnnotations(map.Annotations);
-    }
-
     private async Task<IEnumerable> DownloadAllDestinations()
     {
       try
       {
         //FIXME: error here, some objects must be disposed!!!
-        this.endpoint = new InstanceSettings.InstanceSettings();
 
-        var session = this.endpoint.GetSession();
+        var session = this.Endpoint.GetSession();
         using (var loader = new DestinationsLoader(session))
         {
           return await loader.LoadOnlyDestinations();

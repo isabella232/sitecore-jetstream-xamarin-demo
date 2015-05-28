@@ -7,7 +7,7 @@ using JetStreamIOSFull.Helpers;
 
 namespace JetStreamIOSFull
 {
-  public partial class NavigationManagerViewController : BaseVCWithAppearance
+  public partial class NavigationManagerViewController : BaseViewController
   {
     public UIBarButtonItem menuButton;
 
@@ -66,8 +66,9 @@ namespace JetStreamIOSFull
 
     private void InitializeFlow(UINavigationController flow)
     {
-      BaseVCWithAppearance root = flow.TopViewController as BaseVCWithAppearance;
+      BaseViewController root = flow.TopViewController as BaseViewController;
       root.Appearance = this.Appearance;
+      root.Endpoint = this.Endpoint;
     }
 
     private void NavigateToTabAtIndex(int index)

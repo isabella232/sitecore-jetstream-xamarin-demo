@@ -128,16 +128,16 @@
       <DependentUpon>NavigationManagerViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="MapUI\DestinationAnnotation.cs" />
-    <Compile Include="MapUI\MapDelegate.cs" />
     <Compile Include="MapUI\AnnotationViewWithRoundedImage.cs" />
     <Compile Include="MapUI\MapHelper.cs" />
     <Compile Include="Helpers\AppearanceHelper.cs" />
-    <Compile Include="BaseVC\BaseVCWithAppearance.cs" />
     <Compile Include="Settings\SettingsViewControlle.cs" />
     <Compile Include="Settings\SettingsViewControlle.designer.cs">
       <DependentUpon>SettingsViewControlle.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\IAppearanceHelper.cs" />
+    <Compile Include="BaseVC\BaseViewController.cs" />
+    <Compile Include="MapUI\MapManager.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>

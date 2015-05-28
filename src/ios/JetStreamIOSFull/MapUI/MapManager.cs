@@ -6,7 +6,7 @@ using JetStreamIOSFull.Helpers;
 
 namespace JetStreamIOSFull.MapUI
 {
-  public class MapDelegate : MKMapViewDelegate 
+  public class MapManager : MKMapViewDelegate 
   {
     private const double iphoneScaleFactorLatitude = 1024.0 / 80;
     private const double iphoneScaleFactorLongitude = 768.0 / 80;
@@ -19,7 +19,7 @@ namespace JetStreamIOSFull.MapUI
 
     private IAppearanceHelper appearanceHelper;
 
-    public MapDelegate(IAppearanceHelper appearance)
+    public MapManager(IAppearanceHelper appearance)
     {
       this.appearanceHelper = appearance;
     }
@@ -34,6 +34,12 @@ namespace JetStreamIOSFull.MapUI
     {
       annotations.Add(annotation);
       this.FilterAnnotations(mapView);
+    }
+
+    public void ResetMapState(MKMapView mapView)
+    {
+      mapView.RemoveAnnotations(mapView.Annotations);
+      this.annotations = new List<DestinationAnnotation>();
     }
 
     public override MKAnnotationView GetViewForAnnotation(MKMapView mapView, IMKAnnotation ann)
@@ -70,7 +76,7 @@ namespace JetStreamIOSFull.MapUI
       {
         for (int i = 0; i < this.annotations.Count; ++i)
         {
-          DestinationAnnotation checkingLocation = this.annotations [i];
+          DestinationAnnotation checkingLocation = this.annotations[i];
           checkingLocation.HiddenCount = 1;
           mapView.RemoveAnnotation(checkingLocation);
         }
