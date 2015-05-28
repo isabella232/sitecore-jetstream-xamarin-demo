@@ -78,7 +78,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="JetStream" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UHE-VR-oMs">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="JetStream" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UHE-VR-oMs">
                                 <rect key="frame" x="80" y="121" width="480" height="151"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="151" id="tBj-Bc-n6k"/>
@@ -90,15 +90,18 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="UHE-VR-oMs" firstAttribute="top" secondItem="Fhw-9p-CMY" secondAttribute="bottom" constant="55" id="467-kL-jBr"/>
-                            <constraint firstItem="UHE-VR-oMs" firstAttribute="leading" secondItem="o1l-uB-s8z" secondAttribute="leadingMargin" constant="44" id="AWg-lu-cp4"/>
+                            <constraint firstItem="UHE-VR-oMs" firstAttribute="top" secondItem="Fhw-9p-CMY" secondAttribute="bottom" constant="57" id="467-kL-jBr"/>
+                            <constraint firstItem="UHE-VR-oMs" firstAttribute="leading" secondItem="o1l-uB-s8z" secondAttribute="leadingMargin" constant="64" id="AWg-lu-cp4"/>
                             <constraint firstAttribute="trailingMargin" secondItem="VLU-xS-zvc" secondAttribute="trailing" constant="64" id="YK5-HA-tqC"/>
                             <constraint firstItem="VLU-xS-zvc" firstAttribute="leading" secondItem="o1l-uB-s8z" secondAttribute="leadingMargin" constant="64" id="dZm-Wf-Lpa"/>
-                            <constraint firstItem="UHE-VR-oMs" firstAttribute="centerX" secondItem="VLU-xS-zvc" secondAttribute="centerX" id="usD-Jg-yvs"/>
-                            <constraint firstItem="VLU-xS-zvc" firstAttribute="top" secondItem="UHE-VR-oMs" secondAttribute="bottom" constant="37" id="vKX-OL-ezx"/>
+                            <constraint firstItem="UHE-VR-oMs" firstAttribute="centerX" secondItem="VLU-xS-zvc" secondAttribute="centerX" constant="20" id="usD-Jg-yvs"/>
+                            <constraint firstItem="VLU-xS-zvc" firstAttribute="top" secondItem="UHE-VR-oMs" secondAttribute="bottom" constant="35" id="vKX-OL-ezx"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Y8z-Tg-RB2"/>
+                    <connections>
+                        <outlet property="UrlTextField" destination="VLU-xS-zvc" id="hjf-Cx-vzF"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xtd-ni-rLv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

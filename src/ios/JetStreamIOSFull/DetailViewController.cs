@@ -52,8 +52,27 @@ namespace JetStreamIOSFull
 
     private async void RefreshMap()
     {
-      this.destinations = await this.DownloadAllDestinations();
+      bool destinationsLoaded = false;
+      try
+      {
+        this.destinations = await this.DownloadAllDestinations();
+        destinationsLoaded = true;
+      }
+      catch
+      {
+        destinationsLoaded = false;
+        AlertHelper.ShowLocalizedAlertWithOkOption("NETWORK_ERROR_TITLE", "CANNOT_DOWNLOAD_DESTINATIONS_ERROR");
+      }
+  
+      if (destinationsLoaded)
+      {
+        this.ShowCurrentDestinationsOnMap();
+      }
 
+    }
+
+    private void ShowCurrentDestinationsOnMap()
+    {
       this.mapManager.ResetMapState(this.map);
 
       foreach(IDestination elem in this.destinations)
@@ -65,7 +84,7 @@ namespace JetStreamIOSFull
 
           string instanceUrl = this.Endpoint.InstanceUrl;
           string imagePath = elem.ImagePath;
-            
+
           NSUrl imageUrl = new NSUrl(String.Concat(instanceUrl, imagePath));
 
           SDWebImageDownloader.SharedDownloader.DownloadImage(
@@ -91,8 +110,7 @@ namespace JetStreamIOSFull
 
     private async Task<IEnumerable> DownloadAllDestinations()
     {
-      try
-      {
+     
         //FIXME: error here, some objects must be disposed!!!
 
         var session = this.Endpoint.GetSession();
@@ -100,12 +118,7 @@ namespace JetStreamIOSFull
         {
           return await loader.LoadOnlyDestinations();
         }
-      }
-      catch
-      {
-        AlertHelper.ShowLocalizedAlertWithOkOption("NETWORK_ERROR_TITLE", "CANNOT_DOWNLOAD_DESTINATIONS_ERROR");
-        return null;
-      }
+     
 
     }
 

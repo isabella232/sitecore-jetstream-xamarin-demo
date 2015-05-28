@@ -12,9 +12,15 @@ namespace JetStreamIOSFull
 	[Register ("SettingsViewControlle")]
 	partial class SettingsViewControlle
 	{
+		[Outlet]
+		UIKit.UITextField UrlTextField { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (UrlTextField != null) {
+				UrlTextField.Dispose ();
+				UrlTextField = null;
+			}
 		}
 	}
 }

@@ -11,12 +11,10 @@ namespace JetStreamIOSFull
   {
     public NavigationManagerViewController NavigationManager { get; set; }
 
-    DataSource dataSource;
+    private DataSource dataSource;
 
     public MasterViewController(IntPtr handle) : base(handle)
     {
-      Title = NSBundle.MainBundle.LocalizedString("Master", "Master");
-
       PreferredContentSize = new CGSize (100f, 600f);
       ClearsSelectionOnViewWillAppear = true;
     }
@@ -31,7 +29,8 @@ namespace JetStreamIOSFull
       objects.Add("Destinations");
       objects.Add("Settings");
 
-      TableView.Source = dataSource = new DataSource (this, objects);
+      this.dataSource = new DataSource (this, objects);
+      TableView.Source = this.dataSource;
     }
 
     public override void DidReceiveMemoryWarning()
@@ -80,10 +79,11 @@ namespace JetStreamIOSFull
 
       public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
       {
-        if (UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Pad)
-        {
-          controller.NavigationManager.NavigationItemSelected(indexPath.Row);
-        }
+        UIBarButtonItem hideButton = this.controller.SplitViewController.DisplayModeButtonItem;
+        UIApplication.SharedApplication.SendAction(hideButton.Action, hideButton.Target, null, null);
+
+        controller.NavigationManager.NavigationItemSelected(indexPath.Row);
+
       }
     }
   }
