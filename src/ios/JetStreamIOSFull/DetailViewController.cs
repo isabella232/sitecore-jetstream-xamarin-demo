@@ -18,7 +18,7 @@ using JetStreamIOSFull.Helpers;
 
 namespace JetStreamIOSFull
 {
-  public partial class DetailViewController : UIViewController, IMKMapViewDelegate
+  public partial class DetailViewController : BaseVCWithAppearance, IMKMapViewDelegate
   {
     private IEnumerable destinations;
     private InstanceSettings.InstanceSettings endpoint;
@@ -26,10 +26,7 @@ namespace JetStreamIOSFull
 
     public DetailViewController(IntPtr handle) : base(handle)
     {
-    }
-
-    public void SetDetailItem(object newDetailItem)
-    {
+      
     }
 
     public async override void ViewDidLoad()
@@ -38,7 +35,7 @@ namespace JetStreamIOSFull
 
       this.destinations = await this.DownloadAllDestinations();
 
-      this.mapDelegate = new MapDelegate();
+      this.mapDelegate = new MapDelegate(this.Appearance);
       this.map.Delegate = mapDelegate;
 
       this.RefreshMap();
@@ -47,8 +44,6 @@ namespace JetStreamIOSFull
     private void RefreshMap()
     {
       this.ClearMap();
-
-      List<IMKAnnotation> annotations = new List<IMKAnnotation>();
 
       foreach(IDestination elem in this.destinations)
       {
@@ -73,7 +68,7 @@ namespace JetStreamIOSFull
           {
             if (image != null)
             {
-              DestinationAnnotation annotation = new DestinationAnnotation(elem.DisplayName, image, coordinates);
+              DestinationAnnotation annotation = new DestinationAnnotation(elem.DisplayName, image, coordinates, this.Appearance);
               this.mapDelegate.AddAnnotationForMap(this.map, annotation);
             }
           }

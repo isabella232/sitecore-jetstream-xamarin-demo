@@ -132,6 +132,12 @@
     <Compile Include="MapUI\AnnotationViewWithRoundedImage.cs" />
     <Compile Include="MapUI\MapHelper.cs" />
     <Compile Include="Helpers\AppearanceHelper.cs" />
+    <Compile Include="BaseVC\BaseVCWithAppearance.cs" />
+    <Compile Include="Settings\SettingsViewControlle.cs" />
+    <Compile Include="Settings\SettingsViewControlle.designer.cs">
+      <DependentUpon>SettingsViewControlle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\IAppearanceHelper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
@@ -149,6 +155,8 @@
     <Folder Include="Resources\en.lproj\" />
     <Folder Include="Navigation\" />
     <Folder Include="MapUI\" />
+    <Folder Include="BaseVC\" />
+    <Folder Include="Settings\" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="sdwebimage">

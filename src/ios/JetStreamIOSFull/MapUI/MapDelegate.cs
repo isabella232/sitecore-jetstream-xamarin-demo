@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UIKit;
 using System;
+using JetStreamIOSFull.Helpers;
 
 namespace JetStreamIOSFull.MapUI
 {
@@ -15,6 +16,13 @@ namespace JetStreamIOSFull.MapUI
     protected string annotationIdentifier = "BasicAnnotation";
 
     private List<DestinationAnnotation> annotations = new List<DestinationAnnotation>();
+
+    private IAppearanceHelper appearanceHelper;
+
+    public MapDelegate(IAppearanceHelper appearance)
+    {
+      this.appearanceHelper = appearance;
+    }
 
     public void SetAnnotationsForMap(MKMapView mapView, List<DestinationAnnotation> annotations)
     {
@@ -34,7 +42,7 @@ namespace JetStreamIOSFull.MapUI
       AnnotationViewWithRoundedImage annotationView = mapView.DequeueReusableAnnotation(annotationIdentifier) as AnnotationViewWithRoundedImage;   
 
       if (annotationView == null)
-        annotationView = new AnnotationViewWithRoundedImage(annotation, annotationIdentifier);
+        annotationView = new AnnotationViewWithRoundedImage(annotation, annotationIdentifier, this.appearanceHelper);
       else 
         annotationView.Annotation = annotation;
 

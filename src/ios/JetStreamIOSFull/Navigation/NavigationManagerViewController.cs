@@ -3,10 +3,11 @@ using System;
 
 using Foundation;
 using UIKit;
+using JetStreamIOSFull.Helpers;
 
 namespace JetStreamIOSFull
 {
-  public partial class NavigationManagerViewController : UIViewController
+  public partial class NavigationManagerViewController : BaseVCWithAppearance
   {
     public UIBarButtonItem menuButton;
 
@@ -18,7 +19,7 @@ namespace JetStreamIOSFull
     {
       Title = NSBundle.MainBundle.LocalizedString("NavigationRoot", "NavigationRoot");
     }
-
+      
     public  UIBarButtonItem MenuButton
     {
       get
@@ -50,12 +51,23 @@ namespace JetStreamIOSFull
     public override void ViewDidLoad()
     {
       base.ViewDidLoad();
+    }
 
+    public void LoadNavigationFlows()
+    {
       this.MapFlow = (UINavigationController)this.Storyboard.InstantiateViewController("MapFlowInitialNavigationController");
       this.SettingsFlow = (UINavigationController)this.Storyboard.InstantiateViewController("SettingsFlowInitialNavigationController");
 
-      this.NavigateToTabAtIndex(0);
+      this.InitializeFlow(this.MapFlow);
+      this.InitializeFlow(this.SettingsFlow);
 
+      this.NavigateToTabAtIndex(0);
+    }
+
+    private void InitializeFlow(UINavigationController flow)
+    {
+      BaseVCWithAppearance root = flow.TopViewController as BaseVCWithAppearance;
+      root.Appearance = this.Appearance;
     }
 
     private void NavigateToTabAtIndex(int index)

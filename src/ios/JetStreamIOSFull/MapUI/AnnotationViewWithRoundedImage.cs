@@ -11,11 +11,13 @@ namespace JetStreamIOSFull.MapUI
   {
     private UIImageView imageView;
     private UILabel label;
-    private AppearanceHelper appearanceHelper = new AppearanceHelper();
+    private IAppearanceHelper appearanceHelper;
 
-    public AnnotationViewWithRoundedImage(DestinationAnnotation annotation, string reuseIdentifier)
+    public AnnotationViewWithRoundedImage(DestinationAnnotation annotation, string reuseIdentifier, IAppearanceHelper appearance)
       : base(annotation, reuseIdentifier)
     {
+      this.appearanceHelper = appearance;
+
       this.InitUI();
 
       annotation.onHiddenCount += this.HiddenCountChanged;
@@ -78,7 +80,7 @@ namespace JetStreamIOSFull.MapUI
 
       if (selected)
       {
-        imageLayer.BorderColor = appearanceHelper.OrangeColor.CGColor;
+        imageLayer.BorderColor = appearanceHelper.SelectionColor.CGColor;
       }
       else
       {

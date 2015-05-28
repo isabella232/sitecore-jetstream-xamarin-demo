@@ -3,15 +3,42 @@ using UIKit;
 
 namespace JetStreamIOSFull.Helpers
 {
-  public class AppearanceHelper
+  public class AppearanceHelper  : IAppearanceHelper
   {
-    public nfloat HiddenLabelSize = 30;
-    public nfloat HiddenLabelFontSize = 20;
-    public float DestinationIconSize = 90;
-    public float DestinationIconBorderSize = 1;
-
     public AppearanceHelper()
     {
+    }
+
+    public nfloat HiddenLabelSize
+    {
+      get
+      { 
+        return 30;
+      }
+    }
+
+    public nfloat HiddenLabelFontSize
+    {
+      get
+      { 
+        return 20;
+      }
+    }
+
+    public float DestinationIconSize
+    {
+      get
+      { 
+        return 90;
+      }
+    }
+
+    public float DestinationIconBorderSize
+    {
+      get
+      { 
+        return 1;
+      }
     }
 
     public UIColor MenuBackgroundColor
@@ -80,10 +107,11 @@ namespace JetStreamIOSFull.Helpers
 
     private UIColor ColorFromRGB(nfloat r, nfloat g, nfloat b, float alpha)
     {
-      nfloat red = r / 255;
-      nfloat green = g / 255;
-      nfloat blue = b / 255;
-      UIColor color =  new UIColor (red, green, blue, alpha);
+      nfloat red    = r / 255;
+      nfloat green  = g / 255;
+      nfloat blue   = b / 255;
+      UIColor color = new UIColor (red, green, blue, alpha);
+
       return color;
     }
   }

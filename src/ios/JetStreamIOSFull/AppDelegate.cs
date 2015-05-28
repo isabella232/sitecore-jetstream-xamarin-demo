@@ -1,5 +1,6 @@
 ﻿using Foundation;
 using UIKit;
+using JetStreamIOSFull.Helpers;
 
 namespace JetStreamIOSFull
 {
@@ -9,6 +10,7 @@ namespace JetStreamIOSFull
   public class AppDelegate : UIApplicationDelegate, IUISplitViewControllerDelegate
   {
     // class-level declarations
+    private IAppearanceHelper appearanceHelper = new AppearanceHelper();
 
     public override UIWindow Window
     {
@@ -31,7 +33,9 @@ namespace JetStreamIOSFull
       splitViewController.WeakDelegate = this;
 
       NavigationManagerViewController navigationManager = (NavigationManagerViewController)splitViewController.ViewControllers[1];
+      navigationManager.Appearance = this.appearanceHelper;
       navigationManager.MenuButton = splitViewController.DisplayModeButtonItem;
+      navigationManager.LoadNavigationFlows();
 
       return true;
     }
