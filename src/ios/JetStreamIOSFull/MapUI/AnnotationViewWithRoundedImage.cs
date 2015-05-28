@@ -53,6 +53,11 @@ namespace JetStreamIOSFull.MapUI
 
     private void DownloadImage(string imagePath)
     {
+      if (this.appearanceHelper != null)
+      {
+        this.Image = this.appearanceHelper.DestinationPlaceholder;
+      }
+
       NSUrl imageUrl = new NSUrl(imagePath);
 
       SDWebImageDownloader.SharedDownloader.DownloadImage(
@@ -75,7 +80,6 @@ namespace JetStreamIOSFull.MapUI
 
     private void InitRoundedImage()
     {
-      
       this.imageView = new UIImageView (this.Bounds);
       this.AddSubview(this.imageView);
 
@@ -100,6 +104,19 @@ namespace JetStreamIOSFull.MapUI
       });
     }
 
+    public override IMKAnnotation Annotation
+    {
+      set
+      {
+        if (value != null)
+        {
+          DestinationAnnotation annotation = value as DestinationAnnotation;
+          base.Annotation = annotation;
+          this.DownloadImage(annotation.ImageUrl);
+        }
+      }
+    }
+
     public override void SetSelected(bool selected, bool animated)
     {
       CALayer imageLayer = this.imageView.Layer;
@@ -116,15 +133,17 @@ namespace JetStreamIOSFull.MapUI
 
     public override UIImage Image
     {
-      get {
+      get 
+      {
         return  this.imageView.Image;
       }
-      set {
+      set
+      {
         InvokeOnMainThread(() =>
         {
           nfloat height = value.Size.Height;
           nfloat width = value.Size.Width;
-          CGRect frame = new CGRect (this.Frame.Left, this.Frame.Right, width, height);
+          CGRect frame = new CGRect (this.Frame.X, this.Frame.Y, width, height);
 
           this.Frame = frame;
           this.imageView.Frame = this.Bounds;

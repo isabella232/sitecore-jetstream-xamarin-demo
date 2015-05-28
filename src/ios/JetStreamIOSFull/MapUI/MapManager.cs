@@ -8,6 +8,7 @@ namespace JetStreamIOSFull.MapUI
 {
   public class MapManager : MKMapViewDelegate 
   {
+    //TODO: fix 80 magik number
     private const double iphoneScaleFactorLatitude = 1024.0 / 80;
     private const double iphoneScaleFactorLongitude = 768.0 / 80;
 
@@ -48,9 +49,13 @@ namespace JetStreamIOSFull.MapUI
       AnnotationViewWithRoundedImage annotationView = mapView.DequeueReusableAnnotation(annotationIdentifier) as AnnotationViewWithRoundedImage;   
 
       if (annotationView == null)
+      {
         annotationView = new AnnotationViewWithRoundedImage(annotation, annotationIdentifier, this.appearanceHelper);
-      else 
+      }
+      else
+      {
         annotationView.Annotation = annotation;
+      }
 
       annotationView.CanShowCallout = true;
 
@@ -61,15 +66,11 @@ namespace JetStreamIOSFull.MapUI
 
     private void ClearAnnotations(MKMapView mapView)
     {
-      InvokeOnMainThread(() =>
-      {
         for (int i = 0; i < this.annotations.Count; ++i)
         {
           DestinationAnnotation checkingLocation = this.annotations[i];
           checkingLocation.HiddenCount = 1;
-          mapView.RemoveAnnotation(checkingLocation);
         }
-      });
     }
 
     private void FilterAnnotations(MKMapView mapView)
@@ -78,6 +79,8 @@ namespace JetStreamIOSFull.MapUI
 
       InvokeOnMainThread(() =>
       {
+        mapView.RemoveAnnotations(mapView.Annotations);
+
         double latDelta = (mapView.Region.Span.LatitudeDelta/iphoneScaleFactorLatitude);
         double longDelta = (mapView.Region.Span.LongitudeDelta/iphoneScaleFactorLongitude);
 
@@ -100,7 +103,6 @@ namespace JetStreamIOSFull.MapUI
             {
               InvokeOnMainThread(() =>
               {
-                mapView.RemoveAnnotation(checkingLocation);
                 tempPlacemark.HiddenCount = tempPlacemark.HiddenCount + 1;
               });
               break;
@@ -111,7 +113,6 @@ namespace JetStreamIOSFull.MapUI
           {
             shopsToShow.Add(checkingLocation);
           }
-
         }
 
         foreach (IMKAnnotation annotation in shopsToShow) 

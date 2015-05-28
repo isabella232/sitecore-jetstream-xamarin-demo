@@ -5,8 +5,22 @@ namespace JetStreamIOSFull.Helpers
 {
   public class AppearanceHelper  : IAppearanceHelper
   {
+    private UIImage destinationPlaceholder;
+
     public AppearanceHelper()
     {
+      UIImage image = UIImage.FromBundle("Images.xcassets/DestinationPlaceholder.png");
+      UIImage resizedImage = ImageResize.ResizeImage(image, this.DestinationIconSize, this.DestinationIconSize);  
+
+      this.destinationPlaceholder = resizedImage;
+    }
+
+    public UIImage DestinationPlaceholder
+    {
+      get
+      { 
+        return destinationPlaceholder;
+      }
     }
 
     public nfloat HiddenLabelSize

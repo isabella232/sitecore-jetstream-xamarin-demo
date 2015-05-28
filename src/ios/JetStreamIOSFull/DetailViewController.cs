@@ -73,6 +73,8 @@ namespace JetStreamIOSFull
     {
       this.mapManager.ResetMapState(this.map);
 
+      List<DestinationAnnotation> annotationsList = new List<DestinationAnnotation>();
+
       foreach(IDestination elem in this.destinations)
       {
         bool coordinatesAvailable = (elem.Latitude != 0.0) && (elem.Longitude != 0.0); 
@@ -84,11 +86,12 @@ namespace JetStreamIOSFull
           string imagePath = elem.ImagePath;
           string imageUrl = String.Concat(instanceUrl, imagePath);
 
-          DestinationAnnotation annotation = new DestinationAnnotation(elem.DisplayName, imageUrl, coordinates, this.Appearance);
-          this.mapManager.AddAnnotationForMap(this.map, annotation);
-
+          DestinationAnnotation annotation = new DestinationAnnotation(elem.DisplayName, imageUrl, coordinates);
+          annotationsList.Add(annotation);
         }
       }
+
+      this.mapManager.SetAnnotationsForMap(this.map, annotationsList);
     }
 
     private async Task<IEnumerable> DownloadAllDestinations()

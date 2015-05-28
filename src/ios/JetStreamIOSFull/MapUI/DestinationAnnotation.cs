@@ -13,15 +13,11 @@ namespace JetStreamIOSFull.MapUI
     private int hiddenCount;
     private string imageUrl;
 
-    private IAppearanceHelper appearanceHelper;
-
     public delegate void HiddenCountChanged(int count);
     public event HiddenCountChanged onHiddenCount;
 
-    public DestinationAnnotation(string title, string imageUrl, CLLocationCoordinate2D coord, IAppearanceHelper appearance)
+    public DestinationAnnotation(string title, string imageUrl, CLLocationCoordinate2D coord)
     {
-      this.appearanceHelper = appearance;
-
       this.imageUrl = imageUrl;
       this.title = title;
       this.coord = coord;

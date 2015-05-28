@@ -6,6 +6,11 @@ namespace JetStreamIOSFull
   public interface IAppearanceHelper
   {
 
+    UIImage DestinationPlaceholder
+    {
+      get;
+    }
+
     nfloat HiddenLabelSize
     {
       get;

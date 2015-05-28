@@ -166,5 +166,7 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\en.lproj\Localizable.strings" />
+    <BundleResource Include="Resources\Images.xcassets\DestinationPlaceholder.png" />
+    <BundleResource Include="Resources\Images.xcassets\DestinationPlaceholder%402x.png" />
   </ItemGroup>
 </Project>
