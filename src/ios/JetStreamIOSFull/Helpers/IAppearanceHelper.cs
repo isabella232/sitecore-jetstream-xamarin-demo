@@ -1,10 +1,16 @@
 ﻿using System;
 using UIKit;
+using MapKit;
 
 namespace JetStreamIOSFull
 {
   public interface IAppearanceHelper
   {
+
+    MKCoordinateRegion MapInitialRegion
+    {
+      get;
+    }
 
     UIImage DestinationPlaceholder
     {

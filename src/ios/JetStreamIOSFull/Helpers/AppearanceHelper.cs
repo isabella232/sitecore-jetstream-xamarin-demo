@@ -1,5 +1,7 @@
 ﻿using System;
 using UIKit;
+using MapKit;
+using CoreLocation;
 
 namespace JetStreamIOSFull.Helpers
 {
@@ -13,6 +15,18 @@ namespace JetStreamIOSFull.Helpers
       UIImage resizedImage = ImageResize.ResizeImage(image, this.DestinationIconSize, this.DestinationIconSize);  
 
       this.destinationPlaceholder = resizedImage;
+    }
+
+    public MKCoordinateRegion MapInitialRegion
+    {
+      get
+      { 
+        //Cuba coordinates
+        CLLocationCoordinate2D coord = new CLLocationCoordinate2D(20.269922, -74.448036);
+        MKCoordinateSpan span = new MKCoordinateSpan(40, 40);
+        MKCoordinateRegion region = new MKCoordinateRegion(coord, span);
+        return region;
+      }
     }
 
     public UIImage DestinationPlaceholder
@@ -43,7 +57,7 @@ namespace JetStreamIOSFull.Helpers
     {
       get
       { 
-        return 90;
+        return 70;
       }
     }
 

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UIKit;
 using System;
 using JetStreamIOSFull.Helpers;
+using CoreAnimation;
+using CoreGraphics;
 
 namespace JetStreamIOSFull.MapUI
 {
@@ -75,10 +77,9 @@ namespace JetStreamIOSFull.MapUI
 
     private void FilterAnnotations(MKMapView mapView)
     {
-      this.ClearAnnotations(mapView);
-
       InvokeOnMainThread(() =>
       {
+        this.ClearAnnotations(mapView);
 
         double latDelta = (mapView.Region.Span.LatitudeDelta/iphoneScaleFactorLatitude);
         double longDelta = (mapView.Region.Span.LongitudeDelta/iphoneScaleFactorLongitude);
@@ -88,23 +89,26 @@ namespace JetStreamIOSFull.MapUI
         for (int i = 0; i < this.annotations.Count; ++i) 
         {
           DestinationAnnotation checkingLocation = this.annotations[i];
-          double latitude = checkingLocation.Coordinate.Latitude;
-          double longitude = checkingLocation.Coordinate.Longitude;
+          double latitude = checkingLocation.initialCoord.Latitude;
+          double longitude = checkingLocation.initialCoord.Longitude;
 
           bool shouldBeHiden = false;
 
           foreach (DestinationAnnotation tempPlacemark in shopsToShow) 
           {
-            shouldBeHiden = Math.Abs(tempPlacemark.Coordinate.Latitude - latitude) < latDelta
-                         && Math.Abs(tempPlacemark.Coordinate.Longitude - longitude) < longDelta;
+            shouldBeHiden = Math.Abs(tempPlacemark.initialCoord.Latitude - latitude) < latDelta
+              && Math.Abs(tempPlacemark.initialCoord.Longitude - longitude) < longDelta;
 
             if (shouldBeHiden)
             {
-              InvokeOnMainThread(() =>
+              tempPlacemark.HiddenCount = tempPlacemark.HiddenCount + 1;
+              checkingLocation.HiddenCount = 1;
+
+              checkingLocation.MoveToCoordinatesWithAnimation(tempPlacemark.Coordinate, finished => 
               {
-                tempPlacemark.HiddenCount = tempPlacemark.HiddenCount + 1;
-                mapView.RemoveAnnotation(checkingLocation);
+                mapView.RemoveAnnotation(checkingLocation); 
               });
+
               break;
             }
           }
@@ -112,7 +116,22 @@ namespace JetStreamIOSFull.MapUI
           if (!shouldBeHiden)
           {
             shopsToShow.Add(checkingLocation);
-            mapView.AddAnnotation(checkingLocation);
+
+            bool shouldAdd = true;
+            foreach (IMKAnnotation ann in mapView.Annotations)
+            {
+              if (ann == checkingLocation)
+              {
+                shouldAdd = false;
+              }
+            }
+
+            if (shouldAdd)
+            {
+              mapView.AddAnnotation(checkingLocation);
+            }
+
+            checkingLocation.MoveToCoordinatesWithAnimation(checkingLocation.initialCoord, finished => {});
           }
         }
       });

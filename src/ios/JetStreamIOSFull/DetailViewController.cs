@@ -12,6 +12,7 @@ using JetStreamCommons;
 using JetStreamIOSFull.MapUI;
 using JetStreamCommons.Destinations;
 using JetStreamIOSFull.Helpers;
+using SDWebImage;
 
 
 namespace JetStreamIOSFull
@@ -30,21 +31,32 @@ namespace JetStreamIOSFull
     public override void ViewDidLoad()
     {
       base.ViewDidLoad();
+    }
 
+    private void InitializeMap()
+    {
       this.mapManager = new MapManager(this.Appearance);
       this.map.Delegate = mapManager;
 
+      MKCoordinateRegion region = this.Appearance.MapInitialRegion;
+      this.map.SetRegion(region, false);
     }
 
     public override void ViewDidAppear(bool animated)
     {
       base.ViewDidAppear(animated);
 
+      this.InitializeMap();
       this.RefreshMap();
     }
 
     partial void RefreshButtonTouched(Foundation.NSObject sender)
     {
+      SDWebImage.SDWebImageManager.SharedManager.ImageCache.ClearDisk();
+      SDWebImage.SDWebImageManager.SharedManager.ImageCache.ClearMemory();
+
+      this.map.RemoveAnnotations(this.map.Annotations);
+
       this.RefreshMap();
     }
 
@@ -106,12 +118,6 @@ namespace JetStreamIOSFull
         }
      
 
-    }
-
-    public override void DidReceiveMemoryWarning()
-    {
-      base.DidReceiveMemoryWarning();
-      // Release any cached data, images, etc that aren't in use.
     }
   }
 }

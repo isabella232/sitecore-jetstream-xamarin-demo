@@ -93,14 +93,17 @@ namespace JetStreamIOSFull.MapUI
     {
       InvokeOnMainThread(() =>
       {
-        if (count > 1)
+        if (this.label != null)
         {
-          this.label.Text = count.ToString();
-          this.label.Hidden = false;
-        }
-        else
-        {
-          this.label.Hidden = true;
+          if (count > 1)
+          {
+            this.label.Text = count.ToString();
+            this.label.Hidden = false;
+          }
+          else
+          {
+            this.label.Hidden = true;
+          }
         }
       });
     }
@@ -109,21 +112,25 @@ namespace JetStreamIOSFull.MapUI
     {
       set
       {
+        DestinationAnnotation oldAnnotation = base.Annotation as DestinationAnnotation;
+
+        if (oldAnnotation != null)
+        {
+          oldAnnotation.onHiddenCount -= this.HiddenCountChanged;
+        }
+
         if (value != null)
         {
-          DestinationAnnotation oldAnnotation = base.Annotation as DestinationAnnotation;
-
-          if (oldAnnotation != null)
-          {
-            oldAnnotation.onHiddenCount -= this.HiddenCountChanged;
-          }
-
           DestinationAnnotation annotation = value as DestinationAnnotation;
 
           annotation.onHiddenCount += this.HiddenCountChanged;
-
+          this.HiddenCountChanged(annotation.HiddenCount);
           base.Annotation = annotation;
           this.DownloadImage(annotation.ImageUrl);
+        }
+        else
+        {
+          this.HiddenCountChanged(1);
         }
       }
     }
