@@ -12,9 +12,10 @@ To show content from a Jetstream instance the app need to be "connected" to that
 ![alt text](/img/Feature_images/01AppConfiguration_ConnectToJetstreamInstance.png)
 
 **Points of interest**  
-1. "Settings" screen could be opened from the app menu.  
+1. "Settings" screen (for iOS) or dialog (for Android) could be opened from the app menu.  
 2. Enter the working URL to the field on the app "Settings" screen.  
-3. To apply new URL just go to another menu option in the app menu.  
+3.1. iOS: To apply new URL just go to another menu option in the app menu. 
+3.2. Android: To apply new URL just click button "OK" in the settings dialog.  
 
 Scenario: Connect to Jetstream instance  
  Given Jetstream1 instance is available from device  
