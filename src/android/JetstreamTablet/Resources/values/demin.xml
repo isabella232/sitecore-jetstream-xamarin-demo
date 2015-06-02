@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="city_icon_size">55dp</dimen>
+    <dimen name="cluster_icon_size">65dp</dimen>
+</resources>

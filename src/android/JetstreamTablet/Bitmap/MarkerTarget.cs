@@ -1,28 +1,22 @@
 namespace Jetstream.Bitmap
 {
+  using System;
   using Android.Gms.Maps.Model;
   using Android.Graphics;
   using Android.Graphics.Drawables;
-  using JetStreamCommons.Destinations;
   using Squareup.Picasso;
 
   public class MarkerTarget : Java.Lang.Object, ITarget
   {
-    private Marker targetMarker;
-    private IDestination destination;
+    private readonly Marker targetMarker;
+    private readonly Func<Bitmap, Bitmap> func; 
 
-    public void Dispose()
-    {
-      this.targetMarker = null;
-      this.destination = null;
-    }
-
-    public MarkerTarget(IDestination destination, Marker targetMarker)
+    public MarkerTarget(Marker targetMarker, Func<Bitmap, Bitmap> func)
     {
       this.targetMarker = targetMarker;
-      this.destination = destination;
+      this.func = func;
     }
-    
+
     public void OnBitmapFailed(Drawable drawable)
     {
       //TODO: Add logger message here
@@ -30,8 +24,7 @@ namespace Jetstream.Bitmap
 
     public void OnBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from)
     {
-      var newBitmap = BitmapUtils.GetCircledBitmapWithBorder(bitmap, Color.Black, 3);
-      this.targetMarker.SetIcon(BitmapDescriptorFactory.FromBitmap(newBitmap));
+      this.targetMarker.SetIcon(BitmapDescriptorFactory.FromBitmap(this.func.Invoke(bitmap)));
     }
 
     public void OnPrepareLoad(Drawable drawable)
