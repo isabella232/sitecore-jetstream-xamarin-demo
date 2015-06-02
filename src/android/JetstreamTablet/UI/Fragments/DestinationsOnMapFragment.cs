@@ -2,27 +2,31 @@ namespace Jetstream.UI.Fragments
 {
   using System;
   using System.Collections.Generic;
+  using System.Linq;
   using Android.App;
   using Android.Gms.Common;
   using Android.Gms.Maps;
   using Android.Gms.Maps.Model;
+  using Android.Gms.Maps.Utils.Clustering;
   using Android.Graphics;
   using Android.OS;
   using Android.Support.V4.Widget;
   using Android.Util;
   using Android.Views;
+  using Android.Widget;
   using com.dbeattie;
   using DSoft.Messaging;
-  using Jetstream.Bitmap;
+  using Jetstream.Map;
   using JetStreamCommons;
   using JetStreamCommons.Destinations;
-  using Squareup.Picasso;
 
-  public class DestinationsOnMapFragment : Fragment, IOnMapReadyCallback, IActionClickListener
+  public class DestinationsOnMapFragment : Fragment, IOnMapReadyCallback, IActionClickListener, ClusterManager.IOnClusterClickListener, ClusterManager.IOnClusterItemClickListener
   {
     const double Tolerance = 0.01;
 
     GoogleMap map;
+    ClusterManager clusterManager;
+
     SwipeRefreshLayout refresher;
     MapView mapView;
 
@@ -57,6 +61,14 @@ namespace Jetstream.UI.Fragments
     {
       this.map = googleMap;
       this.map.MapType = GoogleMap.MapTypeSatellite;
+//
+      this.clusterManager = new ClusterManager(this.Activity, this.map);
+      this.clusterManager.SetRenderer(new JetstreamClusterRenderer(this.Activity, this.map, this.clusterManager));
+//      this.clusterManager.SetOnClusterClickListener(this);
+//      this.clusterManager.SetOnClusterItemClickListener(this);
+      this.map.SetOnCameraChangeListener(this.clusterManager);
+      this.map.SetOnMarkerClickListener(this.clusterManager);
+
       this.LoadDestinations();
     }
 
@@ -70,7 +82,7 @@ namespace Jetstream.UI.Fragments
         var destinations = await loader.LoadOnlyDestinations();
         this.refresher.Refreshing = false;
 
-        this.ShowDestinationsOnMap(destinations);
+        this.AddDestinationsItems(destinations);
       }
       catch (Exception exception)
       {
@@ -87,46 +99,42 @@ namespace Jetstream.UI.Fragments
       }
     }
 
+    private void AddDestinationsItems(List<IDestination> destinations)
+    {
+      var clusterItems = destinations.Where(delegate(IDestination destination)
+      {
+        var longZero = Math.Abs(destination.Longitude) < Tolerance;
+        var latZero = Math.Abs(destination.Latitude) < Tolerance;
+        return !(longZero || latZero);
+      }).Select(delegate(IDestination destination)
+      {
+        var url = this.GetFixedUrl(this.Activity.Session.MediaDownloadUrl(destination.ImagePath));
+        var title = destination.DisplayName;
+        var latLng = new LatLng(destination.Latitude, destination.Longitude);
+
+        return new ClusterItem(latLng, title, url);
+      }).ToList();
+
+      this.clusterManager.ClearItems();
+      this.clusterManager.AddItems(clusterItems);
+      this.clusterManager.Cluster();
+    }
+
+    public bool OnClusterClick(ICluster cluster)
+    {
+      Toast.MakeText(this.Activity, cluster.Items.Count + " items in cluster", ToastLength.Short).Show();
+      return false;
+    }
+
+    public bool OnClusterItemClick(Java.Lang.Object marker)
+    {
+      Toast.MakeText(this.Activity, "Marker clicked", ToastLength.Short).Show();
+      return false;
+    }
+
     public void OnActionClicked(Snackbar snackbar)
     {
       this.LoadDestinations();
-    }
-
-    void ShowDestinationsOnMap(List<IDestination> destinations)
-    {
-      try
-      {
-        foreach (var dest in destinations)
-        {
-          var longitude = dest.Longitude;
-          var latitude = dest.Latitude;
-
-          var longZero = Math.Abs(longitude) < Tolerance;
-          var latZero = Math.Abs(latitude) < Tolerance;
-
-          if (longZero || latZero)
-          {
-            //TODO: Add logger message here
-            continue;
-          }
-
-          var markerOptions = new MarkerOptions();
-          markerOptions.SetPosition(new LatLng(latitude, longitude));
-
-          markerOptions.SetTitle(dest.DisplayName);
-
-          var marker = this.map.AddMarker(markerOptions);
-
-          //TODO: Fix this hardcoded url prefix. 
-          var url = this.GetFixedUrl(this.Activity.Session.MediaDownloadUrl(dest.ImagePath));
-
-          Picasso.With(this.Activity).Load(url).Resize(100, 100).Into(new MarkerTarget(dest, marker));
-        }
-      }
-      catch (Exception exception)
-      {
-        //TODO: Add logger message here
-      }
     }
 
     private string GetFixedUrl(string url)

@@ -33,7 +33,7 @@
     protected override void OnCreate(Bundle savedInstanceState)
     {
       base.OnCreate(savedInstanceState);
-      this.SetContentView(Resource.Layout.Main);
+      this.SetContentView(Resource.Layout.activity_main);
 
       this.prefs = Prefs.From(this);
 
