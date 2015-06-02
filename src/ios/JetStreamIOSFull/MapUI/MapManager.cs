@@ -58,9 +58,7 @@ namespace JetStreamIOSFull.MapUI
       {
         annotationView.Annotation = annotation;
       }
-
-      annotationView.CanShowCallout = true;
-
+        
       annotationView.HiddenCountChanged(annotation.HiddenCount);
 
       return annotationView;
