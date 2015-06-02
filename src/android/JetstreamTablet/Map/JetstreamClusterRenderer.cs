@@ -57,7 +57,7 @@ namespace Jetstream.Map
     {
       var item = cluster.Items.OfType<ClusterItem>().ElementAt(0);
 
-      var target = new MarkerTarget(marker, bitmap => BitmapUtils.GetCircledBitmapWithBorder(bitmap, Color.White, 4));
+      var target = new MarkerTarget(marker, bitmap => BitmapUtils.GetCircledBitmapWithTextIcon(bitmap, Color.White, 4, cluster.Size.ToString(), Color.White, Color.Red));
       Picasso.With(this.context).Load(item.ImageUrl).Resize(this.clusterIconSize, this.clusterIconSize).Into(target);
     }
 
