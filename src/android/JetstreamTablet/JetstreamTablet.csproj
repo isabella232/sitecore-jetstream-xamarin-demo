@@ -164,6 +164,9 @@
     </AndroidResource>
     <AndroidResource Include="Resources\layout\dialog_settings.axml" />
     <None Include="libs\GoogleMapsUtility-0.3.4.dll" />
+    <AndroidResource Include="Resources\values\dimens.xml" />
+    <AndroidResource Include="Resources\values-sw720dp\dimens.xml" />
+    <AndroidResource Include="Resources\values-sw600dp\dimens.xml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\activity_main.axml" />
@@ -202,9 +205,6 @@
   <ItemGroup>
     <None Include="libs\material-drawer-3.0.0.dll" />
   </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\values\demin.xml" />
-  </ItemGroup>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
@@ -212,4 +212,8 @@
     </PropertyGroup>
     <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
   </Target>
+  <ItemGroup>
+    <Folder Include="Resources\values-sw720dp\" />
+    <Folder Include="Resources\values-sw600dp\" />
+  </ItemGroup>
 </Project>

@@ -30,11 +30,6 @@ namespace Jetstream.Map
 
     protected override void OnBeforeClusterItemRendered(Object item, MarkerOptions markerOptions)
     {
-      var clusterItem = item as ClusterItem;
-      if (clusterItem != null)
-      {
-        markerOptions.SetTitle(clusterItem.Title);
-      }
     }
 
     protected override void OnClusterItemRendered(Object item, Marker marker)
@@ -50,7 +45,6 @@ namespace Jetstream.Map
 
     protected override void OnBeforeClusterRendered(ICluster cluster, MarkerOptions markerOptions)
     {
-      markerOptions.SetTitle(cluster.Size.ToString());
     }
 
     protected override void OnClusterRendered(ICluster cluster, Marker marker)
