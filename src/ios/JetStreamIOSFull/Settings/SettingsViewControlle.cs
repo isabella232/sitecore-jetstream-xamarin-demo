@@ -12,6 +12,13 @@ namespace JetStreamIOSFull
       
     }
 
+    public override void ViewDidLoad()
+    {
+      base.ViewDidLoad();
+
+      this.Title = NSBundle.MainBundle.LocalizedString("SETTINGS_SCREEN_TITLE", null);
+    }
+
     public override void ViewDidAppear(bool animated)
     {
       base.ViewDidAppear(animated);

@@ -11,8 +11,8 @@ namespace JetStreamIOSFull.MapUI
   public class MapManager : MKMapViewDelegate 
   {
     //TODO: fix 80 magik number
-    private const double iphoneScaleFactorLatitude = 1024.0 / 80;
-    private const double iphoneScaleFactorLongitude = 768.0 / 80;
+    private const double iphoneScaleFactorLatitude = 1024.0 / 60;
+    private const double iphoneScaleFactorLongitude = 768.0 / 60;
 
     private double prevZoomLevel = 0;
 
@@ -58,9 +58,7 @@ namespace JetStreamIOSFull.MapUI
       {
         annotationView.Annotation = annotation;
       }
-
-      annotationView.CanShowCallout = true;
-
+        
       annotationView.HiddenCountChanged(annotation.HiddenCount);
 
       return annotationView;
@@ -148,6 +146,8 @@ namespace JetStreamIOSFull.MapUI
         this.FilterAnnotations(mapView); 
         prevZoomLevel = newZoomLevel;
       }
+
+      Console.WriteLine("region: ", mapView.Region.ToString());
     }
 
 //    public override void DidSelectAnnotationView(MKMapView mapView, MKAnnotationView view)

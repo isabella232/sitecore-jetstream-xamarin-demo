@@ -22,8 +22,8 @@ namespace JetStreamIOSFull.Helpers
       get
       { 
         //Cuba coordinates
-        CLLocationCoordinate2D coord = new CLLocationCoordinate2D(20.269922, -74.448036);
-        MKCoordinateSpan span = new MKCoordinateSpan(40, 40);
+        CLLocationCoordinate2D coord = new CLLocationCoordinate2D(50.14873266, 12.941536949);
+        MKCoordinateSpan span = new MKCoordinateSpan(16, 35);
         MKCoordinateRegion region = new MKCoordinateRegion(coord, span);
         return region;
       }
