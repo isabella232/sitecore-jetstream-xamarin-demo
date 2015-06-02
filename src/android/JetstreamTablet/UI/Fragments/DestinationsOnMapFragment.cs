@@ -60,12 +60,10 @@ namespace Jetstream.UI.Fragments
     public void OnMapReady(GoogleMap googleMap)
     {
       this.map = googleMap;
-      this.map.MapType = GoogleMap.MapTypeSatellite;
-//
+      this.map.MapType = GoogleMap.MapTypeNormal;
+  
       this.clusterManager = new ClusterManager(this.Activity, this.map);
       this.clusterManager.SetRenderer(new JetstreamClusterRenderer(this.Activity, this.map, this.clusterManager));
-//      this.clusterManager.SetOnClusterClickListener(this);
-//      this.clusterManager.SetOnClusterItemClickListener(this);
       this.map.SetOnCameraChangeListener(this.clusterManager);
       this.map.SetOnMarkerClickListener(this.clusterManager);
 
