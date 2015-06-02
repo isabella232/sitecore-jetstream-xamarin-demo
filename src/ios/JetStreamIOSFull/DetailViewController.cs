@@ -31,6 +31,8 @@ namespace JetStreamIOSFull
     public override void ViewDidLoad()
     {
       base.ViewDidLoad();
+
+      this.InitializeMap();
     }
 
     private void InitializeMap()
@@ -46,7 +48,6 @@ namespace JetStreamIOSFull
     {
       base.ViewDidAppear(animated);
 
-      this.InitializeMap();
       this.RefreshMap();
     }
 
@@ -110,14 +111,11 @@ namespace JetStreamIOSFull
     {
      
         //FIXME: error here, some objects must be disposed!!!
-
         var session = this.Endpoint.GetSession();
         using (var loader = new DestinationsLoader(session))
         {
           return await loader.LoadOnlyDestinations();
         }
-     
-
     }
   }
 }
