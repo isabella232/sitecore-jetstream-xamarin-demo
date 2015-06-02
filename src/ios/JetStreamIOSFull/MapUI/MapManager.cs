@@ -11,8 +11,8 @@ namespace JetStreamIOSFull.MapUI
   public class MapManager : MKMapViewDelegate 
   {
     //TODO: fix 80 magik number
-    private const double iphoneScaleFactorLatitude = 1024.0 / 80;
-    private const double iphoneScaleFactorLongitude = 768.0 / 80;
+    private const double iphoneScaleFactorLatitude = 1024.0 / 60;
+    private const double iphoneScaleFactorLongitude = 768.0 / 60;
 
     private double prevZoomLevel = 0;
 
