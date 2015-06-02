@@ -30,7 +30,7 @@
                         </constraints>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Detail" id="mOI-FS-AaM">
+                    <navigationItem key="navigationItem" id="mOI-FS-AaM">
                         <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="qHg-cF-uXG">
                             <connections>
                                 <action selector="RefreshButtonTouched:" destination="JEX-9P-axG" id="tCB-Jt-L2X"/>

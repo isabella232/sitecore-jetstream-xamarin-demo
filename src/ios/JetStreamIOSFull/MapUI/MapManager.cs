@@ -146,6 +146,8 @@ namespace JetStreamIOSFull.MapUI
         this.FilterAnnotations(mapView); 
         prevZoomLevel = newZoomLevel;
       }
+
+      Console.WriteLine("region: ", mapView.Region.ToString());
     }
 
 //    public override void DidSelectAnnotationView(MKMapView mapView, MKAnnotationView view)

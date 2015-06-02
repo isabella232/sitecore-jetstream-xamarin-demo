@@ -32,6 +32,8 @@ namespace JetStreamIOSFull
     {
       base.ViewDidLoad();
 
+      this.Title = NSBundle.MainBundle.LocalizedString("DESTINATION_SCREEN_TITLE", null);
+
       this.InitializeMap();
     }
 
