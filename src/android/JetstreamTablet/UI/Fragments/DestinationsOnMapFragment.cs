@@ -61,13 +61,23 @@ namespace Jetstream.UI.Fragments
     {
       this.map = googleMap;
       this.map.MapType = GoogleMap.MapTypeNormal;
-  
+
       this.clusterManager = new ClusterManager(this.Activity, this.map);
       this.clusterManager.SetRenderer(new JetstreamClusterRenderer(this.Activity, this.map, this.clusterManager));
-      this.map.SetOnCameraChangeListener(this.clusterManager);
+      this.map.CameraChange += this.CenterMapOnEurope;
       this.map.SetOnMarkerClickListener(this.clusterManager);
 
       this.LoadDestinations();
+    }
+
+    private void CenterMapOnEurope(object sender, GoogleMap.CameraChangeEventArgs cameraChangeEventArgs)
+    {
+      var bounds = LatLngBounds.InvokeBuilder().Include(new LatLng(61.088913, -13.313578)).Include(new LatLng(30.811438, 44.575028)).Build();
+
+      this.map.MoveCamera(CameraUpdateFactory.NewLatLngBounds(bounds, 0));
+
+      this.map.CameraChange -= this.CenterMapOnEurope;
+      this.map.SetOnCameraChangeListener(this.clusterManager);
     }
 
     async void LoadDestinations()
