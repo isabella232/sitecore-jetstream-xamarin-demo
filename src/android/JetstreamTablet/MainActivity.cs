@@ -45,6 +45,7 @@
     private void InitDrawer(Bundle savedInstanceState)
     {
       this.SetSupportActionBar(this.toolbar);
+      this.toolbar.SetLogo(Resource.Drawable.Icon);
 
       this.SupportActionBar.SetDisplayHomeAsUpEnabled(true);
       this.SupportActionBar.SetHomeButtonEnabled(false);
