@@ -3070,6 +3070,9 @@ namespace Jetstream
 			// aapt resource value: 0x7f0c003e
 			public const int action_mode_close_button = 2131492926;
 			
+			// aapt resource value: 0x7f0c0094
+			public const int action_refresh = 2131493012;
+			
 			// aapt resource value: 0x7f0c003f
 			public const int activity_chooser_view_content = 2131492927;
 			
@@ -3661,6 +3664,22 @@ namespace Jetstream
 			}
 			
 			private Layout()
+			{
+			}
+		}
+		
+		public partial class Menu
+		{
+			
+			// aapt resource value: 0x7f0e0000
+			public const int menu_main = 2131623936;
+			
+			static Menu()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Menu()
 			{
 			}
 		}

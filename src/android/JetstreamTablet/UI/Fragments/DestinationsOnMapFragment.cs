@@ -168,13 +168,16 @@ namespace Jetstream.UI.Fragments
         {
           EventId = EventIdsContainer.SitecoreInstanceUrlUpdateEvent,
           EventAction = (sender, evnt) =>
-          {
-            this.Activity.RunOnUiThread(delegate
+          this.Activity.RunOnUiThread(delegate
             {
+              if (this.refresher.Refreshing)
+              {
+                return;
+              }
+
               this.LoadDestinations();
               this.map.Clear();
-            });
-          }
+            })
         };
       }
 
