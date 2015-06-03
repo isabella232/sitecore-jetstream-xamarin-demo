@@ -33,6 +33,9 @@ namespace JetStreamIOSFull
       splitViewController.PreferredDisplayMode = UISplitViewControllerDisplayMode.PrimaryHidden;
       splitViewController.WeakDelegate = this;
 
+      NSString key = NSString.FromData("_masterColumnWidth",NSStringEncoding.ASCIIStringEncoding);
+      splitViewController.SetValueForKey(this.appearanceHelper.MainMenuWidth, key);
+
       NavigationManagerViewController navigationManager = (NavigationManagerViewController)splitViewController.ViewControllers[1];
 
       navigationManager.Appearance = this.appearanceHelper;
@@ -41,9 +44,23 @@ namespace JetStreamIOSFull
       navigationManager.MenuButton = splitViewController.DisplayModeButtonItem;
       navigationManager.LoadNavigationFlows();
 
+      this.SetupUI();
+
       return true;
     }
 
+    public void SetupUI()
+    {
+      UINavigationBar.Appearance.BarTintColor = this.appearanceHelper.MenuBackgroundColor;
+      UINavigationBar.Appearance.TintColor = this.appearanceHelper.MenuTextColor;
+      UIBarButtonItem.Appearance.TintColor = this.appearanceHelper.MenuTextColor;
+
+      UIStringAttributes attributes = new UIStringAttributes();
+      attributes.ForegroundColor = this.appearanceHelper.MenuTextColor;
+
+      UINavigationBar.Appearance.TitleTextAttributes = attributes;
+
+    }
 
     public override void OnResignActivation(UIApplication application)
     {

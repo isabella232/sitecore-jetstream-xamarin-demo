@@ -103,6 +103,7 @@ namespace JetStreamIOSFull.MapUI
           else
           {
             this.label.Hidden = true;
+//            this.Superview.SendSubviewToBack(this);
           }
         }
       });

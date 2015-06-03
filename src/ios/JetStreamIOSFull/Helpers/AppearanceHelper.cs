@@ -2,6 +2,7 @@
 using UIKit;
 using MapKit;
 using CoreLocation;
+using Foundation;
 
 namespace JetStreamIOSFull.Helpers
 {
@@ -17,11 +18,19 @@ namespace JetStreamIOSFull.Helpers
       this.destinationPlaceholder = resizedImage;
     }
 
+    public NSNumber MainMenuWidth
+    {
+      get
+      { 
+        return new NSNumber(180);
+      }
+    }
+
     public MKCoordinateRegion MapInitialRegion
     {
       get
       { 
-        //Cuba coordinates
+        //Europe coordinates
         CLLocationCoordinate2D coord = new CLLocationCoordinate2D(50.14873266, 12.941536949);
         MKCoordinateSpan span = new MKCoordinateSpan(16, 35);
         MKCoordinateRegion region = new MKCoordinateRegion(coord, span);

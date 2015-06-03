@@ -112,10 +112,6 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
-    <Compile Include="MasterViewController.cs" />
-    <Compile Include="MasterViewController.designer.cs">
-      <DependentUpon>MasterViewController.cs</DependentUpon>
-    </Compile>
     <Compile Include="DetailViewController.cs" />
     <Compile Include="DetailViewController.designer.cs">
       <DependentUpon>DetailViewController.cs</DependentUpon>
@@ -138,6 +134,16 @@
     <Compile Include="Helpers\IAppearanceHelper.cs" />
     <Compile Include="BaseVC\BaseViewController.cs" />
     <Compile Include="MapUI\MapManager.cs" />
+    <Compile Include="Menu\MasterViewController.cs" />
+    <Compile Include="Menu\MasterViewController.designer.cs">
+      <DependentUpon>MasterViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Menu\MainMenuCell.cs" />
+    <Compile Include="Menu\MainMenuCell.designer.cs">
+      <DependentUpon>MainMenuCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Menu\IMenuItem.cs" />
+    <Compile Include="Menu\MenuItem.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
@@ -157,6 +163,7 @@
     <Folder Include="MapUI\" />
     <Folder Include="BaseVC\" />
     <Folder Include="Settings\" />
+    <Folder Include="Menu\" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="sdwebimage">
@@ -168,5 +175,9 @@
     <BundleResource Include="Resources\en.lproj\Localizable.strings" />
     <BundleResource Include="Resources\Images.xcassets\DestinationPlaceholder.png" />
     <BundleResource Include="Resources\Images.xcassets\DestinationPlaceholder%402x.png" />
+    <BundleResource Include="Resources\Images.xcassets\ic_settings.png" />
+    <BundleResource Include="Resources\Images.xcassets\ic_settings%402x.png" />
+    <BundleResource Include="Resources\Images.xcassets\ic_airplanemode_active_black.png" />
+    <BundleResource Include="Resources\Images.xcassets\ic_airplanemode_active_black%402x.png" />
   </ItemGroup>
 </Project>

@@ -31,7 +31,7 @@ namespace JetStreamIOSFull
     public override void ViewDidLoad()
     {
       base.ViewDidLoad();
-
+      this.NavigationController.NavigationBar.BackgroundColor = this.Appearance.MenuBackgroundColor;
       this.Title = NSBundle.MainBundle.LocalizedString("DESTINATION_SCREEN_TITLE", null);
 
       this.InitializeMap();

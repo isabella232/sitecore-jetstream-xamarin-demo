@@ -1,11 +1,16 @@
 ﻿using System;
 using UIKit;
 using MapKit;
+using Foundation;
 
 namespace JetStreamIOSFull
 {
   public interface IAppearanceHelper
   {
+    NSNumber MainMenuWidth
+    {
+      get;
+    }
 
     MKCoordinateRegion MapInitialRegion
     {

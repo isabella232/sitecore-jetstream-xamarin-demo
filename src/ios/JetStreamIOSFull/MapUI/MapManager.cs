@@ -84,7 +84,7 @@ namespace JetStreamIOSFull.MapUI
 
         List<DestinationAnnotation> shopsToShow = new List<DestinationAnnotation>();
 
-        for (int i = 0; i < this.annotations.Count; ++i) 
+        for (int i = this.annotations.Count-1; i >=0 ; --i) 
         {
           DestinationAnnotation checkingLocation = this.annotations[i];
           double latitude = checkingLocation.initialCoord.Latitude;
@@ -100,7 +100,7 @@ namespace JetStreamIOSFull.MapUI
             if (shouldBeHiden)
             {
               tempPlacemark.HiddenCount = tempPlacemark.HiddenCount + 1;
-              checkingLocation.HiddenCount = 1;
+              checkingLocation.HiddenCount = -1;
 
               checkingLocation.MoveToCoordinatesWithAnimation(tempPlacemark.Coordinate, finished => 
               {
