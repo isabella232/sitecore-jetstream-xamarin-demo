@@ -60,16 +60,24 @@ namespace Jetstream.UI.Fragments
     public void OnMapReady(GoogleMap googleMap)
     {
       this.map = googleMap;
-      this.map.MapType = GoogleMap.MapTypeSatellite;
-//
+      this.map.MapType = GoogleMap.MapTypeNormal;
+
       this.clusterManager = new ClusterManager(this.Activity, this.map);
       this.clusterManager.SetRenderer(new JetstreamClusterRenderer(this.Activity, this.map, this.clusterManager));
-//      this.clusterManager.SetOnClusterClickListener(this);
-//      this.clusterManager.SetOnClusterItemClickListener(this);
-      this.map.SetOnCameraChangeListener(this.clusterManager);
+      this.map.CameraChange += this.CenterMapOnEurope;
       this.map.SetOnMarkerClickListener(this.clusterManager);
 
       this.LoadDestinations();
+    }
+
+    private void CenterMapOnEurope(object sender, GoogleMap.CameraChangeEventArgs cameraChangeEventArgs)
+    {
+      var bounds = LatLngBounds.InvokeBuilder().Include(new LatLng(61.088913, -13.313578)).Include(new LatLng(30.811438, 44.575028)).Build();
+
+      this.map.MoveCamera(CameraUpdateFactory.NewLatLngBounds(bounds, 0));
+
+      this.map.CameraChange -= this.CenterMapOnEurope;
+      this.map.SetOnCameraChangeListener(this.clusterManager);
     }
 
     async void LoadDestinations()
@@ -114,6 +122,8 @@ namespace Jetstream.UI.Fragments
 
         return new ClusterItem(latLng, title, url);
       }).ToList();
+
+      this.map.Clear();
 
       this.clusterManager.ClearItems();
       this.clusterManager.AddItems(clusterItems);
@@ -160,7 +170,10 @@ namespace Jetstream.UI.Fragments
       base.OnResume();
 
       this.mapView.OnResume();
-      this.mapView.GetMapAsync(this);
+      if (this.map == null) 
+      {
+        this.mapView.GetMapAsync(this);  
+      }
 
       if (this.updateInstanceUrlEventHandler == null)
       {
@@ -168,13 +181,15 @@ namespace Jetstream.UI.Fragments
         {
           EventId = EventIdsContainer.SitecoreInstanceUrlUpdateEvent,
           EventAction = (sender, evnt) =>
-          {
-            this.Activity.RunOnUiThread(delegate
+          this.Activity.RunOnUiThread(delegate
             {
+              if (this.refresher.Refreshing)
+              {
+                return;
+              }
+
               this.LoadDestinations();
-              this.map.Clear();
-            });
-          }
+            })
         };
       }
 

@@ -1,4 +1,6 @@
-﻿namespace Jetstream
+﻿using DSoft.Messaging;
+
+namespace Jetstream
 {
   using Android.App;
   using Android.Graphics;
@@ -19,7 +21,7 @@
   using Sitecore.MobileSDK.API.Session;
   using Sitecore.MobileSDK.PasswordProvider.Android;
 
-  [Activity(MainLauncher = true, Icon = "@drawable/icon")]
+  [Activity(MainLauncher = true, Icon = "@drawable/icon", ScreenOrientation = Android.Content.PM.ScreenOrientation.Landscape)]
   public class MainActivity : AppCompatActivity, Drawer.IOnDrawerItemClickListener
   {
     private Android.Support.V7.Widget.Toolbar toolbar;
@@ -40,12 +42,20 @@
       this.toolbar = this.FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
 
       this.InitDrawer(savedInstanceState);
+
+      if (savedInstanceState == null)
+      {
+        this.FragmentManager.BeginTransaction().Replace(Resource.Id.map_fragment_container, this.mapFragment).Commit();  
+      }
     }
 
     private void InitDrawer(Bundle savedInstanceState)
     {
       this.SetSupportActionBar(this.toolbar);
       this.toolbar.SetLogo(Resource.Drawable.Icon);
+
+      this.toolbar.InflateMenu(Resource.Menu.menu_main);
+      this.toolbar.MenuItemClick += (sender, e) => MessageBus.PostEvent(EventIdsContainer.SitecoreInstanceUrlUpdateEvent);;
 
       this.SupportActionBar.SetDisplayHomeAsUpEnabled(true);
       this.SupportActionBar.SetHomeButtonEnabled(false);
@@ -76,7 +86,16 @@
                 .Build();
 
       this.mapFragment = new DestinationsOnMapFragment();
-      this.FragmentManager.BeginTransaction().Replace(Resource.Id.map_fragment_container, this.mapFragment).Commit();
+    }
+
+    public override bool OnCreateOptionsMenu(IMenu menu)
+    {
+      MenuInflater.Inflate(Resource.Menu.menu_main, menu);
+
+      var menuItem = menu.FindItem(Resource.Id.action_refresh);
+      menuItem.SetIcon(new IconicsDrawable(this, GoogleMaterial.Icon.GmdRefresh).ActionBar().Color(Color.White));
+
+      return base.OnCreateOptionsMenu(menu);
     }
 
     private void PrepareHeader(Bundle savedInstanceState)
