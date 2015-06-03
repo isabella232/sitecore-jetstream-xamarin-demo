@@ -123,6 +123,8 @@ namespace Jetstream.UI.Fragments
         return new ClusterItem(latLng, title, url);
       }).ToList();
 
+      this.map.Clear();
+
       this.clusterManager.ClearItems();
       this.clusterManager.AddItems(clusterItems);
       this.clusterManager.Cluster();
@@ -168,7 +170,10 @@ namespace Jetstream.UI.Fragments
       base.OnResume();
 
       this.mapView.OnResume();
-      this.mapView.GetMapAsync(this);
+      if (this.map == null) 
+      {
+        this.mapView.GetMapAsync(this);  
+      }
 
       if (this.updateInstanceUrlEventHandler == null)
       {
@@ -184,7 +189,6 @@ namespace Jetstream.UI.Fragments
               }
 
               this.LoadDestinations();
-              this.map.Clear();
             })
         };
       }

@@ -21,7 +21,7 @@ namespace Jetstream
   using Sitecore.MobileSDK.API.Session;
   using Sitecore.MobileSDK.PasswordProvider.Android;
 
-  [Activity(MainLauncher = true, Icon = "@drawable/icon")]
+  [Activity(MainLauncher = true, Icon = "@drawable/icon", ScreenOrientation = Android.Content.PM.ScreenOrientation.Landscape)]
   public class MainActivity : AppCompatActivity, Drawer.IOnDrawerItemClickListener
   {
     private Android.Support.V7.Widget.Toolbar toolbar;
@@ -42,6 +42,11 @@ namespace Jetstream
       this.toolbar = this.FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
 
       this.InitDrawer(savedInstanceState);
+
+      if (savedInstanceState == null)
+      {
+        this.FragmentManager.BeginTransaction().Replace(Resource.Id.map_fragment_container, this.mapFragment).Commit();  
+      }
     }
 
     private void InitDrawer(Bundle savedInstanceState)
@@ -81,7 +86,6 @@ namespace Jetstream
                 .Build();
 
       this.mapFragment = new DestinationsOnMapFragment();
-      this.FragmentManager.BeginTransaction().Replace(Resource.Id.map_fragment_container, this.mapFragment).Commit();
     }
 
     public override bool OnCreateOptionsMenu(IMenu menu)
