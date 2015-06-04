@@ -106,7 +106,7 @@ namespace Jetstream
               new IconicsDrawable(this, GoogleMaterial.Icon.GmdVerifiedUser)
         .ActionBarSize()
         .PaddingDp(5)
-        .Color(Color.Black));
+        .Color(Color.White));
 
       this.header = new AccountHeaderBuilder()
         .WithActivity(this)

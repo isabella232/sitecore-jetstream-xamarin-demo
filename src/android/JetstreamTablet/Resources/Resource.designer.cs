@@ -4409,6 +4409,9 @@ namespace Jetstream
 			// aapt resource value: 0x7f09013f
 			public const int ClusterIcon_TextAppearance = 2131296575;
 			
+			// aapt resource value: 0x7f090143
+			public const int Jetstream_App_Theme = 2131296579;
+			
 			// aapt resource value: 0x7f090135
 			public const int MaterialDrawer_DrawerArrowStyle = 2131296565;
 			

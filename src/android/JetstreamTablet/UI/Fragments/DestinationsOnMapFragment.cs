@@ -39,10 +39,8 @@ namespace Jetstream.UI.Fragments
       this.refresher = view.FindViewById<SwipeRefreshLayout>(Jetstream.Resource.Id.refresher);
       this.mapView = view.FindViewById<MapView>(Jetstream.Resource.Id.mapview);
 
-      this.refresher.SetColorScheme(Android.Resource.Color.HoloBlueDark,
-       Android.Resource.Color.HoloPurple,
-       Android.Resource.Color.DarkerGray,
-       Android.Resource.Color.HoloGreenDark);
+      this.refresher.SetColorScheme(Android.Resource.Color.White);
+      this.refresher.SetProgressBackgroundColorSchemeResource(Jetstream.Resource.Color.colorAccent);
 
       this.refresher.SetProgressViewOffset(false, 0, (int)TypedValue.ApplyDimension(ComplexUnitType.Dip, 24, this.Resources.DisplayMetrics));
 
@@ -101,7 +99,7 @@ namespace Jetstream.UI.Fragments
         SnackbarManager.Show(
           Snackbar.With(this.Activity)
             .ActionLabel("Retry")
-            .ActionColor(Color.Yellow) 
+            .ActionColor(this.Resources.GetColor(Jetstream.Resource.Color.colorAccent)) 
             .ActionListener(this)
             .Text("Failed to load destinations, please check your internet connection."));
       }

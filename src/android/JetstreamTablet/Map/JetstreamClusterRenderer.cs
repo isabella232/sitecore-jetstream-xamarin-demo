@@ -30,6 +30,8 @@ namespace Jetstream.Map
 
     protected override void OnBeforeClusterItemRendered(Object item, MarkerOptions markerOptions)
     {
+      var color = this.context.Resources.GetColor(Resource.Color.colorAccent);
+      markerOptions.InvokeIcon(BitmapDescriptorFactory.DefaultMarker(color.GetHue()));
     }
 
     protected override void OnClusterItemRendered(Object cluster, Marker marker)
@@ -45,6 +47,8 @@ namespace Jetstream.Map
 
     protected override void OnBeforeClusterRendered(ICluster cluster, MarkerOptions markerOptions)
     {
+      var color = this.context.Resources.GetColor(Resource.Color.colorAccent);
+      markerOptions.InvokeIcon(BitmapDescriptorFactory.DefaultMarker(color.GetHue()));
     }
 
     protected override void OnClusterRendered(ICluster cluster, Marker marker)
