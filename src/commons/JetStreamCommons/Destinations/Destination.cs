@@ -10,6 +10,7 @@
     private readonly float longitude;
     private readonly string countryName;
     private readonly string imagePath;
+    private readonly string overview;
 
     public Destination(ISitecoreItem wrapped) : base(wrapped)
     {
@@ -23,7 +24,25 @@
       float.TryParse(wrapped["Longitude"].RawValue, NumberStyles.Any, new CultureInfo("en-US"), out longitude);
       this.longitude = longitude;
 
+      this.overview = wrapped["Overview"].RawValue;
+
       this.imagePath = MediaPathExtractor.GetImagePathFromImageRawValue(wrapped["Image"].RawValue);
+    }
+
+    public bool CoordinatesIsAvailable
+    {
+      get
+      { 
+        return (this.Latitude != 0.0) && (this.Longitude != 0.0); 
+      }
+    }
+
+    public string Overview
+    {
+      get
+      {
+        return this.overview;
+      }
     }
 
     public string CountryName

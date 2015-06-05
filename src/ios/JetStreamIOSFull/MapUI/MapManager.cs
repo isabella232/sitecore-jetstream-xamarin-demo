@@ -5,6 +5,7 @@ using System;
 using JetStreamIOSFull.Helpers;
 using CoreAnimation;
 using CoreGraphics;
+using JetStreamCommons.Destinations;
 
 namespace JetStreamIOSFull.MapUI
 {
@@ -21,6 +22,9 @@ namespace JetStreamIOSFull.MapUI
     private List<DestinationAnnotation> annotations = new List<DestinationAnnotation>();
 
     private IAppearanceHelper appearanceHelper;
+
+    public delegate void DestinationSelected(IDestination destination);
+    public event DestinationSelected onDestinationSelected;
 
     public MapManager(IAppearanceHelper appearance)
     {
@@ -150,16 +154,14 @@ namespace JetStreamIOSFull.MapUI
       Console.WriteLine("region: ", mapView.Region.ToString());
     }
 
-//    public override void DidSelectAnnotationView(MKMapView mapView, MKAnnotationView view)
-//    {
-//      
-//    }
-//
-//    public override void DidDeselectAnnotationView(MKMapView mapView, MKAnnotationView view)
-//    {
-//
-//    }
-
+    public override void DidSelectAnnotationView(MKMapView mapView, MKAnnotationView view)
+    {
+      AnnotationViewWithRoundedImage castedAnnotation = view as AnnotationViewWithRoundedImage;
+      if (castedAnnotation != null)
+      {
+        onDestinationSelected(castedAnnotation.Destination);
+      }
+    }
   }
 }
 

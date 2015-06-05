@@ -1,6 +1,7 @@
 ﻿using Foundation;
 using UIKit;
 using JetStreamIOSFull.Helpers;
+using System.Drawing;
 
 namespace JetStreamIOSFull
 {
@@ -51,15 +52,16 @@ namespace JetStreamIOSFull
 
     public void SetupUI()
     {
-      UINavigationBar.Appearance.BarTintColor = this.appearanceHelper.MenuBackgroundColor;
-      UINavigationBar.Appearance.TintColor = this.appearanceHelper.MenuTextColor;
-      UIBarButtonItem.Appearance.TintColor = this.appearanceHelper.MenuTextColor;
+      UIColor textColor = this.appearanceHelper.NavigationTextColor;
 
-      UIStringAttributes attributes = new UIStringAttributes();
-      attributes.ForegroundColor = this.appearanceHelper.MenuTextColor;
+      UINavigationBar.Appearance.TintColor = textColor;
+      UIBarButtonItem.Appearance.TintColor = textColor;
 
-      UINavigationBar.Appearance.TitleTextAttributes = attributes;
+      UIImage sourceImage = this.appearanceHelper.NavigationBackgroundImage;
+      UIEdgeInsets insets = new UIEdgeInsets(0, 0, 0, 0);
+      UIImage backgroundImage = sourceImage.CreateResizableImage(insets);
 
+      UINavigationBar.Appearance.SetBackgroundImage(backgroundImage, UIBarMetrics.Default);
     }
 
     public override void OnResignActivation(UIApplication application)

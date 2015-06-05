@@ -1,10 +1,11 @@
 ﻿using System;
 using UIKit;
 using System.Drawing;
+using CoreGraphics;
 
 namespace JetStreamIOSFull.Helpers
 {
-  public static class ImageResize
+  public static class ImageHelper
   {
     public static UIImage MaxResizeImage(UIImage sourceImage, float maxWidth, float maxHeight)
     {
@@ -43,6 +44,18 @@ namespace JetStreamIOSFull.Helpers
       var modifiedImage = UIGraphics.GetImageFromCurrentImageContext();
       UIGraphics.EndImageContext();
       return modifiedImage;
+    }
+
+    public static UIImage ImageFromColor(UIColor color, SizeF imageSize)
+    {
+      var imageSizeRectF = new RectangleF(0, 0, 30, 30);
+      UIGraphics.BeginImageContextWithOptions(imageSize, false, 0);
+      var context = UIGraphics.GetCurrentContext();
+      context.SetFillColor(color.CGColor);
+      context.FillRect(imageSizeRectF);
+      var image = UIGraphics.GetImageFromCurrentImageContext();
+      UIGraphics.EndImageContext();
+      return image;
     }
   }
 }

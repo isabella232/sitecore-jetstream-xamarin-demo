@@ -31,6 +31,7 @@ namespace JetStreamIOSFull
       base.ViewWillDisappear(animated);
 
       this.Endpoint.InstanceUrl = this.UrlTextField.Text;
+      this.UrlTextField.BecomeFirstResponder();
     }
 
 	}

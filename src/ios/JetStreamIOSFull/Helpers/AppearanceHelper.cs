@@ -13,18 +13,12 @@ namespace JetStreamIOSFull.Helpers
     public AppearanceHelper()
     {
       UIImage image = UIImage.FromBundle("Images.xcassets/DestinationPlaceholder.png");
-      UIImage resizedImage = ImageResize.ResizeImage(image, this.DestinationIconSize, this.DestinationIconSize);  
+      UIImage resizedImage = ImageHelper.ResizeImage(image, this.DestinationIconSize, this.DestinationIconSize);  
 
       this.destinationPlaceholder = resizedImage;
     }
 
-    public NSNumber MainMenuWidth
-    {
-      get
-      { 
-        return new NSNumber(180);
-      }
-    }
+    #region MAP_SETTINGS
 
     public MKCoordinateRegion MapInitialRegion
     {
@@ -35,6 +29,18 @@ namespace JetStreamIOSFull.Helpers
         MKCoordinateSpan span = new MKCoordinateSpan(16, 35);
         MKCoordinateRegion region = new MKCoordinateRegion(coord, span);
         return region;
+      }
+    }
+
+    #endregion MAP_SETTINGS
+
+    #region SIZES
+
+    public NSNumber MainMenuWidth
+    {
+      get
+      { 
+        return new NSNumber(180);
       }
     }
 
@@ -78,11 +84,46 @@ namespace JetStreamIOSFull.Helpers
       }
     }
 
+    #endregion SIZES
+
+    #region COLORS
+
+    public UIImage NavigationBackgroundImage
+    {
+      get
+      { 
+        return UIImage.FromBundle("Images.xcassets/NavBarBackground.png");
+      }
+    }
+
+    public UIImage NavigationBarLogo
+    {
+      get
+      { 
+        return UIImage.FromBundle("Images.xcassets/JetStreamLogo.png");
+      }
+    }
+
+    public UIColor NavigationTextColor
+    {
+      get
+      { 
+        return this.WhiteColor;
+        //return this.MediumGreyColor;
+        //return this.OrangeColor;
+        //return this.DarkGreyColor;
+      }
+    }
+
+
     public UIColor MenuBackgroundColor
     {
       get
       { 
-        return this.DarkGreyColor;
+        //return this.MediumGreyColor;
+        return this.WhiteColor;
+        //return this.OrangeColor;
+        //return this.DarkGreyColor;
       }
     }
 
@@ -90,7 +131,8 @@ namespace JetStreamIOSFull.Helpers
     {
       get
       { 
-        return this.WhiteColor;
+        return this.DarkGreyColor;
+        //return this.WhiteColor;
       }
     }
 
@@ -98,10 +140,15 @@ namespace JetStreamIOSFull.Helpers
     {
       get
       { 
+        //return this.DarkGreyColor;
+        //return this.WhiteColor;
         return this.OrangeColor;
       }
     }
 
+    #endregion COLORS
+
+    #region COLORS_CONSTANTS
     public UIColor OrangeColor
     {
       get
@@ -151,6 +198,8 @@ namespace JetStreamIOSFull.Helpers
 
       return color;
     }
+
+    #endregion COLORS_CONSTANTS
   }
 }
 

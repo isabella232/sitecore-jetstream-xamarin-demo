@@ -6,6 +6,7 @@ using CoreGraphics;
 using JetStreamIOSFull.Helpers;
 using Foundation;
 using SDWebImage;
+using JetStreamCommons.Destinations;
 
 namespace JetStreamIOSFull.MapUI
 {
@@ -14,6 +15,7 @@ namespace JetStreamIOSFull.MapUI
     private UIImageView imageView;
     private UILabel label;
     private IAppearanceHelper appearanceHelper;
+    private IDestination destination;
 
     public AnnotationViewWithRoundedImage(DestinationAnnotation annotation, string reuseIdentifier, IAppearanceHelper appearance)
       : base(annotation, reuseIdentifier)
@@ -22,11 +24,24 @@ namespace JetStreamIOSFull.MapUI
 
       this.InitUI();
 
+      this.InitWithAnnotation(annotation);
+    }
+
+    private void InitWithAnnotation(DestinationAnnotation annotation)
+    {
+      this.destination = annotation.Destination;
+      base.Annotation = annotation;
       annotation.onHiddenCount += this.HiddenCountChanged;
-
       this.HiddenCountChanged(annotation.HiddenCount);
-
       this.DownloadImage(annotation.ImageUrl);
+    }
+
+    public IDestination Destination
+    {
+      get
+      { 
+        return this.destination;
+      }
     }
 
     private void InitUI()
@@ -72,7 +87,7 @@ namespace JetStreamIOSFull.MapUI
       {
         if (image != null)
         {
-          UIImage resizedImage = ImageResize.ResizeImage(image, appearanceHelper.DestinationIconSize, appearanceHelper.DestinationIconSize);  
+          UIImage resizedImage = ImageHelper.ResizeImage(image, appearanceHelper.DestinationIconSize, appearanceHelper.DestinationIconSize);  
           this.Image = resizedImage;
         }
       }
@@ -85,7 +100,8 @@ namespace JetStreamIOSFull.MapUI
       this.AddSubview(this.imageView);
 
       CALayer imageLayer = this.imageView.Layer;
-      imageLayer.BorderWidth = appearanceHelper.DestinationIconBorderSize;
+      imageLayer.BorderWidth = this.appearanceHelper.DestinationIconBorderSize;
+      imageLayer.BorderColor = this.appearanceHelper.MediumGreyColor.CGColor;
       imageLayer.MasksToBounds = true;
     }
 
@@ -123,11 +139,7 @@ namespace JetStreamIOSFull.MapUI
         if (value != null)
         {
           DestinationAnnotation annotation = value as DestinationAnnotation;
-
-          annotation.onHiddenCount += this.HiddenCountChanged;
-          this.HiddenCountChanged(annotation.HiddenCount);
-          base.Annotation = annotation;
-          this.DownloadImage(annotation.ImageUrl);
+          this.InitWithAnnotation(annotation);
         }
         else
         {
@@ -142,11 +154,11 @@ namespace JetStreamIOSFull.MapUI
 
       if (selected)
       {
-        imageLayer.BorderColor = appearanceHelper.SelectionColor.CGColor;
+        imageLayer.BorderColor = appearanceHelper.OrangeColor.CGColor;
       }
       else
       {
-        imageLayer.BorderColor = appearanceHelper.MenuBackgroundColor.CGColor;
+        imageLayer.BorderColor = appearanceHelper.MediumGreyColor.CGColor;
       }
     }
 

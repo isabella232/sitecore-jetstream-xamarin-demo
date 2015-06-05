@@ -41,7 +41,22 @@ namespace JetStreamIOSFull
     {
       get;
     }
-    
+
+    UIImage NavigationBackgroundImage
+    {
+      get;
+    }
+
+    UIImage NavigationBarLogo
+    {
+      get;
+    }
+
+    UIColor NavigationTextColor
+    {
+      get;
+    }
+
     UIColor MenuBackgroundColor
     {
       get;
@@ -53,6 +68,31 @@ namespace JetStreamIOSFull
     }
 
     UIColor SelectionColor
+    {
+      get;
+    }
+
+    UIColor OrangeColor
+    {
+      get;
+    }
+
+    UIColor DarkGreyColor
+    {
+      get;
+    }
+
+    UIColor MediumGreyColor
+    {
+      get;
+    }
+
+    UIColor WhiteColor
+    {
+      get;
+    }
+
+    UIColor BlackColor
     {
       get;
     }

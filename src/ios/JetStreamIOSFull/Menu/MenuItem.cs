@@ -7,11 +7,22 @@ namespace JetStreamIOSFull
   {
     private string title;
     private UIImage image;
+    private MenuItemTypes type;
 
-    public MenuItem(string title, UIImage image)
+    public MenuItem(string title, UIImage image, 
+      MenuItemTypes type)
     {
       this.title = title;
       this.image = image;
+      this.type = type;
+    }
+
+    public MenuItemTypes Type
+    {
+      get 
+      {
+        return this.type;
+      }
     }
 
     public string Title

@@ -117,7 +117,6 @@
       <DependentUpon>DetailViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\AlertHelper.cs" />
-    <Compile Include="Helpers\ImageResize.cs" />
     <Compile Include="CountriesDataSource.cs" />
     <Compile Include="Navigation\NavigationManagerViewController.cs" />
     <Compile Include="Navigation\NavigationManagerViewController.designer.cs">
@@ -144,6 +143,13 @@
     </Compile>
     <Compile Include="Menu\IMenuItem.cs" />
     <Compile Include="Menu\MenuItem.cs" />
+    <Compile Include="DestinationDetailsViewController.cs" />
+    <Compile Include="DestinationDetailsViewController.designer.cs">
+      <DependentUpon>DestinationDetailsViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\ImageHelper.cs" />
+    <Compile Include="Helpers\IconsHelper.cs" />
+    <Compile Include="Menu\MenuTypes.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
@@ -164,6 +170,7 @@
     <Folder Include="BaseVC\" />
     <Folder Include="Settings\" />
     <Folder Include="Menu\" />
+    <Folder Include="Resources\Images.xcassets\MenuIcons\" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="sdwebimage">
@@ -175,9 +182,19 @@
     <BundleResource Include="Resources\en.lproj\Localizable.strings" />
     <BundleResource Include="Resources\Images.xcassets\DestinationPlaceholder.png" />
     <BundleResource Include="Resources\Images.xcassets\DestinationPlaceholder%402x.png" />
-    <BundleResource Include="Resources\Images.xcassets\ic_settings.png" />
-    <BundleResource Include="Resources\Images.xcassets\ic_settings%402x.png" />
-    <BundleResource Include="Resources\Images.xcassets\ic_airplanemode_active_black.png" />
-    <BundleResource Include="Resources\Images.xcassets\ic_airplanemode_active_black%402x.png" />
+    <BundleResource Include="Resources\Images.xcassets\NavBarBackground.png" />
+    <BundleResource Include="Resources\Images.xcassets\NavBarBackground%402x.png" />
+    <BundleResource Include="Resources\Images.xcassets\JetStreamLogo.png" />
+    <BundleResource Include="Resources\Images.xcassets\JetStreamLogo%402x.png" />
+    <BundleResource Include="Resources\Images.xcassets\MenuIcons\SettingsIcon.png" />
+    <BundleResource Include="Resources\Images.xcassets\MenuIcons\SettingsIcon%402x.png" />
+    <BundleResource Include="Resources\Images.xcassets\MenuIcons\DestinationIcon.png" />
+    <BundleResource Include="Resources\Images.xcassets\MenuIcons\DestinationIcon%402x.png" />
+    <BundleResource Include="Resources\Images.xcassets\MenuIcons\FlightStatusIcon.png" />
+    <BundleResource Include="Resources\Images.xcassets\MenuIcons\OnlineCheckinIcon%402x.png" />
+    <BundleResource Include="Resources\Images.xcassets\MenuIcons\AboutIcon.png" />
+    <BundleResource Include="Resources\Images.xcassets\MenuIcons\FlightStatusIcon%402x.png" />
+    <BundleResource Include="Resources\Images.xcassets\MenuIcons\AboutIcon%402x.png" />
+    <BundleResource Include="Resources\Images.xcassets\MenuIcons\OnlineCheckinIcon.png" />
   </ItemGroup>
 </Project>

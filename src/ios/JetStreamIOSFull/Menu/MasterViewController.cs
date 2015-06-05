@@ -11,7 +11,7 @@ namespace JetStreamIOSFull
   public partial class MasterViewController : UITableViewController
   {
     public NavigationManagerViewController NavigationManager { get; set; }
-
+    public AppearanceHelper ah = new AppearanceHelper();
     private DataSource dataSource;
 
     public MasterViewController(IntPtr handle) : base(handle)
@@ -27,28 +27,32 @@ namespace JetStreamIOSFull
 
       NavigationManager = (NavigationManagerViewController)SplitViewController.ViewControllers[1];
 
+      this.TableView.SeparatorColor = ah.MenuTextColor;
+
       this.BuildMenu();
     }
 
     private void BuildMenu()
     {
+      List<IMenuItem> menuItems = new List<IMenuItem> ();
 
-      List<IMenuItem> objects = new List<IMenuItem> ();
+      menuItems.Add(new MenuItem("About", IconsHelper.MenuAboutIcon, MenuItemTypes.About));
+      menuItems.Add(new MenuItem("Destinations", IconsHelper.MenuDestinationIcon, MenuItemTypes.Destinations));
+      menuItems.Add(new MenuItem("Flight Status", IconsHelper.MenuFlightStatusIcon, MenuItemTypes.FlightStatus));
+      menuItems.Add(new MenuItem("Online Checkin", IconsHelper.MenuOnlineCheckinIcon, MenuItemTypes.OnlineCheckin));
+      menuItems.Add(new MenuItem("Settings", IconsHelper.MenuSettingsIcon, MenuItemTypes.Settings));
 
-      UIImage image = UIImage.FromBundle("Images.xcassets/ic_airplanemode_active_black.png");
+      this.dataSource = new DataSource (this, menuItems);
+      this.TableView.Source = this.dataSource;
 
-     
-      objects.Add(new MenuItem("Destinations", image));
-      objects.Add(new MenuItem("Settings", image));
+//      this.SelectMenuItem(true, 0);
+    }
 
-      objects.Add(new MenuItem("Blablabla", image));
-      objects.Add(new MenuItem("Some other", image));
-      objects.Add(new MenuItem("Search Flight", image));
-      objects.Add(new MenuItem("etc", image));
-
-      this.dataSource = new DataSource (this, objects);
-      TableView.Source = this.dataSource;
-      
+    private void SelectMenuItem(bool selected, int row)
+    {
+      NSIndexPath path = NSIndexPath.FromRowSection(row, 0);
+      UITableViewCell cell = this.TableView.CellAt(path);
+      cell.SetSelected(selected, true);
     }
 
     public override void DidReceiveMemoryWarning()
@@ -63,8 +67,6 @@ namespace JetStreamIOSFull
       readonly MasterViewController controller;
 
       private MainMenuCell prevSelectedCell = null;
-
-      AppearanceHelper ah = new AppearanceHelper();
 
       public DataSource(MasterViewController controller, List<IMenuItem> objects)
       {
@@ -88,9 +90,9 @@ namespace JetStreamIOSFull
         var cell = tableView.DequeueReusableCell(CellIdentifier, indexPath);
         MainMenuCell castedCell = cell as MainMenuCell;
 
-        castedCell.SelectedTintColor = ah.SelectionColor;
-        castedCell.DefaultTintColor = ah.MenuTextColor;
-        castedCell.BackgroundColor = ah.MenuBackgroundColor;
+        castedCell.SelectedTintColor = this.controller.ah.SelectionColor;
+        castedCell.DefaultTintColor = this.controller.ah.MenuTextColor;
+        castedCell.BackgroundColor = this.controller.ah.MenuBackgroundColor;
           
         IMenuItem menuItem = objects[indexPath.Row];
 
@@ -115,7 +117,9 @@ namespace JetStreamIOSFull
         UIBarButtonItem hideButton = this.controller.SplitViewController.DisplayModeButtonItem;
         UIApplication.SharedApplication.SendAction(hideButton.Action, hideButton.Target, null, null);
 
-        controller.NavigationManager.NavigationItemSelected(indexPath.Row);
+        IMenuItem menuItem = this.objects[indexPath.Row];
+
+        controller.NavigationManager.NavigationItemSelected(menuItem.Type);
 
       }
     }

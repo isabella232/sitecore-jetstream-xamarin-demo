@@ -7,6 +7,11 @@
       get;
     }
 
+    string Overview
+    {
+        get;
+    }
+
     float Latitude
     {
       get;
@@ -18,6 +23,11 @@
     }
 
     string ImagePath
+    {
+      get;
+    }
+
+    bool CoordinatesIsAvailable
     {
       get;
     }

@@ -14,6 +14,11 @@ namespace JetStreamIOSFull
     {
       get;
     }
+
+    MenuItemTypes Type
+    {
+      get;
+    }
   }
 }
 

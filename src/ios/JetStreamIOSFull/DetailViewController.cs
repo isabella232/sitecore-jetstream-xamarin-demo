@@ -19,13 +19,29 @@ namespace JetStreamIOSFull
 {
   public partial class DetailViewController : BaseViewController, IMKMapViewDelegate
   {
+    private readonly string DESTINATION_DETAIL_SEGUE_ID = "ShowDestinationDetails";
     private IEnumerable destinations;
-
     private MapManager mapManager;
+
+    private IDestination currentSelectedDestination = null;
 
     public DetailViewController(IntPtr handle) : base(handle)
     {
       
+    }
+
+    public override void PrepareForSegue(UIStoryboardSegue segue, NSObject sender)
+    {
+      if (segue.Identifier.Equals(DESTINATION_DETAIL_SEGUE_ID))
+      {
+        DestinationDetailsViewController detailsVc = segue.DestinationViewController as DestinationDetailsViewController;
+        if (detailsVc != null)
+        {
+          detailsVc.Endpoint = this.Endpoint;
+          detailsVc.Appearance = this.Appearance;
+          detailsVc.ShowDestinationDetails(this.currentSelectedDestination);
+        }
+      }
     }
 
     public override void ViewDidLoad()
@@ -40,6 +56,7 @@ namespace JetStreamIOSFull
     private void InitializeMap()
     {
       this.mapManager = new MapManager(this.Appearance);
+      this.mapManager.onDestinationSelected += this.DidSelectDestination;
       this.map.Delegate = mapManager;
 
       MKCoordinateRegion region = this.Appearance.MapInitialRegion;
@@ -61,6 +78,12 @@ namespace JetStreamIOSFull
       this.map.RemoveAnnotations(this.map.Annotations);
 
       this.RefreshMap();
+    }
+
+    private void DidSelectDestination(IDestination destination)
+    {
+      this.currentSelectedDestination = destination;
+      this.PerformSegue(DESTINATION_DETAIL_SEGUE_ID, this);
     }
 
     private async void RefreshMap()
@@ -92,16 +115,9 @@ namespace JetStreamIOSFull
 
       foreach(IDestination elem in this.destinations)
       {
-        bool coordinatesAvailable = (elem.Latitude != 0.0) && (elem.Longitude != 0.0); 
-        if (coordinatesAvailable)
+        if (elem.CoordinatesIsAvailable)
         {
-          CLLocationCoordinate2D coordinates = new CLLocationCoordinate2D(elem.Latitude, elem.Longitude);
-
-          string instanceUrl = this.Endpoint.InstanceUrl;
-          string imagePath = elem.ImagePath;
-          string imageUrl = String.Concat(instanceUrl, imagePath);
-
-          DestinationAnnotation annotation = new DestinationAnnotation(elem.DisplayName, imageUrl, coordinates);
+          DestinationAnnotation annotation = new DestinationAnnotation(elem, this.Endpoint.InstanceUrl);
           annotationsList.Add(annotation);
         }
       }
@@ -111,7 +127,6 @@ namespace JetStreamIOSFull
 
     private async Task<IEnumerable> DownloadAllDestinations()
     {
-     
         //FIXME: error here, some objects must be disposed!!!
         var session = this.Endpoint.GetSession();
         using (var loader = new DestinationsLoader(session))

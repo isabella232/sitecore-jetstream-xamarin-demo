@@ -37,9 +37,10 @@ namespace JetStreamIOSFull
         }
       }
     }
-    public void NavigationItemSelected(int index)
+
+    public void NavigationItemSelected(MenuItemTypes type)
     {
-      this.NavigateToTabAtIndex(index);
+      this.NavigateToTabAtIndex(type);
     }
       
     public override void DidReceiveMemoryWarning()
@@ -71,37 +72,41 @@ namespace JetStreamIOSFull
       root.Endpoint = this.Endpoint;
     }
 
-    private void NavigateToTabAtIndex(int index)
+    private void NavigateToTabAtIndex(MenuItemTypes type)
     {
-      if (this.CurentActiveFlow != null)
-      {
-        this.CurentActiveFlow.View.RemoveFromSuperview();
-        this.CurentActiveFlow = null;
-      }
+      UINavigationController NewFlow = null;
 
-      switch (index)
+      switch (type)
       {
-        case 0:
+      case MenuItemTypes.Destinations:
         {
-          this.CurentActiveFlow = this.MapFlow;
+          NewFlow = this.MapFlow;
           break;
         }
-      case 1:
+      case MenuItemTypes.Settings:
         {
-          this.CurentActiveFlow = this.SettingsFlow;
+          NewFlow = this.SettingsFlow;
           break;
         }
       default:
         {
-          CurentActiveFlow = this.MapFlow;
+          NewFlow = this.MapFlow;
           break;
         }
       }
 
-      this.View.AddSubview(this.CurentActiveFlow.View);
-      UIViewController vc = this.CurentActiveFlow.TopViewController;
+      UIViewController vc = NewFlow.TopViewController;
       vc.NavigationItem.LeftBarButtonItem = this.MenuButton;
       vc.NavigationItem.LeftItemsSupplementBackButton = false;
+
+      if (this.CurentActiveFlow != null)
+      {
+        this.CurentActiveFlow.View.RemoveFromSuperview();
+      }
+
+      this.View.AddSubview(NewFlow.View);
+      this.CurentActiveFlow = NewFlow;
+
     }
 
   }

@@ -3,6 +3,7 @@ using CoreLocation;
 using MapKit;
 using UIKit;
 using JetStreamIOSFull.Helpers;
+using JetStreamCommons.Destinations;
 
 namespace JetStreamIOSFull.MapUI
 {
@@ -17,12 +18,21 @@ namespace JetStreamIOSFull.MapUI
     public delegate void HiddenCountChanged(int count);
     public event HiddenCountChanged onHiddenCount;
 
-    public DestinationAnnotation(string title, string imageUrl, CLLocationCoordinate2D coord)
+    public readonly IDestination Destination;
+
+    public DestinationAnnotation(IDestination destination, string instanceUrl)
     {
-      this.imageUrl = imageUrl;
-      this.title = title;
-      this.coord = coord;
-      this.initialCoord = coord;
+      this.Destination = destination;
+
+      CLLocationCoordinate2D coordinates = new CLLocationCoordinate2D(destination.Latitude, destination.Longitude);
+
+     
+      string imagePath = destination.ImagePath;
+      this.imageUrl = String.Concat(instanceUrl, imagePath);
+
+      this.title = destination.DisplayName;
+      this.coord = coordinates;
+      this.initialCoord = coordinates;
     }
       
 

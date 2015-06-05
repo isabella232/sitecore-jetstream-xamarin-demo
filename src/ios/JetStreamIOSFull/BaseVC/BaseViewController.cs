@@ -1,6 +1,7 @@
 ﻿using System;
 using UIKit;
 using JetStreamIOSFull.Helpers;
+using CoreGraphics;
 
 namespace JetStreamIOSFull
 {
@@ -45,6 +46,18 @@ namespace JetStreamIOSFull
       set
       { 
         this.appearanceHelper = value;
+        this.InitializeNavBarLogo();
+      }
+    }
+
+    private void InitializeNavBarLogo()
+    {
+      if (this.NavigationItem != null)
+      {
+        UIImage image = this.appearanceHelper.NavigationBarLogo;
+        UIImageView imageView = new UIImageView(new CGRect(0, 0, image.Size.Width, image.Size.Height));
+        imageView.Image = image;
+        this.NavigationItem.TitleView = imageView;
       }
     }
   }

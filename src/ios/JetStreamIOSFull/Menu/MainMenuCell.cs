@@ -11,7 +11,7 @@ namespace JetStreamIOSFull
 	{
     private UIColor defaultTintColor = UIColor.Blue;
     private UIColor selectedTintColor = UIColor.White;
-
+    private bool selected = false;
 		public MainMenuCell (IntPtr handle) : base (handle)
 		{
 		}
@@ -21,6 +21,7 @@ namespace JetStreamIOSFull
       set
       { 
         this.selectedTintColor = value;
+        this.SetSelected(this.selected, true);
       }
     }
 
@@ -29,13 +30,23 @@ namespace JetStreamIOSFull
       set
       { 
         this.defaultTintColor = value;
+        this.SetSelected(this.selected, true);
+      }
+    }
+
+    public bool IsSelected
+    {
+      get
+      { 
+        return this.selected;
       }
     }
 
     public virtual void SetSelected(bool selected, bool animated)
     {
+      this.selected = selected;
       UIColor color = this.defaultTintColor;
-      if (selected)
+      if (this.selected)
       {
         color = this.selectedTintColor;
       }
