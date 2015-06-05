@@ -1,8 +1,7 @@
-﻿using DSoft.Messaging;
-
-namespace Jetstream
+﻿namespace Jetstream
 {
   using Android.App;
+  using Android.Content.PM;
   using Android.Graphics;
   using Android.OS;
   using Android.Support.V7.App;
@@ -14,6 +13,7 @@ namespace Jetstream
   using Com.Mikepenz.Materialdrawer.Accountswitcher;
   using Com.Mikepenz.Materialdrawer.Model;
   using Com.Mikepenz.Materialdrawer.Model.Interfaces;
+  using DSoft.Messaging;
   using Jetstream.UI.Dialogs;
   using Jetstream.UI.Fragments;
   using Sitecore.MobileSDK;
@@ -21,9 +21,15 @@ namespace Jetstream
   using Sitecore.MobileSDK.API.Session;
   using Sitecore.MobileSDK.PasswordProvider.Android;
 
-  [Activity(MainLauncher = true, Icon = "@drawable/icon", ScreenOrientation = Android.Content.PM.ScreenOrientation.Landscape)]
+  [Activity(MainLauncher = true, Icon = "@drawable/icon", ScreenOrientation = ScreenOrientation.Landscape, Name = "net.sitecore.jetstream.MainActivity")]
   public class MainActivity : AppCompatActivity, Drawer.IOnDrawerItemClickListener
   {
+    private const int AboutMenuItemIdentifier = 1;
+    private const int DestinationsMenuItemIdentifier = 2;
+    private const int FlightStatusMenuItemIdentifier = 3;
+    private const int CheckInMenuItemIdentifier = 4;
+    private const int SettingsMenuItemIdentifier = 5;
+
     private Android.Support.V7.Widget.Toolbar toolbar;
 
     private AccountHeader header = null;
@@ -43,7 +49,7 @@ namespace Jetstream
 
       this.InitDrawer(savedInstanceState);
 
-      if (savedInstanceState == null)
+      if(savedInstanceState == null)
       {
         this.FragmentManager.BeginTransaction().Replace(Resource.Id.map_fragment_container, this.mapFragment).Commit();  
       }
@@ -52,34 +58,57 @@ namespace Jetstream
     private void InitDrawer(Bundle savedInstanceState)
     {
       this.SetSupportActionBar(this.toolbar);
-      this.toolbar.SetLogo(Resource.Drawable.Icon);
+      this.toolbar.SetLogo(Resource.Drawable.ic_jetstream_logo);
+
+      Toast.MakeText(this, "Height: " + this.toolbar.Logo.IntrinsicHeight, ToastLength.Long).Show();
+      this.Title = "";
 
       this.toolbar.InflateMenu(Resource.Menu.menu_main);
-      this.toolbar.MenuItemClick += (sender, e) => MessageBus.PostEvent(EventIdsContainer.SitecoreInstanceUrlUpdateEvent);;
+      this.toolbar.MenuItemClick += (sender, e) => MessageBus.PostEvent(EventIdsContainer.SitecoreInstanceUrlUpdateEvent);
 
       this.SupportActionBar.SetDisplayHomeAsUpEnabled(true);
       this.SupportActionBar.SetHomeButtonEnabled(false);
 
       this.PrepareHeader(savedInstanceState);
 
+      var about = new PrimaryDrawerItem();
+      about.WithName("About Jetstream");
+      about.WithIcon(Resource.Drawable.ic_about);
+      about.WithIdentifier(AboutMenuItemIdentifier);
+      about.WithCheckable(false);
+
       var destinations = new PrimaryDrawerItem();
       destinations.WithName(Resource.String.text_destinations_item);
-      destinations.WithIcon(GoogleMaterial.Icon.GmdFlight);
-      destinations.WithIdentifier(1);
+      destinations.WithIcon(Resource.Drawable.ic_destinations);
+      destinations.WithIdentifier(DestinationsMenuItemIdentifier);
       destinations.WithCheckable(false);
+
+      var flightStatus = new PrimaryDrawerItem();
+      flightStatus.WithName("Flight Status");
+      flightStatus.WithIcon(Resource.Drawable.ic_flight_status);
+      flightStatus.WithIdentifier(FlightStatusMenuItemIdentifier);
+      flightStatus.WithCheckable(false);
+
+      var checkIn = new PrimaryDrawerItem();
+      checkIn.WithName("Check-in");
+      checkIn.WithIcon(Resource.Drawable.ic_online_checkin);
+      checkIn.WithIdentifier(CheckInMenuItemIdentifier);
+      checkIn.WithCheckable(false);
 
       var settings = new PrimaryDrawerItem();
       settings.WithName(Resource.String.text_settings_item);
-      settings.WithIcon(GoogleMaterial.Icon.GmdSettings);
-      settings.WithIdentifier(2);
+      settings.WithIcon(Resource.Drawable.ic_settings);
+      settings.WithIdentifier(SettingsMenuItemIdentifier);
       settings.WithCheckable(false);
+
+      var divider = new DividerDrawerItem();
 
       this.drawer = new DrawerBuilder()
                 .WithActivity(this)
                 .WithRootView(Resource.Id.drawer_container)
                 .WithToolbar(this.toolbar)
                 .WithAccountHeader(this.header)
-                .AddDrawerItems(destinations, settings)
+                .AddDrawerItems(about, destinations, divider, flightStatus, checkIn, divider, settings)
                 .WithOnDrawerItemClickListener(this)
                 .WithSavedInstance(savedInstanceState)
                 .WithActionBarDrawerToggleAnimated(true)
@@ -90,7 +119,7 @@ namespace Jetstream
 
     public override bool OnCreateOptionsMenu(IMenu menu)
     {
-      MenuInflater.Inflate(Resource.Menu.menu_main, menu);
+      this.MenuInflater.Inflate(Resource.Menu.menu_main, menu);
 
       var menuItem = menu.FindItem(Resource.Id.action_refresh);
       menuItem.SetIcon(new IconicsDrawable(this, GoogleMaterial.Icon.GmdRefresh).ActionBar().Color(Color.White));
@@ -100,13 +129,11 @@ namespace Jetstream
 
     private void PrepareHeader(Bundle savedInstanceState)
     {
+      var profileDrawable = this.Resources.GetDrawable(Resource.Drawable.ic_profile);
+
       var profile = new ProfileDrawerItem()
         .WithName(this.GetString(Resource.String.text_default_user))
-        .WithIcon(
-              new IconicsDrawable(this, GoogleMaterial.Icon.GmdVerifiedUser)
-        .ActionBarSize()
-        .PaddingDp(5)
-        .Color(Color.Black));
+        .WithIcon(profileDrawable);
 
       this.header = new AccountHeaderBuilder()
         .WithActivity(this)
@@ -125,7 +152,7 @@ namespace Jetstream
 
     public override void OnBackPressed()
     {
-      if (this.drawer != null && this.drawer.IsDrawerOpen)
+      if(this.drawer != null && this.drawer.IsDrawerOpen)
       {
         this.drawer.CloseDrawer();
       }
@@ -144,7 +171,7 @@ namespace Jetstream
 
     public bool OnItemClick(AdapterView parent, Android.Views.View view, int position, long id, IDrawerItem drawerItem)
     {
-      if (drawerItem == null)
+      if(drawerItem == null)
       {
         return true;
       }
@@ -153,9 +180,15 @@ namespace Jetstream
 
       switch (drawerItem.Identifier)
       {
-        case 1:
+        case AboutMenuItemIdentifier:
           break;
-        case 2:
+        case DestinationsMenuItemIdentifier:
+          break;
+        case FlightStatusMenuItemIdentifier:
+          break;
+        case CheckInMenuItemIdentifier:
+          break;
+        case SettingsMenuItemIdentifier:
           var settings = new SettingsDialog(this.prefs);
           settings.Show(this.FragmentManager, "settings");
           

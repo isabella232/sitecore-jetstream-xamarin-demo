@@ -22,8 +22,5 @@
         android:hint="@string/hint_sitecore_url"
         android:textCursorDrawable="@drawable/edit_text_cursor_drawable"
         android:textSize="20sp"
-        app:met_baseColor="@android:color/black"
-        app:met_floatingLabel="highlight"
-        app:met_primaryColor="?colorAccent"
-        app:met_singleLineEllipsis="true" />
+        style="@style/Material.Edittext.Style" />
 </RelativeLayout>

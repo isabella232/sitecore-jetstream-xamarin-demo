@@ -30,6 +30,8 @@ namespace Jetstream.Map
 
     protected override void OnBeforeClusterItemRendered(Object item, MarkerOptions markerOptions)
     {
+      var color = this.context.Resources.GetColor(Resource.Color.colorAccent);
+      markerOptions.InvokeIcon(BitmapDescriptorFactory.DefaultMarker(color.GetHue()));
     }
 
     protected override void OnClusterItemRendered(Object cluster, Marker marker)
@@ -45,13 +47,17 @@ namespace Jetstream.Map
 
     protected override void OnBeforeClusterRendered(ICluster cluster, MarkerOptions markerOptions)
     {
+      var color = this.context.Resources.GetColor(Resource.Color.colorAccent);
+      markerOptions.InvokeIcon(BitmapDescriptorFactory.DefaultMarker(color.GetHue()));
     }
 
     protected override void OnClusterRendered(ICluster cluster, Marker marker)
     {
       var item = cluster.Items.OfType<ClusterItem>().ElementAt(0);
 
-      var target = new MarkerTarget(this, cluster, bitmap => BitmapUtils.GetCircledBitmapWithTextIcon(bitmap, Color.White, 4, cluster.Size.ToString(), Color.White, Color.Red));
+      var textBackground = this.context.Resources.GetColor(Resource.Color.colorAccent);
+
+      var target = new MarkerTarget(this, cluster, bitmap => BitmapUtils.GetCircledBitmapWithTextIcon(bitmap, Color.White, 4, cluster.Size.ToString(), Color.White, textBackground));
       Picasso.With(this.context).Load(item.ImageUrl).Resize(this.clusterIconSize, this.clusterIconSize).Into(target);
     }
 
