@@ -181,6 +181,9 @@
     <AndroidResource Include="Resources\drawable-xhdpi\ic_online_checkin.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\ic_profile.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\ic_settings.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_jetstream_logo.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_jetstream_logo.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_jetstream_logo.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\activity_main.axml">
