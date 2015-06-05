@@ -98,9 +98,6 @@
     <Reference Include="Picasso">
       <HintPath>libs\Picasso.dll</HintPath>
     </Reference>
-    <Reference Include="Xamarin.Android.Support.v7.AppCompat">
-      <HintPath>..\..\..\solutions\packages\Xamarin.Android.Support.v7.AppCompat.22.1.1.1\lib\MonoAndroid403\Xamarin.Android.Support.v7.AppCompat.dll</HintPath>
-    </Reference>
     <Reference Include="Xamarin.Android.Support.v7.MediaRouter">
       <HintPath>..\..\..\solutions\packages\Xamarin.Android.Support.v7.MediaRouter.22.1.1.1\lib\MonoAndroid403\Xamarin.Android.Support.v7.MediaRouter.dll</HintPath>
     </Reference>
@@ -124,6 +121,9 @@
     </Reference>
     <Reference Include="GooglePlayServicesLib">
       <HintPath>..\..\..\solutions\packages\Xamarin.GooglePlayServices.22.0.0.2\lib\MonoAndroid41\GooglePlayServicesLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Android.Support.v7.AppCompat">
+      <HintPath>..\..\..\solutions\packages\Xamarin.Android.Support.v7.AppCompat.22.1.1.1\lib\MonoAndroid403\Xamarin.Android.Support.v7.AppCompat.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -168,6 +168,22 @@
     <AndroidResource Include="Resources\values-sw720dp\dimens.xml" />
     <AndroidResource Include="Resources\values-sw600dp\dimens.xml" />
     <AndroidResource Include="Resources\menu\menu_main.axml" />
+    <AndroidResource Include="Resources\values\styles.xml" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_about.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_destinations.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_flight_status.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_online_checkin.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_profile.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_settings.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_about.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_destinations.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_flight_status.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_online_checkin.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_profile.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_settings.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_jetstream_logo.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_jetstream_logo.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_jetstream_logo.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\activity_main.axml">

@@ -24,7 +24,7 @@ namespace Jetstream.UI.Dialogs
       var rootView = this.InitContentView();
       var sitecoreUrlField = this.InitSitecoreUrlField(rootView);
 
-      var builder = new Android.Support.V7.App.AlertDialog.Builder(this.Activity);
+      var builder = new Android.Support.V7.App.AlertDialog.Builder(this.Activity, Resource.Style.AppCompatAlertDialogStyle);
       builder.SetPositiveButton(this.GetString(Resource.String.text_button_apply), handler: null);
       builder.SetNegativeButton(this.GetString(Resource.String.text_button_cancel), handler: null);
       builder.SetView(rootView);
