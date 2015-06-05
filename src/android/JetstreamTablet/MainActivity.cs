@@ -64,13 +64,13 @@ namespace Jetstream
 
       var destinations = new PrimaryDrawerItem();
       destinations.WithName(Resource.String.text_destinations_item);
-      destinations.WithIcon(GoogleMaterial.Icon.GmdFlight);
+      destinations.WithIcon(Resource.Drawable.ic_destinations);
       destinations.WithIdentifier(1);
       destinations.WithCheckable(false);
 
       var settings = new PrimaryDrawerItem();
       settings.WithName(Resource.String.text_settings_item);
-      settings.WithIcon(GoogleMaterial.Icon.GmdSettings);
+      settings.WithIcon(Resource.Drawable.ic_settings);
       settings.WithIdentifier(2);
       settings.WithCheckable(false);
 
@@ -100,13 +100,11 @@ namespace Jetstream
 
     private void PrepareHeader(Bundle savedInstanceState)
     {
+      var profileDrawable = Resources.GetDrawable(Resource.Drawable.ic_profile);
+
       var profile = new ProfileDrawerItem()
         .WithName(this.GetString(Resource.String.text_default_user))
-        .WithIcon(
-              new IconicsDrawable(this, GoogleMaterial.Icon.GmdVerifiedUser)
-        .ActionBarSize()
-        .PaddingDp(5)
-        .Color(Color.White));
+        .WithIcon(profileDrawable);
 
       this.header = new AccountHeaderBuilder()
         .WithActivity(this)

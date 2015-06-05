@@ -169,6 +169,18 @@
     <AndroidResource Include="Resources\values-sw600dp\dimens.xml" />
     <AndroidResource Include="Resources\menu\menu_main.axml" />
     <AndroidResource Include="Resources\values\styles.xml" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_about.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_destinations.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_flight_status.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_online_checkin.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_profile.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_settings.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_about.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_destinations.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_flight_status.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_online_checkin.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_profile.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_settings.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\activity_main.axml">
