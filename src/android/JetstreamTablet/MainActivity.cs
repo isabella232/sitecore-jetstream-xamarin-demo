@@ -60,9 +60,7 @@
       this.SetSupportActionBar(this.toolbar);
       this.toolbar.SetLogo(Resource.Drawable.ic_jetstream_logo);
 
-      Toast.MakeText(this, "Height: " + this.toolbar.Logo.IntrinsicHeight, ToastLength.Long).Show();
       this.Title = "";
-
       this.toolbar.InflateMenu(Resource.Menu.menu_main);
       this.toolbar.MenuItemClick += (sender, e) => MessageBus.PostEvent(EventIdsContainer.SitecoreInstanceUrlUpdateEvent);
 
