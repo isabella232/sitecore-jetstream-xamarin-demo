@@ -65,6 +65,7 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="Mono.Android" />
+    <Reference Include="Mono.Android.Export" />
     <Reference Include="Xamarin.Android.Support.v4">
       <HintPath>..\..\..\solutions\packages\Xamarin.Android.Support.v4.22.1.1.1\lib\MonoAndroid403\Xamarin.Android.Support.v4.dll</HintPath>
     </Reference>
@@ -135,12 +136,15 @@
     <Compile Include="Prefs.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UI\Dialogs\DestinationDetailsDialog.cs" />
     <Compile Include="UI\Dialogs\SettingsDialog.cs" />
     <Compile Include="UI\Fragments\DestinationsOnMapFragment.cs" />
     <Compile Include="Map\ClusterItem.cs" />
     <Compile Include="Utils\SitecoreUrlValidator.cs" />
+    <Compile Include="Utils\Util.cs" />
     <Compile Include="View\ScrollChildSwipeRefreshLayout.cs" />
     <Compile Include="JetstreamApplication.cs" />
+    <Compile Include="View\DestinationView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -184,6 +188,7 @@
     <AndroidResource Include="Resources\drawable-hdpi\ic_jetstream_logo.png" />
     <AndroidResource Include="Resources\drawable-mdpi\ic_jetstream_logo.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\ic_jetstream_logo.png" />
+    <AndroidResource Include="Resources\layout\view_destination_details.axml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\activity_main.axml">
@@ -200,6 +205,10 @@
     <ProjectReference Include="..\..\commons\JetStreamCommons\JetStreamCommons.csproj">
       <Project>{040C24CF-4B83-4917-B837-ED8157960B5F}</Project>
       <Name>JetStreamCommons</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LibraryProjects\Xamarin.Android.ObservableScrollView\Xamarin.Android.ObservableScrollView.csproj">
+      <Project>{4DD82A35-4A0B-41F9-A847-5020A93A0A53}</Project>
+      <Name>Xamarin.Android.ObservableScrollView</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="..\..\..\solutions\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\..\solutions\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />

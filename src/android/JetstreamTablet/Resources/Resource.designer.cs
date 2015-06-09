@@ -53,6 +53,7 @@ namespace Jetstream
 			global::com.dbeattie.Resource.Style.Snackbar = global::Jetstream.Resource.Style.Snackbar;
 			global::com.dbeattie.Resource.Style.Snackbar_Text = global::Jetstream.Resource.Style.Snackbar_Text;
 			global::com.dbeattie.Resource.Style.Snackbar_Text_Action = global::Jetstream.Resource.Style.Snackbar_Text_Action;
+			global::Xamarin.Android.ObservableScrollView.Resource.String.library_name = global::Jetstream.Resource.String.library_name;
 		}
 		
 		public partial class Animation
@@ -2429,8 +2430,14 @@ namespace Jetstream
 			// aapt resource value: 0x7f070042
 			public const int disabled_alpha_material_light = 2131165250;
 			
+			// aapt resource value: 0x7f070079
+			public const int flexible_space_image_height = 2131165305;
+			
 			// aapt resource value: 0x7f070047
 			public const int floating_label_text_size = 2131165255;
+			
+			// aapt resource value: 0x7f07007d
+			public const int header_bar_height = 2131165309;
 			
 			// aapt resource value: 0x7f070048
 			public const int inner_components_spacing = 2131165256;
@@ -2440,6 +2447,9 @@ namespace Jetstream
 			
 			// aapt resource value: 0x7f07004a
 			public const int inner_padding_right = 2131165258;
+			
+			// aapt resource value: 0x7f07007c
+			public const int margin_standard = 2131165308;
 			
 			// aapt resource value: 0x7f07004e
 			public const int material_drawer_account_header_compact = 2131165262;
@@ -2572,6 +2582,12 @@ namespace Jetstream
 			
 			// aapt resource value: 0x7f070074
 			public const int sb__text_size = 2131165300;
+			
+			// aapt resource value: 0x7f07007a
+			public const int text_container_horizontal_margin = 2131165306;
+			
+			// aapt resource value: 0x7f07007b
+			public const int text_container_vertical_margin = 2131165307;
 			
 			// aapt resource value: 0x7f07004d
 			public const int tool_bar_top_padding = 2131165261;
@@ -3091,8 +3107,8 @@ namespace Jetstream
 			// aapt resource value: 0x7f0c003e
 			public const int action_mode_close_button = 2131492926;
 			
-			// aapt resource value: 0x7f0c0094
-			public const int action_refresh = 2131493012;
+			// aapt resource value: 0x7f0c0099
+			public const int action_refresh = 2131493017;
 			
 			// aapt resource value: 0x7f0c003f
 			public const int activity_chooser_view_content = 2131492927;
@@ -3217,6 +3233,15 @@ namespace Jetstream
 			// aapt resource value: 0x7f0c0039
 			public const int grayscale = 2131492921;
 			
+			// aapt resource value: 0x7f0c0096
+			public const int header = 2131493014;
+			
+			// aapt resource value: 0x7f0c0097
+			public const int header_background = 2131493015;
+			
+			// aapt resource value: 0x7f0c0098
+			public const int header_bar = 2131493016;
+			
 			// aapt resource value: 0x7f0c003b
 			public const int highlight = 2131492923;
 			
@@ -3328,6 +3353,9 @@ namespace Jetstream
 			// aapt resource value: 0x7f0c0023
 			public const int screen = 2131492899;
 			
+			// aapt resource value: 0x7f0c0094
+			public const int scroll = 2131493012;
+			
 			// aapt resource value: 0x7f0c004b
 			public const int scrollView = 2131492939;
 			
@@ -3435,6 +3463,9 @@ namespace Jetstream
 			
 			// aapt resource value: 0x7f0c004c
 			public const int textSpacerNoButtons = 2131492940;
+			
+			// aapt resource value: 0x7f0c0095
+			public const int text_container = 2131493013;
 			
 			// aapt resource value: 0x7f0c008d
 			public const int text_wrapper = 2131493005;
@@ -3679,6 +3710,9 @@ namespace Jetstream
 			// aapt resource value: 0x7f030032
 			public const int text_bubble = 2130903090;
 			
+			// aapt resource value: 0x7f030033
+			public const int view_destination_details = 2130903091;
+			
 			static Layout()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
@@ -3778,8 +3812,8 @@ namespace Jetstream
 			// aapt resource value: 0x7f08001d
 			public const int accept = 2131230749;
 			
-			// aapt resource value: 0x7f08004c
-			public const int app_name = 2131230796;
+			// aapt resource value: 0x7f08004d
+			public const int app_name = 2131230797;
 			
 			// aapt resource value: 0x7f080024
 			public const int common_android_wear_notification_needs_update_text = 2131230756;
@@ -3874,89 +3908,92 @@ namespace Jetstream
 			// aapt resource value: 0x7f08001e
 			public const int decline = 2131230750;
 			
-			// aapt resource value: 0x7f08004d
-			public const int define_AndroidIconics = 2131230797;
-			
-			// aapt resource value: 0x7f08003e
-			public const int define_materialdrawer = 2131230782;
+			// aapt resource value: 0x7f08004e
+			public const int define_AndroidIconics = 2131230798;
 			
 			// aapt resource value: 0x7f08003f
-			public const int drawer_close = 2131230783;
+			public const int define_materialdrawer = 2131230783;
 			
 			// aapt resource value: 0x7f080040
-			public const int drawer_open = 2131230784;
-			
-			// aapt resource value: 0x7f08005f
-			public const int error_wrong_url = 2131230815;
-			
-			// aapt resource value: 0x7f08005e
-			public const int hint_sitecore_url = 2131230814;
-			
-			// aapt resource value: 0x7f08004e
-			public const int library_AndroidIconics_author = 2131230798;
-			
-			// aapt resource value: 0x7f08004f
-			public const int library_AndroidIconics_authorWebsite = 2131230799;
-			
-			// aapt resource value: 0x7f080050
-			public const int library_AndroidIconics_isOpenSource = 2131230800;
-			
-			// aapt resource value: 0x7f080051
-			public const int library_AndroidIconics_libraryDescription = 2131230801;
-			
-			// aapt resource value: 0x7f080052
-			public const int library_AndroidIconics_libraryName = 2131230802;
-			
-			// aapt resource value: 0x7f080053
-			public const int library_AndroidIconics_libraryVersion = 2131230803;
-			
-			// aapt resource value: 0x7f080054
-			public const int library_AndroidIconics_libraryWebsite = 2131230804;
-			
-			// aapt resource value: 0x7f080055
-			public const int library_AndroidIconics_licenseId = 2131230805;
-			
-			// aapt resource value: 0x7f080056
-			public const int library_AndroidIconics_owner = 2131230806;
-			
-			// aapt resource value: 0x7f080057
-			public const int library_AndroidIconics_repositoryLink = 2131230807;
-			
-			// aapt resource value: 0x7f080058
-			public const int library_AndroidIconics_year = 2131230808;
+			public const int drawer_close = 2131230784;
 			
 			// aapt resource value: 0x7f080041
-			public const int library_materialdrawer_author = 2131230785;
+			public const int drawer_open = 2131230785;
+			
+			// aapt resource value: 0x7f080060
+			public const int error_wrong_url = 2131230816;
+			
+			// aapt resource value: 0x7f08005f
+			public const int hint_sitecore_url = 2131230815;
+			
+			// aapt resource value: 0x7f08004f
+			public const int library_AndroidIconics_author = 2131230799;
+			
+			// aapt resource value: 0x7f080050
+			public const int library_AndroidIconics_authorWebsite = 2131230800;
+			
+			// aapt resource value: 0x7f080051
+			public const int library_AndroidIconics_isOpenSource = 2131230801;
+			
+			// aapt resource value: 0x7f080052
+			public const int library_AndroidIconics_libraryDescription = 2131230802;
+			
+			// aapt resource value: 0x7f080053
+			public const int library_AndroidIconics_libraryName = 2131230803;
+			
+			// aapt resource value: 0x7f080054
+			public const int library_AndroidIconics_libraryVersion = 2131230804;
+			
+			// aapt resource value: 0x7f080055
+			public const int library_AndroidIconics_libraryWebsite = 2131230805;
+			
+			// aapt resource value: 0x7f080056
+			public const int library_AndroidIconics_licenseId = 2131230806;
+			
+			// aapt resource value: 0x7f080057
+			public const int library_AndroidIconics_owner = 2131230807;
+			
+			// aapt resource value: 0x7f080058
+			public const int library_AndroidIconics_repositoryLink = 2131230808;
+			
+			// aapt resource value: 0x7f080059
+			public const int library_AndroidIconics_year = 2131230809;
 			
 			// aapt resource value: 0x7f080042
-			public const int library_materialdrawer_authorWebsite = 2131230786;
+			public const int library_materialdrawer_author = 2131230786;
 			
 			// aapt resource value: 0x7f080043
-			public const int library_materialdrawer_isOpenSource = 2131230787;
+			public const int library_materialdrawer_authorWebsite = 2131230787;
 			
 			// aapt resource value: 0x7f080044
-			public const int library_materialdrawer_libraryDescription = 2131230788;
+			public const int library_materialdrawer_isOpenSource = 2131230788;
 			
 			// aapt resource value: 0x7f080045
-			public const int library_materialdrawer_libraryName = 2131230789;
+			public const int library_materialdrawer_libraryDescription = 2131230789;
 			
 			// aapt resource value: 0x7f080046
-			public const int library_materialdrawer_libraryVersion = 2131230790;
+			public const int library_materialdrawer_libraryName = 2131230790;
 			
 			// aapt resource value: 0x7f080047
-			public const int library_materialdrawer_libraryWebsite = 2131230791;
+			public const int library_materialdrawer_libraryVersion = 2131230791;
 			
 			// aapt resource value: 0x7f080048
-			public const int library_materialdrawer_licenseId = 2131230792;
+			public const int library_materialdrawer_libraryWebsite = 2131230792;
 			
 			// aapt resource value: 0x7f080049
-			public const int library_materialdrawer_owner = 2131230793;
+			public const int library_materialdrawer_licenseId = 2131230793;
 			
 			// aapt resource value: 0x7f08004a
-			public const int library_materialdrawer_repositoryLink = 2131230794;
+			public const int library_materialdrawer_owner = 2131230794;
 			
 			// aapt resource value: 0x7f08004b
-			public const int library_materialdrawer_year = 2131230795;
+			public const int library_materialdrawer_repositoryLink = 2131230795;
+			
+			// aapt resource value: 0x7f08004c
+			public const int library_materialdrawer_year = 2131230796;
+			
+			// aapt resource value: 0x7f08003e
+			public const int library_name = 2131230782;
 			
 			// aapt resource value: 0x7f080000
 			public const int mr_media_route_button_content_description = 2131230720;
@@ -3994,20 +4031,20 @@ namespace Jetstream
 			// aapt resource value: 0x7f08001b
 			public const int store_picture_title = 2131230747;
 			
-			// aapt resource value: 0x7f08005c
-			public const int text_button_apply = 2131230812;
-			
 			// aapt resource value: 0x7f08005d
-			public const int text_button_cancel = 2131230813;
+			public const int text_button_apply = 2131230813;
 			
-			// aapt resource value: 0x7f08005b
-			public const int text_default_user = 2131230811;
+			// aapt resource value: 0x7f08005e
+			public const int text_button_cancel = 2131230814;
 			
-			// aapt resource value: 0x7f080059
-			public const int text_destinations_item = 2131230809;
+			// aapt resource value: 0x7f08005c
+			public const int text_default_user = 2131230812;
 			
 			// aapt resource value: 0x7f08005a
-			public const int text_settings_item = 2131230810;
+			public const int text_destinations_item = 2131230810;
+			
+			// aapt resource value: 0x7f08005b
+			public const int text_settings_item = 2131230811;
 			
 			// aapt resource value: 0x7f08003d
 			public const int wallet_buy_button_place_holder = 2131230781;

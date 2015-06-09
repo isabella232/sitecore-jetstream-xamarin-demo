@@ -2,19 +2,33 @@ namespace Jetstream.Map
 {
   using Android.Gms.Maps.Model;
   using Android.Gms.Maps.Utils.Clustering;
+  using JetStreamCommons.Destinations;
 
   public class ClusterItem : Java.Lang.Object, IClusterItem
   {
-    public LatLng Position { get; private set; }
-
-    public string Title { get; private set; }
-
+    public IDestination Wrapped { get; private set; }
+  
     public string ImageUrl { get; private set; }
 
-    public ClusterItem(LatLng position, string title, string imageUrl)
+    public LatLng Position
     {
-      this.Position = position;
-      this.Title = title;
+      get
+      {
+        return new LatLng(this.Wrapped.Latitude, this.Wrapped.Longitude);
+      }
+    }
+
+    public string Title
+    {
+      get
+      {
+        return this.Wrapped.DisplayName;
+      }
+    }
+
+    public ClusterItem(IDestination wrapped, string imageUrl)
+    {
+      this.Wrapped = wrapped;
       this.ImageUrl = imageUrl;
     }
   }
