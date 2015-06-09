@@ -1,12 +1,10 @@
-using Jetstream.Map;
-
 namespace Jetstream.UI.Dialogs
 {
   using Android.App;
   using Android.OS;
   using Android.Views;
+  using Jetstream.Map;
   using Jetstream.View;
-  using JetStreamCommons.Destinations;
 
   public class DestinationDetailsDialog : DialogFragment, View.IOnClickListener
   {
@@ -23,7 +21,11 @@ namespace Jetstream.UI.Dialogs
       builder.SetView(rootView);
 
       var dialog = builder.Show();
-      dialog.SetCanceledOnTouchOutside(false);
+      this.destinationView.OnBackButtonClicked = () => { dialog.Dismiss(); };
+
+      int width = this.Resources.GetDimensionPixelSize(Resource.Dimension.destination_dialog_width);
+      dialog.Window.SetLayout(width, ViewGroup.LayoutParams.WrapContent);
+
       return dialog;
     }
 

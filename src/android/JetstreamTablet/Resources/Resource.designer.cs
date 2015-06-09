@@ -2412,6 +2412,9 @@ namespace Jetstream
 			// aapt resource value: 0x7f070046
 			public const int default_padding_top = 2131165254;
 			
+			// aapt resource value: 0x7f07007e
+			public const int destination_dialog_width = 2131165310;
+			
 			// aapt resource value: 0x7f07003d
 			public const int dialog_fixed_height_major = 2131165245;
 			

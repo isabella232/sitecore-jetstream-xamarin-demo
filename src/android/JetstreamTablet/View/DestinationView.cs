@@ -2,6 +2,7 @@ namespace Jetstream.View
 {
   using System;
   using Android.Content;
+  using Android.Text;
   using Android.Util;
   using Android.Views;
   using Android.Views.Animations;
@@ -28,11 +29,16 @@ namespace Jetstream.View
     private Android.Support.V7.Widget.Toolbar toolbar;
     private TextView bodyTextView;
     private View headerBackground;
+    #endregion
+
+    #region Math
     private int prevScrollY;
     private bool gapIsChanging;
     private bool gapHidden;
     private bool isReady;
     #endregion
+
+    public Action OnBackButtonClicked { get; set; }
 
     public DestinationView(Context context)
     {
@@ -74,7 +80,7 @@ namespace Jetstream.View
       var view = this.InitContentViews();
 
       this.toolbar.Title = destination.Wrapped.DisplayName;
-      this.bodyTextView.Text = destination.Wrapped.Overview;
+      this.bodyTextView.Text = Html.FromHtml(destination.Wrapped.Overview).ToString();
       
       Picasso.With(this.context).Load(destination.ImageUrl).Into(this.image);
 
@@ -211,7 +217,10 @@ namespace Jetstream.View
 
     public void OnClick(View v)
     {
-
+      if (this.OnBackButtonClicked != null)
+      {
+        this.OnBackButtonClicked.Invoke();
+      }
     }
   }
 
