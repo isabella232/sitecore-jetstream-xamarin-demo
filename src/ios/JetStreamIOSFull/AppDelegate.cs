@@ -2,6 +2,7 @@
 using UIKit;
 using JetStreamIOSFull.Helpers;
 using System.Drawing;
+using System;
 
 namespace JetStreamIOSFull
 {
@@ -19,7 +20,7 @@ namespace JetStreamIOSFull
       get;
       set;
     }
-
+            
     public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
     {
       // Code to start the Xamarin Test Cloud Agent
@@ -32,13 +33,12 @@ namespace JetStreamIOSFull
       var splitViewController = (UISplitViewController)Window.RootViewController;
       splitViewController.PresentsWithGesture = false;
       splitViewController.PreferredDisplayMode = UISplitViewControllerDisplayMode.PrimaryHidden;
-      splitViewController.WeakDelegate = this;
-
+//      splitViewController.WeakDelegate = this;
+      splitViewController.Delegate = new SplitViewDelegate();
       NSString key = NSString.FromData("_masterColumnWidth",NSStringEncoding.ASCIIStringEncoding);
       splitViewController.SetValueForKey(this.appearanceHelper.MainMenuWidth, key);
 
       NavigationManagerViewController navigationManager = (NavigationManagerViewController)splitViewController.ViewControllers[1];
-
       navigationManager.Appearance = this.appearanceHelper;
       navigationManager.Endpoint = this.endpoint;
 
@@ -47,9 +47,11 @@ namespace JetStreamIOSFull
 
       this.SetupUI();
 
+      application.SetStatusBarStyle (UIStatusBarStyle.LightContent, false);
+
       return true;
     }
-
+      
     public void SetupUI()
     {
       UIColor textColor = this.appearanceHelper.NavigationTextColor;

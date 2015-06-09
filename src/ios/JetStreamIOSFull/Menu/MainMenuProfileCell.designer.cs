@@ -9,14 +9,17 @@ using System.CodeDom.Compiler;
 
 namespace JetStreamIOSFull
 {
-	[Register ("SettingsViewControlle")]
-	partial class SettingsViewControlle
+	[Register ("MainMenuProfileCell")]
+	partial class MainMenuProfileCell
 	{
 		[Outlet]
 		UIKit.UIImageView BackgroundImageView { get; set; }
 
 		[Outlet]
-		UIKit.UITextField UrlTextField { get; set; }
+		UIKit.UIImageView IconImageView { get; set; }
+
+		[Outlet]
+		UIKit.UILabel TextLabel { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
@@ -25,9 +28,14 @@ namespace JetStreamIOSFull
 				BackgroundImageView = null;
 			}
 
-			if (UrlTextField != null) {
-				UrlTextField.Dispose ();
-				UrlTextField = null;
+			if (IconImageView != null) {
+				IconImageView.Dispose ();
+				IconImageView = null;
+			}
+
+			if (TextLabel != null) {
+				TextLabel.Dispose ();
+				TextLabel = null;
 			}
 		}
 	}

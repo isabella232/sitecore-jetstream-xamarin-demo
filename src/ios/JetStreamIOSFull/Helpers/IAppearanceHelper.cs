@@ -47,7 +47,17 @@ namespace JetStreamIOSFull
       get;
     }
 
+    UIImage ProfileCellBackground
+    {
+      get;
+    }
+
     UIImage NavigationBarLogo
+    {
+      get;
+    }
+
+    UIImage SettingsBackground
     {
       get;
     }
@@ -58,6 +68,16 @@ namespace JetStreamIOSFull
     }
 
     UIColor MenuBackgroundColor
+    {
+      get;
+    }
+
+    UIColor MenuSeparatorColor
+    {
+      get;
+    }
+
+    UIColor MenuIconColor
     {
       get;
     }

@@ -2,6 +2,6 @@
 
 namespace JetStreamIOSFull
 {
-  public enum MenuItemTypes { About, Destinations, FlightStatus, OnlineCheckin, Settings };
+  public enum MenuItemTypes { About, Destinations, FlightStatus, OnlineCheckin, Settings, Profile };
 }
 

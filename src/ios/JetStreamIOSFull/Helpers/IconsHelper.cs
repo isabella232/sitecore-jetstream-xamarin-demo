@@ -21,6 +21,14 @@ namespace JetStreamIOSFull.Helpers
       }
     }
 
+    public static UIImage MenuProfileIcon
+    {
+      get
+      { 
+        return UIImage.FromBundle("Images.xcassets/MenuIcons/ProfileIcon.png");
+      }
+    }
+
     public static UIImage MenuAboutIcon
     {
       get

@@ -7,42 +7,13 @@ using UIKit;
 
 namespace JetStreamIOSFull
 {
-	public partial class MainMenuCell : UITableViewCell
+  public partial class MainMenuCell : MainMenuBaseCell
 	{
-    private UIColor defaultTintColor = UIColor.Blue;
-    private UIColor selectedTintColor = UIColor.White;
-    private bool selected = false;
 		public MainMenuCell (IntPtr handle) : base (handle)
 		{
 		}
 
-    public UIColor SelectedTintColor
-    {
-      set
-      { 
-        this.selectedTintColor = value;
-        this.SetSelected(this.selected, true);
-      }
-    }
-
-    public UIColor DefaultTintColor
-    {
-      set
-      { 
-        this.defaultTintColor = value;
-        this.SetSelected(this.selected, true);
-      }
-    }
-
-    public bool IsSelected
-    {
-      get
-      { 
-        return this.selected;
-      }
-    }
-
-    public virtual void SetSelected(bool selected, bool animated)
+    public override void SetSelected(bool selected, bool animated)
     {
       this.selected = selected;
       UIColor color = this.defaultTintColor;
@@ -55,7 +26,7 @@ namespace JetStreamIOSFull
       this.TitleLabel.TextColor = color;
     }
 
-    public string Title
+    public override string Title
     {
       set
       { 
@@ -63,7 +34,7 @@ namespace JetStreamIOSFull
       }
     }
 
-    public UIImage Image
+    public override UIImage Image
     {
       set
       { 

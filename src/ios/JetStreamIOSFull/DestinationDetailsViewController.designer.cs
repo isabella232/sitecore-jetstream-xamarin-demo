@@ -20,14 +20,12 @@ namespace JetStreamIOSFull
 
 		[Outlet]
 		UIKit.UILabel TitleLabel { get; set; }
+
+		[Action ("BackgroundViewTouched:")]
+		partial void BackgroundViewTouched (Foundation.NSObject sender);
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (TitleLabel != null) {
-				TitleLabel.Dispose ();
-				TitleLabel = null;
-			}
-
 			if (DestinationDescription != null) {
 				DestinationDescription.Dispose ();
 				DestinationDescription = null;
@@ -36,6 +34,11 @@ namespace JetStreamIOSFull
 			if (DestinationImageView != null) {
 				DestinationImageView.Dispose ();
 				DestinationImageView = null;
+			}
+
+			if (TitleLabel != null) {
+				TitleLabel.Dispose ();
+				TitleLabel = null;
 			}
 		}
 	}

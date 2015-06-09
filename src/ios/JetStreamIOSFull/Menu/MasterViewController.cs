@@ -27,14 +27,16 @@ namespace JetStreamIOSFull
 
       NavigationManager = (NavigationManagerViewController)SplitViewController.ViewControllers[1];
 
-      this.TableView.SeparatorColor = ah.MenuTextColor;
-
+      this.TableView.SeparatorColor = ah.MenuSeparatorColor;
+      this.TableView.TableFooterView = new UIView (new CGRect (0, 0, 0, 0));
       this.BuildMenu();
     }
 
     private void BuildMenu()
     {
       List<IMenuItem> menuItems = new List<IMenuItem> ();
+
+      menuItems.Add(new MenuItem("Profile", IconsHelper.MenuProfileIcon, MenuItemTypes.Profile));
 
       menuItems.Add(new MenuItem("About", IconsHelper.MenuAboutIcon, MenuItemTypes.About));
       menuItems.Add(new MenuItem("Destinations", IconsHelper.MenuDestinationIcon, MenuItemTypes.Destinations));
@@ -61,8 +63,10 @@ namespace JetStreamIOSFull
     }
 
     class DataSource : UITableViewSource
-    {
-      static readonly NSString CellIdentifier = new NSString ("Cell");
+    { 
+      static readonly NSString MainCellIdentifier = new NSString ("MainCell");
+      static readonly NSString ProfileCellIdentifier = new NSString ("ProfileCell");
+
       readonly List<IMenuItem> objects;
       readonly MasterViewController controller;
 
@@ -83,44 +87,75 @@ namespace JetStreamIOSFull
       {
         return objects.Count;
       }
+
+      public override nfloat GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
+      {
+        if (indexPath.Row == 0)
+        {
+          return 90;
+        }
+
+        return 61;
+      }
         
       // Customize the appearance of table view cells.
       public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
       {
-        var cell = tableView.DequeueReusableCell(CellIdentifier, indexPath);
-        MainMenuCell castedCell = cell as MainMenuCell;
+        MainMenuBaseCell cell = null;
 
-        castedCell.SelectedTintColor = this.controller.ah.SelectionColor;
-        castedCell.DefaultTintColor = this.controller.ah.MenuTextColor;
-        castedCell.BackgroundColor = this.controller.ah.MenuBackgroundColor;
-          
         IMenuItem menuItem = objects[indexPath.Row];
 
-        castedCell.Title = menuItem.Title;
-        castedCell.Image = menuItem.Image;
+        if (indexPath.Row == 0)
+        {
+          cell = tableView.DequeueReusableCell(ProfileCellIdentifier, indexPath) as MainMenuBaseCell;
+          MainMenuProfileCell castedCell = cell as MainMenuProfileCell;
+
+          castedCell.BackgroundImage = this.controller.ah.ProfileCellBackground;
+
+          cell.DefaultTintColor = this.controller.ah.WhiteColor;
+
+          //hiding separator
+          cell.SeparatorInset = new UIEdgeInsets(0, cell.Bounds.Size.Width, 0, 0);
+        }
+        else
+        {
+          cell = tableView.DequeueReusableCell(MainCellIdentifier, indexPath) as MainMenuBaseCell;
+
+          cell.SelectedTintColor = this.controller.ah.SelectionColor;
+          cell.DefaultTintColor = this.controller.ah.MenuIconColor; 
+          cell.BackgroundColor = this.controller.ah.MenuBackgroundColor;
+        }
+
+        cell.Title = menuItem.Title;
+        cell.Image = menuItem.Image;
 
         return cell;
       }
 
+
+
       public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
       {
-        if (prevSelectedCell != null)
+        if (indexPath.Row != 0)
         {
-          prevSelectedCell.SetSelected(false, true);
+          if (prevSelectedCell != null)
+          {
+            prevSelectedCell.SetSelected(false, true);
+          }
+
+          var cell = tableView.CellAt(indexPath);
+          MainMenuCell castedCell = cell as MainMenuCell;
+          prevSelectedCell = castedCell;
+          castedCell.SetSelected(true, true);
+        
+
+          UIBarButtonItem hideButton = this.controller.SplitViewController.DisplayModeButtonItem;
+          UIApplication.SharedApplication.SendAction(hideButton.Action, hideButton.Target, null, null);
+
+          IMenuItem menuItem = this.objects [indexPath.Row];
+
+          controller.NavigationManager.NavigationItemSelected(menuItem.Type);
         }
-
-        var cell = tableView.CellAt(indexPath);
-        MainMenuCell castedCell = cell as MainMenuCell;
-        prevSelectedCell = castedCell;
-        castedCell.SetSelected(true, true);
-
-        UIBarButtonItem hideButton = this.controller.SplitViewController.DisplayModeButtonItem;
-        UIApplication.SharedApplication.SendAction(hideButton.Action, hideButton.Target, null, null);
-
-        IMenuItem menuItem = this.objects[indexPath.Row];
-
-        controller.NavigationManager.NavigationItemSelected(menuItem.Type);
-
       }
     }
   }

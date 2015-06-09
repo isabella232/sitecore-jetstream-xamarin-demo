@@ -15,6 +15,11 @@ namespace JetStreamIOSFull
 
     }
 
+    public override void ViewDidLoad()
+    {
+      base.ViewDidLoad();
+    }
+
     public InstanceSettings.InstanceSettings Endpoint
     {
       get

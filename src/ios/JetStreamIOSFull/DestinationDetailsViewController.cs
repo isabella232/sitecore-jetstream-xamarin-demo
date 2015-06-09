@@ -18,6 +18,11 @@ namespace JetStreamIOSFull
 		{
 		}
 
+    partial void BackgroundViewTouched (Foundation.NSObject sender)
+    {
+      this.DismissModalViewController(true);
+    }
+
     public void ShowDestinationDetails(IDestination destination)
     {
       if (destination == null)

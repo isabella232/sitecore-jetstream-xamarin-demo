@@ -105,6 +105,11 @@ namespace InstanceSettings
       set
       { 
         this.instanceUrl = value;
+        if (!this.instanceUrl.EndsWith("/"))
+        {
+          this.instanceUrl = this.instanceUrl + "/";
+        }
+
         this.SaveValueToStorage(value, "instanceUrl");
       }
     }

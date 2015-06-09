@@ -17,6 +17,8 @@ namespace JetStreamIOSFull
       base.ViewDidLoad();
 
       this.Title = NSBundle.MainBundle.LocalizedString("SETTINGS_SCREEN_TITLE", null);
+      this.BackgroundImageView.Image = this.Appearance.SettingsBackground;
+
     }
 
     public override void ViewDidAppear(bool animated)

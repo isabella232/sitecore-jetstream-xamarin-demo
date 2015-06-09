@@ -15,9 +15,33 @@ namespace JetStreamIOSFull
     private UINavigationController SettingsFlow;
     private UINavigationController CurentActiveFlow;
 
+    private UIView overlayView = null;
+
     public NavigationManagerViewController(IntPtr handle) : base(handle)
     {
       Title = NSBundle.MainBundle.LocalizedString("NavigationRoot", "NavigationRoot");
+    }
+
+    private void InitializeOverlay()
+    {
+      this.overlayView = new UIView(this.View.Bounds);
+    }
+
+    public void ShowOverlay()
+    {
+      this.overlayView.BackgroundColor = UIColor.Black.ColorWithAlpha(0.0f);
+
+      UIView.Animate(1, () =>
+      {
+        this.overlayView.BackgroundColor = UIColor.Black.ColorWithAlpha(0.6f);
+      });
+
+      this.View.AddSubview(this.overlayView);
+    }
+
+    public void HideOverlay()
+    {
+      this.overlayView.RemoveFromSuperview();
     }
       
     public  UIBarButtonItem MenuButton
@@ -52,6 +76,7 @@ namespace JetStreamIOSFull
     public override void ViewDidLoad()
     {
       base.ViewDidLoad();
+      this.InitializeOverlay();
     }
 
     public void LoadNavigationFlows()

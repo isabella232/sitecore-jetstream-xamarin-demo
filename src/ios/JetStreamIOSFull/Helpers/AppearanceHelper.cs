@@ -40,7 +40,7 @@ namespace JetStreamIOSFull.Helpers
     {
       get
       { 
-        return new NSNumber(180);
+        return new NSNumber(260);
       }
     }
 
@@ -86,13 +86,13 @@ namespace JetStreamIOSFull.Helpers
 
     #endregion SIZES
 
-    #region COLORS
+    #region IMAGES
 
     public UIImage NavigationBackgroundImage
     {
       get
       { 
-        return UIImage.FromBundle("Images.xcassets/NavBarBackground.png");
+        return UIImage.FromBundle("Images.xcassets/BackgroundTextures/NavBarBackgroundDG.png");
       }
     }
 
@@ -103,6 +103,26 @@ namespace JetStreamIOSFull.Helpers
         return UIImage.FromBundle("Images.xcassets/JetStreamLogo.png");
       }
     }
+
+    public UIImage ProfileCellBackground
+    {
+      get
+      { 
+        return UIImage.FromBundle("Images.xcassets/BackgroundTextures/ProfileBackground.png");
+      }
+    }
+
+    public UIImage SettingsBackground
+    {
+      get
+      { 
+        return UIImage.FromBundle("Images.xcassets/BackgroundTextures/AboutBackground.jpeg");
+      }
+    }
+
+    #endregion IMAGES
+
+    #region COLORS
 
     public UIColor NavigationTextColor
     {
@@ -122,6 +142,28 @@ namespace JetStreamIOSFull.Helpers
       { 
         //return this.MediumGreyColor;
         return this.WhiteColor;
+        //return this.OrangeColor;
+        //return this.DarkGreyColor;
+      }
+    }
+
+    public UIColor MenuIconColor
+    {
+      get
+      { 
+        //return this.MediumGreyColor;
+        return this.DarkGreyColor;
+        //return this.OrangeColor;
+        //return this.DarkGreyColor;
+      }
+    }
+
+    public UIColor MenuSeparatorColor
+    {
+      get
+      { 
+        //return this.MediumGreyColor;
+        return UIColor.LightGray;
         //return this.OrangeColor;
         //return this.DarkGreyColor;
       }
