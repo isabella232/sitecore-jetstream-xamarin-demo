@@ -7,6 +7,7 @@ Feature: App menu
 <h2>Description</h2>
 The app menu contains the list of options the user can navigate to.  
 *Screen:*  
+![alt text](/img/Feature_images/AppMenu_Android.jpg)
 ![alt text](/img/Feature_images/AppMenu.jpg)  
   
 **Points of interest**  
