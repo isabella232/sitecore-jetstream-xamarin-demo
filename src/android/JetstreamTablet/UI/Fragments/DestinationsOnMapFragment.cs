@@ -8,19 +8,19 @@ namespace Jetstream.UI.Fragments
   using Android.Gms.Maps;
   using Android.Gms.Maps.Model;
   using Android.Gms.Maps.Utils.Clustering;
-  using Android.Graphics;
   using Android.OS;
   using Android.Support.V4.Widget;
   using Android.Util;
   using Android.Views;
-  using Android.Widget;
   using com.dbeattie;
   using DSoft.Messaging;
   using Jetstream.Map;
+  using Jetstream.UI.Dialogs;
+  using Jetstream.Utils;
   using JetStreamCommons;
   using JetStreamCommons.Destinations;
 
-  public class DestinationsOnMapFragment : Fragment, IOnMapReadyCallback, IActionClickListener, ClusterManager.IOnClusterClickListener, ClusterManager.IOnClusterItemClickListener
+  public class DestinationsOnMapFragment : Fragment, IOnMapReadyCallback, IActionClickListener, ClusterManager.IOnClusterItemClickListener
   {
     const double Tolerance = 0.01;
 
@@ -62,6 +62,7 @@ namespace Jetstream.UI.Fragments
 
       this.clusterManager = new ClusterManager(this.Activity, this.map);
       this.clusterManager.SetRenderer(new JetstreamClusterRenderer(this.Activity, this.map, this.clusterManager));
+      this.clusterManager.SetOnClusterItemClickListener(this);
       this.map.CameraChange += this.CenterMapOnEurope;
       this.map.SetOnMarkerClickListener(this.clusterManager);
 
@@ -114,11 +115,8 @@ namespace Jetstream.UI.Fragments
         return !(longZero || latZero);
       }).Select(delegate(IDestination destination)
       {
-        var url = this.GetFixedUrl(this.Activity.Session.MediaDownloadUrl(destination.ImagePath));
-        var title = destination.DisplayName;
-        var latLng = new LatLng(destination.Latitude, destination.Longitude);
-
-        return new ClusterItem(latLng, title, url);
+        var url = Util.GetFixedUrl(this.Activity.Session.MediaDownloadUrl(destination.ImagePath));
+        return new ClusterItem(destination, url);
       }).ToList();
 
       this.map.Clear();
@@ -130,29 +128,24 @@ namespace Jetstream.UI.Fragments
 
     public bool OnClusterClick(ICluster cluster)
     {
-      Toast.MakeText(this.Activity, cluster.Items.Count + " items in cluster", ToastLength.Short).Show();
       return false;
     }
 
-    public bool OnClusterItemClick(Java.Lang.Object marker)
+    public bool OnClusterItemClick(Java.Lang.Object item)
     {
-      Toast.MakeText(this.Activity, "Marker clicked", ToastLength.Short).Show();
+      var fragment = new DestinationDetailsDialog
+      {
+        Destination = (ClusterItem)item
+      };
+
+      fragment.Show(this.FragmentManager, "destination_details");
+
       return false;
     }
 
     public void OnActionClicked(Snackbar snackbar)
     {
       this.LoadDestinations();
-    }
-
-    private string GetFixedUrl(string url)
-    {
-      if (url.StartsWith("http"))
-      {
-        return url;
-      }
-
-      return "http://" + url;
     }
 
     private new MainActivity Activity

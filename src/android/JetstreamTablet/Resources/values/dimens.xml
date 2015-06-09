@@ -2,4 +2,12 @@
 <resources>
     <dimen name="city_icon_size">45dp</dimen>
     <dimen name="cluster_icon_size">50dp</dimen>
+    
+    <dimen name="flexible_space_image_height">240dp</dimen>
+    <dimen name="text_container_horizontal_margin">16dp</dimen>
+    <dimen name="text_container_vertical_margin">16dp</dimen>
+    <dimen name="margin_standard">16dp</dimen>
+    <dimen name="header_bar_height">72dp</dimen>
+
+    <dimen name="destination_dialog_width">550dp</dimen>    
 </resources>
