@@ -2412,8 +2412,8 @@ namespace Jetstream
 			// aapt resource value: 0x7f070046
 			public const int default_padding_top = 2131165254;
 			
-			// aapt resource value: 0x7f07007e
-			public const int destination_dialog_width = 2131165310;
+			// aapt resource value: 0x7f07007f
+			public const int destination_dialog_width = 2131165311;
 			
 			// aapt resource value: 0x7f07003d
 			public const int dialog_fixed_height_major = 2131165245;
@@ -2450,6 +2450,9 @@ namespace Jetstream
 			
 			// aapt resource value: 0x7f07004a
 			public const int inner_padding_right = 2131165258;
+			
+			// aapt resource value: 0x7f07007e
+			public const int intersection_height = 2131165310;
 			
 			// aapt resource value: 0x7f07007c
 			public const int margin_standard = 2131165308;
@@ -3110,8 +3113,8 @@ namespace Jetstream
 			// aapt resource value: 0x7f0c003e
 			public const int action_mode_close_button = 2131492926;
 			
-			// aapt resource value: 0x7f0c0099
-			public const int action_refresh = 2131493017;
+			// aapt resource value: 0x7f0c009a
+			public const int action_refresh = 2131493018;
 			
 			// aapt resource value: 0x7f0c003f
 			public const int activity_chooser_view_content = 2131492927;
@@ -3236,14 +3239,14 @@ namespace Jetstream
 			// aapt resource value: 0x7f0c0039
 			public const int grayscale = 2131492921;
 			
-			// aapt resource value: 0x7f0c0096
-			public const int header = 2131493014;
-			
 			// aapt resource value: 0x7f0c0097
-			public const int header_background = 2131493015;
+			public const int header = 2131493015;
 			
 			// aapt resource value: 0x7f0c0098
-			public const int header_bar = 2131493016;
+			public const int header_background = 2131493016;
+			
+			// aapt resource value: 0x7f0c0099
+			public const int header_bar = 2131493017;
 			
 			// aapt resource value: 0x7f0c003b
 			public const int highlight = 2131492923;
@@ -3356,11 +3359,14 @@ namespace Jetstream
 			// aapt resource value: 0x7f0c0023
 			public const int screen = 2131492899;
 			
-			// aapt resource value: 0x7f0c0094
-			public const int scroll = 2131493012;
+			// aapt resource value: 0x7f0c0095
+			public const int scroll = 2131493013;
 			
 			// aapt resource value: 0x7f0c004b
 			public const int scrollView = 2131492939;
+			
+			// aapt resource value: 0x7f0c0094
+			public const int scroll_wrapper = 2131493012;
 			
 			// aapt resource value: 0x7f0c005d
 			public const int search_badge = 2131492957;
@@ -3467,8 +3473,8 @@ namespace Jetstream
 			// aapt resource value: 0x7f0c004c
 			public const int textSpacerNoButtons = 2131492940;
 			
-			// aapt resource value: 0x7f0c0095
-			public const int text_container = 2131493013;
+			// aapt resource value: 0x7f0c0096
+			public const int text_container = 2131493014;
 			
 			// aapt resource value: 0x7f0c008d
 			public const int text_wrapper = 2131493005;
