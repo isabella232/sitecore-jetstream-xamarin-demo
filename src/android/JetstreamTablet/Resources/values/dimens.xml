@@ -3,9 +3,9 @@
     <dimen name="city_icon_size">45dp</dimen>
     <dimen name="cluster_icon_size">50dp</dimen>
     
-    <dimen name="flexible_space_image_height">200dp</dimen>
-    <dimen name="text_container_horizontal_margin">16dp</dimen>
-    <dimen name="text_container_vertical_margin">16dp</dimen>
+    <dimen name="flexible_space_image_height">160dp</dimen>
+    <dimen name="text_container_horizontal_margin">24dp</dimen>
+    <dimen name="text_container_vertical_margin">20dp</dimen>
     <dimen name="margin_standard">16dp</dimen>
     <dimen name="header_bar_height">72dp</dimen>
     <dimen name="intersection_height">16dp</dimen>
