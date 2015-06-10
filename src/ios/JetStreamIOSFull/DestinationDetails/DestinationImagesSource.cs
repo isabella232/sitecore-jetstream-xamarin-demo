@@ -39,9 +39,11 @@ namespace JetStreamIOSFull
 
     private void DownloadAndShowDestinationImage(IAttraction attraction, UITableView tableView, NSIndexPath indexPath)
     {
+      string imagePath = null;
+
       try
       {
-        string imagePath = String.Concat(this.endpoint.InstanceUrl, attraction.ImagePath);
+        imagePath = String.Concat(this.endpoint.InstanceUrl, attraction.ImagePath);
 
         NSUrl imageUrl = new NSUrl(imagePath);
 
@@ -82,6 +84,7 @@ namespace JetStreamIOSFull
       catch(Exception ex)
       {
         Console.WriteLine("Can not downloaad image: " + ex.ToString());
+        Console.WriteLine("Image path: " + imagePath);
       }
     }
   }
