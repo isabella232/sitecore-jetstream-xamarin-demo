@@ -143,10 +143,6 @@
     </Compile>
     <Compile Include="Menu\IMenuItem.cs" />
     <Compile Include="Menu\MenuItem.cs" />
-    <Compile Include="DestinationDetailsViewController.cs" />
-    <Compile Include="DestinationDetailsViewController.designer.cs">
-      <DependentUpon>DestinationDetailsViewController.cs</DependentUpon>
-    </Compile>
     <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Helpers\IconsHelper.cs" />
     <Compile Include="Menu\MenuTypes.cs" />
@@ -160,6 +156,15 @@
       <DependentUpon>MainMenuProfileCell.cs</DependentUpon>
     </Compile>
     <Compile Include="Menu\MainMenuBaseCell.cs" />
+    <Compile Include="DestinationDetails\DestinationDetailsViewController.cs" />
+    <Compile Include="DestinationDetails\DestinationDetailsViewController.designer.cs">
+      <DependentUpon>DestinationDetailsViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DestinationDetails\DestinationImagesSource.cs" />
+    <Compile Include="DestinationDetails\DestinationImageCell.cs" />
+    <Compile Include="DestinationDetails\DestinationImageCell.designer.cs">
+      <DependentUpon>DestinationImageCell.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
@@ -182,6 +187,7 @@
     <Folder Include="Menu\" />
     <Folder Include="Resources\Images.xcassets\MenuIcons\" />
     <Folder Include="Resources\Images.xcassets\BackgroundTextures\" />
+    <Folder Include="DestinationDetails\" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="sdwebimage">
@@ -215,5 +221,8 @@
     <BundleResource Include="Resources\Images.xcassets\BackgroundTextures\NavBarBackgroundLG%402x.png" />
     <BundleResource Include="Resources\Images.xcassets\BackgroundTextures\ProfileBackground%402x.png" />
     <BundleResource Include="Resources\Images.xcassets\BackgroundTextures\ProfileBackground.png" />
+    <BundleResource Include="Resources\Images.xcassets\LeftArrow.png" />
+    <BundleResource Include="Resources\Images.xcassets\LeftArrow%402x.png" />
+    <BundleResource Include="Resources\Images.xcassets\bant98.png" />
   </ItemGroup>
 </Project>

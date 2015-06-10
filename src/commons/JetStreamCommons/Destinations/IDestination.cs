@@ -7,6 +7,11 @@
       get;
     }
 
+    string Id
+    {
+      get;
+    }
+
     string Overview
     {
         get;

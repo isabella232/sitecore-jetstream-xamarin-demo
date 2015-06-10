@@ -13,32 +13,56 @@ namespace JetStreamIOSFull
 	partial class DestinationDetailsViewController
 	{
 		[Outlet]
+		UIKit.UIButton BackButton { get; set; }
+
+		[Outlet]
+		UIKit.UIImageView DecorationImage { get; set; }
+
+		[Outlet]
 		UIKit.UITextView DestinationDescription { get; set; }
 
 		[Outlet]
-		UIKit.UIImageView DestinationImageView { get; set; }
+		UIKit.UITableView ImagesTableView { get; set; }
 
 		[Outlet]
 		UIKit.UILabel TitleLabel { get; set; }
+
+		[Outlet]
+		UIKit.UIImageView TopBarImage { get; set; }
 
 		[Action ("BackgroundViewTouched:")]
 		partial void BackgroundViewTouched (Foundation.NSObject sender);
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (BackButton != null) {
+				BackButton.Dispose ();
+				BackButton = null;
+			}
+
+			if (DecorationImage != null) {
+				DecorationImage.Dispose ();
+				DecorationImage = null;
+			}
+
 			if (DestinationDescription != null) {
 				DestinationDescription.Dispose ();
 				DestinationDescription = null;
 			}
 
-			if (DestinationImageView != null) {
-				DestinationImageView.Dispose ();
-				DestinationImageView = null;
+			if (ImagesTableView != null) {
+				ImagesTableView.Dispose ();
+				ImagesTableView = null;
 			}
 
 			if (TitleLabel != null) {
 				TitleLabel.Dispose ();
 				TitleLabel = null;
+			}
+
+			if (TopBarImage != null) {
+				TopBarImage.Dispose ();
+				TopBarImage = null;
 			}
 		}
 	}

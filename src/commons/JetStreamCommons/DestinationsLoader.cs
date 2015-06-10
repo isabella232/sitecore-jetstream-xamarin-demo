@@ -1,4 +1,5 @@
 ﻿using JetStreamCommons.Destinations;
+using Sitecore.MobileSDK.API.Request.Parameters;
 
 namespace JetStreamCommons
 {
@@ -44,6 +45,20 @@ namespace JetStreamCommons
       var destinations = destinationsResponce.Select(item => new Destination(item) as IDestination);
 
       return destinations.ToList();
+    }
+
+    public async Task<List<IAttraction>> LoadAttractions(IDestination destination)
+    {
+
+      var attractionsRequest = ItemWebApiRequestBuilder.ReadItemsRequestWithId(destination.Id)
+        .AddScope(ScopeType.Children)
+        .Build();
+
+      var atractionsResponce = await this.session.ReadItemAsync(attractionsRequest);
+
+      var atractions = atractionsResponce.Select(item => new Attraction(item) as IAttraction);
+
+      return atractions.ToList();
     }
 
     #endregion Public API

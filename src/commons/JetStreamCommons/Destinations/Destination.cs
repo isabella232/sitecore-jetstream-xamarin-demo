@@ -1,4 +1,5 @@
-﻿namespace JetStreamCommons.Destinations
+﻿
+namespace JetStreamCommons.Destinations
 {
   using System.Globalization;
   using JetStreamCommons.Helpers;
@@ -14,6 +15,7 @@
 
     public Destination(ISitecoreItem wrapped) : base(wrapped)
     {
+      
       this.countryName = SitecoreItemUtil.ParseParentItemName(wrapped.Path);
 
       float latitude;
