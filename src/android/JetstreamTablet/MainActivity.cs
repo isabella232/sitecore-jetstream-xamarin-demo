@@ -139,6 +139,7 @@
         .WithSelectionListEnabled(false)
         .WithHeaderBackground(Resource.Drawable.header)
         .AddProfiles(profile)
+        .WithProfileImagesClickable(false)
         .WithSavedInstance(savedInstanceState)
         .Build();
 
