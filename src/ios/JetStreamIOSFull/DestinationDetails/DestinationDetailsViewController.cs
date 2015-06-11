@@ -10,6 +10,7 @@ using CoreGraphics;
 using JetStreamCommons;
 using System.Collections;
 using System.Collections.Generic;
+using JetStreamIOSFull.Helpers;
 
 namespace JetStreamIOSFull
 {
@@ -43,7 +44,16 @@ namespace JetStreamIOSFull
         {
           using (var loader = new DestinationsLoader (session))
           {
-            List<IAttraction> attractions = await loader.LoadAttractions(this.destination);
+            List<IAttraction> attractions;
+            try
+            {
+              attractions = await loader.LoadAttractions(this.destination);
+            }
+            catch
+            {
+              AlertHelper.ShowLocalizedAlertWithOkOption("NETWORK_ERROR_TITLE", "CANNOT_DOWNLOAD_ATTRACTIONS_ERROR");
+              return;
+            }
             this.ImagesTableView.Source = new DestinationImagesSource (attractions, this.Endpoint);
             this.ImagesTableView.ReloadData();
           }

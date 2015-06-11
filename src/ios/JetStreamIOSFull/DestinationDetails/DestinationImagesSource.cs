@@ -4,6 +4,7 @@ using Foundation;
 using System.Collections.Generic;
 using JetStreamCommons.Destinations;
 using SDWebImage;
+using JetStreamCommons;
 
 namespace JetStreamIOSFull
 {
@@ -43,8 +44,7 @@ namespace JetStreamIOSFull
 
       try
       {
-        imagePath = String.Concat(this.endpoint.InstanceUrl, attraction.ImagePath);
-
+        imagePath = SitecoreWebApiSessionExt.MediaDownloadUrl(this.endpoint.InstanceUrl, attraction.ImagePath);
         NSUrl imageUrl = new NSUrl(imagePath);
 
         SDWebImageDownloader.SharedDownloader.DownloadImage(
@@ -89,4 +89,3 @@ namespace JetStreamIOSFull
     }
   }
 }
-

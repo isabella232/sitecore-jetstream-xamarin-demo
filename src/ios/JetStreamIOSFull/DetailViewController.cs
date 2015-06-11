@@ -97,7 +97,6 @@ namespace JetStreamIOSFull
       catch
       {
         destinationsLoaded = false;
-        AlertHelper.ShowLocalizedAlertWithOkOption("NETWORK_ERROR_TITLE", "CANNOT_DOWNLOAD_DESTINATIONS_ERROR");
       }
   
       if (destinationsLoaded)
@@ -131,7 +130,15 @@ namespace JetStreamIOSFull
       {
         using (var loader = new DestinationsLoader (session))
         {
-          return await loader.LoadOnlyDestinations();
+          try
+          {
+            return await loader.LoadOnlyDestinations();
+          }
+          catch(Exception ex)
+          {
+            AlertHelper.ShowLocalizedAlertWithOkOption("NETWORK_ERROR_TITLE", "CANNOT_DOWNLOAD_DESTINATIONS_ERROR");
+            throw ex;
+          }
         }
       }
     }

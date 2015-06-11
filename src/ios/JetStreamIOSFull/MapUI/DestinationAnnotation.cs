@@ -4,6 +4,7 @@ using MapKit;
 using UIKit;
 using JetStreamIOSFull.Helpers;
 using JetStreamCommons.Destinations;
+using JetStreamCommons;
 
 namespace JetStreamIOSFull.MapUI
 {
@@ -28,7 +29,7 @@ namespace JetStreamIOSFull.MapUI
 
      
       string imagePath = destination.ImagePath;
-      this.imageUrl = String.Concat(instanceUrl, imagePath);
+      this.imageUrl = SitecoreWebApiSessionExt.MediaDownloadUrl(instanceUrl, imagePath);
 
       this.title = destination.DisplayName;
       this.coord = coordinates;

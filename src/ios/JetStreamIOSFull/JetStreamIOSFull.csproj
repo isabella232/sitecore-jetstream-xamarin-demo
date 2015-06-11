@@ -165,6 +165,8 @@
     <Compile Include="DestinationDetails\DestinationImageCell.designer.cs">
       <DependentUpon>DestinationImageCell.cs</DependentUpon>
     </Compile>
+    <Compile Include="Settings\HistoryManager.cs" />
+    <Compile Include="Settings\UrlHistorySource.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>

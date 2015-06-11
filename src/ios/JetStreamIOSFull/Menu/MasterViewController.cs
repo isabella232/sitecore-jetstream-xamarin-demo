@@ -28,6 +28,8 @@ namespace JetStreamIOSFull
       NavigationManager = (NavigationManagerViewController)SplitViewController.ViewControllers[1];
 
       this.TableView.SeparatorColor = ah.MenuSeparatorColor;
+
+      //Hack to hide separators for empty cells
       this.TableView.TableFooterView = new UIView (new CGRect (0, 0, 0, 0));
       this.BuildMenu();
     }

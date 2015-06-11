@@ -256,20 +256,29 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <textInputTraits key="textInputTraits" keyboardType="URL"/>
                             </textField>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="zct-vR-590">
+                                <rect key="frame" x="112" y="232" width="376" height="348"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="VLU-xS-zvc" secondAttribute="trailing" constant="112" id="2Lj-bP-HM3"/>
                             <constraint firstAttribute="trailing" secondItem="4pq-dG-t0z" secondAttribute="trailing" constant="112" id="4Dx-Xw-u38"/>
                             <constraint firstItem="VLU-xS-zvc" firstAttribute="leading" secondItem="o1l-uB-s8z" secondAttribute="leading" constant="112" id="K7N-rN-tuU"/>
+                            <constraint firstItem="zct-vR-590" firstAttribute="leading" secondItem="o1l-uB-s8z" secondAttribute="leading" constant="112" id="PLb-HZ-STS"/>
+                            <constraint firstItem="zct-vR-590" firstAttribute="top" secondItem="VLU-xS-zvc" secondAttribute="bottom" constant="20" id="UOd-hK-Wl0"/>
                             <constraint firstItem="4pq-dG-t0z" firstAttribute="top" secondItem="Fhw-9p-CMY" secondAttribute="bottom" constant="20" id="WPI-hp-tJC"/>
                             <constraint firstItem="4pq-dG-t0z" firstAttribute="leading" secondItem="o1l-uB-s8z" secondAttribute="leading" constant="112" id="aDQ-Ji-lcw"/>
+                            <constraint firstItem="aL5-NO-H22" firstAttribute="top" secondItem="zct-vR-590" secondAttribute="bottom" constant="20" id="fXW-JH-O9F"/>
                             <constraint firstItem="VLU-xS-zvc" firstAttribute="top" secondItem="4pq-dG-t0z" secondAttribute="bottom" constant="20" id="gi4-fU-Gc6"/>
+                            <constraint firstAttribute="trailing" secondItem="zct-vR-590" secondAttribute="trailing" constant="112" id="ozB-MU-QbO"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Y8z-Tg-RB2"/>
                     <connections>
                         <outlet property="BackgroundImageView" destination="4pq-dG-t0z" id="ZgR-BA-ON0"/>
+                        <outlet property="HistoryTableView" destination="zct-vR-590" id="ieK-TW-0W2"/>
                         <outlet property="UrlTextField" destination="VLU-xS-zvc" id="hjf-Cx-vzF"/>
                     </connections>
                 </viewController>

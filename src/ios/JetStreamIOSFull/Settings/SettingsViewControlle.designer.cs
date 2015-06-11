@@ -16,6 +16,9 @@ namespace JetStreamIOSFull
 		UIKit.UIImageView BackgroundImageView { get; set; }
 
 		[Outlet]
+		UIKit.UITableView HistoryTableView { get; set; }
+
+		[Outlet]
 		UIKit.UITextField UrlTextField { get; set; }
 		
 		void ReleaseDesignerOutlets ()
@@ -28,6 +31,11 @@ namespace JetStreamIOSFull
 			if (UrlTextField != null) {
 				UrlTextField.Dispose ();
 				UrlTextField = null;
+			}
+
+			if (HistoryTableView != null) {
+				HistoryTableView.Dispose ();
+				HistoryTableView = null;
 			}
 		}
 	}
