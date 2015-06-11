@@ -40,7 +40,7 @@ namespace Jetstream.UI.Fragments
       this.mapView = view.FindViewById<MapView>(Jetstream.Resource.Id.mapview);
 
       this.refresher.SetColorScheme(Android.Resource.Color.White);
-      this.refresher.SetProgressBackgroundColorSchemeResource(Jetstream.Resource.Color.colorAccent);
+      this.refresher.SetProgressBackgroundColorSchemeResource(Jetstream.Resource.Color.color_accent);
 
       this.refresher.SetProgressViewOffset(false, 0, (int)TypedValue.ApplyDimension(ComplexUnitType.Dip, 24, this.Resources.DisplayMetrics));
 
@@ -100,7 +100,7 @@ namespace Jetstream.UI.Fragments
         SnackbarManager.Show(
           Snackbar.With(this.Activity)
             .ActionLabel("Retry")
-            .ActionColor(this.Resources.GetColor(Jetstream.Resource.Color.colorAccent)) 
+          .ActionColor(this.Resources.GetColor(Jetstream.Resource.Color.color_accent)) 
             .ActionListener(this)
             .Text("Failed to load destinations, please check your internet connection."));
       }
