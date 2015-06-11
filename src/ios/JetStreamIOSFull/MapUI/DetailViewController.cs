@@ -13,6 +13,7 @@ using JetStreamIOSFull.MapUI;
 using JetStreamCommons.Destinations;
 using JetStreamIOSFull.Helpers;
 using SDWebImage;
+using CoreGraphics;
 
 
 namespace JetStreamIOSFull
@@ -47,10 +48,11 @@ namespace JetStreamIOSFull
     public override void ViewDidLoad()
     {
       base.ViewDidLoad();
-      this.NavigationController.NavigationBar.BackgroundColor = this.Appearance.MenuBackgroundColor;
-      this.Title = NSBundle.MainBundle.LocalizedString("DESTINATION_SCREEN_TITLE", null);
 
       this.InitializeMap();
+
+      this.DetailsCarousel.BackgroundColor = UIColor.Clear;
+      this.DetailsCarousel.BackgroundView = new UIView (new CGRect (0, 0, 0, 0));
     }
 
     private void InitializeMap()
@@ -122,6 +124,10 @@ namespace JetStreamIOSFull
       }
 
       this.mapManager.SetAnnotationsForMap(this.map, annotationsList);
+
+      CarouselDataSource carouselSource = new CarouselDataSource (annotationsList);
+      this.DetailsCarousel.Source = carouselSource;
+      this.DetailsCarousel.ReloadData();
     }
 
     private async Task<IEnumerable> DownloadAllDestinations()

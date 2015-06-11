@@ -6,7 +6,7 @@ namespace JetStreamIOSFull
 {
   public class UrlHistorySource : UITableViewSource
   {
-    private const string CELL_IDENTIFIER = "Cell";
+    private const string CELL_IDENTIFIER = "UrlHistoryCell";
     private HistoryManager historyManager;
 
     public delegate void UrlSelected(string url);
@@ -40,7 +40,7 @@ namespace JetStreamIOSFull
 
     public override string TitleForHeader(UITableView tableView, nint section)
     {
-      return "Last visited urls:";
+      return NSBundle.MainBundle.LocalizedString("URL_HISTORY_SECTION_TITLE", null);;
     }
 
     public override nfloat GetHeightForHeader(UITableView tableView, nint section)

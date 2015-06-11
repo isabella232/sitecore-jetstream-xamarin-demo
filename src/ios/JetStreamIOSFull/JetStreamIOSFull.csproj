@@ -112,10 +112,6 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
-    <Compile Include="DetailViewController.cs" />
-    <Compile Include="DetailViewController.designer.cs">
-      <DependentUpon>DetailViewController.cs</DependentUpon>
-    </Compile>
     <Compile Include="Helpers\AlertHelper.cs" />
     <Compile Include="CountriesDataSource.cs" />
     <Compile Include="Navigation\NavigationManagerViewController.cs" />
@@ -167,6 +163,15 @@
     </Compile>
     <Compile Include="Settings\HistoryManager.cs" />
     <Compile Include="Settings\UrlHistorySource.cs" />
+    <Compile Include="MapUI\Carousel\CarouselDataSource.cs" />
+    <Compile Include="MapUI\Carousel\DestinationCarouselCell.cs" />
+    <Compile Include="MapUI\Carousel\DestinationCarouselCell.designer.cs">
+      <DependentUpon>DestinationCarouselCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MapUI\DetailViewController.cs" />
+    <Compile Include="MapUI\DetailViewController.designer.cs">
+      <DependentUpon>DetailViewController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
@@ -190,6 +195,7 @@
     <Folder Include="Resources\Images.xcassets\MenuIcons\" />
     <Folder Include="Resources\Images.xcassets\BackgroundTextures\" />
     <Folder Include="DestinationDetails\" />
+    <Folder Include="MapUI\Carousel\" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="sdwebimage">

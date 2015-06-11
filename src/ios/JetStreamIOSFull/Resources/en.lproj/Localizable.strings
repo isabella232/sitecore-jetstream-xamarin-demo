@@ -4,3 +4,4 @@
 "CANNOT_DOWNLOAD_ATTRACTIONS_ERROR" = "Attractions is not available, please try later or connect with your site administrator";
 "DESTINATION_SCREEN_TITLE" = "Destinations";
 "SETTINGS_SCREEN_TITLE" = "Settings";
+"URL_HISTORY_SECTION_TITLE" = "Last visited urls:";
