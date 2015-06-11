@@ -1,7 +1,11 @@
 namespace Jetstream.View
 {
   using System;
+  using System.Linq;
   using Android.Content;
+  using Android.Graphics;
+  using Android.Graphics.Drawables;
+  using Android.Support.V7.Graphics;
   using Android.Text;
   using Android.Util;
   using Android.Views;
@@ -14,7 +18,7 @@ namespace Jetstream.View
   using Xamarin.NineOldAndroids.Animations;
   using Xamarin.NineOldAndroids.Views;
 
-  public class DestinationView : Java.Lang.Object, IObservableScrollViewCallbacks, View.IOnClickListener, ITouchInterceptionListener
+  public class DestinationView : Java.Lang.Object, IObservableScrollViewCallbacks, View.IOnClickListener, ITouchInterceptionListener, Palette.IPaletteAsyncListener
   {
     public Action OnBackButtonClicked { get; set; }
 
@@ -54,6 +58,42 @@ namespace Jetstream.View
       this.context = context;
     }
 
+    public void OnClick(View v)
+    {
+      if (this.OnBackButtonClicked != null)
+      {
+        this.OnBackButtonClicked.Invoke();
+      }
+    }
+
+    public View InitViewWithData(ClusterItem destination)
+    {
+      var view = this.InitContentViews();
+
+      this.toolbar.Title = destination.Wrapped.DisplayName;
+      this.bodyTextView.Text = Html.FromHtml(destination.Wrapped.Overview).ToString();
+
+      Picasso.With(this.context).Load(destination.ImageUrl).Into(new DestinationImageTarget(this.destinationImageView, this));
+
+      return view;
+    }
+
+    public void OnGenerated(Palette palette)
+    {
+      if (palette == null)
+      {
+        return;
+      }
+
+      var maxSwatch = palette.Swatches.OrderByDescending(swatch => swatch.Population).First();
+
+      var color = new Color(maxSwatch.Rgb);
+      this.toolbar.SetBackgroundColor(color);
+      this.headerBar.SetBackgroundColor(color);
+      this.headerBackground.SetBackgroundColor(color);
+    }
+
+    #region Views operations internals
     private View InitContentViews()
     {
       var v = LayoutInflater.From(this.context).Inflate(Jetstream.Resource.Layout.view_destination_details, null, false);
@@ -84,24 +124,12 @@ namespace Jetstream.View
       this.mInitialTranslationY = this.GetImageTransition();
 
       ScrollUtils.AddOnGlobalLayoutListener(this.interceptionFrameLayout, new Runnable(delegate
-      {
-        isReady = true;
-        UpdateViews(mInitialTranslationY, false);
-      }));
+        {
+          isReady = true;
+          UpdateViews(mInitialTranslationY, false);
+        }));
 
       return v;
-    }
-
-    public View InitViewWithData(ClusterItem destination)
-    {
-      var view = this.InitContentViews();
-
-      this.toolbar.Title = destination.Wrapped.DisplayName;
-      this.bodyTextView.Text = Html.FromHtml(destination.Wrapped.Overview).ToString();
-
-      Picasso.With(this.context).Load(destination.ImageUrl).Into(this.destinationImageView);
-
-      return view;
     }
 
     private void UpdateViews(float translationY, bool animated)
@@ -196,11 +224,11 @@ namespace Jetstream.View
         ValueAnimator animator = ValueAnimator.OfFloat(from, to);
         animator.SetDuration(100);
         animator.SetInterpolator(new AccelerateDecelerateInterpolator());
-        animator.AddUpdateListener(new CustomAnimator(delegate(ValueAnimator a)
-        {
-          var height = (float)a.AnimatedValue;
-          ChangeHeaderBackgroundHeight(height, to, heightOnGapHidden);
-        }));
+        animator.AddUpdateListener(new AnimatorImpl(delegate(ValueAnimator a)
+          {
+            var height = (float)a.AnimatedValue;
+            ChangeHeaderBackgroundHeight(height, to, heightOnGapHidden);
+          }));
 
         animator.Start();
       }
@@ -234,14 +262,6 @@ namespace Jetstream.View
     {
     }
 
-    public void OnClick(View v)
-    {
-      if (this.OnBackButtonClicked != null)
-      {
-        this.OnBackButtonClicked.Invoke();
-      }
-    }
-
     private float GetMinInterceptionLayoutY()
     {
       //      return this.actionBarSize - this.intersectionHeight;
@@ -252,7 +272,7 @@ namespace Jetstream.View
     public bool ShouldInterceptTouchEvent(MotionEvent ev, bool moving, float diffX, float diffY)
     {
       return this.GetMinInterceptionLayoutY() < (int)ViewHelper.GetY(this.interceptionFrameLayout)
-                    || (moving && this.scrollView.CurrentScrollY - diffY < 0);
+        || (moving && this.scrollView.CurrentScrollY - diffY < 0);
     }
 
     public void OnDownMotionEvent(MotionEvent ev)
@@ -279,13 +299,40 @@ namespace Jetstream.View
     public void OnUpOrCancelMotionEvent(MotionEvent ev)
     {
     }
+    #endregion Views operations internals
   }
 
-  class CustomAnimator : Java.Lang.Object, ValueAnimator.IAnimatorUpdateListener
+  class DestinationImageTarget : Java.Lang.Object, ITarget
+  {
+    private readonly ImageView image;
+    private readonly Palette.IPaletteAsyncListener paletteAsyncListener;
+
+    public DestinationImageTarget(ImageView image, Palette.IPaletteAsyncListener paletteAsyncListener)
+    {
+      this.image = image;
+      this.paletteAsyncListener = paletteAsyncListener;
+    }
+
+    public void OnBitmapFailed(Drawable p0)
+    {
+    }
+
+    public void OnBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from)
+    {
+      this.image.SetImageBitmap(bitmap);
+      Palette.From(bitmap).MaximumColorCount(16).Generate(this.paletteAsyncListener);
+    }
+
+    public void OnPrepareLoad(Drawable p0)
+    {
+    }
+  }
+
+  class AnimatorImpl : Java.Lang.Object, ValueAnimator.IAnimatorUpdateListener
   {
     private readonly Action<ValueAnimator> action;
 
-    public CustomAnimator(Action<ValueAnimator> action)
+    public AnimatorImpl(Action<ValueAnimator> action)
     {
       this.action = action;
     }
