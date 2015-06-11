@@ -77,14 +77,6 @@ namespace JetStreamIOSFull
 
       this.DownloadAndShowDestinationImage(destination);
 
-//      nfloat border = 10;
-//      nfloat width = this.DestinationImageView.Bounds.Width + border;
-//      nfloat height = this.DestinationImageView.Bounds.Height - this.TitleLabel.Frame.Height;
-//      CGRect rect = new CGRect(0, 0, width, height);
-//      UIBezierPath imgRect = UIBezierPath.FromRect(rect);
-//      UIBezierPath[] paths = new UIBezierPath[] { imgRect };
-//      this.DestinationDescription.TextContainer.ExclusionPaths = paths;
-//
       string clearedText = destination.Overview.Replace(System.Environment.NewLine, " ");
       this.DestinationDescription.Text = clearedText;
       this.DestinationDescription.Font = UIFont.SystemFontOfSize(18);

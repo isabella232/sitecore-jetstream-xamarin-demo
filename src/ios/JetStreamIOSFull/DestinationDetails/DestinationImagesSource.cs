@@ -83,7 +83,7 @@ namespace JetStreamIOSFull
       }
       catch(Exception ex)
       {
-        Console.WriteLine("Can not downloaad image: " + ex.ToString());
+        Console.WriteLine("Can not download image: " + ex.ToString());
         Console.WriteLine("Image path: " + imagePath);
       }
     }
