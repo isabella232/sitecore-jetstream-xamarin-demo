@@ -54,11 +54,12 @@
     <AndroidSigningKeyPass>sitecore</AndroidSigningKeyPass>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="android-iconics-0.9.1.2">
-      <HintPath>..\..\..\solutions\packages\Mikepenz.Android.Iconics.Xamarin.Binding.0.9.1.2\lib\MonoAndroid\android-iconics-0.9.1.2.dll</HintPath>
-    </Reference>
     <Reference Include="DBeattie.SnackbarSharp">
       <HintPath>..\..\..\solutions\packages\SnackbarSharp.dll.1.0.7\lib\MonoAndroid\DBeattie.SnackbarSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="material-drawer-3.0.3, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>libs\material-drawer-3.0.3.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Net.Http" />
@@ -105,9 +106,6 @@
     <Reference Include="Xamarin.Android.Support.v7.RecyclerView">
       <HintPath>..\..\..\solutions\packages\Xamarin.Android.Support.v7.RecyclerView.22.1.1.1\lib\MonoAndroid403\Xamarin.Android.Support.v7.RecyclerView.dll</HintPath>
     </Reference>
-    <Reference Include="material-drawer-3.0.0">
-      <HintPath>libs\material-drawer-3.0.0.dll</HintPath>
-    </Reference>
     <Reference Include="MaterialEditText-2.1.3">
       <HintPath>libs\MaterialEditText-2.1.3.dll</HintPath>
     </Reference>
@@ -125,6 +123,12 @@
     </Reference>
     <Reference Include="Xamarin.Android.Support.v7.AppCompat">
       <HintPath>..\..\..\solutions\packages\Xamarin.Android.Support.v7.AppCompat.22.1.1.1\lib\MonoAndroid403\Xamarin.Android.Support.v7.AppCompat.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Android.Support.v7.Palette">
+      <HintPath>..\..\..\solutions\packages\Xamarin.Android.Support.v7.Palette.22.1.1.1\lib\MonoAndroid403\Xamarin.Android.Support.v7.Palette.dll</HintPath>
+    </Reference>
+    <Reference Include="android-iconics-1.0.2">
+      <HintPath>..\..\..\solutions\packages\Mikepenz.Android.Iconics.Xamarin.Binding.1.0.2\lib\MonoAndroid\android-iconics-1.0.2.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -148,8 +152,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <AndroidAsset Include="Assets\fonts\google_material_design.ttf" />
-    <AndroidAsset Include="Assets\fonts\fontawesome-webfont-4.3.0.ttf" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Properties\AndroidManifest.xml" />
     <None Include="Assets\AboutAssets.txt" />
@@ -172,7 +174,9 @@
     <AndroidResource Include="Resources\values-sw720dp\dimens.xml" />
     <AndroidResource Include="Resources\values-sw600dp\dimens.xml" />
     <AndroidResource Include="Resources\menu\menu_main.axml" />
-    <AndroidResource Include="Resources\values\styles.xml" />
+    <AndroidResource Include="Resources\values\styles.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
     <AndroidResource Include="Resources\drawable-hdpi\ic_about.png" />
     <AndroidResource Include="Resources\drawable-hdpi\ic_destinations.png" />
     <AndroidResource Include="Resources\drawable-hdpi\ic_flight_status.png" />
@@ -189,6 +193,7 @@
     <AndroidResource Include="Resources\drawable-mdpi\ic_jetstream_logo.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\ic_jetstream_logo.png" />
     <AndroidResource Include="Resources\layout\view_destination_details.axml" />
+    <None Include="libs\material-drawer-3.0.3.dll" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\activity_main.axml">
@@ -230,9 +235,6 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\header.jpg" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="libs\material-drawer-3.0.0.dll" />
-  </ItemGroup>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
@@ -241,4 +243,7 @@
     <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
   </Target>
   <ItemGroup />
+  <ItemGroup>
+    <AndroidAsset Include="Assets\fonts\google_material_design.ttf" />
+  </ItemGroup>
 </Project>
