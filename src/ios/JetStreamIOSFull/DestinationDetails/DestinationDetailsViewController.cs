@@ -39,12 +39,14 @@ namespace JetStreamIOSFull
     {
       if (this.destination != null)
       {
-        var session = this.Endpoint.GetSession();
-        using (var loader = new DestinationsLoader (session))
+        using (var session = this.Endpoint.GetSession())
         {
-          List<IAttraction> attractions = await loader.LoadAttractions(this.destination);
-          this.ImagesTableView.Source = new DestinationImagesSource(attractions, this.Endpoint);
-          this.ImagesTableView.ReloadData();
+          using (var loader = new DestinationsLoader (session))
+          {
+            List<IAttraction> attractions = await loader.LoadAttractions(this.destination);
+            this.ImagesTableView.Source = new DestinationImagesSource (attractions, this.Endpoint);
+            this.ImagesTableView.ReloadData();
+          }
         }
       }
     }

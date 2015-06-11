@@ -127,12 +127,13 @@ namespace JetStreamIOSFull
 
     private async Task<IEnumerable> DownloadAllDestinations()
     {
-        //FIXME: error here, some objects must be disposed!!!
-        var session = this.Endpoint.GetSession();
-        using (var loader = new DestinationsLoader(session))
+      using (var session = this.Endpoint.GetSession())
+      {
+        using (var loader = new DestinationsLoader (session))
         {
           return await loader.LoadOnlyDestinations();
         }
+      }
     }
   }
 }
