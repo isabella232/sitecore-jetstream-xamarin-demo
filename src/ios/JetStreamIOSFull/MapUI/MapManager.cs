@@ -157,7 +157,7 @@ namespace JetStreamIOSFull.MapUI
     public override void DidSelectAnnotationView(MKMapView mapView, MKAnnotationView view)
     {
       AnnotationViewWithRoundedImage castedAnnotation = view as AnnotationViewWithRoundedImage;
-      if (castedAnnotation != null)
+      if (castedAnnotation != null && !castedAnnotation.IsGroup)
       {
         onDestinationSelected(castedAnnotation.Destination);
       }

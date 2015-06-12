@@ -16,6 +16,7 @@ namespace JetStreamIOSFull.MapUI
     private UILabel label;
     private IAppearanceHelper appearanceHelper;
     private IDestination destination;
+    private bool isGroup = true;
 
     public AnnotationViewWithRoundedImage(DestinationAnnotation annotation, string reuseIdentifier, IAppearanceHelper appearance)
       : base(annotation, reuseIdentifier)
@@ -105,14 +106,24 @@ namespace JetStreamIOSFull.MapUI
       imageLayer.MasksToBounds = true;
     }
 
+    public bool IsGroup
+    {
+      get
+      { 
+        return this.isGroup;
+      }
+    }
+
     public void HiddenCountChanged(int count)
     {
+      isGroup = false;
       InvokeOnMainThread(() =>
       {
         if (this.label != null)
         {
           if (count > 1)
           {
+            isGroup = true;
             this.label.Text = count.ToString();
             this.label.Hidden = false;
           }
