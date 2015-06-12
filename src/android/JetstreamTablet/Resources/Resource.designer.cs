@@ -2485,7 +2485,10 @@ namespace Jetstream
 			public const int destination_card_image_width = 2131165315;
 			
 			// aapt resource value: 0x7f070085
-			public const int destination_card_text_size = 2131165317;
+			public const int destination_card_margin = 2131165317;
+			
+			// aapt resource value: 0x7f070086
+			public const int destination_card_text_size = 2131165318;
 			
 			// aapt resource value: 0x7f070082
 			public const int destination_dialog_width = 2131165314;
