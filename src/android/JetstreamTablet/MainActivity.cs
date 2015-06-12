@@ -139,6 +139,7 @@
         .WithSelectionListEnabled(false)
         .WithHeaderBackground(Resource.Drawable.header)
         .AddProfiles(profile)
+        .WithProfileImagesClickable(false)
         .WithSavedInstance(savedInstanceState)
         .Build();
 
@@ -187,7 +188,7 @@
         case CheckInMenuItemIdentifier:
           break;
         case SettingsMenuItemIdentifier:
-          var settings = new SettingsDialog(this.prefs);
+          var settings = new SettingsDialog();
           settings.Show(this.FragmentManager, "settings");
           
           new Handler().PostDelayed(() => this.drawer.SetSelectionByIdentifier(1, false), 500);

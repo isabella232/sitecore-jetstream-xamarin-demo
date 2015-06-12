@@ -1,7 +1,11 @@
 namespace Jetstream.View
 {
   using System;
+  using System.Linq;
   using Android.Content;
+  using Android.Graphics;
+  using Android.Graphics.Drawables;
+  using Android.Support.V7.Graphics;
   using Android.Text;
   using Android.Util;
   using Android.Views;
@@ -14,65 +18,52 @@ namespace Jetstream.View
   using Xamarin.NineOldAndroids.Animations;
   using Xamarin.NineOldAndroids.Views;
 
-  public class DestinationView : Java.Lang.Object, IObservableScrollViewCallbacks, View.IOnClickListener
+  public class DestinationView : Java.Lang.Object, IObservableScrollViewCallbacks, View.IOnClickListener, ITouchInterceptionListener, Palette.IPaletteAsyncListener
   {
+    public Action OnBackButtonClicked { get; set; }
+
     private readonly Context context;
 
     #region Views
-    private ObservableScrollView scrollView;
-    private View header;
-    private int flexibleSpaceImageHeight;
+
     private View headerBar;
-    private int actionBarSize;
-
-    private ImageView image;
-    private Android.Support.V7.Widget.Toolbar toolbar;
-    private TextView bodyTextView;
+    private ImageView destinationImageView;
     private View headerBackground;
+    private TextView bodyTextView;
+    private ObservableScrollView scrollView;
+    private Android.Support.V7.Widget.Toolbar toolbar;
+    private TouchInterceptionFrameLayout interceptionFrameLayout;
+
     #endregion
 
-    #region Math
-    private int prevScrollY;
-    private bool gapIsChanging;
-    private bool gapHidden;
+    // Fields that needs to saved
+    private float mInitialTranslationY;
+
+    // Fields that just keep constants like resource values
+    private int actionBarSize;
+    private int flexibleSpaceImageHeight;
+    private int intersectionHeight;
+    private int headerBarHeight;
+
+    // Temporary states
+    private float scrollYOnDownMotion;
+
+    private float prevTranslationY;
+    private bool isGapChanging;
+    private bool isGapHidden;
     private bool isReady;
-    #endregion
-
-    public Action OnBackButtonClicked { get; set; }
 
     public DestinationView(Context context)
     {
       this.context = context;
     }
 
-    private View InitContentViews()
+    public void OnClick(View v)
     {
-      var v = LayoutInflater.From(this.context).Inflate(Jetstream.Resource.Layout.view_destination_details, null, false);
-
-      this.flexibleSpaceImageHeight = this.context.Resources.GetDimensionPixelSize(Jetstream.Resource.Dimension.flexible_space_image_height);
-      this.actionBarSize = this.GetActionBarSize();
-
-      this.image = v.FindViewById<ImageView>(Jetstream.Resource.Id.image);
-      this.header = v.FindViewById<View>(Jetstream.Resource.Id.header);
-      this.headerBar = v.FindViewById<View>(Jetstream.Resource.Id.header_bar);
-      this.headerBackground = v.FindViewById<View>(Jetstream.Resource.Id.header_background);
-
-      this.toolbar = v.FindViewById<Android.Support.V7.Widget.Toolbar>(Jetstream.Resource.Id.toolbar);
-      this.toolbar.SetNavigationIcon(Jetstream.Resource.Drawable.abc_ic_ab_back_mtrl_am_alpha);
-      this.toolbar.SetNavigationOnClickListener(this);
-
-      this.bodyTextView = v.FindViewById<TextView>(Jetstream.Resource.Id.text_container);
-
-      this.scrollView = v.FindViewById<ObservableScrollView>(Jetstream.Resource.Id.scroll);
-      this.scrollView.SetScrollViewCallbacks(this);
-
-      ScrollUtils.AddOnGlobalLayoutListener(this.scrollView, new Runnable(delegate
+      if (this.OnBackButtonClicked != null)
       {
-        isReady = true;
-        UpdateViews(this.scrollView.CurrentScrollY, false);
-      }));
-
-      return v;
+        this.OnBackButtonClicked.Invoke();
+      }
     }
 
     public View InitViewWithData(ClusterItem destination)
@@ -81,19 +72,67 @@ namespace Jetstream.View
 
       this.toolbar.Title = destination.Wrapped.DisplayName;
       this.bodyTextView.Text = Html.FromHtml(destination.Wrapped.Overview).ToString();
-      
-      Picasso.With(this.context).Load(destination.ImageUrl).Into(this.image);
+
+      Picasso.With(this.context).Load(destination.ImageUrl).Into(new DestinationImageTarget(this.destinationImageView, this));
 
       return view;
     }
 
-    private float GetHeaderTranslationY(int scrollY)
+    public void OnGenerated(Palette palette)
     {
-      //      TODO: double to float.
-      return ScrollUtils.GetFloat(-scrollY + this.flexibleSpaceImageHeight - this.header.Height, 0, (float)System.Double.MaxValue);
+      if (palette == null)
+      {
+        return;
+      }
+
+      var maxSwatch = palette.Swatches.OrderByDescending(swatch => swatch.Population).First();
+
+      var color = new Color(maxSwatch.Rgb);
+      this.toolbar.SetBackgroundColor(color);
+      this.headerBar.SetBackgroundColor(color);
+      this.headerBackground.SetBackgroundColor(color);
     }
 
-    private void UpdateViews(int scrollY, bool animated)
+    #region Views operations internals
+    private View InitContentViews()
+    {
+      var v = LayoutInflater.From(this.context).Inflate(Jetstream.Resource.Layout.view_destination_details, null, false);
+
+      this.toolbar = v.FindViewById<Android.Support.V7.Widget.Toolbar>(Jetstream.Resource.Id.toolbar);
+      this.toolbar.SetNavigationIcon(Jetstream.Resource.Drawable.abc_ic_ab_back_mtrl_am_alpha);
+      this.toolbar.SetNavigationOnClickListener(this);
+
+      this.flexibleSpaceImageHeight = this.context.Resources.GetDimensionPixelSize(Jetstream.Resource.Dimension.flexible_space_image_height);
+      this.actionBarSize = this.GetActionBarSize();
+      this.headerBarHeight = this.context.Resources.GetDimensionPixelSize(Jetstream.Resource.Dimension.header_bar_height);
+      // Even when the top gap has began to change, header bar still can move
+      // within intersectionHeight.
+      this.intersectionHeight = this.context.Resources.GetDimensionPixelSize(Jetstream.Resource.Dimension.intersection_height);
+
+      this.bodyTextView = v.FindViewById<TextView>(Jetstream.Resource.Id.text_container);
+      this.destinationImageView = v.FindViewById<ImageView>(Jetstream.Resource.Id.image);
+      this.headerBar = v.FindViewById<View>(Jetstream.Resource.Id.header_bar);
+      this.headerBackground = v.FindViewById<View>(Jetstream.Resource.Id.header_background);
+
+      this.scrollView = v.FindViewById<ObservableScrollView>(Jetstream.Resource.Id.scroll);
+      this.scrollView.SetScrollViewCallbacks(this);
+
+      this.interceptionFrameLayout = v.FindViewById<TouchInterceptionFrameLayout>(Jetstream.Resource.Id.scroll_wrapper);
+      this.interceptionFrameLayout.SetScrollInterceptionListener(this);
+
+      ViewHelper.SetTranslationY(this.toolbar, (this.headerBarHeight - this.actionBarSize) / 2);
+      this.mInitialTranslationY = this.GetImageTransition();
+
+      ScrollUtils.AddOnGlobalLayoutListener(this.interceptionFrameLayout, new Runnable(delegate
+        {
+          isReady = true;
+          UpdateViews(mInitialTranslationY, false);
+        }));
+
+      return v;
+    }
+
+    private void UpdateViews(float translationY, bool animated)
     {
       // If it's ListView, onScrollChanged is called before ListView is laid out (onGlobalLayout).
       // This causes weird animation when onRestoreInstanceState occurred,
@@ -102,30 +141,36 @@ namespace Jetstream.View
       {
         return;
       }
-      // Translate image
-      ViewHelper.SetTranslationY(this.image, -scrollY / 2);
+      ViewHelper.SetTranslationY(this.interceptionFrameLayout, translationY);
 
-      // Translate header
-      ViewHelper.SetTranslationY(this.header, this.GetHeaderTranslationY(scrollY));
+      // Translate image
+      ViewHelper.SetTranslationY(this.destinationImageView, (translationY - (this.GetImageTransition())) / 2);
+
+      // Translate title
+      ViewHelper.SetTranslationY(this.toolbar, System.Math.Min(this.intersectionHeight, (this.headerBarHeight - this.actionBarSize) / 2));
 
       // Show/hide gap
-      var headerHeight = this.headerBar.Height;
-      var scrollUp = this.prevScrollY < scrollY;
+      var scrollUp = translationY < this.prevTranslationY;
       if (scrollUp)
       {
-        if (this.flexibleSpaceImageHeight - headerHeight - this.actionBarSize <= scrollY)
+        if (translationY <= this.actionBarSize)
         {
           this.ChangeHeaderBackgroundHeightAnimated(false, animated);
         }
       }
       else
       {
-        if (scrollY <= this.flexibleSpaceImageHeight - headerHeight - this.actionBarSize)
+        if (this.actionBarSize <= translationY)
         {
           this.ChangeHeaderBackgroundHeightAnimated(true, animated);
         }
       }
-      this.prevScrollY = scrollY;
+      this.prevTranslationY = translationY;
+    }
+
+    private int GetImageTransition()
+    {
+      return this.flexibleSpaceImageHeight + this.actionBarSize;
     }
 
     private void ChangeHeaderBackgroundHeight(float height, float to, float heightOnGapHidden)
@@ -135,27 +180,28 @@ namespace Jetstream.View
       lp.TopMargin = (int)(this.headerBar.Height - height);
 
       this.headerBackground.RequestLayout();
-      this.gapIsChanging = (height != to);
+      this.isGapChanging = (height != to);
 
-      if (!this.gapIsChanging)
+      if (!this.isGapChanging)
       {
-        this.gapHidden = (height == heightOnGapHidden);
+        this.isGapHidden = (height == heightOnGapHidden);
       }
     }
 
     private void ChangeHeaderBackgroundHeightAnimated(bool shouldShowGap, bool animated)
     {
-      if (this.gapIsChanging)
+      if (this.isGapChanging)
       {
         return;
       }
-      var heightOnGapShown = this.headerBar.Height;
-      var heightOnGapHidden = this.headerBar.Height + this.actionBarSize;
+      int heightOnGapShown = this.headerBar.Height;
+      int heightOnGapHidden = this.headerBar.Height + this.actionBarSize;
       float from = this.headerBackground.LayoutParameters.Height;
       float to;
+
       if (shouldShowGap)
       {
-        if (!this.gapHidden)
+        if (!this.isGapHidden)
         {
           // Already shown
           return;
@@ -164,7 +210,7 @@ namespace Jetstream.View
       }
       else
       {
-        if (this.gapHidden)
+        if (this.isGapHidden)
         {
           // Already hidden
           return;
@@ -174,15 +220,17 @@ namespace Jetstream.View
       if (animated)
       {
         Xamarin.NineOldAndroids.Views.ViewPropertyAnimator.Animate(this.headerBackground).Cancel();
-        var a = ValueAnimator.OfFloat(from, to);
-        a.SetDuration(100);
-        a.SetInterpolator(new AccelerateDecelerateInterpolator());
-        a.AddUpdateListener(new CustomAnimator(delegate(ValueAnimator animator)
-        {
-          var height = (float)animator.AnimatedValue;
-          ChangeHeaderBackgroundHeight(height, to, heightOnGapHidden);
-        }));
-        a.Start();
+
+        ValueAnimator animator = ValueAnimator.OfFloat(from, to);
+        animator.SetDuration(100);
+        animator.SetInterpolator(new AccelerateDecelerateInterpolator());
+        animator.AddUpdateListener(new AnimatorImpl(delegate(ValueAnimator a)
+          {
+            var height = (float)a.AnimatedValue;
+            ChangeHeaderBackgroundHeight(height, to, heightOnGapHidden);
+          }));
+
+        animator.Start();
       }
       else
       {
@@ -204,7 +252,6 @@ namespace Jetstream.View
 
     public void OnScrollChanged(int scrollY, bool firstScroll, bool dragging)
     {
-      this.UpdateViews(scrollY, true);
     }
 
     public void OnDownMotionEvent()
@@ -215,20 +262,77 @@ namespace Jetstream.View
     {
     }
 
-    public void OnClick(View v)
+    private float GetMinInterceptionLayoutY()
     {
-      if (this.OnBackButtonClicked != null)
+      //      return this.actionBarSize - this.intersectionHeight;
+      // If you want to move header bar to the top, return 0 instead.
+      return 0;
+    }
+
+    public bool ShouldInterceptTouchEvent(MotionEvent ev, bool moving, float diffX, float diffY)
+    {
+      return this.GetMinInterceptionLayoutY() < (int)ViewHelper.GetY(this.interceptionFrameLayout)
+        || (moving && this.scrollView.CurrentScrollY - diffY < 0);
+    }
+
+    public void OnDownMotionEvent(MotionEvent ev)
+    {
+      this.scrollYOnDownMotion = this.scrollView.CurrentScrollY;
+    }
+
+    public void OnMoveMotionEvent(MotionEvent ev, float diffX, float diffY)
+    {
+      float translationY = ViewHelper.GetTranslationY(this.interceptionFrameLayout) - this.scrollYOnDownMotion + diffY;
+      float minTranslationY = this.GetMinInterceptionLayoutY();
+      if (translationY < minTranslationY)
       {
-        this.OnBackButtonClicked.Invoke();
+        translationY = minTranslationY;
       }
+      else if (this.GetImageTransition() < translationY)
+      {
+        translationY = this.GetImageTransition();
+      }
+
+      this.UpdateViews(translationY, true);
+    }
+
+    public void OnUpOrCancelMotionEvent(MotionEvent ev)
+    {
+    }
+    #endregion Views operations internals
+  }
+
+  class DestinationImageTarget : Java.Lang.Object, ITarget
+  {
+    private readonly ImageView image;
+    private readonly Palette.IPaletteAsyncListener paletteAsyncListener;
+
+    public DestinationImageTarget(ImageView image, Palette.IPaletteAsyncListener paletteAsyncListener)
+    {
+      this.image = image;
+      this.paletteAsyncListener = paletteAsyncListener;
+    }
+
+    public void OnBitmapFailed(Drawable p0)
+    {
+    }
+
+    public void OnBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from)
+    {
+      this.image.SetImageBitmap(bitmap);
+      Palette.From(bitmap).MaximumColorCount(16).Generate(this.paletteAsyncListener);
+    }
+
+    public void OnPrepareLoad(Drawable p0)
+    {
     }
   }
 
-  class CustomAnimator : Java.Lang.Object, ValueAnimator.IAnimatorUpdateListener
+  class AnimatorImpl : Java.Lang.Object, ValueAnimator.IAnimatorUpdateListener
   {
     private readonly Action<ValueAnimator> action;
 
-    public CustomAnimator(Action<ValueAnimator> action)
+    public AnimatorImpl(Action<ValueAnimator> action)
     {
       this.action = action;
     }
