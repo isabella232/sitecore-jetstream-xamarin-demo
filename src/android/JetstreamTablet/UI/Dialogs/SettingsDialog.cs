@@ -5,6 +5,7 @@ namespace Jetstream.UI.Dialogs
   using Android.Content;
   using Android.OS;
   using Android.Views;
+  using Android.Views.InputMethods;
   using Android.Widget;
   using Com.Rengwuxian.Materialedittext;
   using DSoft.Messaging;
@@ -12,15 +13,16 @@ namespace Jetstream.UI.Dialogs
 
   public class SettingsDialog : DialogFragment, View.IOnClickListener
   {
-    private readonly Prefs prefs;
+    private Prefs prefs;
 
-    public SettingsDialog(Prefs prefs)
+    public SettingsDialog()
     {
-      this.prefs = prefs;
     }
 
     public override Dialog OnCreateDialog(Bundle savedInstanceState)
     {
+      this.prefs = Prefs.From(this.Activity);
+
       var rootView = this.InitContentView();
       var sitecoreUrlField = this.InitSitecoreUrlField(rootView);
 
@@ -61,11 +63,63 @@ namespace Jetstream.UI.Dialogs
 
       sitecoreUrlField.AddValidator(new SitecoreUrlValidator(this.GetString(Resource.String.error_wrong_url)));
 
-      var autoCompleteAdapter = new ArrayAdapter(this.Activity, Android.Resource.Layout.SimpleDropDownItem1Line,
-        new List<string>(this.prefs.SavedInstanceUrls));
+      var autoCompleteAdapter = new HidingKeyboardAdapter(this.Activity, Android.Resource.Layout.SimpleDropDownItem1Line,
+        new List<string>(this.prefs.SavedInstanceUrls), sitecoreUrlField);
 
       sitecoreUrlField.Adapter = autoCompleteAdapter;
       return sitecoreUrlField;
+    }
+
+    private class HidingKeyboardAdapter : ArrayAdapter<string>, View.IOnTouchListener
+    {
+      private readonly MaterialAutoCompleteTextView field;
+
+      public HidingKeyboardAdapter(Context context, int textViewResourceId, MaterialAutoCompleteTextView field) : base(context, textViewResourceId)
+      {
+        this.field = field;
+      }
+
+      public HidingKeyboardAdapter(Context context, int resource, int textViewResourceId, MaterialAutoCompleteTextView field) : base(context, resource, textViewResourceId)
+      {
+        this.field = field;
+      }
+
+      public HidingKeyboardAdapter(Context context, int textViewResourceId, string[] objects, MaterialAutoCompleteTextView field) : base(context, textViewResourceId, objects)
+      {
+        this.field = field;
+      }
+
+      public HidingKeyboardAdapter(Context context, int resource, int textViewResourceId, string[] objects, MaterialAutoCompleteTextView field) : base(context, resource, textViewResourceId, objects)
+      {
+        this.field = field;
+      }
+
+      public HidingKeyboardAdapter(Context context, int textViewResourceId, IList<string> objects, MaterialAutoCompleteTextView field) : base(context, textViewResourceId, objects)
+      {
+        this.field = field;
+      }
+
+      public HidingKeyboardAdapter(Context context, int resource, int textViewResourceId, IList<string> objects, MaterialAutoCompleteTextView field) : base(context, resource, textViewResourceId, objects)
+      {
+        this.field = field;
+      }
+
+      public override View GetView(int position, View convertView, ViewGroup parent)
+      {
+        if (parent != null)
+        {
+          parent.SetOnTouchListener(this);
+        }
+
+        return base.GetView(position, convertView, parent);
+      }
+
+      public bool OnTouch(View v, MotionEvent e)
+      {
+        InputMethodManager imm = (InputMethodManager)this.Context.GetSystemService(Context.InputMethodService);
+        imm.HideSoftInputFromWindow(this.field.WindowToken, 0);
+        return false;
+      }
     }
 
     private class ApplyButtonClickListener : Java.Lang.Object, View.IOnClickListener

@@ -29,9 +29,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-    <AndroidLinkMode>None</AndroidLinkMode>
     <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
-    <AndroidSupportedAbis>armeabi;armeabi-v7a;x86</AndroidSupportedAbis>
+    <AndroidSupportedAbis>armeabi;armeabi-v7a;x86;arm64-v8a;x86_64</AndroidSupportedAbis>
     <Debugger>Xamarin</Debugger>
     <DevInstrumentationEnabled>True</DevInstrumentationEnabled>
   </PropertyGroup>
@@ -56,10 +55,6 @@
   <ItemGroup>
     <Reference Include="DBeattie.SnackbarSharp">
       <HintPath>..\..\..\solutions\packages\SnackbarSharp.dll.1.0.7\lib\MonoAndroid\DBeattie.SnackbarSharp.dll</HintPath>
-    </Reference>
-    <Reference Include="material-drawer-3.0.3, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>libs\material-drawer-3.0.3.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Net.Http" />
@@ -129,6 +124,9 @@
     </Reference>
     <Reference Include="android-iconics-1.0.2">
       <HintPath>..\..\..\solutions\packages\Mikepenz.Android.Iconics.Xamarin.Binding.1.0.2\lib\MonoAndroid\android-iconics-1.0.2.dll</HintPath>
+    </Reference>
+    <Reference Include="material-drawer-3.0.3">
+      <HintPath>libs\material-drawer-3.0.3.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

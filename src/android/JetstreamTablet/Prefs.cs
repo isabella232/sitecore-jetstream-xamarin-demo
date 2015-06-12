@@ -11,6 +11,8 @@ namespace Jetstream
     private const string InstanceUrlKey = "instance_url_key";
     private const string SavedInstanceUrlsKey = "saved_instance_urls_key";
 
+    public const string DefaultInstanceUrl = "http://jetstream800394rev150402.test24dk1.dk.sitecore.net/";
+
     private Prefs(ISharedPreferences sharedPreferences)
     {
       this.prefs = sharedPreferences;
@@ -27,7 +29,7 @@ namespace Jetstream
     {
       get
       {
-        return this.GetString(InstanceUrlKey, "http://jetstream800394rev150402.test24dk1.dk.sitecore.net/");
+        return this.GetString(InstanceUrlKey, DefaultInstanceUrl);
       }
 
       set
@@ -60,6 +62,11 @@ namespace Jetstream
       urls.Add(url);
 
       this.SavedInstanceUrls = urls;
+    }
+
+    public void ClearUrlHistory()
+    {
+      this.SavedInstanceUrls = new List<string>();
     }
 
     #endregion Instance URLs history
