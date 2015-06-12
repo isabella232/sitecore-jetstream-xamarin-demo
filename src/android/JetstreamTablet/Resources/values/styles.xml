@@ -5,6 +5,7 @@
         <item name="colorPrimary">@color/color_primary</item>
         <item name="colorPrimaryDark">@color/color_primary_dark</item>
         <item name="colorAccent">@color/color_accent</item>
+        <item name="material_drawer_selected_text">@color/color_primary</item>
     </style>
 
  	<style name="Material.Edittext.Style" parent="Jetstream.App.Theme">
