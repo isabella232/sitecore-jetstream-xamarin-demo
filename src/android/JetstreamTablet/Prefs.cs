@@ -3,6 +3,7 @@ namespace Jetstream
   using System.Collections.Generic;
   using Android.Content;
   using Android.Preferences;
+  using Android.Support.V4.Text;
 
   public class Prefs
   {
@@ -29,7 +30,13 @@ namespace Jetstream
     {
       get
       {
-        return this.GetString(InstanceUrlKey, DefaultInstanceUrl);
+        var url = this.GetString(InstanceUrlKey, DefaultInstanceUrl);
+        if (url.Equals(DefaultInstanceUrl))
+        {
+          this.AddUrlToHistory(url);
+        }
+
+        return url;
       }
 
       set

@@ -118,6 +118,9 @@ namespace Jetstream.UI.Dialogs
       {
         InputMethodManager imm = (InputMethodManager)this.Context.GetSystemService(Context.InputMethodService);
         imm.HideSoftInputFromWindow(this.field.WindowToken, 0);
+
+        v.OnTouchEvent(e);
+
         return false;
       }
     }
