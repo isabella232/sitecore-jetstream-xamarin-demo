@@ -35,6 +35,8 @@
   <ItemGroup>
     <Compile Include="Airport\IJetStreamAirportWithTimeZone.cs" />
     <Compile Include="DestinationsLoader.cs" />
+    <Compile Include="Destinations\IItemWithImage.cs" />
+    <Compile Include="Destinations\ItemWithImage.cs" />
     <Compile Include="Destinations\Region.cs" />
     <Compile Include="Destinations\BaseSitecoreItemWrapper.cs" />
     <Compile Include="Destinations\Country.cs" />

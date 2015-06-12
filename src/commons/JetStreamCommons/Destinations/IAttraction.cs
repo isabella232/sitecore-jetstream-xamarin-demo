@@ -1,11 +1,7 @@
 ﻿namespace JetStreamCommons.Destinations
 {
-  public interface IAttraction
+  public interface IAttraction : IItemWithImage
   {
-    string ImagePath
-    {
-      get;
-    }
   }
 }
 

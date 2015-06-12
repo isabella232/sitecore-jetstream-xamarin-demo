@@ -6,12 +6,17 @@
   {
     public static string MediaDownloadUrl(this ScApiSession session, string mediaItemPath)
     {
-      string instanceUrl = session.Config.InstanceUrl;
+      var instanceUrl = session.Config.InstanceUrl;
       return SitecoreWebApiSessionExt.MediaDownloadUrl(instanceUrl, mediaItemPath);
     }
 
-    public static string MediaDownloadUrl(string instanceUrl, string mediaItemPath)
+    private static string MediaDownloadUrl(string instanceUrl, string mediaItemPath)
     {
+      if (!instanceUrl.StartsWith("http"))
+      {
+        instanceUrl = "http://" + instanceUrl;
+      }
+
       string formatter = "";
       if (!instanceUrl.EndsWith("/"))
       {
@@ -19,6 +24,5 @@
       }
       return string.Format("{0}{1}{2}", instanceUrl, formatter, mediaItemPath);
     }
-
   }
 }

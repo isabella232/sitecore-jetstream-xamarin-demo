@@ -1,6 +1,6 @@
 ﻿namespace JetStreamCommons.Destinations
 {
-  public interface IDestination
+  public interface IDestination : IItemWithImage
   {
     string CountryName
     {
@@ -27,12 +27,7 @@
       get;
     }
 
-    string ImagePath
-    {
-      get;
-    }
-
-    bool CoordinatesIsAvailable
+    bool IsCoordinatesAvailable
     {
       get;
     }

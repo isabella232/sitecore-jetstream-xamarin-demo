@@ -1,16 +1,14 @@
-﻿
-namespace JetStreamCommons.Destinations
+﻿namespace JetStreamCommons.Destinations
 {
   using System.Globalization;
   using JetStreamCommons.Helpers;
   using Sitecore.MobileSDK.API.Items;
 
-  public class Destination : BaseSitecoreItemWrapper, IDestination
+  public class Destination : ItemWithImage, IDestination
   {
     private readonly float latitude;
     private readonly float longitude;
     private readonly string countryName;
-    private readonly string imagePath;
     private readonly string overview;
 
     public Destination(ISitecoreItem wrapped) : base(wrapped)
@@ -27,11 +25,9 @@ namespace JetStreamCommons.Destinations
       this.longitude = longitude;
 
       this.overview = wrapped["Overview"].RawValue;
-
-      this.imagePath = MediaPathExtractor.GetImagePathFromImageRawValue(wrapped["Image"].RawValue);
     }
 
-    public bool CoordinatesIsAvailable
+    public bool IsCoordinatesAvailable
     {
       get
       { 
@@ -68,14 +64,6 @@ namespace JetStreamCommons.Destinations
       get
       { 
         return this.longitude;
-      }
-    }
-
-    public string ImagePath
-    {
-      get
-      { 
-        return this.imagePath;
       }
     }
   }
