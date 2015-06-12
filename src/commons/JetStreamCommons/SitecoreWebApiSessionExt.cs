@@ -10,9 +10,9 @@
       return SitecoreWebApiSessionExt.MediaDownloadUrl(instanceUrl, mediaItemPath);
     }
 
-    private static string MediaDownloadUrl(string instanceUrl, string mediaItemPath)
+    public static string MediaDownloadUrl(string instanceUrl, string mediaItemPath)
     {
-      if (!instanceUrl.StartsWith("http"))
+      if (!instanceUrl.StartsWith("http://"))
       {
         instanceUrl = "http://" + instanceUrl;
       }

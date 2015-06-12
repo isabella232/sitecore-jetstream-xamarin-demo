@@ -6,6 +6,7 @@ using Foundation;
 using UIKit;
 using JetStreamIOSFull.MapUI;
 using SDWebImage;
+using JetStreamIOSFull.Helpers;
 
 namespace JetStreamIOSFull
 {
@@ -16,14 +17,32 @@ namespace JetStreamIOSFull
       
 		}
 
+    public void Highlight(bool highlight)
+    {
+      if (highlight)
+      {
+        this.ContainerView.Layer.BorderWidth = 2;
+      }
+      else
+      {
+        this.ContainerView.Layer.BorderWidth = 0;
+      }
+    }
+
     public void FillWithDestination(DestinationAnnotation destination)
     {
       this.ContainerView.Layer.CornerRadius = 15;
+
+      this.ContainerView.Layer.BorderColor = UIColor.Orange.CGColor;
+      this.ContainerView.Layer.BorderWidth = 0;
+
       this.ContainerView.Layer.MasksToBounds = true;
 
       this.TitleLabel.Text = destination.Title;
 
       NSUrl imageUrl = new NSUrl(destination.ImageUrl);
+
+      this.ImageView.Image = null;
 
       SDWebImageDownloader.SharedDownloader.DownloadImage(
         url: imageUrl,

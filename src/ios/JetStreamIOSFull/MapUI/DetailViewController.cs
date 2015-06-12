@@ -51,7 +51,7 @@ namespace JetStreamIOSFull
 
       this.InitializeMap();
 
-      this.DetailsCarousel.BackgroundColor = UIColor.Clear;
+      this.DetailsCarousel.BackgroundColor = UIColor.Black.ColorWithAlpha(0.5f);
       this.DetailsCarousel.BackgroundView = new UIView (new CGRect (0, 0, 0, 0));
     }
 
@@ -81,7 +81,7 @@ namespace JetStreamIOSFull
 
       this.RefreshMap();
     }
-
+      
     private void DidSelectDestination(IDestination destination)
     {
       this.currentSelectedDestination = destination;
@@ -116,7 +116,7 @@ namespace JetStreamIOSFull
 
       foreach(IDestination elem in this.destinations)
       {
-        if (elem.CoordinatesIsAvailable)
+        if (elem.IsCoordinatesAvailable)
         {
           DestinationAnnotation annotation = new DestinationAnnotation(elem, this.Endpoint.InstanceUrl);
           annotationsList.Add(annotation);
@@ -126,6 +126,8 @@ namespace JetStreamIOSFull
       this.mapManager.SetAnnotationsForMap(this.map, annotationsList);
 
       CarouselDataSource carouselSource = new CarouselDataSource (annotationsList);
+      carouselSource.onItemSelected += this.DidSelectDestination;
+
       this.DetailsCarousel.Source = carouselSource;
       this.DetailsCarousel.ReloadData();
     }

@@ -12,6 +12,9 @@ namespace JetStreamIOSFull
     private const string CELL_ID = "DestinationCell";
     List<DestinationAnnotation> destinations;
 
+    public delegate void DestinationSelected(IDestination destination);
+    public event DestinationSelected onItemSelected;
+
     public CarouselDataSource(List<DestinationAnnotation> destinations)
     {
       this.destinations = destinations;
@@ -34,18 +37,16 @@ namespace JetStreamIOSFull
 
     public override void ItemHighlighted(UICollectionView collectionView, NSIndexPath indexPath)
     {
-//      DestinationCarouselCell cell = (DestinationCarouselCell)collectionView.CellForItem(indexPath);
-//      cell.ImageView.Alpha = 0.5f;
+      DestinationCarouselCell cell = (DestinationCarouselCell)collectionView.CellForItem(indexPath);
+      cell.Highlight(true);
     }
 
     public override void ItemUnhighlighted(UICollectionView collectionView, NSIndexPath indexPath)
     {
-//      var cell = (UserCell) collectionView.CellForItem(indexPath);
-//      cell.ImageView.Alpha = 1;
-//
-//      UserElement row = Rows[indexPath.Row];
-//      row.Tapped.Invoke();
+      DestinationCarouselCell cell = (DestinationCarouselCell)collectionView.CellForItem(indexPath);
+      cell.Highlight(false);
     }
+
 
     public override UICollectionViewCell GetCell(UICollectionView collectionView, NSIndexPath indexPath)
     {
@@ -56,6 +57,15 @@ namespace JetStreamIOSFull
       cell.FillWithDestination(destination);
 
       return cell;
+    }
+
+    public override void ItemSelected(UICollectionView collectionView, NSIndexPath indexPath)
+    {
+      if (onItemSelected != null)
+      {
+        DestinationAnnotation selectedAnnotation = this.destinations[indexPath.Row];
+        onItemSelected(selectedAnnotation.Destination);
+      }
     }
   }
 
