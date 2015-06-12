@@ -3,17 +3,18 @@ namespace Jetstream.UI.Dialogs
   using Android.App;
   using Android.OS;
   using Android.Views;
-  using Jetstream.Map;
   using Jetstream.View;
+  using JetStreamCommons.Destinations;
 
   public class DestinationDetailsDialog : DialogFragment, View.IOnClickListener
   {
     private DestinationView destinationView;
-    public ClusterItem Destination { get; set; }
+    public IDestination Destination { get; set; }
 
     public override Dialog OnCreateDialog(Bundle savedInstanceState)
     {
-      this.destinationView = new DestinationView(this.Activity);
+      var mainActivity = (MainActivity)this.Activity;
+      this.destinationView = new DestinationView(this.Activity, mainActivity.Session);
 
       var rootView = this.destinationView.InitViewWithData(this.Destination);
 

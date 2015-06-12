@@ -12,7 +12,8 @@ namespace Jetstream.View
   using Android.Views.Animations;
   using Android.Widget;
   using Java.Lang;
-  using Jetstream.Map;
+  using JetStreamCommons.Destinations;
+  using Sitecore.MobileSDK;
   using Squareup.Picasso;
   using Xamarin.Android.ObservableScrollView;
   using Xamarin.NineOldAndroids.Animations;
@@ -23,6 +24,7 @@ namespace Jetstream.View
     public Action OnBackButtonClicked { get; set; }
 
     private readonly Context context;
+    private readonly ScApiSession session;
 
     #region Views
 
@@ -53,9 +55,10 @@ namespace Jetstream.View
     private bool isGapHidden;
     private bool isReady;
 
-    public DestinationView(Context context)
+    public DestinationView(Context context, ScApiSession session)
     {
       this.context = context;
+      this.session = session;
     }
 
     public void OnClick(View v)
@@ -66,14 +69,14 @@ namespace Jetstream.View
       }
     }
 
-    public View InitViewWithData(ClusterItem destination)
+    public View InitViewWithData(IDestination destination)
     {
       var view = this.InitContentViews();
 
-      this.toolbar.Title = destination.Wrapped.DisplayName;
-      this.bodyTextView.Text = Html.FromHtml(destination.Wrapped.Overview).ToString();
+      this.toolbar.Title = destination.DisplayName;
+      this.bodyTextView.Text = Html.FromHtml(destination.Overview).ToString();
 
-      Picasso.With(this.context).Load(destination.ImageUrl).Into(new DestinationImageTarget(this.destinationImageView, this));
+      Picasso.With(this.context).Load(destination.ImageUrl(this.session)).Into(new DestinationImageTarget(this.destinationImageView, this));
 
       return view;
     }
