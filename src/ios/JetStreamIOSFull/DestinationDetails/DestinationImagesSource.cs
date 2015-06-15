@@ -14,21 +14,34 @@ namespace JetStreamIOSFull
     string CellIdentifier = "DestinationImageCellId";
     private InstanceSettings.InstanceSettings endpoint;
 
-    public DestinationImagesSource(List<IAttraction> items, InstanceSettings.InstanceSettings endpoint)
+    private IDestination baseDestination = null;
+
+    public DestinationImagesSource(List<IAttraction> items, IDestination destination, InstanceSettings.InstanceSettings endpoint)
     {
+      this.baseDestination = destination;
       this.endpoint = endpoint;
       this.tableItems = items;
     }
 
     public override nint RowsInSection (UITableView tableview, nint section)
     {
-      return this.tableItems.Count;
+      return this.tableItems.Count + 1;
     }
 
     public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
     {
       DestinationImageCell cell = tableView.DequeueReusableCell(CellIdentifier) as DestinationImageCell;
-      IAttraction item = this.tableItems[indexPath.Row];
+
+      IItemWithImage item;
+
+      if (indexPath.Row == 0)
+      {
+        item = this.baseDestination;
+      }
+      else
+      {
+        item = this.tableItems [indexPath.Row - 1];
+      }
 
       cell.SetImage(null);
       cell.ActivityIndicator.StartAnimating();
@@ -38,7 +51,7 @@ namespace JetStreamIOSFull
       return cell;
     }
 
-    private void DownloadAndShowDestinationImage(IAttraction attraction, UITableView tableView, NSIndexPath indexPath)
+    private void DownloadAndShowDestinationImage(IItemWithImage attraction, UITableView tableView, NSIndexPath indexPath)
     {
       string imagePath = null;
 

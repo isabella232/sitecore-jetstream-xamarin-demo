@@ -51,7 +51,12 @@ namespace JetStreamIOSFull
               AlertHelper.ShowLocalizedAlertWithOkOption("NETWORK_ERROR_TITLE", "CANNOT_DOWNLOAD_ATTRACTIONS_ERROR");
               return;
             }
-            this.ImagesTableView.Source = new DestinationImagesSource (attractions, this.Endpoint);
+
+            //!!!!hack to show destination image in images list, possible error on using some special attractions fields
+            //attractions.Insert(0, this.destination as IAttraction);
+
+
+            this.ImagesTableView.Source = new DestinationImagesSource (attractions, this.destination, this.Endpoint);
             this.ImagesTableView.ReloadData();
           }
         }
