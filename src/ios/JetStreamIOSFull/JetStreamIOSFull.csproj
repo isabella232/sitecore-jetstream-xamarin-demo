@@ -231,6 +231,5 @@
     <BundleResource Include="Resources\Images.xcassets\BackgroundTextures\ProfileBackground.png" />
     <BundleResource Include="Resources\Images.xcassets\LeftArrow.png" />
     <BundleResource Include="Resources\Images.xcassets\LeftArrow%402x.png" />
-    <BundleResource Include="Resources\Images.xcassets\bant98.png" />
   </ItemGroup>
 </Project>

@@ -31,9 +31,6 @@ namespace JetStreamIOSFull
 
       UIImage image = UIImage.FromBundle("Images.xcassets/LeftArrow.png");
       this.BackButton.SetImage(image.ImageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate), UIControlState.Normal);
-
-      UIImage decoration = UIImage.FromBundle("Images.xcassets/bant98.png");
-      this.DecorationImage.Image = decoration;
    }
 
     private async void DownloadAttractions()
