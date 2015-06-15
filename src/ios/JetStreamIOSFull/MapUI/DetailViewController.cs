@@ -23,7 +23,7 @@ namespace JetStreamIOSFull
     private readonly string DESTINATION_DETAIL_SEGUE_ID = "ShowDestinationDetails";
     private IEnumerable destinations;
     private MapManager mapManager;
-
+    private bool dataIsLoading = false;
     private IDestination currentSelectedDestination = null;
 
     public DetailViewController(IntPtr handle) : base(handle)
@@ -77,9 +77,16 @@ namespace JetStreamIOSFull
       SDWebImage.SDWebImageManager.SharedManager.ImageCache.ClearDisk();
       SDWebImage.SDWebImageManager.SharedManager.ImageCache.ClearMemory();
 
-      this.map.RemoveAnnotations(this.map.Annotations);
+      this.ClearData();
 
       this.RefreshMap();
+    }
+
+    private void ClearData()
+    {
+      this.map.RemoveAnnotations(this.map.Annotations);
+      this.DetailsCarousel.DataSource = null;
+      this.DetailsCarousel.ReloadData();
     }
       
     private void DidSelectDestination(IDestination destination)
@@ -91,6 +98,9 @@ namespace JetStreamIOSFull
     private async void RefreshMap()
     {
       bool destinationsLoaded = false;
+
+      RefreshButton.Enabled = false;
+
       try
       {
         this.destinations = await this.DownloadAllDestinations();
@@ -99,6 +109,10 @@ namespace JetStreamIOSFull
       catch
       {
         destinationsLoaded = false;
+      }
+      finally
+      {
+        RefreshButton.Enabled = true;
       }
   
       if (destinationsLoaded)

@@ -3,7 +3,6 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Detail-->
@@ -116,6 +115,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="DetailsCarousel" destination="lpw-mn-vMc" id="yJC-bU-IQt"/>
+                        <outlet property="RefreshButton" destination="qHg-cF-uXG" id="duT-Yt-gv7"/>
                         <outlet property="map" destination="RgM-jM-jb7" id="Keb-xA-37c"/>
                         <segue destination="MIc-5c-7KT" kind="presentation" identifier="ShowDestinationDetails" modalPresentationStyle="overCurrentContext" id="bQF-M9-d7Z"/>
                     </connections>
@@ -250,36 +250,18 @@
                                     <constraint firstItem="kGF-LV-Vhb" firstAttribute="top" secondItem="ecC-de-N6x" secondAttribute="top" id="yRo-5n-DLK"/>
                                 </constraints>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nvk-2M-DXI">
-                                <rect key="frame" x="290" y="97" width="200" height="250"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="196" id="B8g-OD-nQG"/>
-                                    <constraint firstAttribute="height" constant="174" id="ckk-lV-7y1"/>
-                                    <constraint firstAttribute="width" constant="200" id="mb9-cy-DRQ"/>
-                                    <constraint firstAttribute="height" constant="250" id="rbh-Oa-LwB"/>
-                                </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="B8g-OD-nQG"/>
-                                        <exclude reference="ckk-lV-7y1"/>
-                                    </mask>
-                                </variation>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.59999999999999998" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="ecC-de-N6x" firstAttribute="leading" secondItem="1HD-eH-OQC" secondAttribute="leading" constant="121" id="6fs-mb-IJa"/>
                             <constraint firstItem="ecC-de-N6x" firstAttribute="top" secondItem="VL4-lT-rVg" secondAttribute="bottom" constant="84" id="HSw-p4-oYZ"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="nvk-2M-DXI" secondAttribute="trailing" constant="94" id="YW0-5j-JyP"/>
-                            <constraint firstItem="nvk-2M-DXI" firstAttribute="top" secondItem="VL4-lT-rVg" secondAttribute="bottom" constant="77" id="hDT-yu-kA7"/>
                             <constraint firstAttribute="trailing" secondItem="ecC-de-N6x" secondAttribute="trailing" constant="121" id="sWh-FY-CK4"/>
                             <constraint firstItem="lUu-Zs-tCT" firstAttribute="top" secondItem="ecC-de-N6x" secondAttribute="bottom" constant="40" id="yh7-OE-0bG"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="BackButton" destination="vL0-xy-4rO" id="q75-ku-7HP"/>
-                        <outlet property="DecorationImage" destination="nvk-2M-DXI" id="gw6-QB-Td7"/>
                         <outlet property="DestinationDescription" destination="Tao-fV-ssN" id="lgj-Mu-RpT"/>
                         <outlet property="ImagesTableView" destination="GVN-tJ-fDk" id="SKt-dI-ZsX"/>
                         <outlet property="TitleLabel" destination="iuL-Ht-Z0m" id="yr9-XK-8Ou"/>

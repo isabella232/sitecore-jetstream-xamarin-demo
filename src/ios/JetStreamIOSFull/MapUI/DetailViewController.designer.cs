@@ -18,11 +18,19 @@ namespace JetStreamIOSFull
 		[Outlet]
 		MapKit.MKMapView map { get; set; }
 
+		[Outlet]
+		UIKit.UIBarButtonItem RefreshButton { get; set; }
+
 		[Action ("RefreshButtonTouched:")]
 		partial void RefreshButtonTouched (Foundation.NSObject sender);
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (RefreshButton != null) {
+				RefreshButton.Dispose ();
+				RefreshButton = null;
+			}
+
 			if (DetailsCarousel != null) {
 				DetailsCarousel.Dispose ();
 				DetailsCarousel = null;

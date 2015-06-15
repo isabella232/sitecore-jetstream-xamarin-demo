@@ -160,6 +160,7 @@ namespace JetStreamIOSFull.MapUI
       if (castedAnnotation != null && !castedAnnotation.IsGroup)
       {
         onDestinationSelected(castedAnnotation.Destination);
+        mapView.DeselectAnnotation(castedAnnotation.Annotation, true);
       }
     }
   }
