@@ -44,6 +44,12 @@ namespace JetStreamIOSFull
       this.keyboardDown = NSNotificationCenter.DefaultCenter.AddObserver(UIKeyboard.WillHideNotification, KeyBoardDownNotification);
 
       this.UrlTextField.Text = this.Endpoint.InstanceUrl;
+     
+      //hack to append history with default url
+      if (this.historyManager.Count == 0 && this.UrlTextField.Text.Length > 0)
+      {
+        this.historyManager.AddUrlToHistory(this.UrlTextField.Text);
+      }
 
       this.HistoryTableView.ReloadData();
     }
