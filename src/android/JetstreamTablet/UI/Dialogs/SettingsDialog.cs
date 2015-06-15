@@ -11,9 +11,10 @@ namespace Jetstream.UI.Dialogs
   using DSoft.Messaging;
   using Jetstream.Utils;
 
-  public class SettingsDialog : DialogFragment, View.IOnClickListener
+  public class SettingsDialog : DialogFragment, View.IOnClickListener, TextView.IOnEditorActionListener
   {
     private Prefs prefs;
+    private ApplyButtonClickListener applyButtonClickListener;
 
     public SettingsDialog()
     {
@@ -33,7 +34,10 @@ namespace Jetstream.UI.Dialogs
       
       
       var dialog = builder.Show();
-      dialog.GetButton((int)DialogButtonType.Positive).SetOnClickListener(new ApplyButtonClickListener(sitecoreUrlField, this.prefs, dialog));
+
+      this.applyButtonClickListener = new ApplyButtonClickListener(sitecoreUrlField, this.prefs, dialog);
+      dialog.GetButton((int)DialogButtonType.Positive).SetOnClickListener(this.applyButtonClickListener);
+      
       dialog.SetCanceledOnTouchOutside(false);
       return dialog;
     }
@@ -67,7 +71,23 @@ namespace Jetstream.UI.Dialogs
         new List<string>(this.prefs.SavedInstanceUrls), sitecoreUrlField);
 
       sitecoreUrlField.Adapter = autoCompleteAdapter;
+
+      sitecoreUrlField.SetOnEditorActionListener(this);
+
       return sitecoreUrlField;
+    }
+
+    public bool OnEditorAction(TextView v, ImeAction actionId, KeyEvent e)
+    {
+      if (actionId == ImeAction.Done)
+      {
+        this.applyButtonClickListener.Apply();
+        return true;
+      }
+      else
+      {
+        return false;
+      }
     }
 
     private class HidingKeyboardAdapter : ArrayAdapter<string>, View.IOnTouchListener
@@ -139,6 +159,11 @@ namespace Jetstream.UI.Dialogs
       }
 
       public void OnClick(View v)
+      {
+        this.Apply();
+      }
+
+      public void Apply()
       {
         if (this.urlField.Validate())
         {

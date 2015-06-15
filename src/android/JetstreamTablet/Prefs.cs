@@ -1,14 +1,19 @@
+using System.Collections;
+
 namespace Jetstream
 {
   using System.Collections.Generic;
+  using System.Linq;
+  using System.Text;
   using Android.Content;
   using Android.Preferences;
-  using Android.Support.V4.Text;
 
   public class Prefs
   {
     private readonly ISharedPreferences prefs;
 
+
+    private const int MaxItemsInUrlHistory = 10;
     private const string InstanceUrlKey = "instance_url_key";
     private const string SavedInstanceUrlsKey = "saved_instance_urls_key";
 
@@ -31,11 +36,6 @@ namespace Jetstream
       get
       {
         var url = this.GetString(InstanceUrlKey, DefaultInstanceUrl);
-        if (url.Equals(DefaultInstanceUrl))
-        {
-          this.AddUrlToHistory(url);
-        }
-
         return url;
       }
 
@@ -50,25 +50,46 @@ namespace Jetstream
 
     #region Instance URLs history
 
-    public ICollection<string> SavedInstanceUrls
+    public IList<string> SavedInstanceUrls
     {
       get
       {
-        return this.GetStringSet(SavedInstanceUrlsKey);
+        var raw = this.GetString(SavedInstanceUrlsKey, DefaultInstanceUrl);
+
+        var list = raw.Split('|').ToList();
+
+        return list;
       }
 
       private set
       {
-        this.PutStringSet(SavedInstanceUrlsKey, value);
+        this.PutString(SavedInstanceUrlsKey, string.Join("|", value));
       }
     }
 
     private void AddUrlToHistory(string url)
     {
       var urls = this.SavedInstanceUrls;
+      if (urls.Contains(url))
+      {
+        return;
+      }
+
       urls.Add(url);
 
+      urls = RemoveItemIfMoreThen(urls, MaxItemsInUrlHistory);
+
       this.SavedInstanceUrls = urls;
+    }
+
+    private static IList<string> RemoveItemIfMoreThen(IList<string> source, int maxCount)
+    {
+      if (source.Count > maxCount)
+      {
+        source.RemoveAt(0);
+      }
+
+      return source;
     }
 
     public void ClearUrlHistory()
@@ -77,18 +98,6 @@ namespace Jetstream
     }
 
     #endregion Instance URLs history
-
-    private ICollection<string> GetStringSet(string key)
-    {
-      return this.prefs.GetStringSet(key, new List<string>(0));
-    }
-
-    private void PutStringSet(string key, ICollection<string> values)
-    {
-      ISharedPreferencesEditor editor = this.prefs.Edit();
-      editor.PutStringSet(key, values);
-      editor.Apply();
-    }
 
     private bool GetBool(string key, bool defaultValue)
     {
