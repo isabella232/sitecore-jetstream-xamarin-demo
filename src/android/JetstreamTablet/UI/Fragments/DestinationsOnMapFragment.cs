@@ -97,7 +97,7 @@ namespace Jetstream.UI.Fragments
         var destWithLocation = this.FilterDestinationByLocation(destinations);
 
         this.AddDestinationsItems(destWithLocation);
-        this.InitDestinationsCards(destWithLocation);
+        this.InitDestinationsCards(destinations);
       }
       catch (Exception exception)
       {
