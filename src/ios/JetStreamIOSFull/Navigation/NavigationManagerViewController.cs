@@ -13,6 +13,9 @@ namespace JetStreamIOSFull
 
     private UINavigationController MapFlow;
     private UINavigationController SettingsFlow;
+    private UINavigationController AboutFlow;
+    private UINavigationController FlightStatusFlow;
+    private UINavigationController OnlineCheckInFlow;
     private UINavigationController CurentActiveFlow;
 
     private UIView overlayView = null;
@@ -84,8 +87,16 @@ namespace JetStreamIOSFull
       this.MapFlow = (UINavigationController)this.Storyboard.InstantiateViewController("MapFlowInitialNavigationController");
       this.SettingsFlow = (UINavigationController)this.Storyboard.InstantiateViewController("SettingsFlowInitialNavigationController");
 
+      this.AboutFlow = (UINavigationController)this.Storyboard.InstantiateViewController("AboutFlowInitialNavigationController");
+      this.FlightStatusFlow = (UINavigationController)this.Storyboard.InstantiateViewController("FlightStatusFlowInitialNavigationController");
+      this.OnlineCheckInFlow = (UINavigationController)this.Storyboard.InstantiateViewController("CheckInFlowInitialNavigationController");
+
+
       this.InitializeFlow(this.MapFlow);
       this.InitializeFlow(this.SettingsFlow);
+      this.InitializeFlow(this.AboutFlow);
+      this.InitializeFlow(this.FlightStatusFlow);
+      this.InitializeFlow(this.OnlineCheckInFlow);
 
       this.NavigateToTabAtIndex(0);
     }
@@ -111,6 +122,21 @@ namespace JetStreamIOSFull
       case MenuItemTypes.Settings:
         {
           NewFlow = this.SettingsFlow;
+          break;
+        }
+      case MenuItemTypes.About:
+        {
+          NewFlow = this.AboutFlow;
+          break;
+        }
+      case MenuItemTypes.OnlineCheckin:
+        {
+          NewFlow = this.OnlineCheckInFlow;
+          break;
+        }
+      case MenuItemTypes.FlightStatus:
+        {
+          NewFlow = this.FlightStatusFlow;
           break;
         }
       default:

@@ -10,6 +10,7 @@ namespace JetStreamIOSFull
 {
   public partial class MasterViewController : UITableViewController
   {
+
     public NavigationManagerViewController NavigationManager { get; set; }
     public AppearanceHelper ah = new AppearanceHelper();
     private DataSource dataSource;
@@ -48,15 +49,6 @@ namespace JetStreamIOSFull
 
       this.dataSource = new DataSource (this, menuItems);
       this.TableView.Source = this.dataSource;
-
-//      this.SelectMenuItem(true, 0);
-    }
-
-    private void SelectMenuItem(bool selected, int row)
-    {
-      NSIndexPath path = NSIndexPath.FromRowSection(row, 0);
-      UITableViewCell cell = this.TableView.CellAt(path);
-      cell.SetSelected(selected, true);
     }
 
     public override void DidReceiveMemoryWarning()
@@ -133,8 +125,6 @@ namespace JetStreamIOSFull
 
         return cell;
       }
-
-
 
       public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
       {

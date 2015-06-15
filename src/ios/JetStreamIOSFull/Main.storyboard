@@ -171,7 +171,7 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                                 <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <inset key="imageEdgeInsets" minX="20" minY="20" maxX="20" maxY="20"/>
-                                                <state key="normal" image="LeftArrow.png">
+                                                <state key="normal">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
@@ -361,6 +361,87 @@
             </objects>
             <point key="canvasLocation" x="669" y="935"/>
         </scene>
+        <!--About View Controller-->
+        <scene sceneID="kRA-dS-vDJ">
+            <objects>
+                <viewController id="dFb-h8-NVA" customClass="AboutViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="35z-C1-899"/>
+                        <viewControllerLayoutGuide type="bottom" id="V48-wL-vO8"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="UcQ-eC-U63">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="About" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eRF-fw-lgK">
+                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="47"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="V48-wL-vO8" firstAttribute="top" secondItem="eRF-fw-lgK" secondAttribute="bottom" id="EyP-W6-ZH0"/>
+                            <constraint firstAttribute="trailing" secondItem="eRF-fw-lgK" secondAttribute="trailing" id="O8m-IN-W8o"/>
+                            <constraint firstItem="eRF-fw-lgK" firstAttribute="top" secondItem="35z-C1-899" secondAttribute="bottom" id="W2r-aS-AGp"/>
+                            <constraint firstItem="eRF-fw-lgK" firstAttribute="leading" secondItem="UcQ-eC-U63" secondAttribute="leading" id="hke-C1-if5"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="dT3-73-Ukf"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OkD-3Y-uDN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="669" y="1609"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="ol3-XZ-0uj">
+            <objects>
+                <navigationController storyboardIdentifier="AboutFlowInitialNavigationController" id="3UH-aN-XiU" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="FIY-cl-CbN">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="dFb-h8-NVA" kind="relationship" relationship="rootViewController" id="2ne-5O-PZ2"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6AM-07-6va" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-24" y="1609"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="iJv-2q-06O">
+            <objects>
+                <navigationController storyboardIdentifier="CheckInFlowInitialNavigationController" id="c9M-KR-qVA" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="KLZ-P5-tui">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="BHX-wV-glE" kind="relationship" relationship="rootViewController" id="Bmi-XK-zXp"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lwd-iP-xUk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-24" y="2943"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Ord-gb-Qza">
+            <objects>
+                <navigationController storyboardIdentifier="FlightStatusFlowInitialNavigationController" id="5FS-jZ-GOg" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="jwb-BC-2wC">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="fMY-mo-5TL" kind="relationship" relationship="rootViewController" id="W1g-zL-Nmv"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="n73-8u-ljF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-24" y="2269"/>
+        </scene>
         <!--Main Split View Controller-->
         <scene sceneID="Nki-YV-4Qg">
             <objects>
@@ -514,8 +595,71 @@
             </objects>
             <point key="canvasLocation" x="-24" y="266"/>
         </scene>
+        <!--Flight Status View Controller-->
+        <scene sceneID="qxr-Ux-HM9">
+            <objects>
+                <viewController id="fMY-mo-5TL" customClass="FlightStatusViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="FHx-Xo-4IK"/>
+                        <viewControllerLayoutGuide type="bottom" id="u1j-b7-m0F"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="fbE-An-IYl">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Flight status" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JER-IY-w8D">
+                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="47"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="JER-IY-w8D" firstAttribute="leading" secondItem="fbE-An-IYl" secondAttribute="leading" id="Aex-Fj-T25"/>
+                            <constraint firstItem="u1j-b7-m0F" firstAttribute="top" secondItem="JER-IY-w8D" secondAttribute="bottom" id="DbI-0N-MEf"/>
+                            <constraint firstAttribute="trailing" secondItem="JER-IY-w8D" secondAttribute="trailing" id="Kir-hY-cC6"/>
+                            <constraint firstItem="JER-IY-w8D" firstAttribute="top" secondItem="FHx-Xo-4IK" secondAttribute="bottom" id="h8c-g8-jQf"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="xGR-7e-mUQ"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ew5-qK-BJT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="669" y="2269"/>
+        </scene>
+        <!--Check In View Controller-->
+        <scene sceneID="H4H-kU-9Ua">
+            <objects>
+                <viewController id="BHX-wV-glE" customClass="CheckInViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ueR-Rc-R3L"/>
+                        <viewControllerLayoutGuide type="bottom" id="GSF-85-LEQ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="NJG-wb-Q0c">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Online CheckIn" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dqe-bI-qKX">
+                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="47"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="dqe-bI-qKX" firstAttribute="top" secondItem="ueR-Rc-R3L" secondAttribute="bottom" id="2rq-Q1-q2L"/>
+                            <constraint firstItem="dqe-bI-qKX" firstAttribute="leading" secondItem="NJG-wb-Q0c" secondAttribute="leading" id="5mF-HG-E9f"/>
+                            <constraint firstItem="GSF-85-LEQ" firstAttribute="top" secondItem="dqe-bI-qKX" secondAttribute="bottom" id="7T0-Qa-dsq"/>
+                            <constraint firstAttribute="trailing" secondItem="dqe-bI-qKX" secondAttribute="trailing" id="a4Q-Eb-7kL"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="76S-p9-AqV"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IcH-Ru-JET" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="669" y="2943"/>
+        </scene>
     </scenes>
-    <resources>
-        <image name="LeftArrow.png" width="64" height="64"/>
-    </resources>
 </document>
