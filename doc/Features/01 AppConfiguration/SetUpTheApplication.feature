@@ -8,9 +8,9 @@ Feature: Set up the application
 
 <h2>Description</h2> 
 To show content from a Jetstream instance the app need to be "connected" to that Jetstream demo instance.  
-*Screen:*  
+*Screen:* Android / iOS  
 ![alt text](/img/Feature_images/01AppConfiguration_ConnectToJetstreamInstance_Android.jpg)
-![alt text](/img/Feature_images/01AppConfiguration_ConnectToJetstreamInstance.png)
+![alt text](/img/Feature_images/01AppConfiguration_ConnectToJetstreamInstance_iOS.jpg)
 
 
 **Points of interest**  

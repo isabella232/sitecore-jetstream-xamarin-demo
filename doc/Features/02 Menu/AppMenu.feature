@@ -6,9 +6,9 @@ Feature: App menu
 
 <h2>Description</h2>
 The app menu contains the list of options the user can navigate to.  
-*Screen:*  
+*Screen:* Android / iOS  
 ![alt text](/img/Feature_images/AppMenu_Android.jpg)
-![alt text](/img/Feature_images/AppMenu.jpg)  
+![alt text](/img/Feature_images/AppMenu_iOS.jpg)  
   
 **Points of interest**  
 1. User can tap on menu icon in the top left corner of the app to open the menu panel.  
