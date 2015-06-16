@@ -2,7 +2,7 @@
 <resources>
 	<color name="edit_text_cursor_color">#303f9f</color>
 	
-	<color name="color_primary_light">#727272</color>
+	<color name="color_primary_light">#CC383838</color>
 	<color name="color_primary">#383838</color>
 	<color name="color_primary_dark">#2D2D2D</color>
 	<color name="color_accent">#E78429</color>

@@ -110,6 +110,7 @@
                 .WithOnDrawerItemClickListener(this)
                 .WithSavedInstance(savedInstanceState)
                 .WithActionBarDrawerToggleAnimated(true)
+                .WithSelectedItem(1)
                 .Build();
 
       this.mapFragment = new DestinationsOnMapFragment();
