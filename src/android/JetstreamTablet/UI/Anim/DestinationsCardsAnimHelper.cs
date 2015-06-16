@@ -23,8 +23,6 @@
       ViewGroup parent = (ViewGroup)layout.Parent;
       int distance = parent.Height - layout.Top;
 
-      AppLog.Logger.Error("Disappear -> Parent Height: " + parent.Height + ", Target Height : " + layout.Height);
-
       var set = new AnimatorSet();
       set.PlayTogether(
         ObjectAnimator.OfFloat(layout, "alpha", 1, 0),
@@ -46,8 +44,6 @@
     {
       ViewGroup parent = (ViewGroup)layout.Parent;
       int distance = parent.MeasuredHeight - layout.Top;
-
-      AppLog.Logger.Error("Appearr -> Parent Height: " + parent.MeasuredHeight + ", Target Height : " + layout.Height);
 
       var set = new AnimatorSet();
       set.PlayTogether(
