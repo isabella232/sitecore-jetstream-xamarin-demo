@@ -23,7 +23,7 @@ namespace JetStreamIOSFull
     private readonly string DESTINATION_DETAIL_SEGUE_ID = "ShowDestinationDetails";
     private IEnumerable destinations;
     private MapManager mapManager;
-    private bool dataIsLoading = false;
+
     private IDestination currentSelectedDestination = null;
 
     public DetailViewController(IntPtr handle) : base(handle)

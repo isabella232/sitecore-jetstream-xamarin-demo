@@ -82,6 +82,8 @@
     <Compile Include="Helpers\MediaPathExtractor.cs" />
     <Compile Include="Destinations\IAttraction.cs" />
     <Compile Include="Destinations\Attraction.cs" />
+    <Compile Include="ContentLoader.cs" />
+    <Compile Include="Helpers\StringProcessor.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\..\Solutions\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\Solutions\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />

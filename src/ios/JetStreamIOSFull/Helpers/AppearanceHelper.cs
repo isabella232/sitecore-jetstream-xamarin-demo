@@ -116,7 +116,15 @@ namespace JetStreamIOSFull.Helpers
     {
       get
       { 
-        return UIImage.FromBundle("Images.xcassets/BackgroundTextures/AboutBackground.jpeg");
+        return UIImage.FromBundle("Images.xcassets/BackgroundTextures/SettingsBackground.jpeg");
+      }
+    }
+
+    public UIImage AboutBackground
+    {
+      get
+      { 
+        return UIImage.FromBundle("Images.xcassets/BackgroundTextures/AboutBackground.jpg");
       }
     }
 

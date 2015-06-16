@@ -172,10 +172,6 @@
     <Compile Include="MapUI\DetailViewController.designer.cs">
       <DependentUpon>DetailViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="NOTIMPLEMENTED\AboutViewController.cs" />
-    <Compile Include="NOTIMPLEMENTED\AboutViewController.designer.cs">
-      <DependentUpon>AboutViewController.cs</DependentUpon>
-    </Compile>
     <Compile Include="NOTIMPLEMENTED\CheckInViewController.cs" />
     <Compile Include="NOTIMPLEMENTED\CheckInViewController.designer.cs">
       <DependentUpon>CheckInViewController.cs</DependentUpon>
@@ -183,6 +179,10 @@
     <Compile Include="NOTIMPLEMENTED\FlightStatusViewController.cs" />
     <Compile Include="NOTIMPLEMENTED\FlightStatusViewController.designer.cs">
       <DependentUpon>FlightStatusViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="About\AboutViewController.cs" />
+    <Compile Include="About\AboutViewController.designer.cs">
+      <DependentUpon>AboutViewController.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
@@ -209,6 +209,7 @@
     <Folder Include="DestinationDetails\" />
     <Folder Include="MapUI\Carousel\" />
     <Folder Include="NOTIMPLEMENTED\" />
+    <Folder Include="About\" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="sdwebimage">
@@ -234,8 +235,6 @@
     <BundleResource Include="Resources\Images.xcassets\MenuIcons\OnlineCheckinIcon.png" />
     <BundleResource Include="Resources\Images.xcassets\MenuIcons\ProfileIcon.png" />
     <BundleResource Include="Resources\Images.xcassets\MenuIcons\ProfileIcon%402x.png" />
-    <BundleResource Include="Resources\Images.xcassets\BackgroundTextures\AboutBackground.jpeg" />
-    <BundleResource Include="Resources\Images.xcassets\BackgroundTextures\AboutBackground%402x.jpeg" />
     <BundleResource Include="Resources\Images.xcassets\BackgroundTextures\NavBarBackgroundDG.png" />
     <BundleResource Include="Resources\Images.xcassets\BackgroundTextures\NavBarBackgroundDG%402x.png" />
     <BundleResource Include="Resources\Images.xcassets\BackgroundTextures\NavBarBackgroundLG.png" />
@@ -244,5 +243,9 @@
     <BundleResource Include="Resources\Images.xcassets\BackgroundTextures\ProfileBackground.png" />
     <BundleResource Include="Resources\Images.xcassets\LeftArrow.png" />
     <BundleResource Include="Resources\Images.xcassets\LeftArrow%402x.png" />
+    <BundleResource Include="Resources\Images.xcassets\BackgroundTextures\SettingsBackground.jpeg" />
+    <BundleResource Include="Resources\Images.xcassets\BackgroundTextures\SettingsBackground%402x.jpeg" />
+    <BundleResource Include="Resources\Images.xcassets\BackgroundTextures\AboutBackground%402x.jpg" />
+    <BundleResource Include="Resources\Images.xcassets\BackgroundTextures\AboutBackground.jpg" />
   </ItemGroup>
 </Project>
