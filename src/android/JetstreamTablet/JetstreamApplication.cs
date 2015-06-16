@@ -95,6 +95,11 @@
     {
       Log.Error(this.mainTag, format, args);
     }
+
+    public void Error(string message)
+    {
+      Log.Error(this.mainTag, message);
+    }
   }
 }
 
