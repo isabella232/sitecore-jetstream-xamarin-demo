@@ -7,6 +7,7 @@ using UIKit;
 using JetStreamIOSFull.MapUI;
 using SDWebImage;
 using JetStreamIOSFull.Helpers;
+using CoreGraphics;
 
 namespace JetStreamIOSFull
 {
@@ -31,12 +32,16 @@ namespace JetStreamIOSFull
 
     public void FillWithDestination(DestinationAnnotation destination)
     {
-      this.ContainerView.Layer.CornerRadius = 15;
-
+      this.ContainerView.Layer.CornerRadius = 5;
+      this.ContainerView.Layer.ShadowColor = UIColor.Black.CGColor;
+      this.ContainerView.Layer.ShadowOffset = new CGSize(0, 3);
+      this.ContainerView.Layer.ShadowRadius = 5;
+      this.ContainerView.Layer.ShadowOpacity = 0.8f;
       this.ContainerView.Layer.BorderColor = UIColor.Orange.CGColor;
+
       this.ContainerView.Layer.BorderWidth = 0;
 
-      this.ContainerView.Layer.MasksToBounds = true;
+      this.ContainerView.Layer.MasksToBounds = false;
 
       this.TitleLabel.Text = destination.Title;
 

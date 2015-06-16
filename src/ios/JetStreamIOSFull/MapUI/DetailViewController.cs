@@ -51,7 +51,7 @@ namespace JetStreamIOSFull
 
       this.InitializeMap();
 
-      this.DetailsCarousel.BackgroundColor = UIColor.Black.ColorWithAlpha(0.5f);
+      this.DetailsCarousel.BackgroundColor = UIColor.Clear;
       this.DetailsCarousel.BackgroundView = new UIView (new CGRect (0, 0, 0, 0));
     }
 
