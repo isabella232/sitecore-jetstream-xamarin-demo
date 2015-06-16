@@ -21,28 +21,34 @@ namespace JetStreamIOSFull
       base.ViewDidLoad();
 
       this.TopImageView.Image = this.Appearance.AboutBackground;
-
-      using (var session = this.Endpoint.GetSession())
+      try
       {
-        using (var loader = new ContentLoader (session))
+        using (var session = this.Endpoint.GetSession())
         {
-          try
+          using (var loader = new ContentLoader (session))
           {
-            IAboutPageInfo info = await loader.LoadAboutInfo();
-            this.TitleLabel.Text = info.TitlePlainText;
-            this.WelcomeLabel.Text = info.SummaryPlainText;
+            try
+            {
+              IAboutPageInfo info = await loader.LoadAboutInfo();
+              this.TitleLabel.Text = info.TitlePlainText;
+              this.WelcomeLabel.Text = info.SummaryPlainText;
 
-            string clearedText = info.BodyPlainText.Replace(System.Environment.NewLine, " ");
-            this.MaainTextField.Text = clearedText;
-            this.MaainTextField.Font = UIFont.SystemFontOfSize(18);
-            this.MaainTextField.TextAlignment = UITextAlignment.Justified;
-          }
-          catch(Exception ex)
-          {
-            AlertHelper.ShowLocalizedAlertWithOkOption("NETWORK_ERROR_TITLE", "CANNOT_DOWNLOAD_ABOUT_ITEM_ERROR");
-            throw ex;
+              string clearedText = info.BodyPlainText.Replace(System.Environment.NewLine, " ");
+              this.MaainTextField.Text = clearedText;
+              this.MaainTextField.Font = UIFont.SystemFontOfSize(18);
+              this.MaainTextField.TextAlignment = UITextAlignment.Justified;
+            }
+            catch(Exception ex)
+            {
+              AlertHelper.ShowLocalizedAlertWithOkOption("NETWORK_ERROR_TITLE", "CANNOT_DOWNLOAD_ABOUT_ITEM_ERROR");
+              throw ex;
+            }
           }
         }
+      }
+      catch
+      {
+        Console.WriteLine("network error");
       }
 
     }
