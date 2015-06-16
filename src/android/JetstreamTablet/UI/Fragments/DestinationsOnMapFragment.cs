@@ -1,3 +1,5 @@
+using Jetstream.UI.Anim;
+
 namespace Jetstream.UI.Fragments
 {
   using System;
@@ -97,7 +99,7 @@ namespace Jetstream.UI.Fragments
         var destWithLocation = this.FilterDestinationByLocation(destinations);
 
         this.AddDestinationsItems(destWithLocation);
-        this.InitDestinationsCards(destinations);
+        this.InitDestinationsCards(destWithLocation);
       }
       catch (Exception exception)
       {
@@ -143,6 +145,13 @@ namespace Jetstream.UI.Fragments
 
         this.cardsContainer.AddView(cardView);
       }
+      this.cardsContainer.ViewTreeObserver.GlobalLayout += CardsContainer_ViewTreeObserver_GlobalLayout;
+    }
+
+    void CardsContainer_ViewTreeObserver_GlobalLayout (object sender, EventArgs e)
+    {
+      DestinationsCardsAnimHelper.AnimateAppearance(this.cardsContainer);
+      this.cardsContainer.ViewTreeObserver.GlobalLayout -= CardsContainer_ViewTreeObserver_GlobalLayout;
     }
 
     private void AddDestinationsItems(List<IDestination> destinations)
