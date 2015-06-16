@@ -51,11 +51,7 @@ namespace JetStreamIOSFull
               AlertHelper.ShowLocalizedAlertWithOkOption("NETWORK_ERROR_TITLE", "CANNOT_DOWNLOAD_ATTRACTIONS_ERROR");
               return;
             }
-
-            //!!!!hack to show destination image in images list, possible error on using some special attractions fields
-            //attractions.Insert(0, this.destination as IAttraction);
-
-
+              
             this.ImagesTableView.Source = new DestinationImagesSource (attractions, this.destination, this.Endpoint);
             this.ImagesTableView.ReloadData();
           }
@@ -89,38 +85,11 @@ namespace JetStreamIOSFull
     {
       this.TitleLabel.Text = destination.DisplayName;
 
-      this.DownloadAndShowDestinationImage(destination);
-
       string clearedText = destination.Overview.Replace(System.Environment.NewLine, " ");
       this.DestinationDescription.Text = clearedText;
       this.DestinationDescription.Font = UIFont.SystemFontOfSize(18);
       this.DestinationDescription.TextAlignment = UITextAlignment.Justified;
     }
-
-    private void DownloadAndShowDestinationImage(IDestination destination)
-    {
-//      string imagePath = String.Concat(this.Endpoint.InstanceUrl, this.destination.ImagePath);
-//
-//      NSUrl imageUrl = new NSUrl(imagePath);
-//
-//      SDWebImageDownloader.SharedDownloader.DownloadImage(
-//        url: imageUrl,
-//        options: SDWebImageDownloaderOptions.LowPriority,
-//        progressHandler: (receivedSize, expectedSize) =>
-//      {
-//        // Track progress...
-//      },
-//        completedHandler: (image, data, error, finished) =>
-//      {
-//        if (image != null)
-//        {
-//          InvokeOnMainThread(() =>
-//          {
-//            this.DestinationImageView.Image = image;
-//          });
-//        }
-//      }
-//      );
-    }
+      
 	}
 }

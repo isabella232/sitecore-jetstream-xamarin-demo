@@ -86,7 +86,6 @@ namespace JetStreamIOSFull
     {
       this.MapFlow = (UINavigationController)this.Storyboard.InstantiateViewController("MapFlowInitialNavigationController");
       this.SettingsFlow = (UINavigationController)this.Storyboard.InstantiateViewController("SettingsFlowInitialNavigationController");
-
       this.AboutFlow = (UINavigationController)this.Storyboard.InstantiateViewController("AboutFlowInitialNavigationController");
       this.FlightStatusFlow = (UINavigationController)this.Storyboard.InstantiateViewController("FlightStatusFlowInitialNavigationController");
       this.OnlineCheckInFlow = (UINavigationController)this.Storyboard.InstantiateViewController("CheckInFlowInitialNavigationController");
@@ -98,7 +97,7 @@ namespace JetStreamIOSFull
       this.InitializeFlow(this.FlightStatusFlow);
       this.InitializeFlow(this.OnlineCheckInFlow);
 
-      this.NavigateToTabAtIndex(0);
+      this.NavigateToTabAtIndex(MenuItemTypes.Destinations);
     }
 
     private void InitializeFlow(UINavigationController flow)

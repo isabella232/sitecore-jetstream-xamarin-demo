@@ -62,6 +62,11 @@ namespace JetStreamIOSFull
       get;
     }
 
+    UIImage AboutBackground
+    {
+      get;
+    }
+
     UIColor NavigationTextColor
     {
       get;

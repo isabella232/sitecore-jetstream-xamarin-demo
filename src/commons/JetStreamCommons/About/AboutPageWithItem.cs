@@ -6,6 +6,31 @@
   {
     private ISitecoreItem item;
 
+    public string TitlePlainText   
+    { 
+      get
+      { 
+        return StringProcessor.PrimitiveHTMLTagsRemove(this.TitleHtml);
+      }
+    }
+
+    public string SummaryPlainText 
+    { 
+      get
+      { 
+        return StringProcessor.PrimitiveHTMLTagsRemove(this.SummaryHtml);
+      } 
+    }
+
+    public string BodyPlainText   
+    { 
+      get
+      { 
+        return StringProcessor.PrimitiveHTMLTagsRemove(this.BodyHtml);
+      }
+    }
+
+
     public AboutPageWithItem(ISitecoreItem item)
     {
       this.item = item;
