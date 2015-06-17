@@ -101,6 +101,7 @@ namespace JetStreamIOSFull
 
       RefreshButton.Enabled = false;
 
+      UIApplication.SharedApplication.NetworkActivityIndicatorVisible = true;
       try
       {
         this.destinations = await this.DownloadAllDestinations();
@@ -112,6 +113,7 @@ namespace JetStreamIOSFull
       }
       finally
       {
+        UIApplication.SharedApplication.NetworkActivityIndicatorVisible = false;
         RefreshButton.Enabled = true;
       }
   
@@ -161,6 +163,7 @@ namespace JetStreamIOSFull
             AlertHelper.ShowLocalizedAlertWithOkOption("NETWORK_ERROR_TITLE", "CANNOT_DOWNLOAD_DESTINATIONS_ERROR");
             throw ex;
           }
+
         }
       }
     }
