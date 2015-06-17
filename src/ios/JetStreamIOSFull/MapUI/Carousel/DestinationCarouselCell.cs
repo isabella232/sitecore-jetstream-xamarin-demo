@@ -32,7 +32,7 @@ namespace JetStreamIOSFull
 
     public void FillWithDestination(DestinationAnnotation destination)
     {
-      this.ContainerView.Layer.CornerRadius = 5;
+      this.ContainerView.Layer.CornerRadius = 3;
       this.ContainerView.Layer.ShadowColor = UIColor.Black.CGColor;
       this.ContainerView.Layer.ShadowOffset = new CGSize(0, 3);
       this.ContainerView.Layer.ShadowRadius = 5;
@@ -42,13 +42,41 @@ namespace JetStreamIOSFull
       this.ContainerView.Layer.BorderWidth = 0;
 
       this.ContainerView.Layer.MasksToBounds = false;
-
+      this.ImageView.Layer.CornerRadius = 3;
+      this.ImageView.Layer.MasksToBounds = true;
       this.TitleLabel.Text = destination.Title;
 
       NSUrl imageUrl = new NSUrl(destination.ImageUrl);
 
       this.ImageView.Image = null;
 
+      float springDampingRatio = 0.5f;
+      float initialSpringVelocity = 1.5f;
+      float duration = 0.7f;
+      this.ContainerView.Alpha = 0.0f;
+      System.Threading.ThreadPool.QueueUserWorkItem(state =>
+      {
+        InvokeOnMainThread(() =>
+        {
+
+          UIView.AnimateNotify(duration, 0.0, springDampingRatio, initialSpringVelocity, UIViewAnimationOptions.AllowUserInteraction, () =>
+          {
+            this.ContainerView.Alpha = 1.0f;
+          }, 
+            new UICompletionHandler((bool fn) =>{})
+          );
+
+        });
+      });
+
+//      CGRect originFrame = this.Frame;
+//      CGRect hiddenFrame = new CGRect(originFrame.X, originFrame.Height, originFrame.Width, originFrame.Height);
+//
+//      this.Frame = hiddenFrame;
+//
+      this.ImageView.Alpha = 0.0f;
+      this.TitleLabel.Alpha = 0.0f;
+//      this.ContainerView.Alpha = 0.0f;
       SDWebImageDownloader.SharedDownloader.DownloadImage(
         url: imageUrl,
         options: SDWebImageDownloaderOptions.LowPriority,
@@ -66,6 +94,29 @@ namespace JetStreamIOSFull
             {
               this.ImageView.Image = image;
             }
+
+//            float springDampingRatio = 0.5f;
+//            float initialSpringVelocity = 1.5f;
+//            float duration = 0.7f;
+
+            System.Threading.ThreadPool.QueueUserWorkItem(state =>
+            {
+              InvokeOnMainThread(() =>
+              {
+
+                UIView.AnimateNotify(duration, 0.0, springDampingRatio, initialSpringVelocity, UIViewAnimationOptions.AllowUserInteraction, () =>
+                {
+//                  this.Frame = originFrame;
+                  this.ImageView.Alpha = 1.0f;
+                  this.TitleLabel.Alpha = 1.0f;
+//                  this.ContainerView.Alpha = 1.0f;
+                }, 
+                  new UICompletionHandler((bool fn) =>{})
+                );
+
+              });
+            });
+
           });
         }
       }
