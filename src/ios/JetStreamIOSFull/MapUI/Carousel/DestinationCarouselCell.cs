@@ -13,6 +13,8 @@ namespace JetStreamIOSFull
 {
 	public partial class DestinationCarouselCell : UICollectionViewCell
 	{
+    private bool UIIsNeedToBeSet = true;
+
     private float animationDuration = 0.3f;
 
     private nfloat cornerRadius = 3.0f;
@@ -37,8 +39,9 @@ namespace JetStreamIOSFull
 
     private void ApplyUISettings()
     {
-      if (this.ContainerView.Layer.CornerRadius != cornerRadius)
+      if (this.UIIsNeedToBeSet)
       {
+        this.UIIsNeedToBeSet = false;
         this.ContainerView.Layer.CornerRadius = cornerRadius;
         this.ContainerView.Layer.ShadowColor = UIColor.Black.CGColor;
         this.ContainerView.Layer.ShadowOffset = new CGSize (0, cornerRadius);
@@ -55,6 +58,7 @@ namespace JetStreamIOSFull
 
     public void FillWithDestination(DestinationAnnotation destination)
     {
+      this.ApplyUISettings();
       this.TitleLabel.Text = destination.Title;
       this.ShowEmptyCellWithAnimation();
       this.DownloadAndShowImageWithUrl(destination.ImageUrl);
