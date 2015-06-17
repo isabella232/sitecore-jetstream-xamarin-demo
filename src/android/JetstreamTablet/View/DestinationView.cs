@@ -173,7 +173,7 @@ namespace Jetstream.View
 
     private int GetImageTransition()
     {
-      return this.flexibleSpaceImageHeight + this.actionBarSize;
+      return this.flexibleSpaceImageHeight;
     }
 
     private void ChangeHeaderBackgroundHeight(float height, float to, float heightOnGapHidden)
