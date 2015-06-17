@@ -182,6 +182,7 @@
       {
         case AboutMenuItemIdentifier:
           StartActivity(typeof(AboutActivity));
+          new Handler().PostDelayed(() => this.drawer.SetSelectionByIdentifier(DestinationsMenuItemIdentifier, false), 300);
           break;
         case DestinationsMenuItemIdentifier:
           break;
@@ -193,7 +194,7 @@
           var settings = new SettingsDialog();
           settings.Show(this.FragmentManager, "settings");
           
-          new Handler().PostDelayed(() => this.drawer.SetSelectionByIdentifier(1, false), 500);
+          new Handler().PostDelayed(() => this.drawer.SetSelectionByIdentifier(DestinationsMenuItemIdentifier, false), 500);
           break;
       }
 
