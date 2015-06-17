@@ -151,6 +151,7 @@
     <Compile Include="View\DestinationView.cs" />
     <Compile Include="UI\Anim\DestinationsCardsAnimHelper.cs" />
     <Compile Include="AboutActivity.cs" />
+    <Compile Include="Font\JetstreamIcons.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -250,8 +251,7 @@
   <ItemGroup>
     <AndroidAsset Include="Assets\fonts\google_material_design.ttf" />
     <AndroidAsset Include="Assets\about_logo.jpg" />
+    <AndroidAsset Include="Assets\fonts\jetstream_design.ttf" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="UI\Anim\" />
-  </ItemGroup>
+  <ItemGroup />
 </Project>

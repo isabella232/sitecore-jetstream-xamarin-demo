@@ -14,6 +14,7 @@
   using Com.Mikepenz.Materialdrawer.Model;
   using Com.Mikepenz.Materialdrawer.Model.Interfaces;
   using DSoft.Messaging;
+  using Jetstream.Font;
   using Jetstream.UI.Dialogs;
   using Jetstream.UI.Fragments;
   using Sitecore.MobileSDK;
@@ -71,31 +72,31 @@
 
       var about = new PrimaryDrawerItem();
       about.WithName("About Jetstream");
-      about.WithIcon(Resource.Drawable.ic_about);
+      about.WithIcon(JetstreamIcons.Icon.About);
       about.WithIdentifier(AboutMenuItemIdentifier);
       about.WithCheckable(false);
 
       var destinations = new PrimaryDrawerItem();
       destinations.WithName(Resource.String.text_destinations_item);
-      destinations.WithIcon(Resource.Drawable.ic_destinations);
+      destinations.WithIcon(JetstreamIcons.Icon.Destinations);
       destinations.WithIdentifier(DestinationsMenuItemIdentifier);
       destinations.WithCheckable(false);
 
       var flightStatus = new PrimaryDrawerItem();
       flightStatus.WithName("Flight Status");
-      flightStatus.WithIcon(Resource.Drawable.ic_flight_status);
+      flightStatus.WithIcon(JetstreamIcons.Icon.FlightStatus);
       flightStatus.WithIdentifier(FlightStatusMenuItemIdentifier);
       flightStatus.WithCheckable(false);
 
       var checkIn = new PrimaryDrawerItem();
       checkIn.WithName("Check-in");
-      checkIn.WithIcon(Resource.Drawable.ic_online_checkin);
+      checkIn.WithIcon(JetstreamIcons.Icon.OnlineCheckin);
       checkIn.WithIdentifier(CheckInMenuItemIdentifier);
       checkIn.WithCheckable(false);
 
       var settings = new PrimaryDrawerItem();
       settings.WithName(Resource.String.text_settings_item);
-      settings.WithIcon(Resource.Drawable.ic_settings);
+      settings.WithIcon(JetstreamIcons.Icon.Settings);
       settings.WithIdentifier(SettingsMenuItemIdentifier);
       settings.WithCheckable(false);
 
@@ -132,7 +133,7 @@
 
       var profile = new ProfileDrawerItem()
         .WithName(this.GetString(Resource.String.text_default_user))
-        .WithIcon(profileDrawable);
+        .WithIcon(new IconicsDrawable(this, JetstreamIcons.Icon.Profile).Color(Color.White).ActionBarSize());
 
       this.header = new AccountHeaderBuilder()
         .WithActivity(this)
@@ -182,6 +183,7 @@
       {
         case AboutMenuItemIdentifier:
           StartActivity(typeof(AboutActivity));
+          new Handler().PostDelayed(() => this.drawer.SetSelectionByIdentifier(DestinationsMenuItemIdentifier, false), 300);
           break;
         case DestinationsMenuItemIdentifier:
           break;
@@ -193,7 +195,7 @@
           var settings = new SettingsDialog();
           settings.Show(this.FragmentManager, "settings");
           
-          new Handler().PostDelayed(() => this.drawer.SetSelectionByIdentifier(1, false), 500);
+          new Handler().PostDelayed(() => this.drawer.SetSelectionByIdentifier(DestinationsMenuItemIdentifier, false), 500);
           break;
       }
 
