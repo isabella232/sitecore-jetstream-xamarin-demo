@@ -20,6 +20,12 @@ namespace JetStreamIOSFull
     {
       base.ViewDidLoad();
 
+      this.TitleLabel.Text = "";
+      this.WelcomeLabel.Text = "";
+      this.MaainTextField.Text = "";
+
+      UIApplication.SharedApplication.NetworkActivityIndicatorVisible = true;
+
       this.TopImageView.Image = this.Appearance.AboutBackground;
       try
       {
@@ -49,6 +55,10 @@ namespace JetStreamIOSFull
       catch
       {
         Console.WriteLine("network error");
+      }
+      finally
+      {
+        UIApplication.SharedApplication.NetworkActivityIndicatorVisible = false;
       }
 
     }
