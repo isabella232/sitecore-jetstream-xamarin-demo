@@ -7,4 +7,7 @@
     <dimen name="destination_card_image_height">200dp</dimen>
 
     <dimen name="destination_card_margin">8dp</dimen>
+
+    <dimen name="about_text_fields_left">150dp</dimen>            
+    <dimen name="about_text_fields_right">150dp</dimen>        
 </resources>

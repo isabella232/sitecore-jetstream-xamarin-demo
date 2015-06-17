@@ -40,7 +40,7 @@ namespace Jetstream.Map
 
       if (clusterItem != null)
       {
-        var target = new MarkerTarget(this, clusterItem, bitmap => BitmapUtils.GetCircledBitmapWithBorder(bitmap, Color.Black, 3));
+        var target = new MarkerTarget(marker, bitmap => BitmapUtils.GetCircledBitmapWithBorder(bitmap, Color.Black, 3));
         Picasso.With(this.context).Load(clusterItem.ImageUrl).Resize(this.cityIconSize, this.cityIconSize).Into(target);
       }
     }
@@ -57,7 +57,7 @@ namespace Jetstream.Map
 
       var textBackground = this.context.Resources.GetColor(Resource.Color.color_accent);
 
-      var target = new MarkerTarget(this, cluster, bitmap => BitmapUtils.GetCircledBitmapWithTextIcon(bitmap, Color.White, 4, cluster.Size.ToString(), Color.White, textBackground));
+      var target = new MarkerTarget(marker, bitmap => BitmapUtils.GetCircledBitmapWithTextIcon(bitmap, Color.White, 4, cluster.Size.ToString(), Color.White, textBackground));
       Picasso.With(this.context).Load(item.ImageUrl).Resize(this.clusterIconSize, this.clusterIconSize).Into(target);
     }
 
