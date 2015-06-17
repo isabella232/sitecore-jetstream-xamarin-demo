@@ -181,6 +181,7 @@
       switch (drawerItem.Identifier)
       {
         case AboutMenuItemIdentifier:
+          StartActivity(typeof(AboutActivity));
           break;
         case DestinationsMenuItemIdentifier:
           break;

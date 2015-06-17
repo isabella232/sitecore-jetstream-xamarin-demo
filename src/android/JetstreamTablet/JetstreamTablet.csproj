@@ -150,6 +150,7 @@
     <Compile Include="JetstreamApplication.cs" />
     <Compile Include="View\DestinationView.cs" />
     <Compile Include="UI\Anim\DestinationsCardsAnimHelper.cs" />
+    <Compile Include="AboutActivity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -196,6 +197,7 @@
     <AndroidResource Include="Resources\layout\view_destination_details.axml" />
     <None Include="libs\material-drawer-3.0.3.dll" />
     <AndroidResource Include="Resources\layout\view_destination_card.axml" />
+    <AndroidResource Include="Resources\layout\activity_about.axml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\activity_main.axml">
@@ -247,6 +249,7 @@
   <ItemGroup />
   <ItemGroup>
     <AndroidAsset Include="Assets\fonts\google_material_design.ttf" />
+    <AndroidAsset Include="Assets\about_logo.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="UI\Anim\" />

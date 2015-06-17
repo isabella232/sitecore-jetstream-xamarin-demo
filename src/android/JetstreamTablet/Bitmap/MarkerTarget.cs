@@ -2,35 +2,19 @@ namespace Jetstream.Bitmap
 {
   using System;
   using Android.Gms.Maps.Model;
-  using Android.Gms.Maps.Utils.Clustering;
   using Android.Graphics;
   using Android.Graphics.Drawables;
-  using Jetstream.Map;
   using Squareup.Picasso;
 
   public class MarkerTarget : Java.Lang.Object, ITarget
   {
-    private readonly JetstreamClusterRenderer clusterRenderer;
-    private readonly ClusterItem clusterItem;
-    private readonly ICluster cluster;
+    private readonly Marker marker;
     private readonly Func<Bitmap, Bitmap> bitmapConverter;
 
-    public MarkerTarget(JetstreamClusterRenderer clusterRenderer, ICluster cluster, Func<Bitmap, Bitmap> bitmapConverter)
-      : this(clusterRenderer, bitmapConverter)
+    public MarkerTarget(Marker marker, Func<Bitmap, Bitmap> bitmapConverter)
     {
-      this.cluster = cluster;
-    }
-
-    protected MarkerTarget(JetstreamClusterRenderer clusterRenderer, Func<Bitmap, Bitmap> bitmapConverter)
-    {
+      this.marker = marker;
       this.bitmapConverter = bitmapConverter;
-      this.clusterRenderer = clusterRenderer;
-    }
-
-    public MarkerTarget(JetstreamClusterRenderer clusterRenderer, ClusterItem clusterItem, Func<Bitmap, Bitmap> bitmapConverter)
-      : this(clusterRenderer, bitmapConverter)
-    {
-      this.clusterItem = clusterItem;
     }
 
     public void OnBitmapFailed(Drawable drawable)
@@ -40,14 +24,15 @@ namespace Jetstream.Bitmap
 
     public void OnBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from)
     {
-      var marker = this.clusterItem != null ? this.clusterRenderer.GetMarker(this.clusterItem) : this.clusterRenderer.GetMarker(this.cluster);
-
-      if (marker == null)
+      try
       {
-        return;
+        this.marker.SetIcon(BitmapDescriptorFactory.FromBitmap(this.bitmapConverter(bitmap)));  
       }
-
-      marker.SetIcon(BitmapDescriptorFactory.FromBitmap(this.bitmapConverter.Invoke(bitmap)));
+      catch (Java.Lang.RuntimeException exception)
+      {
+        //TODO: Original cause is that we are trying to update marker's icon after that marker was removed from move.
+        // There is no clear way to detect whether marker still exists on map.
+      }
     }
 
     public void OnPrepareLoad(Drawable drawable)
