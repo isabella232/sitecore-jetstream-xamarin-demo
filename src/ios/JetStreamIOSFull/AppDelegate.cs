@@ -23,17 +23,9 @@ namespace JetStreamIOSFull
             
     public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
     {
-      // Code to start the Xamarin Test Cloud Agent
-//      #if ENABLE_TEST_CLOUD
-//      Xamarin.Calabash.Start();
-//      #endif
-
-      // Override point for customization after application launch.
-
       var splitViewController = (UISplitViewController)Window.RootViewController;
       splitViewController.PresentsWithGesture = false;
       splitViewController.PreferredDisplayMode = UISplitViewControllerDisplayMode.PrimaryHidden;
-//      splitViewController.WeakDelegate = this;
       splitViewController.Delegate = new SplitViewDelegate();
       NSString key = NSString.FromData("_masterColumnWidth",NSStringEncoding.ASCIIStringEncoding);
       splitViewController.SetValueForKey(this.appearanceHelper.MainMenuWidth, key);

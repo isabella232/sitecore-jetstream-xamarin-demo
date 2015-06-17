@@ -113,7 +113,6 @@
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="Helpers\AlertHelper.cs" />
-    <Compile Include="CountriesDataSource.cs" />
     <Compile Include="Navigation\NavigationManagerViewController.cs" />
     <Compile Include="Navigation\NavigationManagerViewController.designer.cs">
       <DependentUpon>NavigationManagerViewController.cs</DependentUpon>
@@ -142,10 +141,6 @@
     <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Helpers\IconsHelper.cs" />
     <Compile Include="Menu\MenuTypes.cs" />
-    <Compile Include="MainSplitViewController.cs" />
-    <Compile Include="MainSplitViewController.designer.cs">
-      <DependentUpon>MainSplitViewController.cs</DependentUpon>
-    </Compile>
     <Compile Include="SplitViewDelegate.cs" />
     <Compile Include="Menu\MainMenuProfileCell.cs" />
     <Compile Include="Menu\MainMenuProfileCell.designer.cs">
