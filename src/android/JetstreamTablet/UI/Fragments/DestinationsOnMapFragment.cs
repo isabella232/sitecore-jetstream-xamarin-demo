@@ -236,6 +236,7 @@ namespace Jetstream.UI.Fragments
       base.OnDestroy();
 
       this.mapView.OnDestroy();
+      MessageBus.Default.DeRegister(this.updateInstanceUrlEventHandler);
     }
 
     public override void OnPause()
@@ -243,8 +244,6 @@ namespace Jetstream.UI.Fragments
       base.OnPause();
 
       this.mapView.OnPause();
-
-      MessageBus.Default.DeRegister(this.updateInstanceUrlEventHandler);
     }
 
     public override void OnLowMemory()

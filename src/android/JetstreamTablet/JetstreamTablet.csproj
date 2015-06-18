@@ -141,8 +141,8 @@
     <Compile Include="Prefs.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SettingsActivity.cs" />
     <Compile Include="UI\Dialogs\DestinationDetailsDialog.cs" />
-    <Compile Include="UI\Dialogs\SettingsDialog.cs" />
     <Compile Include="UI\Fragments\DestinationsOnMapFragment.cs" />
     <Compile Include="Map\ClusterItem.cs" />
     <Compile Include="Utils\SitecoreUrlValidator.cs" />
@@ -152,6 +152,7 @@
     <Compile Include="UI\Anim\DestinationsCardsAnimHelper.cs" />
     <Compile Include="AboutActivity.cs" />
     <Compile Include="Font\JetstreamIcons.cs" />
+    <Compile Include="UI\Dialogs\SettingsDialog.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -171,7 +172,6 @@
     <AndroidResource Include="Resources\drawable\edit_text_cursor_drawable.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\dialog_settings.axml" />
     <None Include="libs\GoogleMapsUtility-0.3.4.dll" />
     <AndroidResource Include="Resources\values\dimens.xml" />
     <AndroidResource Include="Resources\values-sw720dp\dimens.xml" />
@@ -199,6 +199,8 @@
     <None Include="libs\material-drawer-3.0.3.dll" />
     <AndroidResource Include="Resources\layout\view_destination_card.axml" />
     <AndroidResource Include="Resources\layout\activity_about.axml" />
+    <AndroidResource Include="Resources\layout\layout_dialog_buttons.axml" />
+    <AndroidResource Include="Resources\layout\activity_settings.axml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\activity_main.axml">
