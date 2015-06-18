@@ -18,7 +18,7 @@ namespace Jetstream.UI.Dialogs
 
       var rootView = this.destinationView.InitViewWithData(this.Destination);
 
-      var builder = new Android.Support.V7.App.AlertDialog.Builder(this.Activity, Resource.Style.AppCompatAlertDialogStyle);
+      var builder = new Android.Support.V7.App.AlertDialog.Builder(this.Activity, Resource.Style.Destinations_Dialog_Theme);
       builder.SetView(rootView);
 
       var dialog = builder.Show();
