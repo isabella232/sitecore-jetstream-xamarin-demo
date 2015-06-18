@@ -8,12 +8,13 @@ Feature: About screen
 
 <h2>Description</h2>
 In the "About" section, user can view the Jetstream About information.  
-*Screen:*  
-![alt text](/img/Feature_images/03About_DisplayAboutItemInfo.png)  
+*Screen:* Android / iOS  
+![alt text](/img/Feature_images/About_Android.jpg)
+![alt text](/img/Feature_images/About_iOS.jpg)  
 
 **Points of interest**  
-1. The screen contains Title, Summary and Body that are loaded from the Jetstream About item.  
-2. The menu icon in the top left corner allows the User to open another app screen.  
+1. The screen contains **Title**, **Summary** and **Body** that are loaded from the Jetstream About item.  
+2. The **arrow icon** in the top left corner allows the User to open another app screen.  
 
 Scenario: Display About item info  
   Given Destination screen opened in the app  

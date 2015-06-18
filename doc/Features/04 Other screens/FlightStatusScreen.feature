@@ -8,6 +8,10 @@ Feature: Flight status screen
 
 <h2>Description</h2>
 For the demo purposes only menu item is left without working functionality behind that.  
+*Screen:* Android / iOS  
+![alt text](/img/Feature_images/Flight_status_Android.jpg)
+![alt text](/img/Feature_images/Flight_status_iOS.jpg)  
+
 
 Scenario: Display Flight status screen
 Given Destination screen opened in the app  
