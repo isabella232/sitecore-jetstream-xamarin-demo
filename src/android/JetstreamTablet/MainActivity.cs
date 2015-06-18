@@ -15,7 +15,6 @@
   using Com.Mikepenz.Materialdrawer.Model.Interfaces;
   using DSoft.Messaging;
   using Jetstream.Font;
-  using Jetstream.UI.Dialogs;
   using Jetstream.UI.Fragments;
   using Sitecore.MobileSDK;
   using Sitecore.MobileSDK.API;
@@ -72,31 +71,31 @@
 
       var about = new PrimaryDrawerItem();
       about.WithName("About Jetstream");
-      about.WithIcon(JetstreamIcons.Icon.About);
+      about.WithIcon(new IconicsDrawable(this, JetstreamIcons.Icon.About).ColorRes(Resource.Color.color_primary));
       about.WithIdentifier(AboutMenuItemIdentifier);
       about.WithCheckable(false);
 
       var destinations = new PrimaryDrawerItem();
       destinations.WithName(Resource.String.text_destinations_item);
-      destinations.WithIcon(JetstreamIcons.Icon.Destinations);
+      destinations.WithIcon(new IconicsDrawable(this, JetstreamIcons.Icon.Destinations).ColorRes(Resource.Color.color_primary));
       destinations.WithIdentifier(DestinationsMenuItemIdentifier);
       destinations.WithCheckable(false);
 
       var flightStatus = new PrimaryDrawerItem();
       flightStatus.WithName("Flight Status");
-      flightStatus.WithIcon(JetstreamIcons.Icon.FlightStatus);
+      flightStatus.WithIcon(new IconicsDrawable(this, JetstreamIcons.Icon.FlightStatus).ColorRes(Resource.Color.color_primary));
       flightStatus.WithIdentifier(FlightStatusMenuItemIdentifier);
       flightStatus.WithCheckable(false);
 
       var checkIn = new PrimaryDrawerItem();
       checkIn.WithName("Check-in");
-      checkIn.WithIcon(JetstreamIcons.Icon.OnlineCheckin);
+      checkIn.WithIcon(new IconicsDrawable(this, JetstreamIcons.Icon.OnlineCheckin).ColorRes(Resource.Color.color_primary));
       checkIn.WithIdentifier(CheckInMenuItemIdentifier);
       checkIn.WithCheckable(false);
 
       var settings = new PrimaryDrawerItem();
       settings.WithName(Resource.String.text_settings_item);
-      settings.WithIcon(JetstreamIcons.Icon.Settings);
+      settings.WithIcon(new IconicsDrawable(this, JetstreamIcons.Icon.Settings).ColorRes(Resource.Color.color_primary));
       settings.WithIdentifier(SettingsMenuItemIdentifier);
       settings.WithCheckable(false);
 
@@ -129,8 +128,6 @@
 
     private void PrepareHeader(Bundle savedInstanceState)
     {
-      var profileDrawable = this.Resources.GetDrawable(Resource.Drawable.ic_profile);
-
       var profile = new ProfileDrawerItem()
         .WithName(this.GetString(Resource.String.text_default_user))
         .WithIcon(new IconicsDrawable(this, JetstreamIcons.Icon.Profile).Color(Color.White).ActionBarSize());
@@ -182,7 +179,7 @@
       switch (drawerItem.Identifier)
       {
         case AboutMenuItemIdentifier:
-          StartActivity(typeof(AboutActivity));
+          this.StartActivity(typeof(AboutActivity));
           new Handler().PostDelayed(() => this.drawer.SetSelectionByIdentifier(DestinationsMenuItemIdentifier, false), 300);
           break;
         case DestinationsMenuItemIdentifier:
@@ -192,8 +189,7 @@
         case CheckInMenuItemIdentifier:
           break;
         case SettingsMenuItemIdentifier:
-          var settings = new SettingsDialog();
-          settings.Show(this.FragmentManager, "settings");
+          this.StartActivity(typeof(SettingsActivity));
           
           new Handler().PostDelayed(() => this.drawer.SetSelectionByIdentifier(DestinationsMenuItemIdentifier, false), 500);
           break;

@@ -1,4 +1,4 @@
-using Jetstream.UI.Anim;
+using Jetstream.Models;
 
 namespace Jetstream.UI.Fragments
 {
@@ -6,6 +6,7 @@ namespace Jetstream.UI.Fragments
   using System.Collections.Generic;
   using System.Linq;
   using Android.App;
+  using Android.Content;
   using Android.Gms.Common;
   using Android.Gms.Maps;
   using Android.Gms.Maps.Model;
@@ -18,7 +19,7 @@ namespace Jetstream.UI.Fragments
   using com.dbeattie;
   using DSoft.Messaging;
   using Jetstream.Map;
-  using Jetstream.UI.Dialogs;
+  using Jetstream.UI.Anim;
   using JetStreamCommons;
   using JetStreamCommons.Destinations;
   using Squareup.Picasso;
@@ -141,17 +142,17 @@ namespace Jetstream.UI.Fragments
 
         Picasso.With(this.Activity).Load(destination.ImageUrl(this.Activity.Session)).Into(destImageView);
 
-        cardView.Click += (sender, args) => this.ShowDestinationDetailsFragment(dest);
+        cardView.Click += (sender, args) => this.StartDestinationActivity(dest);
 
         this.cardsContainer.AddView(cardView);
       }
-      this.cardsContainer.ViewTreeObserver.GlobalLayout += CardsContainer_ViewTreeObserver_GlobalLayout;
+      this.cardsContainer.ViewTreeObserver.GlobalLayout += this.CardsContainerViewTreeObserverGlobalLayout;
     }
 
-    void CardsContainer_ViewTreeObserver_GlobalLayout (object sender, EventArgs e)
+    void CardsContainerViewTreeObserverGlobalLayout (object sender, EventArgs e)
     {
       DestinationsCardsAnimHelper.AnimateAppearance(this.cardsContainer);
-      this.cardsContainer.ViewTreeObserver.GlobalLayout -= CardsContainer_ViewTreeObserver_GlobalLayout;
+      this.cardsContainer.ViewTreeObserver.GlobalLayout -= this.CardsContainerViewTreeObserverGlobalLayout;
     }
 
     private void AddDestinationsItems(List<IDestination> destinations)
@@ -166,14 +167,15 @@ namespace Jetstream.UI.Fragments
       this.clusterManager.Cluster();
     }
 
-    private void ShowDestinationDetailsFragment(IDestination destination)
+    private void StartDestinationActivity(IDestination dest)
     {
-      var fragment = new DestinationDetailsDialog
-      {
-        Destination = destination
-      };
 
-      fragment.Show(this.FragmentManager, "destination_details");
+      var parcebleDest = string.Join(DestinationAndroidSpec.SplitSymbol.ToString(), dest.ImageUrl(this.Activity.Session), dest.Overview, dest.DisplayName);
+
+      var intent = new Intent(this.Activity, typeof(DestinationActivity));
+      intent.PutExtra(DestinationActivity.DestinationParamIntentKey, parcebleDest);
+
+      this.StartActivity(intent);
     }
 
     public bool OnClusterClick(ICluster cluster)
@@ -183,7 +185,7 @@ namespace Jetstream.UI.Fragments
 
     public bool OnClusterItemClick(Java.Lang.Object item)
     {
-      this.ShowDestinationDetailsFragment(((ClusterItem)item).Wrapped);
+      this.StartDestinationActivity(((ClusterItem)item).Wrapped);
       return false;
     }
 
@@ -236,6 +238,7 @@ namespace Jetstream.UI.Fragments
       base.OnDestroy();
 
       this.mapView.OnDestroy();
+      MessageBus.Default.DeRegister(this.updateInstanceUrlEventHandler);
     }
 
     public override void OnPause()
@@ -243,8 +246,6 @@ namespace Jetstream.UI.Fragments
       base.OnPause();
 
       this.mapView.OnPause();
-
-      MessageBus.Default.DeRegister(this.updateInstanceUrlEventHandler);
     }
 
     public override void OnLowMemory()
