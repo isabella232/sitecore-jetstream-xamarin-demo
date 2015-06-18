@@ -9,7 +9,7 @@
     card_view:contentPaddingTop="0.5dp"
     card_view:contentPaddingBottom="0.5dp"
     android:clickable="true"
-    card_view:cardBackgroundColor="@color/color_primary"
+    card_view:cardBackgroundColor="@color/color_primary_light"
     android:foreground="?android:attr/selectableItemBackground"
     card_view:cardCornerRadius="2dp"
     card_view:cardElevation="10dp">

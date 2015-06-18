@@ -15,8 +15,20 @@
 	    <item name="met_singleLineEllipsis">true</item>
 	</style>
 
-    <style name="AppCompatAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
-	    <item name="colorAccent">@color/color_accent</item>
+    <style name="Jetstream.Dialog.Base" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/color_accent</item>
+    </style>
+
+    <style name="Settings.Activity.Theme" parent="Jetstream.Dialog.Base">
+        <item name="android:windowBackground">@android:color/white</item>    
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="android:windowActionModeOverlay">true</item>
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="windowActionBarOverlay">true</item>
 	</style>
+
+    <style name="Destinations.Dialog.Theme" parent="Jetstream.Dialog.Base">
+    </style>
 
 </resources>

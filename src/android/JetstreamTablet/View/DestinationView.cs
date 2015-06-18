@@ -2,7 +2,6 @@ namespace Jetstream.View
 {
   using System;
   using System.Linq;
-  using Android.Content;
   using Android.Graphics;
   using Android.Graphics.Drawables;
   using Android.Support.V7.Graphics;
@@ -12,8 +11,7 @@ namespace Jetstream.View
   using Android.Views.Animations;
   using Android.Widget;
   using Java.Lang;
-  using JetStreamCommons.Destinations;
-  using Sitecore.MobileSDK;
+  using Jetstream.Models;
   using Squareup.Picasso;
   using Xamarin.Android.ObservableScrollView;
   using Xamarin.NineOldAndroids.Animations;
@@ -23,8 +21,8 @@ namespace Jetstream.View
   {
     public Action OnBackButtonClicked { get; set; }
 
-    private readonly Context context;
-    private readonly ScApiSession session;
+    private readonly DestinationActivity activity;
+    private readonly DestinationAndroidSpec destination;
 
     #region Views
 
@@ -55,10 +53,10 @@ namespace Jetstream.View
     private bool isGapHidden;
     private bool isReady;
 
-    public DestinationView(Context context, ScApiSession session)
+    public DestinationView(DestinationActivity activity, DestinationAndroidSpec destination)
     {
-      this.context = context;
-      this.session = session;
+      this.activity = activity;
+      this.destination = destination;
     }
 
     public void OnClick(View v)
@@ -69,16 +67,14 @@ namespace Jetstream.View
       }
     }
 
-    public View InitViewWithData(IDestination destination)
+    public void InitViews()
     {
-      var view = this.InitContentViews();
+      this.InitContentViews();
 
-      this.toolbar.Title = destination.DisplayName;
-      this.bodyTextView.Text = Html.FromHtml(destination.Overview).ToString();
+      this.toolbar.Title = this.destination.DisplayName;
+      this.bodyTextView.Text = Html.FromHtml(this.destination.Overview).ToString();
 
-      Picasso.With(this.context).Load(destination.ImageUrl(this.session)).Into(new DestinationImageTarget(this.destinationImageView, this));
-
-      return view;
+      Picasso.With(this.activity).Load(this.destination.ImageUrl).Into(new DestinationImageTarget(this.destinationImageView, this));
     }
 
     public void OnGenerated(Palette palette)
@@ -97,30 +93,31 @@ namespace Jetstream.View
     }
 
     #region Views operations internals
-    private View InitContentViews()
+    private void InitContentViews()
     {
-      var v = LayoutInflater.From(this.context).Inflate(Jetstream.Resource.Layout.view_destination_details, null, false);
+      this.toolbar = this.activity.FindViewById<Android.Support.V7.Widget.Toolbar>(Jetstream.Resource.Id.toolbar);
+      
+      this.activity.SetSupportActionBar(this.toolbar);
 
-      this.toolbar = v.FindViewById<Android.Support.V7.Widget.Toolbar>(Jetstream.Resource.Id.toolbar);
       this.toolbar.SetNavigationIcon(Jetstream.Resource.Drawable.abc_ic_ab_back_mtrl_am_alpha);
       this.toolbar.SetNavigationOnClickListener(this);
 
-      this.flexibleSpaceImageHeight = this.context.Resources.GetDimensionPixelSize(Jetstream.Resource.Dimension.flexible_space_image_height);
+      this.flexibleSpaceImageHeight = this.activity.Resources.GetDimensionPixelSize(Jetstream.Resource.Dimension.flexible_space_image_height);
       this.actionBarSize = this.GetActionBarSize();
-      this.headerBarHeight = this.context.Resources.GetDimensionPixelSize(Jetstream.Resource.Dimension.header_bar_height);
+      this.headerBarHeight = this.activity.Resources.GetDimensionPixelSize(Jetstream.Resource.Dimension.header_bar_height);
       // Even when the top gap has began to change, header bar still can move
       // within intersectionHeight.
-      this.intersectionHeight = this.context.Resources.GetDimensionPixelSize(Jetstream.Resource.Dimension.intersection_height);
+      this.intersectionHeight = this.activity.Resources.GetDimensionPixelSize(Jetstream.Resource.Dimension.intersection_height);
 
-      this.bodyTextView = v.FindViewById<TextView>(Jetstream.Resource.Id.text_container);
-      this.destinationImageView = v.FindViewById<ImageView>(Jetstream.Resource.Id.image);
-      this.headerBar = v.FindViewById<View>(Jetstream.Resource.Id.header_bar);
-      this.headerBackground = v.FindViewById<View>(Jetstream.Resource.Id.header_background);
+      this.bodyTextView = this.activity.FindViewById<TextView>(Jetstream.Resource.Id.text_container);
+      this.destinationImageView = this.activity.FindViewById<ImageView>(Jetstream.Resource.Id.image);
+      this.headerBar = this.activity.FindViewById<View>(Jetstream.Resource.Id.header_bar);
+      this.headerBackground = this.activity.FindViewById<View>(Jetstream.Resource.Id.header_background);
 
-      this.scrollView = v.FindViewById<ObservableScrollView>(Jetstream.Resource.Id.scroll);
+      this.scrollView = this.activity.FindViewById<ObservableScrollView>(Jetstream.Resource.Id.scroll);
       this.scrollView.SetScrollViewCallbacks(this);
 
-      this.interceptionFrameLayout = v.FindViewById<TouchInterceptionFrameLayout>(Jetstream.Resource.Id.scroll_wrapper);
+      this.interceptionFrameLayout = this.activity.FindViewById<TouchInterceptionFrameLayout>(Jetstream.Resource.Id.scroll_wrapper);
       this.interceptionFrameLayout.SetScrollInterceptionListener(this);
 
       ViewHelper.SetTranslationY(this.toolbar, (this.headerBarHeight - this.actionBarSize) / 2);
@@ -131,8 +128,6 @@ namespace Jetstream.View
           isReady = true;
           UpdateViews(mInitialTranslationY, false);
         }));
-
-      return v;
     }
 
     private void UpdateViews(float translationY, bool animated)
@@ -173,7 +168,7 @@ namespace Jetstream.View
 
     private int GetImageTransition()
     {
-      return this.flexibleSpaceImageHeight + this.actionBarSize;
+      return this.flexibleSpaceImageHeight;
     }
 
     private void ChangeHeaderBackgroundHeight(float height, float to, float heightOnGapHidden)
@@ -227,11 +222,18 @@ namespace Jetstream.View
         ValueAnimator animator = ValueAnimator.OfFloat(from, to);
         animator.SetDuration(100);
         animator.SetInterpolator(new AccelerateDecelerateInterpolator());
-        animator.AddUpdateListener(new AnimatorImpl(delegate(ValueAnimator a)
-          {
-            var height = (float)a.AnimatedValue;
-            ChangeHeaderBackgroundHeight(height, to, heightOnGapHidden);
-          }));
+        animator.Update += (sender, args) =>
+        {
+          var height = (float)args.P0.AnimatedValue;
+          this.ChangeHeaderBackgroundHeight(height, to, heightOnGapHidden);
+        };
+
+
+        //        animator.AddUpdateListener(new AnimatorImpl(delegate(ValueAnimator a)
+        //          {
+        //            var height = (float)a.AnimatedValue;
+        //            ChangeHeaderBackgroundHeight(height, to, heightOnGapHidden);
+        //          }));
 
         animator.Start();
       }
@@ -246,7 +248,7 @@ namespace Jetstream.View
       var typedValue = new TypedValue();
       int[] textSizeAttr = { Android.Resource.Attribute.ActionBarSize };
 
-      var a = this.context.ObtainStyledAttributes(typedValue.Data, textSizeAttr);
+      var a = this.activity.ObtainStyledAttributes(typedValue.Data, textSizeAttr);
       var barSize = a.GetDimensionPixelSize(0, -1);
 
       a.Recycle();
@@ -302,6 +304,7 @@ namespace Jetstream.View
     public void OnUpOrCancelMotionEvent(MotionEvent ev)
     {
     }
+
     #endregion Views operations internals
   }
 
