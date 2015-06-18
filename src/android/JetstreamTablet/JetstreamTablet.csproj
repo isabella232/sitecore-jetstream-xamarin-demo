@@ -152,7 +152,6 @@
     <Compile Include="UI\Anim\DestinationsCardsAnimHelper.cs" />
     <Compile Include="AboutActivity.cs" />
     <Compile Include="Font\JetstreamIcons.cs" />
-    <Compile Include="UI\Dialogs\SettingsDialog.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
