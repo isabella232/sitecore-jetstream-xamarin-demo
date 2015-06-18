@@ -129,8 +129,6 @@
 
     private void PrepareHeader(Bundle savedInstanceState)
     {
-      var profileDrawable = this.Resources.GetDrawable(Resource.Drawable.ic_profile);
-
       var profile = new ProfileDrawerItem()
         .WithName(this.GetString(Resource.String.text_default_user))
         .WithIcon(new IconicsDrawable(this, JetstreamIcons.Icon.Profile).Color(Color.White).ActionBarSize());
