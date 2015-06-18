@@ -1,10 +1,8 @@
-using Android.Content;
-using Android.Graphics;
-
 namespace Jetstream
 {
   using System;
   using Android.App;
+  using Android.Graphics;
   using Android.OS;
   using Android.Support.V7.App;
   using Android.Views;
