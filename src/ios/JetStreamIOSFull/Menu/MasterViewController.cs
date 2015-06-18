@@ -5,6 +5,7 @@ using Foundation;
 using CoreGraphics;
 using UIKit;
 using JetStreamIOSFull.Helpers;
+using JetStreamIOSFull.Apearance;
 
 namespace JetStreamIOSFull
 {
@@ -12,14 +13,39 @@ namespace JetStreamIOSFull
   {
 
     public NavigationManagerViewController NavigationManager { get; set; }
-    public AppearanceHelper ah = new AppearanceHelper();
+
+    private AppearanceHelper appearance;
     private DataSource dataSource;
 
     public MasterViewController(IntPtr handle) : base(handle)
     {
-      PreferredContentSize = new CGSize (100f, 600f);
       ClearsSelectionOnViewWillAppear = true;
       this.Title = "";
+    }
+
+    public AppearanceHelper Appearance
+    {
+      get 
+      { 
+        if (appearance == null)
+        {
+//          throw new NullReferenceException("this.appearance must not be null");
+          this.appearance = new AppearanceHelper();
+        }
+
+        return this.appearance;
+      }
+
+      set
+      { 
+        if (appearance != null)
+        {
+          throw new InvalidOperationException("this.appearance can not be initialized twice");
+        }
+
+        this.appearance = value;
+        this.TableView.SeparatorColor = value.Menu.SeparatorColor;
+      }
     }
 
     public override void ViewDidLoad()
@@ -27,8 +53,6 @@ namespace JetStreamIOSFull
       base.ViewDidLoad();
 
       NavigationManager = (NavigationManagerViewController)SplitViewController.ViewControllers[1];
-
-      this.TableView.SeparatorColor = ah.Menu.SeparatorColor;
 
       //Hack to hide separators for empty cells
       this.TableView.TableFooterView = new UIView (new CGRect (0, 0, 0, 0));
@@ -97,6 +121,8 @@ namespace JetStreamIOSFull
       {
         MainMenuBaseCell cell = null;
 
+        MenuAppearance menuAppearance = this.controller.Appearance.Menu;
+
         IMenuItem menuItem = objects[indexPath.Row];
 
         if (indexPath.Row == 0)
@@ -104,9 +130,9 @@ namespace JetStreamIOSFull
           cell = tableView.DequeueReusableCell(ProfileCellIdentifier, indexPath) as MainMenuBaseCell;
           MainMenuProfileCell castedCell = cell as MainMenuProfileCell;
 
-          castedCell.BackgroundImage = this.controller.ah.Menu.ProfileCellBackground;
+          castedCell.BackgroundImage = menuAppearance.ProfileCellBackground;
 
-          cell.DefaultTintColor = this.controller.ah.Menu.ProfileTextColor;
+          cell.DefaultTintColor = this.controller.Appearance.Menu.ProfileTextColor;
 
           //hiding separator
           cell.SeparatorInset = new UIEdgeInsets(0, cell.Bounds.Size.Width, 0, 0);
@@ -115,9 +141,9 @@ namespace JetStreamIOSFull
         {
           cell = tableView.DequeueReusableCell(MainCellIdentifier, indexPath) as MainMenuBaseCell;
 
-          cell.SelectedTintColor = this.controller.ah.Menu.SelectionColor;
-          cell.DefaultTintColor = this.controller.ah.Menu.IconColor; 
-          cell.BackgroundColor = this.controller.ah.Menu.BackgroundColor;
+          cell.SelectedTintColor = menuAppearance.SelectionColor;
+          cell.DefaultTintColor = menuAppearance.IconColor; 
+          cell.BackgroundColor = menuAppearance.BackgroundColor;
         }
 
         cell.Title = menuItem.Title;

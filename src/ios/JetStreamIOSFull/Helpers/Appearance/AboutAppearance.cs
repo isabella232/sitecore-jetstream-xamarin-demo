@@ -16,6 +16,14 @@ namespace JetStreamIOSFull.Apearance
         return UIImage.FromBundle("Images.xcassets/BackgroundTextures/AboutBackground.jpg");
       }
     }
+
+    public UIFont DescriptionFont
+    {
+      get
+      { 
+        return UIFont.SystemFontOfSize(18.0f);
+      }
+    }
   }
 }
 

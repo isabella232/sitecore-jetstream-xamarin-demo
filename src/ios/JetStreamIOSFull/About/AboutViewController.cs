@@ -36,13 +36,7 @@ namespace JetStreamIOSFull
             try
             {
               IAboutPageInfo info = await loader.LoadAboutInfo();
-              this.TitleLabel.Text = info.TitlePlainText;
-              this.WelcomeLabel.Text = info.SummaryPlainText;
-
-              string clearedText = info.BodyPlainText.Replace(System.Environment.NewLine, " ");
-              this.MaainTextField.Text = clearedText;
-              this.MaainTextField.Font = UIFont.SystemFontOfSize(18);
-              this.MaainTextField.TextAlignment = UITextAlignment.Justified;
+              this.FillScreenWithAboutInfo(info);
             }
             catch(Exception ex)
             {
@@ -61,6 +55,17 @@ namespace JetStreamIOSFull
         UIApplication.SharedApplication.NetworkActivityIndicatorVisible = false;
       }
 
+    }
+
+    private void FillScreenWithAboutInfo(IAboutPageInfo info)
+    {
+      this.TitleLabel.Text = info.TitlePlainText;
+      this.WelcomeLabel.Text = info.SummaryPlainText;
+
+      string clearedText = info.BodyPlainText.Replace(System.Environment.NewLine, " ");
+      this.MaainTextField.Text = clearedText;
+      this.MaainTextField.Font = this.Appearance.About.DescriptionFont;
+      this.MaainTextField.TextAlignment = UITextAlignment.Justified;
     }
      
 	}

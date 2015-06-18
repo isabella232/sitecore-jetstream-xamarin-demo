@@ -11,9 +11,8 @@ namespace JetStreamIOSFull.MapUI
 {
   public class MapManager : MKMapViewDelegate 
   {
-    //TODO: fix 80 magik number
-    private const double iphoneScaleFactorLatitude = 1024.0 / 60;
-    private const double iphoneScaleFactorLongitude = 768.0 / 60;
+    private readonly double iphoneScaleFactorLatitude;
+    private readonly double iphoneScaleFactorLongitude;
 
     private double prevZoomLevel = 0;
 
@@ -29,6 +28,10 @@ namespace JetStreamIOSFull.MapUI
     public MapManager(AppearanceHelper appearance)
     {
       this.appearanceHelper = appearance;
+
+      double correctionKeof = 1.2;
+      this.iphoneScaleFactorLatitude = UIScreen.MainScreen.Bounds.Width/(appearance.Map.DestinationIconSize/correctionKeof);
+      this.iphoneScaleFactorLongitude = UIScreen.MainScreen.Bounds.Height/(appearance.Map.DestinationIconSize/correctionKeof);
     }
 
     public void SetAnnotationsForMap(MKMapView mapView, List<DestinationAnnotation> annotations)
@@ -151,7 +154,6 @@ namespace JetStreamIOSFull.MapUI
         prevZoomLevel = newZoomLevel;
       }
 
-      Console.WriteLine("region: ", mapView.Region.ToString());
     }
 
     public override void DidSelectAnnotationView(MKMapView mapView, MKAnnotationView view)

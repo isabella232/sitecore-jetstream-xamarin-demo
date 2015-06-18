@@ -1,9 +1,4 @@
-﻿using System;
-using UIKit;
-using MapKit;
-using CoreLocation;
-using Foundation;
-using JetStreamIOSFull.Apearance;
+﻿using JetStreamIOSFull.Apearance;
 
 namespace JetStreamIOSFull.Helpers
 {

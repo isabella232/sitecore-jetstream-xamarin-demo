@@ -77,16 +77,8 @@ namespace JetStreamIOSFull
 
               if (cell != null)
               {
-                NSIndexPath[] visiblePaths = tableView.IndexPathsForVisibleRows;
-                for (int i = 0; i < visiblePaths.Length; ++i)
-                {
-                  if (visiblePaths[i].Row == indexPath.Row)
-                  {
-                    cell.ActivityIndicator.StopAnimating();
-                    cell.SetImage(image);
-                    break;
-                  }
-                }
+                cell.ActivityIndicator.StopAnimating();
+                cell.SetImage(image);
               }
 
             });

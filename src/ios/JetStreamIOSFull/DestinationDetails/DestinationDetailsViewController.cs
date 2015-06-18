@@ -87,7 +87,7 @@ namespace JetStreamIOSFull
 
       string clearedText = destination.Overview.Replace(System.Environment.NewLine, " ");
       this.DestinationDescription.Text = clearedText;
-      this.DestinationDescription.Font = UIFont.SystemFontOfSize(18);
+      this.DestinationDescription.Font = this.Appearance.Map.DestinationDetailsDescriptionFont;
       this.DestinationDescription.TextAlignment = UITextAlignment.Justified;
     }
       

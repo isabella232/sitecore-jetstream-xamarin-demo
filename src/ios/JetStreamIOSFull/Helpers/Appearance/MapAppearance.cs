@@ -79,6 +79,14 @@ namespace JetStreamIOSFull.Apearance
       }
     }
 
+    public UIFont DestinationDetailsDescriptionFont
+    {
+      get
+      { 
+        return UIFont.SystemFontOfSize(18);
+      }
+    }
+
     #endregion DESTINATION_ICON
 
     #region GROUP_LABEL

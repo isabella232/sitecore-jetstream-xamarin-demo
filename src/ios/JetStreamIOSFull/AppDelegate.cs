@@ -30,18 +30,29 @@ namespace JetStreamIOSFull
       NSString key = NSString.FromData("_masterColumnWidth",NSStringEncoding.ASCIIStringEncoding);
       splitViewController.SetValueForKey(this.appearanceHelper.Menu.MenuWidth, key);
 
-      NavigationManagerViewController navigationManager = (NavigationManagerViewController)splitViewController.ViewControllers[1];
-      navigationManager.Appearance = this.appearanceHelper;
-      navigationManager.Endpoint = this.endpoint;
-
-      navigationManager.MenuButton = splitViewController.DisplayModeButtonItem;
-      navigationManager.LoadNavigationFlows();
+      this.InitializeNavigation(splitViewController);
 
       this.SetupUI();
 
       application.SetStatusBarStyle (UIStatusBarStyle.LightContent, false);
 
       return true;
+    }
+
+    private void InitializeNavigation(UISplitViewController splitViewController)
+    {
+      NavigationManagerViewController navigationManager = (NavigationManagerViewController)splitViewController.ViewControllers[1];
+      navigationManager.Appearance = this.appearanceHelper;
+      navigationManager.Endpoint = this.endpoint;
+
+      navigationManager.MenuButton = splitViewController.DisplayModeButtonItem;
+      navigationManager.LoadNavigationFlows();
+    }
+
+    private void InitializeMenu(UISplitViewController splitViewController)
+    {
+      MasterViewController menuController = (MasterViewController)splitViewController.ViewControllers[0];
+      menuController.Appearance = this.appearanceHelper;
     }
       
     public void SetupUI()
