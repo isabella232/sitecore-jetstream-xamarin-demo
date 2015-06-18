@@ -21,12 +21,12 @@ namespace JetStreamIOSFull.MapUI
 
     private List<DestinationAnnotation> annotations = new List<DestinationAnnotation>();
 
-    private IAppearanceHelper appearanceHelper;
+    private AppearanceHelper appearanceHelper;
 
     public delegate void DestinationSelected(IDestination destination);
     public event DestinationSelected onDestinationSelected;
 
-    public MapManager(IAppearanceHelper appearance)
+    public MapManager(AppearanceHelper appearance)
     {
       this.appearanceHelper = appearance;
     }

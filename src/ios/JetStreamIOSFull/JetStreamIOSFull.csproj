@@ -120,12 +120,10 @@
     <Compile Include="MapUI\DestinationAnnotation.cs" />
     <Compile Include="MapUI\AnnotationViewWithRoundedImage.cs" />
     <Compile Include="MapUI\MapHelper.cs" />
-    <Compile Include="Helpers\AppearanceHelper.cs" />
     <Compile Include="Settings\SettingsViewControlle.cs" />
     <Compile Include="Settings\SettingsViewControlle.designer.cs">
       <DependentUpon>SettingsViewControlle.cs</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\IAppearanceHelper.cs" />
     <Compile Include="BaseVC\BaseViewController.cs" />
     <Compile Include="MapUI\MapManager.cs" />
     <Compile Include="Menu\MasterViewController.cs" />
@@ -179,6 +177,16 @@
     <Compile Include="About\AboutViewController.designer.cs">
       <DependentUpon>AboutViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\Appearance\BaseColors.cs" />
+    <Compile Include="Helpers\Appearance\MapAppearance.cs" />
+    <Compile Include="Helpers\Appearance\MenuAppearance.cs" />
+    <Compile Include="Helpers\Appearance\CommonAppearance.cs" />
+    <Compile Include="Helpers\Appearance\SettingsAppearance.cs" />
+    <Compile Include="Helpers\Appearance\AboutAppearance.cs" />
+    <Compile Include="Helpers\Appearance\BaseAppearance.cs" />
+    <Compile Include="Helpers\ColorHelper.cs" />
+    <Compile Include="Helpers\AppearanceHelper.cs" />
+    <Compile Include="Helpers\Appearance\IColorTheme.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
@@ -205,6 +213,7 @@
     <Folder Include="MapUI\Carousel\" />
     <Folder Include="NOTIMPLEMENTED\" />
     <Folder Include="About\" />
+    <Folder Include="Helpers\Appearance\" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="sdwebimage">

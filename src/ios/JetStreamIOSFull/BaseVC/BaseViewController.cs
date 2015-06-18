@@ -7,7 +7,7 @@ namespace JetStreamIOSFull
 {
   public partial class BaseViewController  : UIViewController
   {
-    private IAppearanceHelper appearanceHelper;
+    private AppearanceHelper appearanceHelper;
     private InstanceSettings.InstanceSettings endpoint;
 
     public BaseViewController(IntPtr handle) : base(handle)
@@ -37,7 +37,7 @@ namespace JetStreamIOSFull
       }
     }
 
-    public IAppearanceHelper Appearance
+    public AppearanceHelper Appearance
     {
       get
       {
@@ -59,7 +59,7 @@ namespace JetStreamIOSFull
     {
       if (this.NavigationItem != null)
       {
-        UIImage image = this.appearanceHelper.NavigationBarLogo;
+        UIImage image = this.appearanceHelper.Common.NavigationBarLogo;
         UIImageView imageView = new UIImageView(new CGRect(0, 0, image.Size.Width, image.Size.Height));
         imageView.Image = image;
         this.NavigationItem.TitleView = imageView;

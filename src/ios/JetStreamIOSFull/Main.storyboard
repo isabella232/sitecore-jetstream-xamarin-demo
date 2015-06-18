@@ -89,7 +89,7 @@
                                 </cells>
                             </collectionView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="height" secondItem="RgM-jM-jb7" secondAttribute="height" id="1QT-Lg-67y"/>
                             <constraint firstAttribute="width" secondItem="RgM-jM-jb7" secondAttribute="width" id="QIf-0g-eXi"/>
@@ -117,7 +117,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FJe-Yq-33r" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="656" y="266"/>
+            <point key="canvasLocation" x="669" y="266"/>
         </scene>
         <!--Destination Details View Controller-->
         <scene sceneID="S0I-uJ-jPc">
@@ -269,7 +269,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cC6-um-U4S" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1332" y="266"/>
+            <point key="canvasLocation" x="1343" y="266"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="MpC-pf-U2e">
@@ -358,7 +358,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xtd-ni-rLv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="669" y="935"/>
+            <point key="canvasLocation" x="669" y="947"/>
         </scene>
         <!--About View Controller-->
         <scene sceneID="kRA-dS-vDJ">

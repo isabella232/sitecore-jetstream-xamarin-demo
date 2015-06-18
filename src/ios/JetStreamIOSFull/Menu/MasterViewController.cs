@@ -28,7 +28,7 @@ namespace JetStreamIOSFull
 
       NavigationManager = (NavigationManagerViewController)SplitViewController.ViewControllers[1];
 
-      this.TableView.SeparatorColor = ah.MenuSeparatorColor;
+      this.TableView.SeparatorColor = ah.Menu.SeparatorColor;
 
       //Hack to hide separators for empty cells
       this.TableView.TableFooterView = new UIView (new CGRect (0, 0, 0, 0));
@@ -104,9 +104,9 @@ namespace JetStreamIOSFull
           cell = tableView.DequeueReusableCell(ProfileCellIdentifier, indexPath) as MainMenuBaseCell;
           MainMenuProfileCell castedCell = cell as MainMenuProfileCell;
 
-          castedCell.BackgroundImage = this.controller.ah.ProfileCellBackground;
+          castedCell.BackgroundImage = this.controller.ah.Menu.ProfileCellBackground;
 
-          cell.DefaultTintColor = this.controller.ah.WhiteColor;
+          cell.DefaultTintColor = this.controller.ah.Menu.ProfileTextColor;
 
           //hiding separator
           cell.SeparatorInset = new UIEdgeInsets(0, cell.Bounds.Size.Width, 0, 0);
@@ -115,9 +115,9 @@ namespace JetStreamIOSFull
         {
           cell = tableView.DequeueReusableCell(MainCellIdentifier, indexPath) as MainMenuBaseCell;
 
-          cell.SelectedTintColor = this.controller.ah.SelectionColor;
-          cell.DefaultTintColor = this.controller.ah.MenuIconColor; 
-          cell.BackgroundColor = this.controller.ah.MenuBackgroundColor;
+          cell.SelectedTintColor = this.controller.ah.Menu.SelectionColor;
+          cell.DefaultTintColor = this.controller.ah.Menu.IconColor; 
+          cell.BackgroundColor = this.controller.ah.Menu.BackgroundColor;
         }
 
         cell.Title = menuItem.Title;

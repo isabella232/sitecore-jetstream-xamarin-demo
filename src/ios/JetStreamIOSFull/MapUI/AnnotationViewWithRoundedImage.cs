@@ -14,11 +14,11 @@ namespace JetStreamIOSFull.MapUI
   {
     private UIImageView imageView;
     private UILabel label;
-    private IAppearanceHelper appearanceHelper;
+    private AppearanceHelper appearanceHelper;
     private IDestination destination;
     private bool isGroup = true;
 
-    public AnnotationViewWithRoundedImage(DestinationAnnotation annotation, string reuseIdentifier, IAppearanceHelper appearance)
+    public AnnotationViewWithRoundedImage(DestinationAnnotation annotation, string reuseIdentifier, AppearanceHelper appearance)
       : base(annotation, reuseIdentifier)
     {
       this.appearanceHelper = appearance;
@@ -54,16 +54,19 @@ namespace JetStreamIOSFull.MapUI
 
     private void InitHiddenLabel()
     {
+      nfloat size = appearanceHelper.Map.GroupLabelSize;
+
       this.label = new UILabel ();
       CALayer layer = this.label.Layer;
-      layer.CornerRadius = appearanceHelper.HiddenLabelSize/2;
+      layer.CornerRadius = size/2;
       layer.MasksToBounds = true;
 
-      this.label.BackgroundColor = appearanceHelper.SelectionColor;
-      this.label.TextColor = appearanceHelper.MenuTextColor;
-      this.label.Font = UIFont.SystemFontOfSize(appearanceHelper.HiddenLabelFontSize);
+      this.label.BackgroundColor = appearanceHelper.Map.GroupLabelColor;
+      this.label.TextColor = appearanceHelper.Map.GroupTextColor;
+      this.label.Font = UIFont.SystemFontOfSize(appearanceHelper.Map.GroupLabelFontSize);
       this.label.TextAlignment = UITextAlignment.Center;
-      CGRect frame = new CGRect (0, 0, appearanceHelper.HiddenLabelSize, appearanceHelper.HiddenLabelSize);
+
+      CGRect frame = new CGRect (0, 0, size, size);
       this.label.Frame = frame;
       this.AddSubview(this.label);
     }
@@ -72,7 +75,7 @@ namespace JetStreamIOSFull.MapUI
     {
       if (this.appearanceHelper != null)
       {
-        this.Image = this.appearanceHelper.DestinationPlaceholder;
+        this.Image = this.appearanceHelper.Map.DestinationPlaceholder;
       }
 
       NSUrl imageUrl = new NSUrl(imagePath);
@@ -88,7 +91,8 @@ namespace JetStreamIOSFull.MapUI
       {
         if (image != null)
         {
-          UIImage resizedImage = ImageHelper.ResizeImage(image, appearanceHelper.DestinationIconSize, appearanceHelper.DestinationIconSize);  
+          float size = appearanceHelper.Map.DestinationIconSize;
+          UIImage resizedImage = ImageHelper.ResizeImage(image, size, size);  
           this.Image = resizedImage;
         }
       }
@@ -101,8 +105,8 @@ namespace JetStreamIOSFull.MapUI
       this.AddSubview(this.imageView);
 
       CALayer imageLayer = this.imageView.Layer;
-      imageLayer.BorderWidth = this.appearanceHelper.DestinationIconBorderSize;
-      imageLayer.BorderColor = this.appearanceHelper.MediumGreyColor.CGColor;
+      imageLayer.BorderWidth = this.appearanceHelper.Map.DestinationIconBorderSize;
+      imageLayer.BorderColor = this.appearanceHelper.Map.DestinationBorderColor.CGColor;
       imageLayer.MasksToBounds = true;
     }
 
@@ -130,7 +134,6 @@ namespace JetStreamIOSFull.MapUI
           else
           {
             this.label.Hidden = true;
-//            this.Superview.SendSubviewToBack(this);
           }
         }
       });
@@ -165,11 +168,11 @@ namespace JetStreamIOSFull.MapUI
 
       if (selected)
       {
-        imageLayer.BorderColor = appearanceHelper.OrangeColor.CGColor;
+        imageLayer.BorderColor = appearanceHelper.Map.DestinationSelectedBorderColor.CGColor;
       }
       else
       {
-        imageLayer.BorderColor = appearanceHelper.MediumGreyColor.CGColor;
+        imageLayer.BorderColor = appearanceHelper.Map.DestinationBorderColor.CGColor;
       }
     }
 

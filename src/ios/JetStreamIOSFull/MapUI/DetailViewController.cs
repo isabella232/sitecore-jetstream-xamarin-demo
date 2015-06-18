@@ -61,7 +61,7 @@ namespace JetStreamIOSFull
       this.mapManager.onDestinationSelected += this.DidSelectDestination;
       this.map.Delegate = mapManager;
 
-      MKCoordinateRegion region = this.Appearance.MapInitialRegion;
+      MKCoordinateRegion region = this.Appearance.Map.InitialRegion;
       this.map.SetRegion(region, false);
     }
 

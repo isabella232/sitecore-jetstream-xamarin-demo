@@ -21,7 +21,7 @@ namespace JetStreamIOSFull
       base.ViewDidLoad();
 
       this.Title = NSBundle.MainBundle.LocalizedString("SETTINGS_SCREEN_TITLE", null);
-      this.BackgroundImageView.Image = this.Appearance.SettingsBackground;
+      this.BackgroundImageView.Image = this.Appearance.Settings.SettingsBackground;
 
       //Hack to hide separators for empty cells
       this.HistoryTableView.TableFooterView = new UIView (new CGRect (0, 0, 0, 0));
@@ -57,7 +57,6 @@ namespace JetStreamIOSFull
     private void KeyBoardDownNotification(NSNotification notification)
     {
       this.UrlTextField.ResignFirstResponder();
-      Console.WriteLine("Keyboard is going down");
     }
 
     public override void ViewWillDisappear(bool animated)

@@ -26,7 +26,7 @@ namespace JetStreamIOSFull
 
       UIApplication.SharedApplication.NetworkActivityIndicatorVisible = true;
 
-      this.TopImageView.Image = this.Appearance.AboutBackground;
+      this.TopImageView.Image = this.Appearance.About.Background;
       try
       {
         using (var session = this.Endpoint.GetSession())

@@ -12,7 +12,7 @@ namespace JetStreamIOSFull
   public class AppDelegate : UIApplicationDelegate, IUISplitViewControllerDelegate
   {
     // class-level declarations
-    private IAppearanceHelper appearanceHelper = new AppearanceHelper();
+    private AppearanceHelper appearanceHelper = new AppearanceHelper();
     private InstanceSettings.InstanceSettings endpoint = new InstanceSettings.InstanceSettings();
 
     public override UIWindow Window
@@ -28,7 +28,7 @@ namespace JetStreamIOSFull
       splitViewController.PreferredDisplayMode = UISplitViewControllerDisplayMode.PrimaryHidden;
       splitViewController.Delegate = new SplitViewDelegate();
       NSString key = NSString.FromData("_masterColumnWidth",NSStringEncoding.ASCIIStringEncoding);
-      splitViewController.SetValueForKey(this.appearanceHelper.MainMenuWidth, key);
+      splitViewController.SetValueForKey(this.appearanceHelper.Menu.MenuWidth, key);
 
       NavigationManagerViewController navigationManager = (NavigationManagerViewController)splitViewController.ViewControllers[1];
       navigationManager.Appearance = this.appearanceHelper;
@@ -46,12 +46,12 @@ namespace JetStreamIOSFull
       
     public void SetupUI()
     {
-      UIColor textColor = this.appearanceHelper.NavigationTextColor;
+      UIColor textColor = this.appearanceHelper.Common.NavigationTextColor;
 
       UINavigationBar.Appearance.TintColor = textColor;
       UIBarButtonItem.Appearance.TintColor = textColor;
 
-      UIImage sourceImage = this.appearanceHelper.NavigationBackgroundImage;
+      UIImage sourceImage = this.appearanceHelper.Common.NavigationBackgroundImage;
       UIEdgeInsets insets = new UIEdgeInsets(0, 0, 0, 0);
       UIImage backgroundImage = sourceImage.CreateResizableImage(insets);
 
