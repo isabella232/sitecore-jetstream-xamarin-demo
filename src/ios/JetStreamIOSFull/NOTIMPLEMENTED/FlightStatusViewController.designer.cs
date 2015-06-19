@@ -12,9 +12,23 @@ namespace JetStreamIOSFull
 	[Register ("FlightStatusViewController")]
 	partial class FlightStatusViewController
 	{
+		[Outlet]
+		UIKit.UILabel TitleLabel { get; set; }
+
+		[Outlet]
+		UIKit.UIImageView TopImageView { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (TopImageView != null) {
+				TopImageView.Dispose ();
+				TopImageView = null;
+			}
+
+			if (TitleLabel != null) {
+				TitleLabel.Dispose ();
+				TitleLabel = null;
+			}
 		}
 	}
 }

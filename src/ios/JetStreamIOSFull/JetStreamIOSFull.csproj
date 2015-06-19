@@ -191,6 +191,8 @@
     <Compile Include="MainSplitViewController.designer.cs">
       <DependentUpon>MainSplitViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\Appearance\CheckInAppearance.cs" />
+    <Compile Include="Helpers\Appearance\FlightStatusAppearance.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
@@ -255,5 +257,9 @@
     <BundleResource Include="Resources\Images.xcassets\BackgroundTextures\SettingsBackground%402x.jpeg" />
     <BundleResource Include="Resources\Images.xcassets\BackgroundTextures\AboutBackground%402x.jpg" />
     <BundleResource Include="Resources\Images.xcassets\BackgroundTextures\AboutBackground.jpg" />
+    <BundleResource Include="Resources\Images.xcassets\BackgroundTextures\Palms%402x.png" />
+    <BundleResource Include="Resources\Images.xcassets\BackgroundTextures\Palms.png" />
+    <BundleResource Include="Resources\Images.xcassets\BackgroundTextures\Skiing.jpg" />
+    <BundleResource Include="Resources\Images.xcassets\BackgroundTextures\Skiing%402x.jpg" />
   </ItemGroup>
 </Project>

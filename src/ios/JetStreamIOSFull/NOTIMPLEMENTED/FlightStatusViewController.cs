@@ -12,5 +12,13 @@ namespace JetStreamIOSFull
 		public FlightStatusViewController (IntPtr handle) : base (handle)
 		{
 		}
+
+    public override void ViewDidLoad()
+    {
+      base.ViewDidLoad();
+
+      this.TopImageView.Image = this.Appearance.FlightStatus.TopImage;
+      this.TitleLabel.Text = "Flight Status";
+    }
 	}
 }

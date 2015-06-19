@@ -12,5 +12,13 @@ namespace JetStreamIOSFull
 		public CheckInViewController (IntPtr handle) : base (handle)
 		{
 		}
+
+    public override void ViewDidLoad()
+    {
+      base.ViewDidLoad();
+
+      this.TopImageView.Image = this.Appearance.CheckIn.TopImage;
+      this.TitleLabel.Text = "Check In";
+    }
 	}
 }
