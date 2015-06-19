@@ -187,6 +187,10 @@
     <Compile Include="Helpers\ColorHelper.cs" />
     <Compile Include="Helpers\AppearanceHelper.cs" />
     <Compile Include="Helpers\Appearance\IColorTheme.cs" />
+    <Compile Include="MainSplitViewController.cs" />
+    <Compile Include="MainSplitViewController.designer.cs">
+      <DependentUpon>MainSplitViewController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>

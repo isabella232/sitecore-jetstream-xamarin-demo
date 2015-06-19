@@ -1,8 +1,6 @@
-﻿using Foundation;
-using UIKit;
-using JetStreamIOSFull.Helpers;
-using System.Drawing;
-using System;
+﻿using UIKit;
+using Foundation;
+
 
 namespace JetStreamIOSFull
 {
@@ -12,8 +10,7 @@ namespace JetStreamIOSFull
   public class AppDelegate : UIApplicationDelegate, IUISplitViewControllerDelegate
   {
     // class-level declarations
-    private AppearanceHelper appearanceHelper = new AppearanceHelper();
-    private InstanceSettings.InstanceSettings endpoint = new InstanceSettings.InstanceSettings();
+   
 
     public override UIWindow Window
     {
@@ -27,46 +24,10 @@ namespace JetStreamIOSFull
       splitViewController.PresentsWithGesture = false;
       splitViewController.PreferredDisplayMode = UISplitViewControllerDisplayMode.PrimaryHidden;
       splitViewController.Delegate = new SplitViewDelegate();
-      NSString key = NSString.FromData("_masterColumnWidth",NSStringEncoding.ASCIIStringEncoding);
-      splitViewController.SetValueForKey(this.appearanceHelper.Menu.MenuWidth, key);
-
-      this.InitializeNavigation(splitViewController);
-
-      this.SetupUI();
 
       application.SetStatusBarStyle (UIStatusBarStyle.LightContent, false);
 
       return true;
-    }
-
-    private void InitializeNavigation(UISplitViewController splitViewController)
-    {
-      NavigationManagerViewController navigationManager = (NavigationManagerViewController)splitViewController.ViewControllers[1];
-      navigationManager.Appearance = this.appearanceHelper;
-      navigationManager.Endpoint = this.endpoint;
-
-      navigationManager.MenuButton = splitViewController.DisplayModeButtonItem;
-      navigationManager.LoadNavigationFlows();
-    }
-
-    private void InitializeMenu(UISplitViewController splitViewController)
-    {
-      MasterViewController menuController = (MasterViewController)splitViewController.ViewControllers[0];
-      menuController.Appearance = this.appearanceHelper;
-    }
-      
-    public void SetupUI()
-    {
-      UIColor textColor = this.appearanceHelper.Common.NavigationTextColor;
-
-      UINavigationBar.Appearance.TintColor = textColor;
-      UIBarButtonItem.Appearance.TintColor = textColor;
-
-      UIImage sourceImage = this.appearanceHelper.Common.NavigationBackgroundImage;
-      UIEdgeInsets insets = new UIEdgeInsets(0, 0, 0, 0);
-      UIImage backgroundImage = sourceImage.CreateResizableImage(insets);
-
-      UINavigationBar.Appearance.SetBackgroundImage(backgroundImage, UIBarMetrics.Default);
     }
 
     public override void OnResignActivation(UIApplication application)

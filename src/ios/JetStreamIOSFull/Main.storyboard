@@ -481,10 +481,10 @@
             </objects>
             <point key="canvasLocation" x="-24" y="2269"/>
         </scene>
-        <!--Split View Controller-->
+        <!--Main Split View Controller-->
         <scene sceneID="Nki-YV-4Qg">
             <objects>
-                <splitViewController modalTransitionStyle="crossDissolve" id="H1p-Uh-vWS" sceneMemberID="viewController">
+                <splitViewController modalTransitionStyle="crossDissolve" id="H1p-Uh-vWS" customClass="MainSplitViewController" sceneMemberID="viewController">
                     <toolbarItems/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
