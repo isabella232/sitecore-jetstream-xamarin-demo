@@ -61,6 +61,24 @@
       }
     }
 
+    public override bool OnCreateOptionsMenu(IMenu menu)
+    {
+      this.MenuInflater.Inflate(Resource.Menu.menu_main, menu);
+
+      var menuItem = menu.FindItem(Resource.Id.action_refresh);
+      menuItem.SetIcon(new IconicsDrawable(this, GoogleMaterial.Icon.GmdRefresh).ActionBar().Color(Color.White));
+
+      return base.OnCreateOptionsMenu(menu);
+    }
+
+    public override bool OnPrepareOptionsMenu(IMenu menu)
+    {
+      var actionRefresh = menu.FindItem(Resource.Id.action_refresh);
+      actionRefresh.SetVisible(this.showRefreshMenuItem);
+
+      return base.OnPrepareOptionsMenu(menu);
+    }
+
     private void InitDrawer(Bundle savedInstanceState)
     {
       this.SetSupportActionBar(this.toolbar);
@@ -108,33 +126,15 @@
       var divider = new DividerDrawerItem();
 
       this.drawer = new DrawerBuilder()
-                .WithActivity(this)
-                .WithToolbar(this.toolbar)
-                .WithAccountHeader(this.header)
-                .AddDrawerItems(about, destinations, divider, flightStatus, checkIn, divider, settings)
-                .WithOnDrawerItemClickListener(this)
-                .WithSavedInstance(savedInstanceState)
-                .WithActionBarDrawerToggleAnimated(true)
-                .WithSelectedItem(1)
-                .Build();
-    }
-
-    public override bool OnCreateOptionsMenu(IMenu menu)
-    {
-      this.MenuInflater.Inflate(Resource.Menu.menu_main, menu);
-
-      var menuItem = menu.FindItem(Resource.Id.action_refresh);
-      menuItem.SetIcon(new IconicsDrawable(this, GoogleMaterial.Icon.GmdRefresh).ActionBar().Color(Color.White));
-
-      return base.OnCreateOptionsMenu(menu);
-    }
-
-    public override bool OnPrepareOptionsMenu(IMenu menu)
-    {
-      var actionRefresh = menu.FindItem(Resource.Id.action_refresh);
-      actionRefresh.SetVisible(this.showRefreshMenuItem);
-
-      return base.OnPrepareOptionsMenu(menu);
+        .WithActivity(this)
+        .WithToolbar(this.toolbar)
+        .WithAccountHeader(this.header)
+        .AddDrawerItems(about, destinations, divider, flightStatus, checkIn, divider, settings)
+        .WithOnDrawerItemClickListener(this)
+        .WithSavedInstance(savedInstanceState)
+        .WithActionBarDrawerToggleAnimated(true)
+        .WithSelectedItem(1)
+        .Build();
     }
 
     private void PrepareHeader(Bundle savedInstanceState)
@@ -204,8 +204,7 @@
             this.SupportFragmentManager.BeginTransaction().Replace(Resource.Id.about_fragment_container, this.aboutFragment).Commit();
           }
 
-          this.SupportFragmentManager.BeginTransaction().Hide(this.currentActiveFragment).Commit();
-          this.SupportFragmentManager.BeginTransaction().Show(this.aboutFragment).Commit();
+          this.HideAndShowFragments(this.currentActiveFragment, this.aboutFragment);
 
           this.currentActiveFragment = this.aboutFragment;
           break;
@@ -224,8 +223,7 @@
             this.SupportFragmentManager.BeginTransaction().Replace(Resource.Id.map_fragment_container, this.mapFragment).Commit();
           }
 
-          this.SupportFragmentManager.BeginTransaction().Hide(this.currentActiveFragment).Commit();
-          this.SupportFragmentManager.BeginTransaction().Show(this.mapFragment).Commit();
+          this.HideAndShowFragments(this.currentActiveFragment, this.mapFragment);
 
           this.currentActiveFragment = this.mapFragment;
           break;
@@ -241,6 +239,12 @@
       }
 
       return false;
+    }
+
+    private void HideAndShowFragments(Android.Support.V4.App.Fragment toHide, Android.Support.V4.App.Fragment toShow)
+    {
+      this.SupportFragmentManager.BeginTransaction().Hide(toHide).Commit();
+      this.SupportFragmentManager.BeginTransaction().Show(toShow).Commit();
     }
 
     //TODO:
