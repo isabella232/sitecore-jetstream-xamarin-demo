@@ -5,13 +5,13 @@ namespace Jetstream.UI.Fragments
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Android.App;
   using Android.Content;
   using Android.Gms.Common;
   using Android.Gms.Maps;
   using Android.Gms.Maps.Model;
   using Android.Gms.Maps.Utils.Clustering;
   using Android.OS;
+  using Android.Support.V4.App;
   using Android.Support.V4.Widget;
   using Android.Util;
   using Android.Views;

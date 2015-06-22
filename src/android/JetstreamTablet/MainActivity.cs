@@ -37,6 +37,8 @@
     private Prefs prefs;
 
     private DestinationsOnMapFragment mapFragment;
+    private AboutFragment aboutFragment;
+    private Android.Support.V4.App.Fragment currentActiveFragment;
 
     protected override void OnCreate(Bundle savedInstanceState)
     {
@@ -49,9 +51,11 @@
 
       this.InitDrawer(savedInstanceState);
 
-      if(savedInstanceState == null)
+      this.currentActiveFragment = this.mapFragment = new DestinationsOnMapFragment();
+
+      if (savedInstanceState == null)
       {
-        this.FragmentManager.BeginTransaction().Replace(Resource.Id.map_fragment_container, this.mapFragment).Commit();  
+        this.SupportFragmentManager.BeginTransaction().Replace(Resource.Id.map_fragment_container, this.mapFragment).Commit();
       }
     }
 
@@ -103,7 +107,6 @@
 
       this.drawer = new DrawerBuilder()
                 .WithActivity(this)
-                .WithRootView(Resource.Id.drawer_container)
                 .WithToolbar(this.toolbar)
                 .WithAccountHeader(this.header)
                 .AddDrawerItems(about, destinations, divider, flightStatus, checkIn, divider, settings)
@@ -112,8 +115,6 @@
                 .WithActionBarDrawerToggleAnimated(true)
                 .WithSelectedItem(1)
                 .Build();
-
-      this.mapFragment = new DestinationsOnMapFragment();
     }
 
     public override bool OnCreateOptionsMenu(IMenu menu)
@@ -150,7 +151,7 @@
 
     public override void OnBackPressed()
     {
-      if(this.drawer != null && this.drawer.IsDrawerOpen)
+      if (this.drawer != null && this.drawer.IsDrawerOpen)
       {
         this.drawer.CloseDrawer();
       }
@@ -169,7 +170,7 @@
 
     public bool OnItemClick(AdapterView parent, Android.Views.View view, int position, long id, IDrawerItem drawerItem)
     {
-      if(drawerItem == null)
+      if (drawerItem == null)
       {
         return true;
       }
@@ -179,10 +180,38 @@
       switch (drawerItem.Identifier)
       {
         case AboutMenuItemIdentifier:
-          this.StartActivity(typeof(AboutActivity));
-          new Handler().PostDelayed(() => this.drawer.SetSelectionByIdentifier(DestinationsMenuItemIdentifier, false), 300);
+          if (this.currentActiveFragment is AboutFragment)
+          {
+            return false;
+          }
+
+          if (this.aboutFragment == null)
+          {
+            this.aboutFragment = new AboutFragment(this.Session);
+            this.SupportFragmentManager.BeginTransaction().Replace(Resource.Id.about_fragment_container, this.aboutFragment).Commit();
+          }
+
+          this.SupportFragmentManager.BeginTransaction().Hide(this.currentActiveFragment).Commit();
+          this.SupportFragmentManager.BeginTransaction().Show(this.aboutFragment).Commit();
+
+          this.currentActiveFragment = this.aboutFragment;
           break;
         case DestinationsMenuItemIdentifier:
+          if (this.currentActiveFragment is DestinationsOnMapFragment)
+          {
+            return false;
+          }
+
+          if (this.mapFragment == null)
+          {
+            this.mapFragment = new DestinationsOnMapFragment();
+            this.SupportFragmentManager.BeginTransaction().Replace(Resource.Id.map_fragment_container, this.mapFragment).Commit();
+          }
+
+          this.SupportFragmentManager.BeginTransaction().Hide(this.currentActiveFragment).Commit();
+          this.SupportFragmentManager.BeginTransaction().Show(this.mapFragment).Commit();
+
+          this.currentActiveFragment = this.mapFragment;
           break;
         case FlightStatusMenuItemIdentifier:
           break;
@@ -190,7 +219,7 @@
           break;
         case SettingsMenuItemIdentifier:
           this.StartActivity(typeof(SettingsActivity));
-          
+
           new Handler().PostDelayed(() => this.drawer.SetSelectionByIdentifier(DestinationsMenuItemIdentifier, false), 500);
           break;
       }
