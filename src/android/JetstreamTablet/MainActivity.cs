@@ -30,6 +30,8 @@
     private const int CheckInMenuItemIdentifier = 4;
     private const int SettingsMenuItemIdentifier = 5;
 
+    private bool showRefreshMenuItem = true;
+
     private Android.Support.V7.Widget.Toolbar toolbar;
 
     private AccountHeader header = null;
@@ -127,6 +129,14 @@
       return base.OnCreateOptionsMenu(menu);
     }
 
+    public override bool OnPrepareOptionsMenu(IMenu menu)
+    {
+      var actionRefresh = menu.FindItem(Resource.Id.action_refresh);
+      actionRefresh.SetVisible(this.showRefreshMenuItem);
+
+      return base.OnPrepareOptionsMenu(menu);
+    }
+
     private void PrepareHeader(Bundle savedInstanceState)
     {
       var profile = new ProfileDrawerItem()
@@ -180,6 +190,9 @@
       switch (drawerItem.Identifier)
       {
         case AboutMenuItemIdentifier:
+          this.showRefreshMenuItem = false;
+          this.InvalidateOptionsMenu();
+
           if (this.currentActiveFragment is AboutFragment)
           {
             return false;
@@ -197,6 +210,9 @@
           this.currentActiveFragment = this.aboutFragment;
           break;
         case DestinationsMenuItemIdentifier:
+          this.showRefreshMenuItem = true;
+          this.InvalidateOptionsMenu();
+
           if (this.currentActiveFragment is DestinationsOnMapFragment)
           {
             return false;
