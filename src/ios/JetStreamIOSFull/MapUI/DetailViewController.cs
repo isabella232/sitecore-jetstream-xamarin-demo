@@ -80,9 +80,8 @@ namespace JetStreamIOSFull
       });
 
       SDWebImage.SDWebImageManager.SharedManager.ImageCache.ClearDisk();
+      SDWebImage.SDWebImageManager.SharedManager.ImageCache.CleanDisk();
       SDWebImage.SDWebImageManager.SharedManager.ImageCache.ClearMemory();
-
-      this.ClearData();
 
       this.RefreshMap();
     }

@@ -13,6 +13,14 @@ namespace JetStreamIOSFull
 		{
 		}
 
+    public UIImageView DestinationImageView
+    {
+      get
+      { 
+        return this.DestinationImage;
+      }
+    }
+
     public void SetImage(UIImage image)
     {
       this.DestinationImage.Image = image;

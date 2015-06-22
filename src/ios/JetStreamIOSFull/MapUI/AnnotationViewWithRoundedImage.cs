@@ -78,25 +78,22 @@ namespace JetStreamIOSFull.MapUI
         this.Image = this.appearanceHelper.Map.DestinationPlaceholder;
       }
 
-      NSUrl imageUrl = new NSUrl(imagePath);
+      if (this.imageView != null)
+      {
+        NSUrl imageUrl = new NSUrl (imagePath);
 
-      SDWebImageDownloader.SharedDownloader.DownloadImage(
-        url: imageUrl,
-        options: SDWebImageDownloaderOptions.LowPriority,
-        progressHandler: (receivedSize, expectedSize) =>
-      {
-        // Track progress...
-      },
-        completedHandler: (image, data, error, finished) =>
-      {
-        if (image != null)
-        {
-          float size = appearanceHelper.Map.DestinationIconSize;
-          UIImage resizedImage = ImageHelper.ResizeImage(image, size, size);  
-          this.Image = resizedImage;
-        }
+        this.imageView.SetImage(
+          url: imageUrl,
+          completionHandler: (image, data, error, finished) =>
+          {
+            InvokeOnMainThread(() =>
+            {
+              float size = appearanceHelper.Map.DestinationIconSize;
+              UIImage resizedImage = ImageHelper.ResizeImage(image, size, size);  
+              this.Image = resizedImage;
+            });
+          });
       }
-      );
     }
 
     private void InitRoundedImage()

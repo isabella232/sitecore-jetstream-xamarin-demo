@@ -61,34 +61,16 @@ namespace JetStreamIOSFull
       this.ApplyUISettings();
       this.TitleLabel.Text = destination.Title;
       this.ShowEmptyCellWithAnimation();
-      this.DownloadAndShowImageWithUrl(destination.ImageUrl);
-    }
 
-    private void DownloadAndShowImageWithUrl(string url)
-    {
-      NSUrl imageUrl = new NSUrl(url);
-
-      SDWebImageDownloader.SharedDownloader.DownloadImage(
-        url: imageUrl,
-        options: SDWebImageDownloaderOptions.LowPriority,
-        progressHandler: (receivedSize, expectedSize) =>
+      this.ImageView.SetImage (
+        url: new NSUrl (destination.ImageUrl),
+        completionHandler: (image, data, error, finished) =>
       {
-        // Track progress...
-      },
-        completedHandler: (image, data, error, finished) =>
-      {
-        if (image != null)
-        {
           InvokeOnMainThread(() =>
           {
-            if (image != null)
-            {
-              this.ShowContentWithAnimation(image);
-            }
+            this.ShowContentWithAnimation();
           });
-        }
-      }
-      );
+      });
     }
 
     private void ShowEmptyCellWithAnimation()
@@ -113,7 +95,7 @@ namespace JetStreamIOSFull
       });
     }
 
-    private void ShowContentWithAnimation(UIImage image)
+    private void ShowContentWithAnimation()
     {
 
       this.ImageView.Alpha = 0.0f;
@@ -123,8 +105,6 @@ namespace JetStreamIOSFull
       {
         InvokeOnMainThread(() =>
         {
-          this.ImageView.Image = image;
-
           UIView.AnimateNotify(animationDuration, () =>
           {
             this.ImageView.Alpha = 1.0f;

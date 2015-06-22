@@ -60,31 +60,14 @@ namespace JetStreamIOSFull
         imagePath = SitecoreWebApiSessionExt.MediaDownloadUrl(this.endpoint.InstanceUrl, attraction.ImagePath);
         NSUrl imageUrl = new NSUrl(imagePath);
 
-        SDWebImageDownloader.SharedDownloader.DownloadImage(
+        DestinationImageCell cell = tableView.CellAt(indexPath) as DestinationImageCell;
+
+        cell.DestinationImageView.SetImage (
           url: imageUrl,
-          options: SDWebImageDownloaderOptions.LowPriority,
-          progressHandler: (receivedSize, expectedSize) =>
+          completionHandler: (image, data, error, finished) =>
         {
-          // Track progress...
-        },
-          completedHandler: (image, data, error, finished) =>
-        {
-          if (image != null)
-          {
-            InvokeOnMainThread(() =>
-            {
-              DestinationImageCell cell = tableView.CellAt(indexPath) as DestinationImageCell;
-
-              if (cell != null)
-              {
-                cell.ActivityIndicator.StopAnimating();
-                cell.SetImage(image);
-              }
-
-            });
-          }
-        }
-        );
+          cell.ActivityIndicator.StopAnimating();
+        });
       }
       catch(Exception ex)
       {

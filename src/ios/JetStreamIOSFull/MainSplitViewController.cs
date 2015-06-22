@@ -15,6 +15,7 @@ namespace JetStreamIOSFull
 
 		public MainSplitViewController (IntPtr handle) : base (handle)
 		{
+      Console.WriteLine("MainSplitViewController");
       NSString key = NSString.FromData("_masterColumnWidth",NSStringEncoding.ASCIIStringEncoding);
       this.SetValueForKey(this.appearanceHelper.Menu.MenuWidth, key);
 		}
@@ -22,7 +23,7 @@ namespace JetStreamIOSFull
     public override void ViewDidLoad()
     {
       base.ViewDidLoad();
-
+      Console.WriteLine("ViewDidLoad");
       this.SetupUI();
       this.InitializeNavigation();
       this.InitializeMenu();

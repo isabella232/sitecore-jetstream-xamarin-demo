@@ -29,7 +29,9 @@ namespace JetStreamIOSFull
       { 
         if (appearance == null)
         {
-          throw new NullReferenceException("this.appearance must not be null");
+          this.appearance = new AppearanceHelper ();
+//          throw new NullReferenceException("this.appearance must not be null");
+
         }
 
         return this.appearance;
