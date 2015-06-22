@@ -1,5 +1,3 @@
-using Jetstream.Models;
-
 namespace Jetstream.UI.Fragments
 {
   using System;
@@ -19,6 +17,8 @@ namespace Jetstream.UI.Fragments
   using com.dbeattie;
   using DSoft.Messaging;
   using Jetstream.Map;
+  using Jetstream.Models;
+  using Jetstream.UI.Activities;
   using Jetstream.UI.Anim;
   using JetStreamCommons;
   using JetStreamCommons.Destinations;

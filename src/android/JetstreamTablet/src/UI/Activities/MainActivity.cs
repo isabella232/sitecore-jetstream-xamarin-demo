@@ -1,4 +1,4 @@
-﻿namespace Jetstream
+﻿namespace Jetstream.UI.Activities
 {
   using Android.App;
   using Android.Content.PM;

@@ -39,7 +39,7 @@ namespace Jetstream.UI.Fragments
 
     public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-      var rootView = inflater.Inflate(Resource.Layout.activity_about, container, false);
+      var rootView = inflater.Inflate(Resource.Layout.fragment_about, container, false);
 
       this.InitViews(rootView);
 
@@ -100,7 +100,7 @@ namespace Jetstream.UI.Fragments
 
       this.aboutTitleTextView.Text = aboutItem.TitlePlainText;
       this.aboutSummaryTextView.Text = aboutItem.SummaryPlainText;
-      this.aboutBodyTextView.Text = aboutItem.BodyPlainText + aboutItem.BodyPlainText;
+      this.aboutBodyTextView.Text = aboutItem.BodyPlainText;
     }
   }
 }
