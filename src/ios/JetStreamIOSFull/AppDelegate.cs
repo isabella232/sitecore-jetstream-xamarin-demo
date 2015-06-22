@@ -1,5 +1,6 @@
 ﻿using UIKit;
 using Foundation;
+using Xamarin;
 
 
 namespace JetStreamIOSFull
@@ -20,6 +21,8 @@ namespace JetStreamIOSFull
             
     public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
     {
+      Insights.Initialize("2fbbc0afe754f165b9d3bb70c4c946d1f4900945");
+
       var splitViewController = (UISplitViewController)Window.RootViewController;
       splitViewController.PresentsWithGesture = false;
       splitViewController.PreferredDisplayMode = UISplitViewControllerDisplayMode.PrimaryHidden;

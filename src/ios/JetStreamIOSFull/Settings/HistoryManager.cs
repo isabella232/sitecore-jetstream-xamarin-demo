@@ -1,5 +1,7 @@
 ﻿using System;
 using Foundation;
+using Xamarin;
+using System.Collections.Generic;
 
 namespace JetStreamIOSFull
 {
@@ -44,6 +46,10 @@ namespace JetStreamIOSFull
       }
 
       this.currentHistory.Add(value);
+
+      Insights.Track("NewUrlUsed", new Dictionary <string,string>{
+        {"URL", url}
+      });
 
       if (this.currentHistory.Count > HISTORY_LIMIT)
       {

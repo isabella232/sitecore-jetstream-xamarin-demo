@@ -14,6 +14,7 @@ using JetStreamCommons.Destinations;
 using JetStreamIOSFull.Helpers;
 using SDWebImage;
 using CoreGraphics;
+using Xamarin;
 
 
 namespace JetStreamIOSFull
@@ -74,6 +75,10 @@ namespace JetStreamIOSFull
 
     partial void RefreshButtonTouched(Foundation.NSObject sender)
     {
+      Insights.Track("RefreshButtonTouched", new Dictionary <string,string>{
+        {"RefreshButton", "Touched"}
+      });
+
       SDWebImage.SDWebImageManager.SharedManager.ImageCache.ClearDisk();
       SDWebImage.SDWebImageManager.SharedManager.ImageCache.ClearMemory();
 
