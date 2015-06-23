@@ -90,7 +90,10 @@ namespace JetStreamIOSFull.MapUI
             {
               float size = appearanceHelper.Map.DestinationIconSize;
               UIImage resizedImage = ImageHelper.ResizeImage(image, size, size);  
-              this.Image = resizedImage;
+              if (resizedImage != null)
+              {
+                this.Image = resizedImage;
+              }
             });
           });
       }
