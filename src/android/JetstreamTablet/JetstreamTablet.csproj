@@ -110,9 +110,6 @@
     <Reference Include="android-iconics-1.0.2">
       <HintPath>..\..\..\solutions\packages\Mikepenz.Android.Iconics.Xamarin.Binding.1.0.2\lib\MonoAndroid\android-iconics-1.0.2.dll</HintPath>
     </Reference>
-    <Reference Include="material-drawer-3.0.3">
-      <HintPath>libs\material-drawer-3.0.3.dll</HintPath>
-    </Reference>
     <Reference Include="Xamarin.Android.Support.v4">
       <HintPath>..\..\..\solutions\packages\Xamarin.Android.Support.v4.22.2.0.0\lib\MonoAndroid403\Xamarin.Android.Support.v4.dll</HintPath>
     </Reference>
@@ -130,6 +127,9 @@
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\..\solutions\packages\Newtonsoft.Json.7.0.1\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="material-drawer-3.0.7">
+      <HintPath>..\..\..\solutions\packages\Mikepenz.MaterialDrawer.Xamarin.Android.3.0.7\lib\MonoAndroid\material-drawer-3.0.7.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -197,14 +197,13 @@
     <AndroidResource Include="Resources\drawable-hdpi\ic_jetstream_logo.png" />
     <AndroidResource Include="Resources\drawable-mdpi\ic_jetstream_logo.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\ic_jetstream_logo.png" />
-    <None Include="libs\material-drawer-3.0.3.dll" />
-    <AndroidResource Include="Resources\layout\view_destination_card.axml" />
     <AndroidResource Include="Resources\layout\layout_dialog_buttons.axml" />
     <AndroidResource Include="Resources\layout\activity_settings.axml" />
     <AndroidResource Include="Resources\layout\activity_destination_details.axml" />
     <AndroidResource Include="Resources\layout\fragment_about.axml" />
     <AndroidResource Include="Resources\layout\fragment_check_in.axml" />
     <AndroidResource Include="Resources\layout\fragment_flight_status.axml" />
+    <AndroidResource Include="Resources\layout\view_destination_card.axml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\activity_main.axml">

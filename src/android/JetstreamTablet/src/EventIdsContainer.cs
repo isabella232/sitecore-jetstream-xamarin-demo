@@ -1,6 +1,6 @@
 namespace Jetstream
 {
-  public class EventIdsContainer
+  public static class EventIdsContainer
   {
     public const string SitecoreInstanceUrlUpdateEvent ="1";
   }
