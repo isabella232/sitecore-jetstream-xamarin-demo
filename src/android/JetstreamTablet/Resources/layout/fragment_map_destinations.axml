@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Jetstream.View.ScrollChildSwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<Jetstream.UI.View.ScrollChildSwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/refresher"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -25,4 +25,4 @@
                 android:layout_height="wrap_content"/>
         </HorizontalScrollView>
     </RelativeLayout>
-</Jetstream.View.ScrollChildSwipeRefreshLayout>
+</Jetstream.UI.View.ScrollChildSwipeRefreshLayout>

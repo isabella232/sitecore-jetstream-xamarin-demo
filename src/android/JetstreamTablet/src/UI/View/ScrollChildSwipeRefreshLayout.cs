@@ -1,4 +1,4 @@
-﻿namespace Jetstream.View
+﻿namespace Jetstream.UI.View
 {
   using System.Collections.Generic;
   using System.Linq;

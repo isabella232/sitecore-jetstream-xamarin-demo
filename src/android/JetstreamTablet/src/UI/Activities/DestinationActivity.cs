@@ -1,13 +1,12 @@
-namespace Jetstream
+namespace Jetstream.UI.Activities
 {
   using System;
   using Android.App;
   using Android.Graphics;
   using Android.OS;
   using Android.Support.V7.App;
-  using Android.Views;
   using Jetstream.Models;
-  using Jetstream.View;
+  using Jetstream.UI.View;
 
   [Activity(Theme = "@style/Settings.Activity.Theme")]
   public class DestinationActivity : AppCompatActivity
@@ -21,7 +20,7 @@ namespace Jetstream
     protected override void OnCreate(Bundle bundle)
     {
       base.OnCreate(bundle);
-      this.SetContentView(Resource.Layout.view_destination_details);
+      this.SetContentView(Resource.Layout.activity_destination_details);
 
       Point point = new Point();
       this.WindowManager.DefaultDisplay.GetSize(point);

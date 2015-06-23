@@ -1,4 +1,4 @@
-namespace Jetstream.View
+namespace Jetstream.UI.View
 {
   using System;
   using System.Linq;
@@ -12,6 +12,7 @@ namespace Jetstream.View
   using Android.Widget;
   using Java.Lang;
   using Jetstream.Models;
+  using Jetstream.UI.Activities;
   using Squareup.Picasso;
   using Xamarin.Android.ObservableScrollView;
   using Xamarin.NineOldAndroids.Animations;
