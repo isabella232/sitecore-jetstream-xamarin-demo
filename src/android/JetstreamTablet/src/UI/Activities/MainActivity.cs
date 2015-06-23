@@ -96,7 +96,7 @@
       this.PrepareHeader(savedInstanceState);
 
       var about = new PrimaryDrawerItem();
-      about.WithName("About Jetstream");
+      about.WithName(Resources.GetString(Resource.String.menu_text_about));
       about.WithIcon(new IconicsDrawable(this, JetstreamIcons.Icon.About).ColorRes(Resource.Color.color_primary));
       about.WithIdentifier(AboutMenuItemIdentifier);
       about.WithCheckable(false);
@@ -108,13 +108,13 @@
       destinations.WithCheckable(false);
 
       var flightStatus = new PrimaryDrawerItem();
-      flightStatus.WithName("Flight Status");
+      flightStatus.WithName(Resources.GetString(Resource.String.menu_text_flight_status));
       flightStatus.WithIcon(new IconicsDrawable(this, JetstreamIcons.Icon.FlightStatus).ColorRes(Resource.Color.color_primary));
       flightStatus.WithIdentifier(FlightStatusMenuItemIdentifier);
       flightStatus.WithCheckable(false);
 
       var checkIn = new PrimaryDrawerItem();
-      checkIn.WithName("Check-in");
+      checkIn.WithName(Resources.GetString(Resource.String.menu_text_check_in));
       checkIn.WithIcon(new IconicsDrawable(this, JetstreamIcons.Icon.OnlineCheckin).ColorRes(Resource.Color.color_primary));
       checkIn.WithIdentifier(CheckInMenuItemIdentifier);
       checkIn.WithCheckable(false);
@@ -180,7 +180,7 @@
       base.OnSaveInstanceState(outState);
     }
 
-    public bool OnItemClick(AdapterView parent, Android.Views.View view, int position, long id, IDrawerItem drawerItem)
+    public bool OnItemClick(AdapterView parent, View view, int position, long id, IDrawerItem drawerItem)
     {
       if (drawerItem == null)
       {

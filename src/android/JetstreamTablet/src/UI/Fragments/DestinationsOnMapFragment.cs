@@ -104,16 +104,16 @@ namespace Jetstream.UI.Fragments
       }
       catch (Exception exception)
       {
-        Log.Error("Jetstream", "Failed to load destinations. Reason: " + exception.Message);
+        Log.Error("Jetstream", Resources.GetString(Jetstream.Resource.String.error_log_text_failed_to_load_destinations) + exception.Message);
 
         this.refresher.Refreshing = false;
 
         SnackbarManager.Show(
           Snackbar.With(this.Activity)
-            .ActionLabel("Retry")
+            .ActionLabel(Resources.GetString(Jetstream.Resource.String.error_text_retry))
             .ActionColor(this.Resources.GetColor(Jetstream.Resource.Color.color_accent))
             .ActionListener(this)
-            .Text("Failed to load destinations, please check your internet connection."));
+            .Text(Resources.GetString(Jetstream.Resource.String.error_text_faile_to_load_destinations)));
       }
     }
 

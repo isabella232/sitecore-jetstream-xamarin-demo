@@ -197,13 +197,13 @@
     <AndroidResource Include="Resources\drawable-hdpi\ic_jetstream_logo.png" />
     <AndroidResource Include="Resources\drawable-mdpi\ic_jetstream_logo.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\ic_jetstream_logo.png" />
-    <AndroidResource Include="Resources\layout\view_destination_card.axml" />
     <AndroidResource Include="Resources\layout\layout_dialog_buttons.axml" />
     <AndroidResource Include="Resources\layout\activity_settings.axml" />
     <AndroidResource Include="Resources\layout\activity_destination_details.axml" />
     <AndroidResource Include="Resources\layout\fragment_about.axml" />
     <AndroidResource Include="Resources\layout\fragment_check_in.axml" />
     <AndroidResource Include="Resources\layout\fragment_flight_status.axml" />
+    <AndroidResource Include="Resources\layout\view_destination_card.axml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\activity_main.axml">

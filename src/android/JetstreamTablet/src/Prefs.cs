@@ -1,10 +1,7 @@
-using System.Collections;
-
 namespace Jetstream
 {
   using System.Collections.Generic;
   using System.Linq;
-  using System.Text;
   using Android.Content;
   using Android.Preferences;
 

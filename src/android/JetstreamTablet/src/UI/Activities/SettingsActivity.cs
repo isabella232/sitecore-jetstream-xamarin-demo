@@ -13,7 +13,7 @@ namespace Jetstream.UI.Activities
   using Jetstream.Utils;
 
   [Activity(Theme = "@style/Settings.Activity.Theme")]
-  public class SettingsActivity : AppCompatActivity, Android.Views.View.IOnClickListener, TextView.IOnEditorActionListener
+  public class SettingsActivity : AppCompatActivity, View.IOnClickListener, TextView.IOnEditorActionListener
   {
     private Prefs prefs;
 

@@ -42,7 +42,7 @@ namespace Jetstream.UI.Fragments
 
     private void InitTextFields()
     {
-      this.checkInTitleTextView.Text = "Check in";
+      this.checkInTitleTextView.Text = Resources.GetString(Resource.String.title_text_check_in);
     }
   }
 }

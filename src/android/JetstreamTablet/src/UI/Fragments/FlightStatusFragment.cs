@@ -42,7 +42,7 @@ namespace Jetstream.UI.Fragments
 
     private void InitTextFields()
     {
-      this.flightStatusTitleTextView.Text = "Flight Status";
+      this.flightStatusTitleTextView.Text = Resources.GetString(Resource.String.title_text_flight_status);
     }
   }
 }
