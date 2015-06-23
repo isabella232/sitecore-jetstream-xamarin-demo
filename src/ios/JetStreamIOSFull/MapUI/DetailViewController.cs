@@ -78,7 +78,8 @@ namespace JetStreamIOSFull.MapUI
     partial void RefreshButtonTouched(Foundation.NSObject sender)
     {
       Insights.Track("RefreshButtonTouched", new Dictionary <string,string>{
-        {"RefreshButton", "Touched"}
+        {"RefreshButton", "Touched"},
+        {"OS", "iOS"}
       });
 
       SDWebImage.SDWebImageManager.SharedManager.ImageCache.ClearDisk();

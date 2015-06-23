@@ -82,7 +82,7 @@ namespace JetStreamIOSFull.MapUI
         SDWebImageManager manager = SDWebImageManager.SharedManager;
         manager.Download(
           url: imageUrl,
-          options: SDWebImageOptions.LowPriority,
+          options: SDWebImageOptions.RetryFailed | SDWebImageOptions.LowPriority,
           progressHandler: (receivedSize, expectedSize) =>
           {
           },

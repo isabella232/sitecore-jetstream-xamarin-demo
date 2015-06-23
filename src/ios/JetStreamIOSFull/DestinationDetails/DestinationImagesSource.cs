@@ -62,6 +62,8 @@ namespace JetStreamIOSFull.DestinationDetails
 
         cell.DestinationImageView.SetImage (
           url: imageUrl,
+          placeholder: null,
+          options: SDWebImageOptions.RetryFailed | SDWebImageOptions.LowPriority,
           completionHandler: (image, data, error, finished) =>
         {
           if (image != null)
