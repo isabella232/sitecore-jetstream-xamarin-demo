@@ -9,7 +9,7 @@
     IJetStreamAirport DepartureAirport { get; }
     IJetStreamAirport DestinationAirport { get; }
 
-    DateTime ForwardFlightDepartureDate { get; }
+    DateTime? ForwardFlightDepartureDate { get; }
     DateTime? ReturnFlightDepartureDate { get; }
 
     TicketClass TicketClass { get; }
