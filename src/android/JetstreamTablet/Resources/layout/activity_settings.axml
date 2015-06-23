@@ -4,15 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
+        android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        android:elevation="4dp" />
-        
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+
     <com.rengwuxian.materialedittext.MaterialAutoCompleteTextView
         android:id="@+id/field_sitecore_url"
         style="@style/Material.Edittext.Style"
@@ -25,6 +26,6 @@
         android:imeOptions="actionDone"
         android:textCursorDrawable="@drawable/edit_text_cursor_drawable"
         android:textSize="20sp" />
-    <include
-        layout="@layout/layout_dialog_buttons" />
+
+    <include layout="@layout/layout_dialog_buttons" />
 </LinearLayout>

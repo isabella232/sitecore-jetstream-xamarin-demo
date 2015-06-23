@@ -1,4 +1,4 @@
-namespace Jetstream
+namespace Jetstream.UI.Activities
 {
   using System.Collections.Generic;
   using Android.App;

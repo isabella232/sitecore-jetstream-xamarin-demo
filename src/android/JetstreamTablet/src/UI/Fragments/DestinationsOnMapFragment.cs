@@ -1,17 +1,15 @@
-using Jetstream.Models;
-
 namespace Jetstream.UI.Fragments
 {
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Android.App;
   using Android.Content;
   using Android.Gms.Common;
   using Android.Gms.Maps;
   using Android.Gms.Maps.Model;
   using Android.Gms.Maps.Utils.Clustering;
   using Android.OS;
+  using Android.Support.V4.App;
   using Android.Support.V4.Widget;
   using Android.Util;
   using Android.Views;
@@ -19,6 +17,8 @@ namespace Jetstream.UI.Fragments
   using com.dbeattie;
   using DSoft.Messaging;
   using Jetstream.Map;
+  using Jetstream.Models;
+  using Jetstream.UI.Activities;
   using Jetstream.UI.Anim;
   using JetStreamCommons;
   using JetStreamCommons.Destinations;

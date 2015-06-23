@@ -1,4 +1,4 @@
-﻿namespace Jetstream
+﻿namespace Jetstream.UI.Activities
 {
   using Android.App;
   using Android.Content.PM;
@@ -30,6 +30,8 @@
     private const int CheckInMenuItemIdentifier = 4;
     private const int SettingsMenuItemIdentifier = 5;
 
+    private bool showRefreshMenuItem = true;
+
     private Android.Support.V7.Widget.Toolbar toolbar;
 
     private AccountHeader header = null;
@@ -37,6 +39,10 @@
     private Prefs prefs;
 
     private DestinationsOnMapFragment mapFragment;
+    private AboutFragment aboutFragment;
+    private CheckInFragment checkInFragment;
+    private FlightStatusFragment flightStatusFragment;
+    private Android.Support.V4.App.Fragment currentActiveFragment;
 
     protected override void OnCreate(Bundle savedInstanceState)
     {
@@ -49,10 +55,30 @@
 
       this.InitDrawer(savedInstanceState);
 
-      if(savedInstanceState == null)
+      this.currentActiveFragment = this.mapFragment = new DestinationsOnMapFragment();
+
+      if (savedInstanceState == null)
       {
-        this.FragmentManager.BeginTransaction().Replace(Resource.Id.map_fragment_container, this.mapFragment).Commit();  
+        this.SupportFragmentManager.BeginTransaction().Replace(Resource.Id.map_fragment_container, this.mapFragment).Commit();
       }
+    }
+
+    public override bool OnCreateOptionsMenu(IMenu menu)
+    {
+      this.MenuInflater.Inflate(Resource.Menu.menu_main, menu);
+
+      var menuItem = menu.FindItem(Resource.Id.action_refresh);
+      menuItem.SetIcon(new IconicsDrawable(this, GoogleMaterial.Icon.GmdRefresh).ActionBar().Color(Color.White));
+
+      return base.OnCreateOptionsMenu(menu);
+    }
+
+    public override bool OnPrepareOptionsMenu(IMenu menu)
+    {
+      var actionRefresh = menu.FindItem(Resource.Id.action_refresh);
+      actionRefresh.SetVisible(this.showRefreshMenuItem);
+
+      return base.OnPrepareOptionsMenu(menu);
     }
 
     private void InitDrawer(Bundle savedInstanceState)
@@ -102,28 +128,15 @@
       var divider = new DividerDrawerItem();
 
       this.drawer = new DrawerBuilder()
-                .WithActivity(this)
-                .WithRootView(Resource.Id.drawer_container)
-                .WithToolbar(this.toolbar)
-                .WithAccountHeader(this.header)
-                .AddDrawerItems(about, destinations, divider, flightStatus, checkIn, divider, settings)
-                .WithOnDrawerItemClickListener(this)
-                .WithSavedInstance(savedInstanceState)
-                .WithActionBarDrawerToggleAnimated(true)
-                .WithSelectedItem(1)
-                .Build();
-
-      this.mapFragment = new DestinationsOnMapFragment();
-    }
-
-    public override bool OnCreateOptionsMenu(IMenu menu)
-    {
-      this.MenuInflater.Inflate(Resource.Menu.menu_main, menu);
-
-      var menuItem = menu.FindItem(Resource.Id.action_refresh);
-      menuItem.SetIcon(new IconicsDrawable(this, GoogleMaterial.Icon.GmdRefresh).ActionBar().Color(Color.White));
-
-      return base.OnCreateOptionsMenu(menu);
+        .WithActivity(this)
+        .WithToolbar(this.toolbar)
+        .WithAccountHeader(this.header)
+        .AddDrawerItems(about, destinations, divider, flightStatus, checkIn, divider, settings)
+        .WithOnDrawerItemClickListener(this)
+        .WithSavedInstance(savedInstanceState)
+        .WithActionBarDrawerToggleAnimated(true)
+        .WithSelectedItem(1)
+        .Build();
     }
 
     private void PrepareHeader(Bundle savedInstanceState)
@@ -150,7 +163,7 @@
 
     public override void OnBackPressed()
     {
-      if(this.drawer != null && this.drawer.IsDrawerOpen)
+      if (this.drawer != null && this.drawer.IsDrawerOpen)
       {
         this.drawer.CloseDrawer();
       }
@@ -169,33 +182,107 @@
 
     public bool OnItemClick(AdapterView parent, Android.Views.View view, int position, long id, IDrawerItem drawerItem)
     {
-      if(drawerItem == null)
+      if (drawerItem == null)
       {
         return true;
       }
+
+      var previousSelectedItem = this.drawer.CurrentSelection;
 
       this.drawer.SetSelectionByIdentifier(drawerItem.Identifier, false);
 
       switch (drawerItem.Identifier)
       {
         case AboutMenuItemIdentifier:
-          this.StartActivity(typeof(AboutActivity));
-          new Handler().PostDelayed(() => this.drawer.SetSelectionByIdentifier(DestinationsMenuItemIdentifier, false), 300);
+          this.showRefreshMenuItem = false;
+          this.InvalidateOptionsMenu();
+
+          if (this.currentActiveFragment is AboutFragment)
+          {
+            return false;
+          }
+
+          if (this.aboutFragment == null)
+          {
+            this.aboutFragment = new AboutFragment(this.Session);
+            this.SupportFragmentManager.BeginTransaction().Replace(Resource.Id.about_fragment_container, this.aboutFragment).Commit();
+          }
+
+          this.HideAndShowFragments(this.currentActiveFragment, this.aboutFragment);
+
+          this.currentActiveFragment = this.aboutFragment;
           break;
         case DestinationsMenuItemIdentifier:
+          this.showRefreshMenuItem = true;
+          this.InvalidateOptionsMenu();
+
+          if (this.currentActiveFragment is DestinationsOnMapFragment)
+          {
+            return false;
+          }
+
+          if (this.mapFragment == null)
+          {
+            this.mapFragment = new DestinationsOnMapFragment();
+            this.SupportFragmentManager.BeginTransaction().Replace(Resource.Id.map_fragment_container, this.mapFragment).Commit();
+          }
+
+          this.HideAndShowFragments(this.currentActiveFragment, this.mapFragment);
+
+          this.currentActiveFragment = this.mapFragment;
           break;
         case FlightStatusMenuItemIdentifier:
+          this.showRefreshMenuItem = false;
+          this.InvalidateOptionsMenu();
+
+          if (this.currentActiveFragment is FlightStatusFragment)
+          {
+            return false;
+          }
+
+          if (this.flightStatusFragment == null)
+          {
+            this.flightStatusFragment = new FlightStatusFragment();
+            this.SupportFragmentManager.BeginTransaction().Replace(Resource.Id.flight_status_fragment_container, this.flightStatusFragment).Commit();
+          }
+
+          this.HideAndShowFragments(this.currentActiveFragment, this.flightStatusFragment);
+
+          this.currentActiveFragment = this.flightStatusFragment;
           break;
         case CheckInMenuItemIdentifier:
+          this.showRefreshMenuItem = false;
+          this.InvalidateOptionsMenu();
+
+          if (this.currentActiveFragment is CheckInFragment)
+          {
+            return false;
+          }
+
+          if (this.checkInFragment == null)
+          {
+            this.checkInFragment = new CheckInFragment();
+            this.SupportFragmentManager.BeginTransaction().Replace(Resource.Id.check_in_fragment_container, this.checkInFragment).Commit();
+          }
+
+          this.HideAndShowFragments(this.currentActiveFragment, this.checkInFragment);
+
+          this.currentActiveFragment = this.checkInFragment;
           break;
         case SettingsMenuItemIdentifier:
           this.StartActivity(typeof(SettingsActivity));
-          
-          new Handler().PostDelayed(() => this.drawer.SetSelectionByIdentifier(DestinationsMenuItemIdentifier, false), 500);
+
+          new Handler().PostDelayed(() => this.drawer.SetSelection(previousSelectedItem, false), 500);
           break;
       }
 
       return false;
+    }
+
+    private void HideAndShowFragments(Android.Support.V4.App.Fragment toHide, Android.Support.V4.App.Fragment toShow)
+    {
+      this.SupportFragmentManager.BeginTransaction().Hide(toHide).Commit();
+      this.SupportFragmentManager.BeginTransaction().Show(toShow).Commit();
     }
 
     //TODO:
