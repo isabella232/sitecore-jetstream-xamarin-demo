@@ -40,7 +40,7 @@ namespace Jetstream.Map
 
       if (clusterItem != null)
       {
-        var target = new MarkerTarget(marker, bitmap => BitmapUtils.GetCircledBitmapWithBorder(bitmap, Color.Black, 3));
+        var target = new MarkerTarget(marker, bitmap => BitmapUtils.GetCircledBitmapWithBorder(bitmap, Color.Black, 3), null);
         Picasso.With(this.context).Load(clusterItem.ImageUrl).Resize(this.cityIconSize, this.cityIconSize).Into(target);
       }
     }
@@ -57,7 +57,24 @@ namespace Jetstream.Map
 
       var textBackground = this.context.Resources.GetColor(Resource.Color.color_accent);
 
-      var target = new MarkerTarget(marker, bitmap => BitmapUtils.GetCircledBitmapWithTextIcon(bitmap, Color.White, 4, cluster.Size.ToString(), Color.White, textBackground));
+      System.Func<Bitmap, Bitmap> converter = bitmap =>
+      BitmapUtils.GetCircledBitmapWithTextIcon(bitmap, Color.White, 4, cluster.Size.ToString(), Color.White, textBackground);
+
+      var shapeDrawable = this.context.Resources.GetDrawable(Resource.Drawable.marker_group_placeholder);
+
+      System.Func<Bitmap> handler = () =>
+      {
+          Bitmap bitmap = Bitmap.CreateBitmap(this.clusterIconSize, this.clusterIconSize, Bitmap.Config.Argb8888);
+
+          Canvas canvas = new Canvas(bitmap);
+
+          shapeDrawable.SetBounds(0, 0, this.clusterIconSize, this.clusterIconSize);
+          shapeDrawable.Draw(canvas);
+
+          return  BitmapUtils.GetCircledBitmapWithTextIcon(bitmap, Color.White, 4, cluster.Size.ToString(), Color.White, textBackground);
+      };
+      
+      var target = new MarkerTarget(marker, converter, handler);
       Picasso.With(this.context).Load(item.ImageUrl).Resize(this.clusterIconSize, this.clusterIconSize).Into(target);
     }
 

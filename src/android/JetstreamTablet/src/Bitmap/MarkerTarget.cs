@@ -10,16 +10,21 @@ namespace Jetstream.Bitmap
   {
     private readonly Marker marker;
     private readonly Func<Bitmap, Bitmap> bitmapConverter;
+    private readonly Func<Bitmap> failedHandler;
 
-    public MarkerTarget(Marker marker, Func<Bitmap, Bitmap> bitmapConverter)
+    public MarkerTarget(Marker marker, Func<Bitmap, Bitmap> bitmapConverter, Func<Bitmap> failedHandler)
     {
       this.marker = marker;
       this.bitmapConverter = bitmapConverter;
+      this.failedHandler = failedHandler;
     }
 
     public void OnBitmapFailed(Drawable drawable)
     {
-      //TODO: Add logger message here
+      if (this.failedHandler != null)
+      {
+        this.marker.SetIcon(BitmapDescriptorFactory.FromBitmap(this.failedHandler()));
+      }
     }
 
     public void OnBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from)
@@ -30,7 +35,7 @@ namespace Jetstream.Bitmap
       }
       catch (Java.Lang.RuntimeException exception)
       {
-        //TODO: Original cause is that we are trying to update marker's icon after that marker was removed from move.
+        //TODO: Original cause is that we are trying to update marker's icon after that marker was removed from map.
         // There is no clear way to detect whether marker still exists on map.
       }
     }

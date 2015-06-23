@@ -204,6 +204,7 @@
     <AndroidResource Include="Resources\layout\fragment_check_in.axml" />
     <AndroidResource Include="Resources\layout\fragment_flight_status.axml" />
     <AndroidResource Include="Resources\layout\view_destination_card.axml" />
+    <AndroidResource Include="Resources\drawable\marker_group_placeholder.xml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\activity_main.axml">
