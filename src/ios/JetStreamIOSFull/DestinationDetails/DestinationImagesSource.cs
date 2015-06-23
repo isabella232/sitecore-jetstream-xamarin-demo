@@ -46,12 +46,12 @@ namespace JetStreamIOSFull
       cell.SetImage(null);
       cell.ActivityIndicator.StartAnimating();
 
-      this.DownloadAndShowDestinationImage(item, tableView, indexPath);
+      this.DownloadAndShowDestinationImage(item, tableView, cell);
 
       return cell;
     }
 
-    private void DownloadAndShowDestinationImage(IItemWithImage attraction, UITableView tableView, NSIndexPath indexPath)
+    private void DownloadAndShowDestinationImage(IItemWithImage attraction, UITableView tableView, DestinationImageCell cell)
     {
       string imagePath = null;
 
@@ -59,8 +59,6 @@ namespace JetStreamIOSFull
       {
         imagePath = SitecoreWebApiSessionExt.MediaDownloadUrl(this.endpoint.InstanceUrl, attraction.ImagePath);
         NSUrl imageUrl = new NSUrl(imagePath);
-
-        DestinationImageCell cell = tableView.CellAt(indexPath) as DestinationImageCell;
 
         cell.DestinationImageView.SetImage (
           url: imageUrl,
