@@ -65,13 +65,18 @@ namespace JetStreamIOSFull.Menu
     {
       List<IMenuItem> menuItems = new List<IMenuItem> ();
 
-      menuItems.Add(new MenuItem("Profile", IconsHelper.MenuProfileIcon, MenuItemTypes.Profile));
-
-      menuItems.Add(new MenuItem("About", IconsHelper.MenuAboutIcon, MenuItemTypes.About));
-      menuItems.Add(new MenuItem("Destinations", IconsHelper.MenuDestinationIcon, MenuItemTypes.Destinations));
-      menuItems.Add(new MenuItem("Flight Status", IconsHelper.MenuFlightStatusIcon, MenuItemTypes.FlightStatus));
-      menuItems.Add(new MenuItem("Online Checkin", IconsHelper.MenuOnlineCheckinIcon, MenuItemTypes.OnlineCheckin));
-      menuItems.Add(new MenuItem("Settings", IconsHelper.MenuSettingsIcon, MenuItemTypes.Settings));
+      string profile = NSBundle.MainBundle.LocalizedString("PROFILE_TITLE", null);
+      menuItems.Add(new MenuItem(profile, IconsHelper.MenuProfileIcon, MenuItemTypes.Profile));
+      string about = NSBundle.MainBundle.LocalizedString("ABOUT_TITLE", null);
+      menuItems.Add(new MenuItem(about, IconsHelper.MenuAboutIcon, MenuItemTypes.About));
+      string destination = NSBundle.MainBundle.LocalizedString("DESTINATIONS_TITLE", null);
+      menuItems.Add(new MenuItem(destination, IconsHelper.MenuDestinationIcon, MenuItemTypes.Destinations));
+      string flight = NSBundle.MainBundle.LocalizedString("FLIGHT_STATUS_TITLE", null);
+      menuItems.Add(new MenuItem(flight, IconsHelper.MenuFlightStatusIcon, MenuItemTypes.FlightStatus));
+      string checkin = NSBundle.MainBundle.LocalizedString("ONLINE_CHECKIN_TITLE", null);
+      menuItems.Add(new MenuItem(checkin, IconsHelper.MenuOnlineCheckinIcon, MenuItemTypes.OnlineCheckin));
+      string settings = NSBundle.MainBundle.LocalizedString("SETTINGS_TITLE", null);
+      menuItems.Add(new MenuItem(settings, IconsHelper.MenuSettingsIcon, MenuItemTypes.Settings));
 
       this.dataSource = new DataSource (this, menuItems);
       this.TableView.Source = this.dataSource;
