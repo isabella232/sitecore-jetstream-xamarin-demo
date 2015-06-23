@@ -101,31 +101,22 @@ namespace JetStreamIOSFull
 
     private async void RefreshMap()
     {
-      bool destinationsLoaded = false;
-
       RefreshButton.Enabled = false;
-
       UIApplication.SharedApplication.NetworkActivityIndicatorVisible = true;
+
       try
       {
         this.destinations = await this.DownloadAllDestinations();
-        destinationsLoaded = true;
+        this.ShowCurrentDestinationsOnMap();
       }
       catch
       {
-        destinationsLoaded = false;
       }
       finally
       {
         UIApplication.SharedApplication.NetworkActivityIndicatorVisible = false;
         RefreshButton.Enabled = true;
       }
-  
-      if (destinationsLoaded)
-      {
-        this.ShowCurrentDestinationsOnMap();
-      }
-
     }
 
     private void ShowCurrentDestinationsOnMap()
