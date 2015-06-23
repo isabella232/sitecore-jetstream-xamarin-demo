@@ -41,6 +41,7 @@
     private DestinationsOnMapFragment mapFragment;
     private AboutFragment aboutFragment;
     private CheckInFragment checkInFragment;
+    private FlightStatusFragment flightStatusFragment;
     private Android.Support.V4.App.Fragment currentActiveFragment;
 
     protected override void OnCreate(Bundle savedInstanceState)
@@ -186,6 +187,8 @@
         return true;
       }
 
+      var previousSelectedItem = this.drawer.CurrentSelection;
+
       this.drawer.SetSelectionByIdentifier(drawerItem.Identifier, false);
 
       switch (drawerItem.Identifier)
@@ -229,6 +232,23 @@
           this.currentActiveFragment = this.mapFragment;
           break;
         case FlightStatusMenuItemIdentifier:
+          this.showRefreshMenuItem = false;
+          this.InvalidateOptionsMenu();
+
+          if (this.currentActiveFragment is FlightStatusFragment)
+          {
+            return false;
+          }
+
+          if (this.flightStatusFragment == null)
+          {
+            this.flightStatusFragment = new FlightStatusFragment();
+            this.SupportFragmentManager.BeginTransaction().Replace(Resource.Id.flight_status_fragment_container, this.flightStatusFragment).Commit();
+          }
+
+          this.HideAndShowFragments(this.currentActiveFragment, this.flightStatusFragment);
+
+          this.currentActiveFragment = this.flightStatusFragment;
           break;
         case CheckInMenuItemIdentifier:
           this.showRefreshMenuItem = false;
@@ -252,7 +272,7 @@
         case SettingsMenuItemIdentifier:
           this.StartActivity(typeof(SettingsActivity));
 
-          new Handler().PostDelayed(() => this.drawer.SetSelectionByIdentifier(DestinationsMenuItemIdentifier, false), 500);
+          new Handler().PostDelayed(() => this.drawer.SetSelection(previousSelectedItem, false), 500);
           break;
       }
 
