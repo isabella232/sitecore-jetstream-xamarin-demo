@@ -7,7 +7,7 @@
 using Foundation;
 using System.CodeDom.Compiler;
 
-namespace JetStreamIOSFull
+namespace JetStreamIOSFull.NOTIMPLEMENTED
 {
 	[Register ("CheckInViewController")]
 	partial class CheckInViewController

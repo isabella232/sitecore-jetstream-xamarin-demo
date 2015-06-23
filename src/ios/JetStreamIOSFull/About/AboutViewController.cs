@@ -7,8 +7,9 @@ using UIKit;
 using JetStreamCommons;
 using JetStreamIOSFull.Helpers;
 using JetStreamCommons.About;
+using JetStreamIOSFull.BaseVC;
 
-namespace JetStreamIOSFull
+namespace JetStreamIOSFull.About
 {
   public partial class AboutViewController : BaseViewController
 	{

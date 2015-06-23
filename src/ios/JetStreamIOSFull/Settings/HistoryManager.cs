@@ -3,7 +3,7 @@ using Foundation;
 using Xamarin;
 using System.Collections.Generic;
 
-namespace JetStreamIOSFull
+namespace JetStreamIOSFull.Settings
 {
   public class HistoryManager
   {

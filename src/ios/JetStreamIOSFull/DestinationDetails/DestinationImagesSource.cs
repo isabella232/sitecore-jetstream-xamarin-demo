@@ -6,7 +6,7 @@ using JetStreamCommons.Destinations;
 using SDWebImage;
 using JetStreamCommons;
 
-namespace JetStreamIOSFull
+namespace JetStreamIOSFull.DestinationDetails
 {
   public class DestinationImagesSource : UITableViewSource
   {
@@ -64,7 +64,10 @@ namespace JetStreamIOSFull
           url: imageUrl,
           completionHandler: (image, data, error, finished) =>
         {
-          cell.ActivityIndicator.StopAnimating();
+          if (image != null)
+          {
+            cell.ActivityIndicator.StopAnimating();
+          }
         });
       }
       catch(Exception ex)

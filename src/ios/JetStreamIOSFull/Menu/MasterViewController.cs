@@ -6,8 +6,9 @@ using CoreGraphics;
 using UIKit;
 using JetStreamIOSFull.Helpers;
 using JetStreamIOSFull.Apearance;
+using JetStreamIOSFull.Navigation;
 
-namespace JetStreamIOSFull
+namespace JetStreamIOSFull.Menu
 {
   public partial class MasterViewController : UITableViewController
   {

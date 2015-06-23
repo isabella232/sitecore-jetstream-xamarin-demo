@@ -6,7 +6,7 @@
 //
 using Foundation;
 
-namespace JetStreamIOSFull
+namespace JetStreamIOSFull.Menu
 {
   [Register("MasterViewController")]
   partial class MasterViewController

@@ -2,7 +2,7 @@
 using UIKit;
 using Foundation;
 
-namespace JetStreamIOSFull
+namespace JetStreamIOSFull.Settings
 {
   public class UrlHistorySource : UITableViewSource
   {

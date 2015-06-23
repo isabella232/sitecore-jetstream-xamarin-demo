@@ -15,9 +15,11 @@ using JetStreamIOSFull.Helpers;
 using SDWebImage;
 using CoreGraphics;
 using Xamarin;
+using JetStreamIOSFull.BaseVC;
+using JetStreamIOSFull.DestinationDetails;
 
 
-namespace JetStreamIOSFull
+namespace JetStreamIOSFull.MapUI
 {
   public partial class DetailViewController : BaseViewController, IMKMapViewDelegate
   {

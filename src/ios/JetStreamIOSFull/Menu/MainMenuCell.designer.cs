@@ -7,7 +7,7 @@
 using Foundation;
 using System.CodeDom.Compiler;
 
-namespace JetStreamIOSFull
+namespace JetStreamIOSFull.Menu
 {
 	[Register ("MainMenuCell")]
 	partial class MainMenuCell

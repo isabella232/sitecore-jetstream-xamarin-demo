@@ -7,7 +7,7 @@
 using Foundation;
 using System.CodeDom.Compiler;
 
-namespace JetStreamIOSFull
+namespace JetStreamIOSFull.About
 {
 	[Register ("AboutViewController")]
 	partial class AboutViewController

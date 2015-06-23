@@ -7,7 +7,7 @@
 using Foundation;
 using System.CodeDom.Compiler;
 
-namespace JetStreamIOSFull
+namespace JetStreamIOSFull.MapUI
 {
 	[Register ("DetailViewController")]
 	partial class DetailViewController

@@ -3,7 +3,7 @@ using UIKit;
 using JetStreamIOSFull.Helpers;
 using CoreGraphics;
 
-namespace JetStreamIOSFull
+namespace JetStreamIOSFull.BaseVC
 {
   public partial class BaseViewController  : UIViewController
   {

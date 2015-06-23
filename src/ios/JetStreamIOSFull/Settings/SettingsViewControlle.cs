@@ -3,8 +3,9 @@ using System;
 using Foundation;
 using UIKit;
 using CoreGraphics;
+using JetStreamIOSFull.BaseVC;
 
-namespace JetStreamIOSFull
+namespace JetStreamIOSFull.Settings
 {
   public partial class SettingsViewControlle : BaseViewController
 	{

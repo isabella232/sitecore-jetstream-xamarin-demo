@@ -5,7 +5,7 @@ using System;
 using Foundation;
 using UIKit;
 
-namespace JetStreamIOSFull
+namespace JetStreamIOSFull.Menu
 {
   public partial class MainMenuProfileCell : MainMenuBaseCell
 	{

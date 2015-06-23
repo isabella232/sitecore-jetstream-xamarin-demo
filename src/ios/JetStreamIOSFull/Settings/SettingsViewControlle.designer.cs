@@ -7,7 +7,7 @@
 using Foundation;
 using System.CodeDom.Compiler;
 
-namespace JetStreamIOSFull
+namespace JetStreamIOSFull.Settings
 {
 	[Register ("SettingsViewControlle")]
 	partial class SettingsViewControlle

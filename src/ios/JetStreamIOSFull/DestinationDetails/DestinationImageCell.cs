@@ -5,7 +5,7 @@ using System;
 using Foundation;
 using UIKit;
 
-namespace JetStreamIOSFull
+namespace JetStreamIOSFull.DestinationDetails
 {
 	public partial class DestinationImageCell : UITableViewCell
 	{

@@ -4,8 +4,10 @@ using System;
 using Foundation;
 using UIKit;
 using JetStreamIOSFull.Helpers;
+using JetStreamIOSFull.BaseVC;
+using JetStreamIOSFull.Menu;
 
-namespace JetStreamIOSFull
+namespace JetStreamIOSFull.Navigation
 {
   public partial class NavigationManagerViewController : BaseViewController
   {

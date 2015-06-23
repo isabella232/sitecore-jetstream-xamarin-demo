@@ -11,8 +11,9 @@ using JetStreamCommons;
 using System.Collections;
 using System.Collections.Generic;
 using JetStreamIOSFull.Helpers;
+using JetStreamIOSFull.BaseVC;
 
-namespace JetStreamIOSFull
+namespace JetStreamIOSFull.DestinationDetails
 {
   public partial class DestinationDetailsViewController : BaseViewController
 	{

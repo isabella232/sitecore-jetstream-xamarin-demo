@@ -1,7 +1,7 @@
 ﻿using System;
 using UIKit;
 
-namespace JetStreamIOSFull
+namespace JetStreamIOSFull.Menu
 {
   public class MainMenuBaseCell : UITableViewCell
   {

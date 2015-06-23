@@ -5,6 +5,8 @@ using System;
 using Foundation;
 using UIKit;
 using JetStreamIOSFull.Helpers;
+using JetStreamIOSFull.Navigation;
+using JetStreamIOSFull.Menu;
 
 namespace JetStreamIOSFull
 {

@@ -4,8 +4,9 @@ using System;
 
 using Foundation;
 using UIKit;
+using JetStreamIOSFull.BaseVC;
 
-namespace JetStreamIOSFull
+namespace JetStreamIOSFull.NOTIMPLEMENTED
 {
   public partial class CheckInViewController : BaseViewController
 	{

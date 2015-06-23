@@ -5,7 +5,7 @@
 //
 using Foundation;
 
-namespace JetStreamIOSFull
+namespace JetStreamIOSFull.Navigation
 {
   [Register("NavigationManagerViewController")]
   partial class NavigationManagerViewController
