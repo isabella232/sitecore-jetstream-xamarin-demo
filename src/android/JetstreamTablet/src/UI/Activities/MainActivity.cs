@@ -102,7 +102,7 @@
       about.WithCheckable(false);
 
       var destinations = new PrimaryDrawerItem();
-      destinations.WithName(Resource.String.text_destinations_item);
+      destinations.WithName(Resource.String.menu_text_destinations);
       destinations.WithIcon(new IconicsDrawable(this, JetstreamIcons.Icon.Destinations).ColorRes(Resource.Color.color_primary));
       destinations.WithIdentifier(DestinationsMenuItemIdentifier);
       destinations.WithCheckable(false);
@@ -120,7 +120,7 @@
       checkIn.WithCheckable(false);
 
       var settings = new PrimaryDrawerItem();
-      settings.WithName(Resource.String.text_settings_item);
+      settings.WithName(Resource.String.menu_text_settings);
       settings.WithIcon(new IconicsDrawable(this, JetstreamIcons.Icon.Settings).ColorRes(Resource.Color.color_primary));
       settings.WithIdentifier(SettingsMenuItemIdentifier);
       settings.WithCheckable(false);

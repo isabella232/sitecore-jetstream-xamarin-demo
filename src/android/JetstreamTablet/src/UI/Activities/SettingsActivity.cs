@@ -35,7 +35,7 @@ namespace Jetstream.UI.Activities
     private void InitContentView()
     {
       this.toolbar = this.FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
-      this.toolbar.Title = this.GetString(Resource.String.text_settings_item);
+      this.toolbar.Title = this.GetString(Resource.String.menu_text_settings);
 
       this.SetSupportActionBar(this.toolbar);
 
