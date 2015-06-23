@@ -153,6 +153,7 @@
     <Compile Include="src\UI\Activities\DestinationActivity.cs" />
     <Compile Include="src\UI\Activities\MainActivity.cs" />
     <Compile Include="src\UI\Activities\SettingsActivity.cs" />
+    <Compile Include="src\UI\Fragments\CheckInFragment.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -201,6 +202,7 @@
     <AndroidResource Include="Resources\layout\activity_settings.axml" />
     <AndroidResource Include="Resources\layout\activity_destination_details.axml" />
     <AndroidResource Include="Resources\layout\fragment_about.axml" />
+    <AndroidResource Include="Resources\layout\fragment_check_in.axml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\activity_main.axml">
@@ -254,6 +256,7 @@
     <AndroidAsset Include="Assets\fonts\google_material_design.ttf" />
     <AndroidAsset Include="Assets\about_logo.jpg" />
     <AndroidAsset Include="Assets\fonts\jetstream_design.ttf" />
+    <AndroidAsset Include="Assets\check_in_logo.jpg" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

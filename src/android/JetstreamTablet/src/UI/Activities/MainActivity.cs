@@ -40,6 +40,7 @@
 
     private DestinationsOnMapFragment mapFragment;
     private AboutFragment aboutFragment;
+    private CheckInFragment checkInFragment;
     private Android.Support.V4.App.Fragment currentActiveFragment;
 
     protected override void OnCreate(Bundle savedInstanceState)
@@ -230,6 +231,23 @@
         case FlightStatusMenuItemIdentifier:
           break;
         case CheckInMenuItemIdentifier:
+          this.showRefreshMenuItem = false;
+          this.InvalidateOptionsMenu();
+
+          if (this.currentActiveFragment is CheckInFragment)
+          {
+            return false;
+          }
+
+          if (this.checkInFragment == null)
+          {
+            this.checkInFragment = new CheckInFragment();
+            this.SupportFragmentManager.BeginTransaction().Replace(Resource.Id.check_in_fragment_container, this.checkInFragment).Commit();
+          }
+
+          this.HideAndShowFragments(this.currentActiveFragment, this.checkInFragment);
+
+          this.currentActiveFragment = this.checkInFragment;
           break;
         case SettingsMenuItemIdentifier:
           this.StartActivity(typeof(SettingsActivity));
