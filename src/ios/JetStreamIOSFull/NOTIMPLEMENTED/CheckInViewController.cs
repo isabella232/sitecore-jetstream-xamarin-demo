@@ -19,7 +19,8 @@ namespace JetStreamIOSFull.NOTIMPLEMENTED
       base.ViewDidLoad();
 
       this.TopImageView.Image = this.Appearance.CheckIn.TopImage;
-      this.TitleLabel.Text = "Check In";
+      string name = NSBundle.MainBundle.LocalizedString("CHECK_IN_PLACEHOLDER_TITLE", null);
+      this.TitleLabel.Text = name;
     }
 	}
 }

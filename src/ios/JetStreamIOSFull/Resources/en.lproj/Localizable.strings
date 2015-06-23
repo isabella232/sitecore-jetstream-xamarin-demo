@@ -14,3 +14,7 @@
 "FLIGHT_STATUS_TITLE" = "Flight Status";
 "ONLINE_CHECKIN_TITLE" = "Online Checkin";
 "SETTINGS_TITLE" = "Settings";
+
+//DUMMY
+"CHECK_IN_PLACEHOLDER_TITLE" = "Check In";
+"FLIGHT_STATUS_PLACEHOLDER_TITLE" = "Flight Status";
