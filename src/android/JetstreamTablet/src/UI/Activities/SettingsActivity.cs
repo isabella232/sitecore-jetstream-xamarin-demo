@@ -13,7 +13,7 @@ namespace Jetstream.UI.Activities
   using Jetstream.Utils;
 
   [Activity(Theme = "@style/Settings.Activity.Theme")]
-  public class SettingsActivity : AppCompatActivity, Android.Views.View.IOnClickListener, TextView.IOnEditorActionListener
+  public class SettingsActivity : AppCompatActivity, View.IOnClickListener, TextView.IOnEditorActionListener
   {
     private Prefs prefs;
 
@@ -35,7 +35,7 @@ namespace Jetstream.UI.Activities
     private void InitContentView()
     {
       this.toolbar = this.FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
-      this.toolbar.Title = this.GetString(Resource.String.text_settings_item);
+      this.toolbar.Title = this.GetString(Resource.String.menu_text_settings);
 
       this.SetSupportActionBar(this.toolbar);
 
