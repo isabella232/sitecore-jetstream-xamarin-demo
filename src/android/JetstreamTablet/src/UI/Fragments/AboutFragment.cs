@@ -51,26 +51,17 @@ namespace Jetstream.UI.Fragments
     {
       base.OnHiddenChanged(hidden);
 
-      if (!hidden && this.refreshOnHiddenChanged)
+      if(!hidden && this.refreshOnHiddenChanged)
       {
         this.refreshOnHiddenChanged = false;
         this.LoadAboutItem();
-      }
-
-      if (hidden)
-      {
-        MessageBus.Default.DeRegister(this.refreshEventHandler);
-      }
-      else
-      {
-        MessageBus.Default.Register(this.refreshEventHandler);
       }
     }
 
     public override void OnStart()
     {
       base.OnStart();
-      if (this.aboutItem == null)
+      if(this.aboutItem == null)
       {
         this.LoadAboutItem();
       }
@@ -79,36 +70,44 @@ namespace Jetstream.UI.Fragments
         this.InitTextFields(this.aboutItem);
       }
 
-      if (this.refreshEventHandler == null)
+      if(this.refreshEventHandler == null)
       {
         this.refreshEventHandler = new MessageBusEventHandler()
         {
           EventId = EventIdsContainer.RefreshMenuActionClickedEvent,
           EventAction = (sender, evnt) =>
-              this.Activity.RunOnUiThread(this.LoadAboutItem)
+          {
+            if(this.IsHidden || this.IsRefreshing())
+            {
+              return;
+            }
+
+            this.Activity.RunOnUiThread(this.LoadAboutItem);
+          }
         };
       }
 
-      if (this.updateInstanceUrlEventHandler == null)
+      if(this.updateInstanceUrlEventHandler == null)
       {
         this.updateInstanceUrlEventHandler = new MessageBusEventHandler()
+        {
+          EventId = EventIdsContainer.SitecoreInstanceUrlUpdateEvent,
+          EventAction = (sender, evnt) =>
           {
-            EventId = EventIdsContainer.SitecoreInstanceUrlUpdateEvent,
-            EventAction = (sender, evnt) =>
+            if(this.IsHidden)
             {
-              if (this.IsHidden)
-              {
-                this.refreshOnHiddenChanged = true;
-              }
-
-              if (this.IsHidden || this.IsRefreshing())
-              {
-                return;;
-              }
-
-              this.Activity.RunOnUiThread(this.LoadAboutItem);
+              this.refreshOnHiddenChanged = true;
             }
-          };
+
+            if(this.IsHidden || this.IsRefreshing())
+            {
+              return;
+              ;
+            }
+
+            this.Activity.RunOnUiThread(this.LoadAboutItem);
+          }
+        };
       }
 
       MessageBus.Default.Register(this.refreshEventHandler);
@@ -154,7 +153,7 @@ namespace Jetstream.UI.Fragments
           this.aboutItem = await contentLoader.LoadAboutInfo();
         }
 
-        if (this.aboutItem != null)
+        if(this.aboutItem != null)
         {
           this.InitTextFields(this.aboutItem);
         }

@@ -69,15 +69,6 @@ namespace Jetstream.UI.Fragments
     {
       base.OnHiddenChanged(hidden);
 
-      if(hidden)
-      {
-        MessageBus.Default.DeRegister(this.refreshEventHandler);
-      }
-      else
-      {
-        MessageBus.Default.Register(this.refreshEventHandler);
-      }
-
       if(!hidden && this.refreshOnHiddenChanged)
       {
         this.refreshOnHiddenChanged = false;
@@ -243,7 +234,7 @@ namespace Jetstream.UI.Fragments
           EventAction = (sender, evnt) =>
               this.Activity.RunOnUiThread(delegate
             {
-              if(this.refresher.Refreshing && this.IsHidden)
+              if(this.refresher.Refreshing || this.IsHidden)
               {
                 return;
               }
