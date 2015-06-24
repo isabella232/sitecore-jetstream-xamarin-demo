@@ -2,6 +2,7 @@
 using Foundation;
 using Xamarin;
 using JetStreamIOSFull.MapUI;
+using JetStreamIOSFull.Helpers;
 
 
 namespace JetStreamIOSFull
@@ -22,7 +23,7 @@ namespace JetStreamIOSFull
             
     public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
     {
-      Insights.Initialize("2fbbc0afe754f165b9d3bb70c4c946d1f4900945");
+      AnalyticsHelper.InitializeAnalytics();
 
       var splitViewController = (MainSplitViewController)Window.RootViewController;
       splitViewController.PresentsWithGesture = false;

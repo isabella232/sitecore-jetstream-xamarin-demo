@@ -202,6 +202,7 @@
     </Compile>
     <Compile Include="Helpers\Appearance\CheckInAppearance.cs" />
     <Compile Include="Helpers\Appearance\FlightStatusAppearance.cs" />
+    <Compile Include="Helpers\AnalyticsHelper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\..\..\Solutions\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\..\Solutions\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
