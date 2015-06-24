@@ -40,3 +40,4 @@ packages
 *.exe
 *.dgml
 __pycache__/
+*.Cache

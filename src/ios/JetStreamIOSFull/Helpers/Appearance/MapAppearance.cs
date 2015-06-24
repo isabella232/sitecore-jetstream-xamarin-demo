@@ -14,7 +14,10 @@ namespace JetStreamIOSFull.Apearance
     {
       UIImage image = UIImage.FromBundle("Images.xcassets/DestinationPlaceholder.png");
       UIImage resizedImage = ImageHelper.ResizeImage(image, this.DestinationIconSize, this.DestinationIconSize);  
-      this.destinationPlaceholder = resizedImage;
+      if (resizedImage != null)
+      {
+        this.destinationPlaceholder = resizedImage;
+      }
     }
       
     public MKCoordinateRegion InitialRegion

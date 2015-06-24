@@ -6,3 +6,15 @@
 "DESTINATION_SCREEN_TITLE" = "Destinations";
 "SETTINGS_SCREEN_TITLE" = "Settings";
 "URL_HISTORY_SECTION_TITLE" = "Last visited URLs:";
+
+//menu
+"PROFILE_TITLE" = "Profile";
+"ABOUT_TITLE" = "About";
+"DESTINATIONS_TITLE" = "Destinations";
+"FLIGHT_STATUS_TITLE" = "Flight Status";
+"ONLINE_CHECKIN_TITLE" = "Online Checkin";
+"SETTINGS_TITLE" = "Settings";
+
+//DUMMY
+"CHECK_IN_PLACEHOLDER_TITLE" = "Check In";
+"FLIGHT_STATUS_PLACEHOLDER_TITLE" = "Flight Status";

@@ -19,7 +19,8 @@ namespace JetStreamIOSFull.NOTIMPLEMENTED
       base.ViewDidLoad();
 
       this.TopImageView.Image = this.Appearance.FlightStatus.TopImage;
-      this.TitleLabel.Text = "Flight Status";
+      string name = NSBundle.MainBundle.LocalizedString("FLIGHT_STATUS_PLACEHOLDER_TITLE", null);
+      this.TitleLabel.Text = name;
     }
 	}
 }

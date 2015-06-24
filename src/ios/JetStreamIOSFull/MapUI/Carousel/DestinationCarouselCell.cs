@@ -64,7 +64,9 @@ namespace JetStreamIOSFull
 
       this.ImageView.SetImage (
         url: new NSUrl (destination.ImageUrl),
-        completionHandler: (image, data, error, finished) =>
+        placeholder: null,
+        options: SDWebImageOptions.RetryFailed | SDWebImageOptions.LowPriority,
+        completionHandler: (image, error, cacheType, imageUrl) =>
       {
           InvokeOnMainThread(() =>
           {

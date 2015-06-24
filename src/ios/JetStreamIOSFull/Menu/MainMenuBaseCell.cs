@@ -39,7 +39,7 @@ namespace JetStreamIOSFull.Menu
       }
     }
 
-    public virtual void SetSelected(bool selected, bool animated)
+    public override void SetSelected(bool selected, bool animated)
     {
       throw new NotImplementedException("Must be implemented");
     }

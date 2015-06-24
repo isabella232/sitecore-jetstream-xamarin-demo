@@ -73,26 +73,29 @@ namespace JetStreamIOSFull.MapUI
 
     private void DownloadImage(string imagePath)
     {
-      if (this.appearanceHelper != null)
-      {
-        this.Image = this.appearanceHelper.Map.DestinationPlaceholder;
-      }
-
       if (this.imageView != null)
       {
+        this.Image = this.appearanceHelper.Map.DestinationPlaceholder;
+
         NSUrl imageUrl = new NSUrl (imagePath);
 
-        this.imageView.SetImage(
+        SDWebImageManager manager = SDWebImageManager.SharedManager;
+        manager.Download(
           url: imageUrl,
-          completionHandler: (image, data, error, finished) =>
+          options: SDWebImageOptions.RetryFailed | SDWebImageOptions.LowPriority,
+          progressHandler: (receivedSize, expectedSize) =>
           {
-            InvokeOnMainThread(() =>
+          },
+          completedHandler: (image, error, cacheType, finished, url) =>
+          {
+            float size = appearanceHelper.Map.DestinationIconSize;
+            UIImage resizedImage = ImageHelper.ResizeImage(image, size, size);  
+            if (resizedImage != null)
             {
-              float size = appearanceHelper.Map.DestinationIconSize;
-              UIImage resizedImage = ImageHelper.ResizeImage(image, size, size);  
               this.Image = resizedImage;
-            });
-          });
+            }
+          }
+        );
       }
     }
 

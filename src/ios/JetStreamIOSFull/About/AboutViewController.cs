@@ -17,7 +17,7 @@ namespace JetStreamIOSFull.About
 		{
 		}
 
-    public async override void ViewDidLoad()
+    public override void ViewDidLoad()
     {
       base.ViewDidLoad();
 
@@ -25,9 +25,21 @@ namespace JetStreamIOSFull.About
       this.WelcomeLabel.Text = "";
       this.MaainTextField.Text = "";
 
-      UIApplication.SharedApplication.NetworkActivityIndicatorVisible = true;
 
       this.TopImageView.Image = this.Appearance.About.Background;
+    }
+
+    public override void ViewWillAppear(bool animated)
+    {
+      base.ViewWillAppear(animated);
+
+      this.LoadInfo();
+    }
+
+    private async void LoadInfo()
+    {
+      UIApplication.SharedApplication.NetworkActivityIndicatorVisible = true;
+
       try
       {
         using (var session = this.Endpoint.GetSession())
@@ -55,7 +67,6 @@ namespace JetStreamIOSFull.About
       {
         UIApplication.SharedApplication.NetworkActivityIndicatorVisible = false;
       }
-
     }
 
     private void FillScreenWithAboutInfo(IAboutPageInfo info)

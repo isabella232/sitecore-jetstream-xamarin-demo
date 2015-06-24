@@ -78,16 +78,16 @@ namespace ActionSheetDatePicker {
       );
       this.datePicker.Frame = datePickerFrame;
 
-      titleLabel.Frame = new RectangleF (10, 10, owner.Frame.Width - 100, 35);
+      this.titleLabel.Frame = new RectangleF (10, 10, owner.Frame.Width - 100, 35);
       SizeF doneButtonSize = new SizeF (71, 30);
-      doneButton.Frame = new RectangleF (datePickerFrame.Width - doneButtonSize.Width - 10, 10, doneButtonSize.Width, doneButtonSize.Height);
+      this.doneButton.Frame = new RectangleF (datePickerFrame.Width - doneButtonSize.Width - 10, 10, doneButtonSize.Width, doneButtonSize.Height);
 
 
 			// add our controls to the action sheet
       this.backgroundView.AddSubview (this.dataView);
       this.dataView.AddSubview (this.DatePicker);
-      this.dataView.AddSubview (titleLabel);
-      this.dataView.AddSubview (doneButton);
+      this.dataView.AddSubview (this.titleLabel);
+      this.dataView.AddSubview (this.doneButton);
 		}
 		#endregion
 		

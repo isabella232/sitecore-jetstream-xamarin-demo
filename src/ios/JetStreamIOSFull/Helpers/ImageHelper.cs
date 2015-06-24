@@ -23,6 +23,11 @@ namespace JetStreamIOSFull.Helpers
 
     public static UIImage ResizeImage(UIImage sourceImage, float width, float height)
     {
+      if (sourceImage == null)
+      {
+        return null;
+      }
+
       UIGraphics.BeginImageContext(new SizeF(width, height));
       sourceImage.Draw(new RectangleF(0, 0, width, height));
       var resultImage = UIGraphics.GetImageFromCurrentImageContext();
