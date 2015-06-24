@@ -1,5 +1,3 @@
-using Xamarin;
-
 namespace Jetstream.UI.Activities
 {
   using System.Collections.Generic;

@@ -1,8 +1,4 @@
-﻿using Xamarin;
-using System.Collections.Generic;
-using Jetstream.Utils;
-
-namespace Jetstream.UI.Activities
+﻿namespace Jetstream.UI.Activities
 {
   using Android.App;
   using Android.Content.PM;
@@ -20,6 +16,7 @@ namespace Jetstream.UI.Activities
   using DSoft.Messaging;
   using Jetstream.Font;
   using Jetstream.UI.Fragments;
+  using Jetstream.Utils;
   using Sitecore.MobileSDK;
 
   [Activity(MainLauncher = true, Icon = "@drawable/icon", ScreenOrientation = ScreenOrientation.Landscape, Name = "net.sitecore.jetstream.MainActivity")]

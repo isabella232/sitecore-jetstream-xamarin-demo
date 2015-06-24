@@ -17,7 +17,7 @@
       : base(handle, ownerShip)
     {
 
-      AnalyticsHelper.InitializeAnalytics();
+      AnalyticsHelper.InitializeAnalytics(this);
       AppLog.InitLogger(this.GetString(Resource.String.app_name));
     }
 
