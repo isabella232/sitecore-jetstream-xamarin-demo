@@ -72,8 +72,7 @@ namespace Jetstream.UI.View
     {
       this.InitContentViews();
 
-      this.toolbar.Title = this.destination.DisplayName;
-      this.bodyTextView.Text = Html.FromHtml(this.destination.Overview).ToString();
+
 
       Picasso.With(this.activity).Load(this.destination.ImageUrl).Into(new DestinationImageTarget(this.destinationImageView, this));
     }
@@ -97,20 +96,24 @@ namespace Jetstream.UI.View
     private void InitContentViews()
     {
       this.toolbar = this.activity.FindViewById<Android.Support.V7.Widget.Toolbar>(Jetstream.Resource.Id.toolbar);
-      
+
+      this.toolbar.Title = this.destination.DisplayName;
       this.activity.SetSupportActionBar(this.toolbar);
 
-      this.toolbar.SetNavigationIcon(Jetstream.Resource.Drawable.abc_ic_ab_back_mtrl_am_alpha);
+      this.toolbar.SetNavigationIcon(Jetstream.Resource.Drawable.abc_ic_ab_back_mtrl_am_alpha);      
       this.toolbar.SetNavigationOnClickListener(this);
 
       this.flexibleSpaceImageHeight = this.activity.Resources.GetDimensionPixelSize(Jetstream.Resource.Dimension.flexible_space_image_height);
       this.actionBarSize = this.GetActionBarSize();
       this.headerBarHeight = this.activity.Resources.GetDimensionPixelSize(Jetstream.Resource.Dimension.header_bar_height);
+      
       // Even when the top gap has began to change, header bar still can move
       // within intersectionHeight.
       this.intersectionHeight = this.activity.Resources.GetDimensionPixelSize(Jetstream.Resource.Dimension.intersection_height);
 
       this.bodyTextView = this.activity.FindViewById<TextView>(Jetstream.Resource.Id.text_container);
+      this.bodyTextView.Text = Html.FromHtml(this.destination.Overview).ToString();
+
       this.destinationImageView = this.activity.FindViewById<ImageView>(Jetstream.Resource.Id.image);
       this.headerBar = this.activity.FindViewById<View>(Jetstream.Resource.Id.header_bar);
       this.headerBackground = this.activity.FindViewById<View>(Jetstream.Resource.Id.header_background);

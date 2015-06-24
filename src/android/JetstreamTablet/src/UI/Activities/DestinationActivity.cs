@@ -22,6 +22,8 @@ namespace Jetstream.UI.Activities
       base.OnCreate(bundle);
       this.SetContentView(Resource.Layout.activity_destination_details);
 
+      this.Title = "";
+
       Point point = new Point();
       this.WindowManager.DefaultDisplay.GetSize(point);
 
