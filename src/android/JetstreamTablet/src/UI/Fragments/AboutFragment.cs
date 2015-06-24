@@ -115,9 +115,9 @@ namespace Jetstream.UI.Fragments
       MessageBus.Default.Register(this.updateInstanceUrlEventHandler);
     }
 
-    public override void OnPause()
+    public override void OnDestroy()
     {
-      base.OnPause();
+      base.OnDestroy();
 
       MessageBus.Default.DeRegister(this.refreshEventHandler);
       MessageBus.Default.DeRegister(this.updateInstanceUrlEventHandler);
