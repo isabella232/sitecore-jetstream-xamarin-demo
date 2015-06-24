@@ -10,7 +10,6 @@ namespace Jetstream.UI.Fragments
   {
     private const string ImageUrl = "file:///android_asset/flight_status_logo.png";
 
-    private LinearLayout textFieldsContainer;
     private TextView flightStatusTitleTextView;
     private ImageView flightStatusLogoImageView;
 
@@ -31,7 +30,6 @@ namespace Jetstream.UI.Fragments
 
     private void InitViews(View root)
     {
-      this.textFieldsContainer = root.FindViewById<LinearLayout>(Resource.Id.text_fields_container);
       this.flightStatusTitleTextView = root.FindViewById<TextView>(Resource.Id.check_in_title_text);
       this.flightStatusLogoImageView = root.FindViewById<ImageView>(Resource.Id.check_in_image);
 
@@ -42,7 +40,7 @@ namespace Jetstream.UI.Fragments
 
     private void InitTextFields()
     {
-      this.flightStatusTitleTextView.Text = Resources.GetString(Resource.String.title_text_flight_status);
+      this.flightStatusTitleTextView.Text = this.Resources.GetString(Resource.String.title_text_flight_status);
     }
   }
 }

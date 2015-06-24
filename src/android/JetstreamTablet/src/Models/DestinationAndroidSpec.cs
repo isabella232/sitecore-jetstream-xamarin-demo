@@ -1,5 +1,9 @@
 namespace Jetstream.Models
 {
+  /// <summary>
+  /// This class is created for passing data between Android components.
+  /// It merges all it's members values into one string and parses back after transfer. 
+  /// </summary>
   public class DestinationAndroidSpec
   {
     public const char SplitSymbol = '|';

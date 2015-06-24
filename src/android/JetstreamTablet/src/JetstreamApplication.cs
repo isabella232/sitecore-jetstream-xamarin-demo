@@ -5,6 +5,10 @@
   using Android.Runtime;
   using Android.Util;
   using JetStreamCommons.Logging;
+  using Sitecore.MobileSDK;
+  using Sitecore.MobileSDK.API;
+  using Sitecore.MobileSDK.API.Session;
+  using Sitecore.MobileSDK.PasswordProvider.Android;
   using Squareup.Picasso;
 
   [Application(Theme = "@style/Jetstream.App.Theme")]
@@ -23,6 +27,23 @@
     public override void OnCreate()
     {
       base.OnCreate();
+    }
+
+    public ScApiSession Session
+    {
+      get
+      {
+        ISitecoreWebApiSession session = null;
+        using (var credentials = new SecureStringPasswordProvider("sitecore\\admin", "b"))
+        {
+          session = SitecoreWebApiSessionBuilder.AuthenticatedSessionWithHost(Prefs.From(this).InstanceUrl)
+                        .Credentials(credentials)
+                          .DefaultDatabase("web")
+                        .BuildSession();
+        }
+
+        return (ScApiSession)session;
+      }
     }
   }
 

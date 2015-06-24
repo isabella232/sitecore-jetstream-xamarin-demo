@@ -1,6 +1,3 @@
-using DSoft.Messaging;
-using com.dbeattie;
-
 namespace Jetstream.UI.Fragments
 {
   using System;
@@ -8,6 +5,8 @@ namespace Jetstream.UI.Fragments
   using Android.Support.V4.App;
   using Android.Views;
   using Android.Widget;
+  using com.dbeattie;
+  using DSoft.Messaging;
   using JetStreamCommons;
   using JetStreamCommons.About;
   using Sitecore.MobileSDK;
@@ -26,15 +25,12 @@ namespace Jetstream.UI.Fragments
 
     private ImageView aboutLogoImageView;
 
-    private ScApiSession session;
     private IAboutPageInfo aboutItem;
 
     MessageBusEventHandler refreshEventHandler;
+    MessageBusEventHandler updateInstanceUrlEventHandler;
 
-    public AboutFragment(ScApiSession session)
-    {
-      this.session = session;
-    }
+    bool refreshOnHiddenChanged = false;
 
     public override void OnCreate(Bundle savedInstanceState)
     {
@@ -44,7 +40,7 @@ namespace Jetstream.UI.Fragments
 
     public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-      var rootView = inflater.Inflate(Resource.Layout.fragment_about, container, false);
+      var rootView = inflater.Inflate(Jetstream.Resource.Layout.fragment_about, container, false);
 
       this.InitViews(rootView);
 
@@ -54,7 +50,14 @@ namespace Jetstream.UI.Fragments
     public override void OnHiddenChanged(bool hidden)
     {
       base.OnHiddenChanged(hidden);
-      if(hidden)
+
+      if (!hidden && this.refreshOnHiddenChanged)
+      {
+        this.refreshOnHiddenChanged = false;
+        this.LoadAboutItem();
+      }
+
+      if (hidden)
       {
         MessageBus.Default.DeRegister(this.refreshEventHandler);
       }
@@ -67,29 +70,49 @@ namespace Jetstream.UI.Fragments
     public override void OnStart()
     {
       base.OnStart();
-      if(this.aboutItem == null)
+      if (this.aboutItem == null)
       {
-        this.LoadAboutItem();  
+        this.LoadAboutItem();
       }
       else
       {
         this.InitTextFields(this.aboutItem);
       }
-    
-      if(this.refreshEventHandler == null)
+
+      if (this.refreshEventHandler == null)
       {
         this.refreshEventHandler = new MessageBusEventHandler()
         {
           EventId = EventIdsContainer.RefreshMenuActionClickedEvent,
           EventAction = (sender, evnt) =>
-              this.Activity.RunOnUiThread(delegate
-            {
-              this.LoadAboutItem();
-            })
+              this.Activity.RunOnUiThread(this.LoadAboutItem)
         };
       }
 
+      if (this.updateInstanceUrlEventHandler == null)
+      {
+        this.updateInstanceUrlEventHandler = new MessageBusEventHandler()
+          {
+            EventId = EventIdsContainer.SitecoreInstanceUrlUpdateEvent,
+            EventAction = (sender, evnt) =>
+            {
+              if (this.IsHidden)
+              {
+                this.refreshOnHiddenChanged = true;
+              }
+
+              if (this.IsHidden || this.IsRefreshing())
+              {
+                return;;
+              }
+
+              this.Activity.RunOnUiThread(this.LoadAboutItem);
+            }
+          };
+      }
+
       MessageBus.Default.Register(this.refreshEventHandler);
+      MessageBus.Default.Register(this.updateInstanceUrlEventHandler);
     }
 
     public override void OnPause()
@@ -97,18 +120,24 @@ namespace Jetstream.UI.Fragments
       base.OnPause();
 
       MessageBus.Default.DeRegister(this.refreshEventHandler);
+      MessageBus.Default.DeRegister(this.updateInstanceUrlEventHandler);
+    }
+
+    public bool IsRefreshing()
+    {
+      return this.progressBar.Visibility == ViewStates.Visible;
     }
 
     private void InitViews(View root)
     {
-      this.progressBar = root.FindViewById<ProgressBar>(Resource.Id.progress_bar);
-      this.textFieldsContainer = root.FindViewById<LinearLayout>(Resource.Id.text_fields_container);
+      this.progressBar = root.FindViewById<ProgressBar>(Jetstream.Resource.Id.progress_bar);
+      this.textFieldsContainer = root.FindViewById<LinearLayout>(Jetstream.Resource.Id.text_fields_container);
 
-      this.aboutTitleTextView = root.FindViewById<TextView>(Resource.Id.about_title_text);
-      this.aboutSummaryTextView = root.FindViewById<TextView>(Resource.Id.about_summary_text);
-      this.aboutBodyTextView = root.FindViewById<TextView>(Resource.Id.about_body_text);
+      this.aboutTitleTextView = root.FindViewById<TextView>(Jetstream.Resource.Id.about_title_text);
+      this.aboutSummaryTextView = root.FindViewById<TextView>(Jetstream.Resource.Id.about_summary_text);
+      this.aboutBodyTextView = root.FindViewById<TextView>(Jetstream.Resource.Id.about_body_text);
 
-      this.aboutLogoImageView = root.FindViewById<ImageView>(Resource.Id.about_image);
+      this.aboutLogoImageView = root.FindViewById<ImageView>(Jetstream.Resource.Id.about_image);
 
       Picasso.With(this.Activity).Load(ImageUrl).Into(this.aboutLogoImageView);
     }
@@ -118,15 +147,16 @@ namespace Jetstream.UI.Fragments
       try
       {
         this.progressBar.Visibility = ViewStates.Visible;
+        this.textFieldsContainer.Visibility = ViewStates.Invisible;
 
-        using (var contentLoader = new ContentLoader(this.session))
+        using (var contentLoader = new ContentLoader(this.GetSession()))
         {
           this.aboutItem = await contentLoader.LoadAboutInfo();
         }
 
-        if(this.aboutItem != null)
+        if (this.aboutItem != null)
         {
-          this.InitTextFields(aboutItem);
+          this.InitTextFields(this.aboutItem);
         }
       }
       catch (Exception ex)
@@ -135,11 +165,16 @@ namespace Jetstream.UI.Fragments
 
         SnackbarManager.Show(
           Snackbar.With(this.Activity)
-          .ActionLabel(Resources.GetString(Resource.String.error_text_retry))
-          .ActionColor(this.Resources.GetColor(Resource.Color.color_accent))
+          .ActionLabel(this.Resources.GetString(Jetstream.Resource.String.error_text_retry))
+          .ActionColor(this.Resources.GetColor(Jetstream.Resource.Color.color_accent))
           .ActionListener(this)
-          .Text(Resources.GetString(Resource.String.error_text_fail_to_load_about)));
+          .Text(this.Resources.GetString(Jetstream.Resource.String.error_text_fail_to_load_about)));
       }
+    }
+
+    private ScApiSession GetSession()
+    {
+      return (this.Activity.Application as JetstreamApplication).Session;
     }
 
     public void OnActionClicked(Snackbar snackbar)

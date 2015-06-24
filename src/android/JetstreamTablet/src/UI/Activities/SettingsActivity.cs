@@ -44,7 +44,6 @@ namespace Jetstream.UI.Activities
       this.toolbar.SetBackgroundResource(Resource.Color.color_primary);
 
       this.Title = "";
-
       this.InitSitecoreUrlField();
 
       this.applyButton = this.FindViewById<Button>(Resource.Id.button_apply);
@@ -69,23 +68,23 @@ namespace Jetstream.UI.Activities
       this.sitecoreUrlField.SetOnEditorActionListener(this);
     }
 
-    public bool OnActionItemClicked(Android.Support.V7.View.ActionMode mode, IMenuItem item)
+    public bool OnActionItemClicked(ActionMode mode, IMenuItem item)
     {
       return false;
     }
 
-    public bool OnCreateActionMode(Android.Support.V7.View.ActionMode mode, IMenu menu)
+    public bool OnCreateActionMode(ActionMode mode, IMenu menu)
     {
       this.toolbar.Visibility = ViewStates.Gone;
       return false;
     }
 
-    public void OnDestroyActionMode(Android.Support.V7.View.ActionMode mode)
+    public void OnDestroyActionMode(ActionMode mode)
     {
       this.toolbar.Visibility = ViewStates.Visible;
     }
 
-    public bool OnPrepareActionMode(Android.Support.V7.View.ActionMode mode, IMenu menu)
+    public bool OnPrepareActionMode(ActionMode mode, IMenu menu)
     {
       return false;
     }
@@ -111,13 +110,13 @@ namespace Jetstream.UI.Activities
       return false;
     }
 
-    public void OnClick(Android.Views.View v)
+    public void OnClick(View v)
     {
       this.Finish();
     }
   }
 
-  class HidingKeyboardAdapter : ArrayAdapter<string>, Android.Views.View.IOnTouchListener
+  class HidingKeyboardAdapter : ArrayAdapter<string>, View.IOnTouchListener
   {
     private readonly MaterialAutoCompleteTextView field;
 
@@ -157,7 +156,7 @@ namespace Jetstream.UI.Activities
       this.field = field;
     }
 
-    public override Android.Views.View GetView(int position, Android.Views.View convertView, ViewGroup parent)
+    public override View GetView(int position, View convertView, ViewGroup parent)
     {
       if (parent != null)
       {
@@ -167,7 +166,7 @@ namespace Jetstream.UI.Activities
       return base.GetView(position, convertView, parent);
     }
 
-    public bool OnTouch(Android.Views.View v, MotionEvent e)
+    public bool OnTouch(View v, MotionEvent e)
     {
       InputMethodManager imm = (InputMethodManager)this.Context.GetSystemService(Context.InputMethodService);
       imm.HideSoftInputFromWindow(this.field.WindowToken, 0);

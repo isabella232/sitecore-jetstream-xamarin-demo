@@ -27,10 +27,10 @@ namespace Jetstream.UI.Activities
       Point point = new Point();
       this.WindowManager.DefaultDisplay.GetSize(point);
 
-      var activtiyHeight = point.Y;
+      var activityHeight = point.Y;
 
       var param = this.Window.Attributes;
-      param.Height = (int) (activtiyHeight * ActivityHeight);
+      param.Height = (int) (activityHeight * ActivityHeight);
       param.Width = (int)this.Resources.GetDimension(Resource.Dimension.destination_dialog_width);
 
       this.Window.Attributes = param;

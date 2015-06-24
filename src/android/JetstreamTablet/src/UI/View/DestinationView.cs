@@ -232,13 +232,6 @@ namespace Jetstream.UI.View
           this.ChangeHeaderBackgroundHeight(height, to, heightOnGapHidden);
         };
 
-
-        //        animator.AddUpdateListener(new AnimatorImpl(delegate(ValueAnimator a)
-        //          {
-        //            var height = (float)a.AnimatedValue;
-        //            ChangeHeaderBackgroundHeight(height, to, heightOnGapHidden);
-        //          }));
-
         animator.Start();
       }
       else
