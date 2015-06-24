@@ -34,6 +34,9 @@ namespace Jetstream.UI.Fragments
     MapView mapView;
 
     MessageBusEventHandler updateInstanceUrlEventHandler;
+    MessageBusEventHandler refreshEventHandler;
+
+    bool refreshOnHiddenChanged = false;
 
     public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
@@ -60,6 +63,25 @@ namespace Jetstream.UI.Fragments
       }
 
       return view;
+    }
+
+    public override void OnHiddenChanged(bool hidden)
+    {
+      base.OnHiddenChanged(hidden);
+
+      if (hidden)
+      {
+        MessageBus.Default.DeRegister(this.refreshEventHandler);
+      }
+      else 
+      {
+        MessageBus.Default.Register(this.refreshEventHandler);
+      }
+
+      if(!hidden && this.refreshOnHiddenChanged)
+      {
+        this.LoadDestinations();
+      }
     }
 
     public void OnMapReady(GoogleMap googleMap)
@@ -113,7 +135,7 @@ namespace Jetstream.UI.Fragments
             .ActionLabel(Resources.GetString(Jetstream.Resource.String.error_text_retry))
             .ActionColor(this.Resources.GetColor(Jetstream.Resource.Color.color_accent))
             .ActionListener(this)
-            .Text(Resources.GetString(Jetstream.Resource.String.error_text_faile_to_load_destinations)));
+            .Text(Resources.GetString(Jetstream.Resource.String.error_text_fail_to_load_destinations)));
       }
     }
 
@@ -149,7 +171,7 @@ namespace Jetstream.UI.Fragments
       this.cardsContainer.ViewTreeObserver.GlobalLayout += this.CardsContainerViewTreeObserverGlobalLayout;
     }
 
-    void CardsContainerViewTreeObserverGlobalLayout (object sender, EventArgs e)
+    void CardsContainerViewTreeObserverGlobalLayout(object sender, EventArgs e)
     {
       DestinationsCardsAnimHelper.AnimateAppearance(this.cardsContainer);
       this.cardsContainer.ViewTreeObserver.GlobalLayout -= this.CardsContainerViewTreeObserverGlobalLayout;
@@ -207,30 +229,51 @@ namespace Jetstream.UI.Fragments
       base.OnResume();
 
       this.mapView.OnResume();
-      if (this.map == null)
+      if(this.map == null)
       {
         this.mapView.GetMapAsync(this);
       }
 
-      if (this.updateInstanceUrlEventHandler == null)
+      if(this.refreshEventHandler == null)
+      {
+        this.refreshEventHandler = new MessageBusEventHandler()
+          {
+            EventId = EventIdsContainer.RefreshMenuActionClickedEvent,
+            EventAction = (sender, evnt) =>
+              this.Activity.RunOnUiThread(delegate
+                {
+                  if(this.refresher.Refreshing && this.IsHidden)
+                  {
+                    return;
+                  }
+
+                  this.LoadDestinations();
+                })
+          };
+      }
+
+      if(this.updateInstanceUrlEventHandler == null)
       {
         this.updateInstanceUrlEventHandler = new MessageBusEventHandler()
         {
           EventId = EventIdsContainer.SitecoreInstanceUrlUpdateEvent,
           EventAction = (sender, evnt) =>
           this.Activity.RunOnUiThread(delegate
-          {
-            if (this.refresher.Refreshing)
             {
-              return;
-            }
+              this.refreshOnHiddenChanged = this.IsHidden;
 
-            this.LoadDestinations();
-          })
+              if(this.refresher.Refreshing)
+              {
+                return;
+              }
+
+              this.LoadDestinations();
+            })
         };
       }
 
       MessageBus.Default.Register(this.updateInstanceUrlEventHandler);
+      MessageBus.Default.Register(this.refreshEventHandler);
     }
 
     public override void OnDestroy()
@@ -239,6 +282,7 @@ namespace Jetstream.UI.Fragments
 
       this.mapView.OnDestroy();
       MessageBus.Default.DeRegister(this.updateInstanceUrlEventHandler);
+      MessageBus.Default.DeRegister(this.refreshEventHandler);
     }
 
     public override void OnPause()

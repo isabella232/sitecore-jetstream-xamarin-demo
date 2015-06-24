@@ -88,7 +88,7 @@
 
       this.Title = "";
       this.toolbar.InflateMenu(Resource.Menu.menu_main);
-      this.toolbar.MenuItemClick += (sender, e) => MessageBus.PostEvent(EventIdsContainer.SitecoreInstanceUrlUpdateEvent);
+      this.toolbar.MenuItemClick += (sender, e) => MessageBus.PostEvent(EventIdsContainer.RefreshMenuActionClickedEvent);
 
       this.SupportActionBar.SetDisplayHomeAsUpEnabled(true);
       this.SupportActionBar.SetHomeButtonEnabled(false);
@@ -194,7 +194,7 @@
       switch (drawerItem.Identifier)
       {
         case AboutMenuItemIdentifier:
-          this.showRefreshMenuItem = false;
+          this.showRefreshMenuItem = true;
           this.InvalidateOptionsMenu();
 
           if (this.currentActiveFragment is AboutFragment)

@@ -1,3 +1,6 @@
+using DSoft.Messaging;
+using com.dbeattie;
+
 namespace Jetstream.UI.Fragments
 {
   using System;
@@ -10,7 +13,7 @@ namespace Jetstream.UI.Fragments
   using Sitecore.MobileSDK;
   using Squareup.Picasso;
 
-  public class AboutFragment : Fragment
+  public class AboutFragment : Fragment, IActionClickListener
   {
     private const string ImageUrl = "file:///android_asset/about_logo.jpg";
 
@@ -25,6 +28,8 @@ namespace Jetstream.UI.Fragments
 
     private ScApiSession session;
     private IAboutPageInfo aboutItem;
+
+    MessageBusEventHandler refreshEventHandler;
 
     public AboutFragment(ScApiSession session)
     {
@@ -46,17 +51,52 @@ namespace Jetstream.UI.Fragments
       return rootView;
     }
 
+    public override void OnHiddenChanged(bool hidden)
+    {
+      base.OnHiddenChanged(hidden);
+      if(hidden)
+      {
+        MessageBus.Default.DeRegister(this.refreshEventHandler);
+      }
+      else
+      {
+        MessageBus.Default.Register(this.refreshEventHandler);
+      }
+    }
+
     public override void OnStart()
     {
       base.OnStart();
-      if (this.aboutItem == null) 
+      if(this.aboutItem == null)
       {
         this.LoadAboutItem();  
-      } 
-      else 
+      }
+      else
       {
         this.InitTextFields(this.aboutItem);
       }
+    
+      if(this.refreshEventHandler == null)
+      {
+        this.refreshEventHandler = new MessageBusEventHandler()
+        {
+          EventId = EventIdsContainer.RefreshMenuActionClickedEvent,
+          EventAction = (sender, evnt) =>
+              this.Activity.RunOnUiThread(delegate
+            {
+              this.LoadAboutItem();
+            })
+        };
+      }
+
+      MessageBus.Default.Register(this.refreshEventHandler);
+    }
+
+    public override void OnPause()
+    {
+      base.OnPause();
+
+      MessageBus.Default.DeRegister(this.refreshEventHandler);
     }
 
     private void InitViews(View root)
@@ -77,20 +117,34 @@ namespace Jetstream.UI.Fragments
     {
       try
       {
+        this.progressBar.Visibility = ViewStates.Visible;
+
         using (var contentLoader = new ContentLoader(this.session))
         {
           this.aboutItem = await contentLoader.LoadAboutInfo();
         }
 
-        if (this.aboutItem != null)
+        if(this.aboutItem != null)
         {
           this.InitTextFields(aboutItem);
         }
       }
       catch (Exception ex)
       {
-        //TODO: implement logging.
+        this.progressBar.Visibility = ViewStates.Gone;
+
+        SnackbarManager.Show(
+          Snackbar.With(this.Activity)
+          .ActionLabel(Resources.GetString(Resource.String.error_text_retry))
+          .ActionColor(this.Resources.GetColor(Resource.Color.color_accent))
+          .ActionListener(this)
+          .Text(Resources.GetString(Resource.String.error_text_fail_to_load_about)));
       }
+    }
+
+    public void OnActionClicked(Snackbar snackbar)
+    {
+      this.LoadAboutItem();
     }
 
     private void InitTextFields(IAboutPageInfo aboutItem)
