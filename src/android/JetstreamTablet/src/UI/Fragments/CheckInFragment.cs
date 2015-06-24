@@ -10,7 +10,6 @@ namespace Jetstream.UI.Fragments
   {
     private const string ImageUrl = "file:///android_asset/check_in_logo.jpg";
 
-    private LinearLayout textFieldsContainer;
     private TextView checkInTitleTextView;
     private ImageView checkInLogoImageView;
 
@@ -31,7 +30,6 @@ namespace Jetstream.UI.Fragments
 
     private void InitViews(View root)
     {
-      this.textFieldsContainer = root.FindViewById<LinearLayout>(Resource.Id.text_fields_container);
       this.checkInTitleTextView = root.FindViewById<TextView>(Resource.Id.check_in_title_text);
       this.checkInLogoImageView = root.FindViewById<ImageView>(Resource.Id.check_in_image);
 
@@ -42,7 +40,7 @@ namespace Jetstream.UI.Fragments
 
     private void InitTextFields()
     {
-      this.checkInTitleTextView.Text = Resources.GetString(Resource.String.title_text_check_in);
+      this.checkInTitleTextView.Text = this.Resources.GetString(Resource.String.title_text_check_in);
     }
   }
 }

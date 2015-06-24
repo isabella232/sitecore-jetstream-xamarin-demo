@@ -5,7 +5,10 @@
   using Android.Runtime;
   using Android.Util;
   using JetStreamCommons.Logging;
-  using Squareup.Picasso;
+  using Jetstream.Utils;
+  using Sitecore.MobileSDK;
+  using Sitecore.MobileSDK.API;
+  using Sitecore.MobileSDK.API.Session;
 
   [Application(Theme = "@style/Jetstream.App.Theme")]
   public class JetstreamApplication : Application
@@ -13,16 +16,25 @@
     public JetstreamApplication(IntPtr handle, JniHandleOwnership ownerShip)
       : base(handle, ownerShip)
     {
-#if DEBUG
-      Picasso.With(this).LoggingEnabled = true;
-#endif
 
+      AnalyticsHelper.InitializeAnalytics(this);
       AppLog.InitLogger(this.GetString(Resource.String.app_name));
     }
 
     public override void OnCreate()
     {
       base.OnCreate();
+    }
+
+    public ScApiSession Session
+    {
+      get
+      {
+        var session = SitecoreWebApiSessionBuilder.AnonymousSessionWithHost(Prefs.From(this).InstanceUrl)
+                        .DefaultDatabase("web")
+                        .BuildSession();
+        return (ScApiSession)session;
+      }
     }
   }
 
@@ -45,7 +57,7 @@
     {
       get
       {
-        if (_instance == null)
+        if(_instance == null)
         {
           throw new InvalidOperationException("Please init logger with InitLogger() before using it");
         }
@@ -54,7 +66,7 @@
       }
     }
 
-#if LOGGING
+    #if LOGGING
     public override void Debug(string tag, string message, params object[] args)
     {
       Log.Debug(tag, message, args);
@@ -74,7 +86,7 @@
     {
       Log.Debug(this.mainTag, message);
     }
-#endif
+    #endif
 
     public override void Error(string tag, string format, params object[] args)
     {

@@ -16,21 +16,25 @@
   using DSoft.Messaging;
   using Jetstream.Font;
   using Jetstream.UI.Fragments;
+  using Jetstream.Utils;
   using Sitecore.MobileSDK;
-  using Sitecore.MobileSDK.API;
-  using Sitecore.MobileSDK.API.Session;
-  using Sitecore.MobileSDK.PasswordProvider.Android;
 
   [Activity(MainLauncher = true, Icon = "@drawable/icon", ScreenOrientation = ScreenOrientation.Landscape, Name = "net.sitecore.jetstream.MainActivity")]
   public class MainActivity : AppCompatActivity, Drawer.IOnDrawerItemClickListener
   {
+    #region Drawer menu items identifiers
+
     private const int AboutMenuItemIdentifier = 1;
     private const int DestinationsMenuItemIdentifier = 2;
     private const int FlightStatusMenuItemIdentifier = 3;
     private const int CheckInMenuItemIdentifier = 4;
     private const int SettingsMenuItemIdentifier = 5;
 
+    #endregion
+
     private bool showRefreshMenuItem = true;
+
+    #region Views
 
     private Android.Support.V7.Widget.Toolbar toolbar;
 
@@ -38,11 +42,17 @@
     private Drawer drawer = null;
     private Prefs prefs;
 
+    #endregion
+
+    #region Fragments
+
     private DestinationsOnMapFragment mapFragment;
     private AboutFragment aboutFragment;
     private CheckInFragment checkInFragment;
     private FlightStatusFragment flightStatusFragment;
     private Android.Support.V4.App.Fragment currentActiveFragment;
+
+    #endregion
 
     protected override void OnCreate(Bundle savedInstanceState)
     {
@@ -81,6 +91,25 @@
       return base.OnPrepareOptionsMenu(menu);
     }
 
+    public override void OnBackPressed()
+    {
+      if (this.drawer != null && this.drawer.IsDrawerOpen)
+      {
+        this.drawer.CloseDrawer();
+      }
+      else
+      {
+        base.OnBackPressed();
+      }
+    }
+
+    protected override void OnSaveInstanceState(Bundle outState)
+    {
+      outState = this.drawer.SaveInstanceState(outState);
+      outState = this.header.SaveInstanceState(outState);
+      base.OnSaveInstanceState(outState);
+    }
+
     private void InitDrawer(Bundle savedInstanceState)
     {
       this.SetSupportActionBar(this.toolbar);
@@ -88,7 +117,11 @@
 
       this.Title = "";
       this.toolbar.InflateMenu(Resource.Menu.menu_main);
-      this.toolbar.MenuItemClick += (sender, e) => MessageBus.PostEvent(EventIdsContainer.SitecoreInstanceUrlUpdateEvent);
+      this.toolbar.MenuItemClick += (sender, e) =>
+      {
+        AnalyticsHelper.TrackRefreshButtonTouch();
+        MessageBus.PostEvent(EventIdsContainer.RefreshMenuActionClickedEvent);
+      };
 
       this.SupportActionBar.SetDisplayHomeAsUpEnabled(true);
       this.SupportActionBar.SetHomeButtonEnabled(false);
@@ -96,7 +129,7 @@
       this.PrepareHeader(savedInstanceState);
 
       var about = new PrimaryDrawerItem();
-      about.WithName(Resources.GetString(Resource.String.menu_text_about));
+      about.WithName(this.Resources.GetString(Resource.String.menu_text_about));
       about.WithIcon(new IconicsDrawable(this, JetstreamIcons.Icon.About).ColorRes(Resource.Color.color_primary));
       about.WithIdentifier(AboutMenuItemIdentifier);
       about.WithCheckable(false);
@@ -108,13 +141,13 @@
       destinations.WithCheckable(false);
 
       var flightStatus = new PrimaryDrawerItem();
-      flightStatus.WithName(Resources.GetString(Resource.String.menu_text_flight_status));
+      flightStatus.WithName(this.Resources.GetString(Resource.String.menu_text_flight_status));
       flightStatus.WithIcon(new IconicsDrawable(this, JetstreamIcons.Icon.FlightStatus).ColorRes(Resource.Color.color_primary));
       flightStatus.WithIdentifier(FlightStatusMenuItemIdentifier);
       flightStatus.WithCheckable(false);
 
       var checkIn = new PrimaryDrawerItem();
-      checkIn.WithName(Resources.GetString(Resource.String.menu_text_check_in));
+      checkIn.WithName(this.Resources.GetString(Resource.String.menu_text_check_in));
       checkIn.WithIcon(new IconicsDrawable(this, JetstreamIcons.Icon.OnlineCheckin).ColorRes(Resource.Color.color_primary));
       checkIn.WithIdentifier(CheckInMenuItemIdentifier);
       checkIn.WithCheckable(false);
@@ -161,25 +194,6 @@
       email.Visibility = ViewStates.Gone;
     }
 
-    public override void OnBackPressed()
-    {
-      if (this.drawer != null && this.drawer.IsDrawerOpen)
-      {
-        this.drawer.CloseDrawer();
-      }
-      else
-      {
-        base.OnBackPressed();
-      }
-    }
-
-    protected override void OnSaveInstanceState(Bundle outState)
-    {
-      outState = this.drawer.SaveInstanceState(outState);
-      outState = this.header.SaveInstanceState(outState);
-      base.OnSaveInstanceState(outState);
-    }
-
     public bool OnItemClick(AdapterView parent, View view, int position, long id, IDrawerItem drawerItem)
     {
       if (drawerItem == null)
@@ -194,7 +208,7 @@
       switch (drawerItem.Identifier)
       {
         case AboutMenuItemIdentifier:
-          this.showRefreshMenuItem = false;
+          this.showRefreshMenuItem = true;
           this.InvalidateOptionsMenu();
 
           if (this.currentActiveFragment is AboutFragment)
@@ -204,7 +218,7 @@
 
           if (this.aboutFragment == null)
           {
-            this.aboutFragment = new AboutFragment(this.Session);
+            this.aboutFragment = new AboutFragment();
             this.SupportFragmentManager.BeginTransaction().Replace(Resource.Id.about_fragment_container, this.aboutFragment).Commit();
           }
 
@@ -285,31 +299,9 @@
       this.SupportFragmentManager.BeginTransaction().Show(toShow).Commit();
     }
 
-    //TODO:
-    public ScApiSession Session
+    public ScApiSession GetSession()
     {
-      get
-      {
-        ISitecoreWebApiSession session = null;
-        //        if (isAuthentiated)
-        //        {
-        using (var credentials = new SecureStringPasswordProvider("sitecore\\admin", "b"))
-        {
-          session = SitecoreWebApiSessionBuilder.AuthenticatedSessionWithHost(this.prefs.InstanceUrl)
-                        .Credentials(credentials)
-                          .DefaultDatabase("web")
-                        .BuildSession();
-        }
-        //        }
-        //        else
-        //        {
-        //        session = SitecoreWebApiSessionBuilder.AnonymousSessionWithHost("jetstream800394rev150402.test24dk1.dk.sitecore.net")
-        //          .DefaultDatabase("web")
-        //            .BuildSession();
-        //        }
-
-        return (ScApiSession)session;
-      }
+      return (this.Application as JetstreamApplication).Session;
     }
   }
 }

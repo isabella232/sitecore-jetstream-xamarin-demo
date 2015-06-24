@@ -34,6 +34,9 @@ namespace Jetstream.UI.Fragments
     MapView mapView;
 
     MessageBusEventHandler updateInstanceUrlEventHandler;
+    MessageBusEventHandler refreshEventHandler;
+
+    bool refreshOnHiddenChanged = false;
 
     public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
@@ -60,6 +63,17 @@ namespace Jetstream.UI.Fragments
       }
 
       return view;
+    }
+
+    public override void OnHiddenChanged(bool hidden)
+    {
+      base.OnHiddenChanged(hidden);
+
+      if(!hidden && this.refreshOnHiddenChanged)
+      {
+        this.refreshOnHiddenChanged = false;
+        this.LoadDestinations();
+      }
     }
 
     public void OnMapReady(GoogleMap googleMap)
@@ -93,7 +107,7 @@ namespace Jetstream.UI.Fragments
       {
         this.refresher.Refreshing = true;
 
-        var loader = new DestinationsLoader(this.Activity.Session);
+        var loader = new DestinationsLoader(this.Activity.GetSession());
         var destinations = await loader.LoadOnlyDestinations();
         this.refresher.Refreshing = false;
 
@@ -104,16 +118,16 @@ namespace Jetstream.UI.Fragments
       }
       catch (Exception exception)
       {
-        Log.Error("Jetstream", Resources.GetString(Jetstream.Resource.String.error_log_text_failed_to_load_destinations) + exception.Message);
+        Log.Error("Jetstream", this.Resources.GetString(Jetstream.Resource.String.error_log_text_failed_to_load_destinations) + exception.Message);
 
         this.refresher.Refreshing = false;
 
         SnackbarManager.Show(
           Snackbar.With(this.Activity)
-            .ActionLabel(Resources.GetString(Jetstream.Resource.String.error_text_retry))
+            .ActionLabel(this.Resources.GetString(Jetstream.Resource.String.error_text_retry))
             .ActionColor(this.Resources.GetColor(Jetstream.Resource.Color.color_accent))
             .ActionListener(this)
-            .Text(Resources.GetString(Jetstream.Resource.String.error_text_faile_to_load_destinations)));
+            .Text(this.Resources.GetString(Jetstream.Resource.String.error_text_fail_to_load_destinations)));
       }
     }
 
@@ -140,7 +154,7 @@ namespace Jetstream.UI.Fragments
         destNameTextView.Text = destination.DisplayName;
         destNameTextView.SetBackgroundColor(this.Resources.GetColor(Jetstream.Resource.Color.color_primary_light));
 
-        Picasso.With(this.Activity).Load(destination.ImageUrl(this.Activity.Session)).Into(destImageView);
+        Picasso.With(this.Activity).Load(destination.ImageUrl(this.Activity.GetSession())).Into(destImageView);
 
         cardView.Click += (sender, args) => this.StartDestinationActivity(dest);
 
@@ -149,7 +163,7 @@ namespace Jetstream.UI.Fragments
       this.cardsContainer.ViewTreeObserver.GlobalLayout += this.CardsContainerViewTreeObserverGlobalLayout;
     }
 
-    void CardsContainerViewTreeObserverGlobalLayout (object sender, EventArgs e)
+    void CardsContainerViewTreeObserverGlobalLayout(object sender, EventArgs e)
     {
       DestinationsCardsAnimHelper.AnimateAppearance(this.cardsContainer);
       this.cardsContainer.ViewTreeObserver.GlobalLayout -= this.CardsContainerViewTreeObserverGlobalLayout;
@@ -157,7 +171,7 @@ namespace Jetstream.UI.Fragments
 
     private void AddDestinationsItems(List<IDestination> destinations)
     {
-      var clusterItems = destinations.Select(destination => new ClusterItem(destination, destination.ImageUrl(this.Activity.Session)))
+      var clusterItems = destinations.Select(destination => new ClusterItem(destination, destination.ImageUrl(this.Activity.GetSession())))
         .ToList();
 
       this.map.Clear();
@@ -170,10 +184,10 @@ namespace Jetstream.UI.Fragments
     private void StartDestinationActivity(IDestination dest)
     {
 
-      var parcebleDest = string.Join(DestinationAndroidSpec.SplitSymbol.ToString(), dest.ImageUrl(this.Activity.Session), dest.Overview, dest.DisplayName);
+      var stringDest = string.Join(DestinationAndroidSpec.SplitSymbol.ToString(), dest.ImageUrl(this.Activity.GetSession()), dest.Overview, dest.DisplayName);
 
       var intent = new Intent(this.Activity, typeof(DestinationActivity));
-      intent.PutExtra(DestinationActivity.DestinationParamIntentKey, parcebleDest);
+      intent.PutExtra(DestinationActivity.DestinationParamIntentKey, stringDest);
 
       this.StartActivity(intent);
     }
@@ -207,30 +221,51 @@ namespace Jetstream.UI.Fragments
       base.OnResume();
 
       this.mapView.OnResume();
-      if (this.map == null)
+      if(this.map == null)
       {
         this.mapView.GetMapAsync(this);
       }
 
-      if (this.updateInstanceUrlEventHandler == null)
+      if(this.refreshEventHandler == null)
+      {
+        this.refreshEventHandler = new MessageBusEventHandler()
+        {
+          EventId = EventIdsContainer.RefreshMenuActionClickedEvent,
+          EventAction = (sender, evnt) =>
+              this.Activity.RunOnUiThread(delegate
+            {
+              if(this.refresher.Refreshing || this.IsHidden)
+              {
+                return;
+              }
+
+              this.LoadDestinations();
+            })
+        };
+      }
+
+      if(this.updateInstanceUrlEventHandler == null)
       {
         this.updateInstanceUrlEventHandler = new MessageBusEventHandler()
         {
           EventId = EventIdsContainer.SitecoreInstanceUrlUpdateEvent,
           EventAction = (sender, evnt) =>
           this.Activity.RunOnUiThread(delegate
-          {
-            if (this.refresher.Refreshing)
             {
-              return;
-            }
+              this.refreshOnHiddenChanged = this.IsHidden;
 
-            this.LoadDestinations();
-          })
+              if(this.refresher.Refreshing || this.IsHidden)
+              {
+                return;
+              }
+
+              this.LoadDestinations();
+            })
         };
       }
 
       MessageBus.Default.Register(this.updateInstanceUrlEventHandler);
+      MessageBus.Default.Register(this.refreshEventHandler);
     }
 
     public override void OnDestroy()
@@ -239,6 +274,7 @@ namespace Jetstream.UI.Fragments
 
       this.mapView.OnDestroy();
       MessageBus.Default.DeRegister(this.updateInstanceUrlEventHandler);
+      MessageBus.Default.DeRegister(this.refreshEventHandler);
     }
 
     public override void OnPause()

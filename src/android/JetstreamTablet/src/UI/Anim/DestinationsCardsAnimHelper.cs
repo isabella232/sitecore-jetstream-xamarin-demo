@@ -1,6 +1,5 @@
 ﻿namespace Jetstream.UI.Anim
 {
-  using System;
   using Android.Animation;
   using Android.Views;
 
@@ -23,37 +22,9 @@
 
       set.SetDuration(AnimationDuration);
       set.SetTarget(layout);
+      set.AnimationStart += (sender, args) => layout.Visibility = ViewStates.Visible;
 
-      var listener = new AnimatorListenerImpl
-        {
-          AnimationStart = animator => layout.Visibility = ViewStates.Visible
-        };
-
-      set.AddListener(listener);
       return set;
-    }
-
-    private class AnimatorListenerImpl : AnimatorListenerAdapter
-    {
-      public Action<Animator> AnimationStart { get; set; }
-
-      public Action<Animator> AnimationEnd { get; set; }
-
-      public override void OnAnimationStart(Animator animation)
-      {
-        if(this.AnimationStart != null)
-        {
-          this.AnimationStart(animation);
-        }
-      }
-
-      public override void OnAnimationEnd(Animator animation)
-      {
-        if(this.AnimationEnd != null)
-        {
-          this.AnimationEnd(animation);
-        }
-      }
     }
   }
 }

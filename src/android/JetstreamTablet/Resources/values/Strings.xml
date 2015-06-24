@@ -15,7 +15,8 @@
 	<!-- Errors texts -->
 	<string name="error_wrong_url">Url should not be empty</string>
 	<string name="error_log_text_failed_to_load_destinations">Failed to load destinations. Reason: </string>
-	<string name="error_text_faile_to_load_destinations">Failed to load destinations, please check your internet connection.</string>
+	<string name="error_text_fail_to_load_destinations">Failed to load destinations, please check your internet connection.</string>
+	<string name="error_text_fail_to_load_about">Failed to load about item, please check your internet connection.</string>
 	<string name="error_text_retry">Retry</string>
 	
 	<!-- Drawer items texts -->

@@ -4,11 +4,6 @@ namespace Jetstream.Bitmap
 
   public static class BitmapUtils
   {
-    public static Bitmap GetCircledBitmapWithBorder(Bitmap source, Color borderColor, float strokeWidth)
-    {
-      return CreateCircledBitmap(source, borderColor, strokeWidth);
-    }
-
     public static Bitmap GetCircledBitmapWithTextIcon(Bitmap source, Color borderColor, float strokeWidth, string text, Color textColor, Color textCircleFillColor)
     {
       Bitmap output = CreateCircledBitmap(source, borderColor, strokeWidth);
@@ -71,7 +66,7 @@ namespace Jetstream.Bitmap
       return output;   
     }
 
-    public static Bitmap GetCirdcledBitmapWithBorder(Bitmap source, Color borderColor, float strokeWidth)
+    public static Bitmap GetCircledBitmapWithBorder(Bitmap source, Color borderColor, float strokeWidth)
     {
       int w = source.Width;
       int h = source.Height;
@@ -99,7 +94,6 @@ namespace Jetstream.Bitmap
       p.Color = borderColor;
       p.StrokeWidth = strokeWidth;
       c.DrawCircle((w / 2) + 4, (h / 2) + 4, radius, p);
-
     
       return output;
     }
