@@ -19,6 +19,8 @@
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\solutions\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
+    <ReleaseVersion>0.9</ReleaseVersion>
+    <SynchReleaseVersion>false</SynchReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -131,6 +133,9 @@
     <Reference Include="material-drawer-3.0.7">
       <HintPath>..\..\..\solutions\packages\Mikepenz.MaterialDrawer.Xamarin.Android.3.0.7\lib\MonoAndroid\material-drawer-3.0.7.dll</HintPath>
     </Reference>
+    <Reference Include="Xamarin.Insights">
+      <HintPath>..\..\..\solutions\packages\Xamarin.Insights.1.10.4.112\lib\MonoAndroid10\Xamarin.Insights.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Resources\Resource.designer.cs" />
@@ -155,6 +160,7 @@
     <Compile Include="src\UI\Activities\SettingsActivity.cs" />
     <Compile Include="src\UI\Fragments\CheckInFragment.cs" />
     <Compile Include="src\UI\Fragments\FlightStatusFragment.cs" />
+    <Compile Include="src\Utils\AnalyticsHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

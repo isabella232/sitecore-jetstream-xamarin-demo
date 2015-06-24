@@ -1,3 +1,5 @@
+using Xamarin;
+
 namespace Jetstream.UI.Activities
 {
   using System.Collections.Generic;
@@ -93,6 +95,11 @@ namespace Jetstream.UI.Activities
     {
       if (this.sitecoreUrlField.Validate())
       {
+        if (this.sitecoreUrlField.Text != this.prefs.InstanceUrl)
+        {
+          AnalyticsHelper.TrackUrlChanged();  
+        }
+
         this.prefs.InstanceUrl = this.sitecoreUrlField.Text;
         MessageBus.PostEvent(EventIdsContainer.SitecoreInstanceUrlUpdateEvent);
         this.Finish();

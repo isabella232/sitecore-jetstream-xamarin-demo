@@ -1,4 +1,8 @@
-﻿namespace Jetstream.UI.Activities
+﻿using Xamarin;
+using System.Collections.Generic;
+using Jetstream.Utils;
+
+namespace Jetstream.UI.Activities
 {
   using Android.App;
   using Android.Content.PM;
@@ -116,7 +120,11 @@
 
       this.Title = "";
       this.toolbar.InflateMenu(Resource.Menu.menu_main);
-      this.toolbar.MenuItemClick += (sender, e) => MessageBus.PostEvent(EventIdsContainer.RefreshMenuActionClickedEvent);
+      this.toolbar.MenuItemClick += (sender, e) =>
+      {
+        AnalyticsHelper.TrackRefreshButtonTouch();
+        MessageBus.PostEvent(EventIdsContainer.RefreshMenuActionClickedEvent);
+      };
 
       this.SupportActionBar.SetDisplayHomeAsUpEnabled(true);
       this.SupportActionBar.SetHomeButtonEnabled(false);
