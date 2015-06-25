@@ -21,6 +21,9 @@ namespace JetStreamIOSFull.Navigation
     private UINavigationController CurentActiveFlow;
 
     private UIView overlayView = null;
+    private bool canShowMenu = true;
+
+    private UIScreenEdgePanGestureRecognizer LeftEdgePanGesture;
 
     public NavigationManagerViewController(IntPtr handle) : base(handle)
     {
@@ -47,9 +50,10 @@ namespace JetStreamIOSFull.Navigation
     public void HideOverlay()
     {
       this.overlayView.RemoveFromSuperview();
+      this.canShowMenu = true;
     }
       
-    public  UIBarButtonItem MenuButton
+    public UIBarButtonItem MenuButton
     {
       get
       { 
@@ -75,13 +79,32 @@ namespace JetStreamIOSFull.Navigation
     public override void DidReceiveMemoryWarning()
     {
       base.DidReceiveMemoryWarning();
-      
     }
 
     public override void ViewDidLoad()
     {
       base.ViewDidLoad();
       this.InitializeOverlay();
+
+      this.LeftEdgePanGesture = new UIScreenEdgePanGestureRecognizer();
+      this.LeftEdgePanGesture.Edges = UIRectEdge.Left;
+      this.LeftEdgePanGesture.AddTarget(() => LeftEdgePanDetected(this.LeftEdgePanGesture));
+      this.PanView.AddGestureRecognizer(this.LeftEdgePanGesture);
+
+    }
+
+    private void LeftEdgePanDetected (UIScreenEdgePanGestureRecognizer sender)
+    {
+      if (this.canShowMenu == true)
+      {
+        this.canShowMenu = false;
+        this.ShowMasterPanel();
+      }
+    }
+
+    private void ShowMasterPanel()
+    {
+      this.MenuButton.Target.PerformSelector(this.MenuButton.Action, this.MenuButton);
     }
 
     public void LoadNavigationFlows()
@@ -158,7 +181,7 @@ namespace JetStreamIOSFull.Navigation
 
       this.View.AddSubview(NewFlow.View);
       this.CurentActiveFlow = NewFlow;
-
+      this.View.BringSubviewToFront(this.PanView);
     }
 
   }
