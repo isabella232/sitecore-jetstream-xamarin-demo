@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -22,56 +23,57 @@
                 android:paddingBottom="8dp"
                 android:scaleType="centerCrop" />
 
-            <FrameLayout
+            <LinearLayout
+                android:id="@+id/text_fields_container"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
                 android:paddingLeft="@dimen/margin_standard"
                 android:paddingRight="@dimen/margin_standard">
 
-                <ProgressBar
-                    android:id="@+id/progress_bar"
-                    style="@style/Widget.AppCompat.ProgressBar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center" />
-
-                <LinearLayout
-                    android:id="@+id/text_fields_container"
+                <TextView
+                    android:id="@+id/about_title_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:visibility="invisible">
+                    android:paddingLeft="@dimen/about_text_fields_left"
+                    android:paddingTop="@dimen/margin_standard"
+                    android:textColor="@color/color_primary"
+                    android:textSize="40sp" />
 
-                    <TextView
-                        android:id="@+id/about_title_text"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="@dimen/about_text_fields_left"
-                        android:paddingTop="@dimen/margin_standard"
-                        android:textColor="@color/color_primary"
-                        android:textSize="40sp" />
+                <TextView
+                    android:id="@+id/about_summary_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="16dp"
+                    android:paddingLeft="@dimen/about_text_fields_left"
+                    android:paddingTop="@dimen/margin_standard"
+                    android:textColor="@color/color_primary"
+                    android:textSize="23sp" />
 
-                    <TextView
-                        android:id="@+id/about_summary_text"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingBottom="16dp"
-                        android:paddingLeft="@dimen/about_text_fields_left"
-                        android:paddingTop="@dimen/margin_standard"
-                        android:textColor="@color/color_primary"
-                        android:textSize="23sp" />
-
-                    <TextView
-                        android:id="@+id/about_body_text"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingBottom="@dimen/margin_standard"
-                        android:paddingLeft="@dimen/about_text_fields_left"
-                        android:paddingRight="@dimen/about_text_fields_right"
-                        android:textColor="@color/color_primary"
-                        android:textSize="18sp" />
-                </LinearLayout>
-            </FrameLayout>
+                <TextView
+                    android:id="@+id/about_body_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/margin_standard"
+                    android:paddingLeft="@dimen/about_text_fields_left"
+                    android:paddingRight="@dimen/about_text_fields_right"
+                    android:textColor="@color/color_primary"
+                    android:textSize="18sp" />
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
-</LinearLayout>
+
+    <com.lsjwzh.widget.materialloadingprogressbar.CircleProgressBar
+        android:id="@+id/refresher"
+        android:layout_width="@dimen/destinations_fragment_progress_bar_width"
+        android:layout_height="@dimen/destinations_fragment_progress_bar_width"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        app:mlpb_arrow_height="5dp"
+        app:mlpb_arrow_width="8dp"
+        android:visibility="visible"
+        app:mlpb_background_color="@color/color_accent"
+        app:mlpb_enable_circle_background="true"
+        app:mlpb_progress_stoke_width="4dp"
+        app:mlpb_show_arrow="true" />
+</FrameLayout>

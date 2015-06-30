@@ -6,6 +6,7 @@ namespace Jetstream.UI.Fragments
   using Android.Views;
   using Android.Widget;
   using com.dbeattie;
+  using Com.Lsjwzh.Widget.Materialloadingprogressbar;
   using DSoft.Messaging;
   using JetStreamCommons;
   using JetStreamCommons.About;
@@ -16,7 +17,7 @@ namespace Jetstream.UI.Fragments
   {
     private const string ImageUrl = "file:///android_asset/about_logo.jpg";
 
-    private ProgressBar progressBar;
+    private CircleProgressBar progressBar;
     private LinearLayout textFieldsContainer;
 
     private TextView aboutTitleTextView;
@@ -129,7 +130,7 @@ namespace Jetstream.UI.Fragments
 
     private void InitViews(View root)
     {
-      this.progressBar = root.FindViewById<ProgressBar>(Jetstream.Resource.Id.progress_bar);
+      this.progressBar = root.FindViewById<CircleProgressBar>(Jetstream.Resource.Id.refresher);
       this.textFieldsContainer = root.FindViewById<LinearLayout>(Jetstream.Resource.Id.text_fields_container);
 
       this.aboutTitleTextView = root.FindViewById<TextView>(Jetstream.Resource.Id.about_title_text);
@@ -146,7 +147,6 @@ namespace Jetstream.UI.Fragments
       try
       {
         this.progressBar.Visibility = ViewStates.Visible;
-        this.textFieldsContainer.Visibility = ViewStates.Invisible;
 
         using (var contentLoader = new ContentLoader(this.GetSession()))
         {
@@ -157,6 +157,8 @@ namespace Jetstream.UI.Fragments
         {
           this.InitTextFields(this.aboutItem);
         }
+
+        this.progressBar.Visibility = ViewStates.Gone;
       }
       catch (Exception ex)
       {
