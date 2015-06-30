@@ -1,5 +1,3 @@
-using Com.Lsjwzh.Widget.Materialloadingprogressbar;
-
 namespace Jetstream.UI.Fragments
 {
   using System;
@@ -16,6 +14,7 @@ namespace Jetstream.UI.Fragments
   using Android.Views;
   using Android.Widget;
   using com.dbeattie;
+  using Com.Lsjwzh.Widget.Materialloadingprogressbar;
   using DSoft.Messaging;
   using JetStreamCommons;
   using Jetstream.Map;
