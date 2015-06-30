@@ -35,6 +35,7 @@
         android:layout_marginTop="10dp"
         app:mlpb_arrow_height="5dp"
         app:mlpb_arrow_width="8dp"
+        android:visibility="gone"
         app:mlpb_background_color="@color/color_accent"
         app:mlpb_enable_circle_background="true"
         app:mlpb_progress_stoke_width="4dp"

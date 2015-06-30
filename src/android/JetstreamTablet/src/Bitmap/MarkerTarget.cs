@@ -35,8 +35,8 @@ namespace Jetstream.Bitmap
       }
       catch (Java.Lang.RuntimeException exception)
       {
-        //TODO: Original cause is that we are trying to update marker's icon after that marker was removed from map.
-        // There is no clear way to detect whether marker still exists on map.
+        //Original cause is that we are trying to update marker's icon after that marker was removed from map.
+        //There is no clear way to detect whether marker still exists on map.
       }
     }
 

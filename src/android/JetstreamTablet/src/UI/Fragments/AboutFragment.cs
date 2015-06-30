@@ -103,7 +103,6 @@ namespace Jetstream.UI.Fragments
             if(this.IsHidden || this.IsRefreshing())
             {
               return;
-              ;
             }
 
             this.Activity.RunOnUiThread(this.LoadAboutItem);
@@ -163,6 +162,8 @@ namespace Jetstream.UI.Fragments
       catch (Exception ex)
       {
         this.progressBar.Visibility = ViewStates.Gone;
+
+        AppLog.Logger.Error(this.Resources.GetString(Jetstream.Resource.String.error_text_fail_to_load_about), ex);
 
         SnackbarManager.Show(
           Snackbar.With(this.Activity)

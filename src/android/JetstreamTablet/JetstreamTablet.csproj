@@ -103,9 +103,6 @@
     <Reference Include="GoogleMapsUtility-0.3.4">
       <HintPath>libs\GoogleMapsUtility-0.3.4.dll</HintPath>
     </Reference>
-    <Reference Include="Xamarin.Android.Support.v7.Palette">
-      <HintPath>..\..\..\solutions\packages\Xamarin.Android.Support.v7.Palette.22.1.1.1\lib\MonoAndroid403\Xamarin.Android.Support.v7.Palette.dll</HintPath>
-    </Reference>
     <Reference Include="android-iconics-1.0.2">
       <HintPath>..\..\..\solutions\packages\Mikepenz.Android.Iconics.Xamarin.Binding.1.0.2\lib\MonoAndroid\android-iconics-1.0.2.dll</HintPath>
     </Reference>
@@ -153,6 +150,9 @@
     </Reference>
     <Reference Include="Xamarin.GooglePlayServices.Location">
       <HintPath>..\..\..\solutions\packages\Xamarin.GooglePlayServices.Location.25.0.0.0\lib\MonoAndroid41\Xamarin.GooglePlayServices.Location.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Android.Support.v7.Palette">
+      <HintPath>..\..\..\solutions\packages\Xamarin.Android.Support.v7.Palette.22.2.0.0\lib\MonoAndroid403\Xamarin.Android.Support.v7.Palette.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

@@ -59,7 +59,7 @@ namespace Jetstream.UI.Fragments
       }
       catch (GooglePlayServicesNotAvailableException e)
       {
-        //TODO: Log error here
+        AppLog.Logger.Error("Google Play Services not avalible on this device.", e);
       }
 
       return view;
@@ -120,7 +120,7 @@ namespace Jetstream.UI.Fragments
       }
       catch (Exception exception)
       {
-        Log.Error("Jetstream", this.Resources.GetString(Jetstream.Resource.String.error_log_text_failed_to_load_destinations) + exception.Message);
+        AppLog.Logger.Error(this.Resources.GetString(Jetstream.Resource.String.error_log_text_failed_to_load_destinations), exception.Message);
 
         this.refresher.Visibility = ViewStates.Gone;
 
