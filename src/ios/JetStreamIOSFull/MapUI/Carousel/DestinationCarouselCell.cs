@@ -60,6 +60,7 @@ namespace JetStreamIOSFull
     {
       this.ApplyUISettings();
       this.TitleLabel.Text = destination.Title;
+
       this.ShowEmptyCellWithAnimation();
 
       this.ImageView.SetImage (
@@ -79,14 +80,12 @@ namespace JetStreamIOSFull
       {
         InvokeOnMainThread(() =>
         {
-
           UIView.AnimateNotify(animationDuration, () =>
           {
             this.ContainerView.Alpha = 1.0f;
           }, 
             new UICompletionHandler((bool fn) =>{})
           );
-
         });
       });
     }

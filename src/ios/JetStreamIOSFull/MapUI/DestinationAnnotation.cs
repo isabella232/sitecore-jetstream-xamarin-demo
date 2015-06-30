@@ -26,7 +26,6 @@ namespace JetStreamIOSFull.MapUI
       this.Destination = destination;
 
       CLLocationCoordinate2D coordinates = new CLLocationCoordinate2D(destination.Latitude, destination.Longitude);
-
      
       string imagePath = destination.ImagePath;
       this.imageUrl = SitecoreWebApiSessionExt.MediaDownloadUrl(instanceUrl, imagePath);

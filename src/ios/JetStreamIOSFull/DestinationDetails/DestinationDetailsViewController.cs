@@ -86,10 +86,7 @@ namespace JetStreamIOSFull.DestinationDetails
     {
       this.TitleLabel.Text = destination.DisplayName;
 
-      string clearedText = destination.Overview.Replace(System.Environment.NewLine, " ");
-      this.DestinationDescription.Text = clearedText;
-      this.DestinationDescription.Font = this.Appearance.Map.DestinationDetailsDescriptionFont;
-      this.DestinationDescription.TextAlignment = UITextAlignment.Justified;
+      this.WebDestinationDescroption.LoadHtmlString(destination.Overview, null);
     }
       
 	}
