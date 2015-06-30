@@ -9,6 +9,7 @@
   using Sitecore.MobileSDK;
   using Sitecore.MobileSDK.API;
   using Sitecore.MobileSDK.API.Session;
+  using Square.Picasso;
 
   [Application(Theme = "@style/Jetstream.App.Theme")]
   public class JetstreamApplication : Application
@@ -18,6 +19,11 @@
     {
 
       AnalyticsHelper.InitializeAnalytics(this);
+
+      #if DEBUG
+      Picasso.With(this).LoggingEnabled = true;
+      #endif
+
       AppLog.InitLogger(this.GetString(Resource.String.app_name));
     }
 

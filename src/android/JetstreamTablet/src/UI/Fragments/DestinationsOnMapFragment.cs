@@ -21,6 +21,7 @@ namespace Jetstream.UI.Fragments
   using Jetstream.Models;
   using Jetstream.UI.Activities;
   using Jetstream.UI.Anim;
+  using Jetstream.Utils;
   using JetStreamCommons.Destinations;
   using Square.Picasso;
 
@@ -111,6 +112,8 @@ namespace Jetstream.UI.Fragments
         this.refresher.Visibility = ViewStates.Gone;
 
         var destWithLocation = this.FilterDestinationByLocation(destinations);
+
+        PicassoUtils.ClearCache(destWithLocation, this.Activity);
 
         this.AddDestinationsItems(destWithLocation);
         this.InitDestinationsCards(destWithLocation);
