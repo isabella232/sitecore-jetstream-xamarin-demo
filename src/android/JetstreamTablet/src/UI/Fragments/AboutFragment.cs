@@ -10,7 +10,7 @@ namespace Jetstream.UI.Fragments
   using JetStreamCommons;
   using JetStreamCommons.About;
   using Sitecore.MobileSDK;
-  using Squareup.Picasso;
+  using Square.Picasso;
 
   public class AboutFragment : Fragment, IActionClickListener
   {

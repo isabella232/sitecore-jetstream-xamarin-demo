@@ -9,7 +9,7 @@ namespace Jetstream.Map
   using Android.Graphics;
   using Java.Lang;
   using Jetstream.Bitmap;
-  using Squareup.Picasso;
+  using Square.Picasso;
 
   public class JetstreamClusterRenderer : DefaultClusterRenderer
   {

@@ -4,7 +4,7 @@ namespace Jetstream.Bitmap
   using Android.Gms.Maps.Model;
   using Android.Graphics;
   using Android.Graphics.Drawables;
-  using Squareup.Picasso;
+  using Square.Picasso;
 
   public class MarkerTarget : Java.Lang.Object, ITarget
   {

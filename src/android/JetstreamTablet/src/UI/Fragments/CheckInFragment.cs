@@ -4,7 +4,7 @@ namespace Jetstream.UI.Fragments
   using Android.Support.V4.App;
   using Android.Views;
   using Android.Widget;
-  using Squareup.Picasso;
+  using Square.Picasso;
 
   public class CheckInFragment : Fragment
   {

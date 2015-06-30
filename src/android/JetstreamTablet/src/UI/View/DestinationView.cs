@@ -13,7 +13,7 @@ namespace Jetstream.UI.View
   using Java.Lang;
   using Jetstream.Models;
   using Jetstream.UI.Activities;
-  using Squareup.Picasso;
+  using Square.Picasso;
   using Xamarin.Android.ObservableScrollView;
   using Xamarin.NineOldAndroids.Animations;
   using Xamarin.NineOldAndroids.Views;
