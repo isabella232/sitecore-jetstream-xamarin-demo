@@ -81,9 +81,7 @@ namespace JetStreamIOSFull.MapUI
     public override void SetCoordinate(CLLocationCoordinate2D coordinate)
     {
       WillChangeValue("coordinate");
-
       this.coord = coordinate;
-
       DidChangeValue("coordinate");
     }
 
@@ -99,12 +97,10 @@ namespace JetStreamIOSFull.MapUI
         {
           InvokeOnMainThread(() =>
           {
-
             UIView.AnimateNotify(duration, 0.0, springDampingRatio, initialSpringVelocity, UIViewAnimationOptions.AllowUserInteraction, () =>
             {
               this.SetCoordinate(coordinate);
             }, completion);
-
           });
         });
       }

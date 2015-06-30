@@ -20,6 +20,7 @@
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="RgM-jM-jb7">
                                 <rect key="frame" x="0.0" y="64" width="600" height="600"/>
+                                <gestureRecognizers/>
                             </mapView>
                             <collectionView multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="lpw-mn-vMc">
                                 <rect key="frame" x="0.0" y="420" width="600" height="180"/>
@@ -612,8 +613,25 @@
                     <view key="view" contentMode="scaleToFill" id="qN5-dI-FhD">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mNp-nN-3WO">
+                                <rect key="frame" x="0.0" y="0.0" width="10" height="600"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="10" id="mkx-t1-YfD"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" red="0.079041270220000001" green="1" blue="0.030981624910000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="mNp-nN-3WO" firstAttribute="leading" secondItem="qN5-dI-FhD" secondAttribute="leading" id="3zJ-8s-7X7"/>
+                            <constraint firstItem="e3A-ke-dN3" firstAttribute="top" secondItem="mNp-nN-3WO" secondAttribute="bottom" id="4ag-8r-wk3"/>
+                            <constraint firstItem="mNp-nN-3WO" firstAttribute="top" secondItem="qN5-dI-FhD" secondAttribute="top" id="MJM-Qp-O3p"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="PanView" destination="mNp-nN-3WO" id="CuO-SP-LKb"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mTd-qh-m2d" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

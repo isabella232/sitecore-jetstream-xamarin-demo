@@ -26,11 +26,6 @@ namespace JetStreamIOSFull.MapUI
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (RefreshButton != null) {
-				RefreshButton.Dispose ();
-				RefreshButton = null;
-			}
-
 			if (DetailsCarousel != null) {
 				DetailsCarousel.Dispose ();
 				DetailsCarousel = null;
@@ -39,6 +34,11 @@ namespace JetStreamIOSFull.MapUI
 			if (map != null) {
 				map.Dispose ();
 				map = null;
+			}
+
+			if (RefreshButton != null) {
+				RefreshButton.Dispose ();
+				RefreshButton = null;
 			}
 		}
 	}

@@ -66,13 +66,7 @@ namespace JetStreamIOSFull
         url: new NSUrl (destination.ImageUrl),
         placeholder: null,
         options: SDWebImageOptions.RetryFailed | SDWebImageOptions.LowPriority,
-        completionHandler: (image, error, cacheType, imageUrl) =>
-      {
-          InvokeOnMainThread(() =>
-          {
-            this.ShowContentWithAnimation();
-          });
-      });
+        completionHandler: (image, error, cacheType, imageUrl) =>{} );
     }
 
     private void ShowEmptyCellWithAnimation()
@@ -96,28 +90,5 @@ namespace JetStreamIOSFull
         });
       });
     }
-
-    private void ShowContentWithAnimation()
-    {
-
-      this.ImageView.Alpha = 0.0f;
-      this.TitleLabel.Alpha = 0.0f;
-
-      System.Threading.ThreadPool.QueueUserWorkItem(state =>
-      {
-        InvokeOnMainThread(() =>
-        {
-          UIView.AnimateNotify(animationDuration, () =>
-          {
-            this.ImageView.Alpha = 1.0f;
-            this.TitleLabel.Alpha = 1.0f;
-          }, 
-            new UICompletionHandler((bool fn) =>{})
-          );
-
-        });
-      });
-    }
-
 	}
 }
