@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Jetstream.UI.View.ScrollChildSwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/refresher"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -21,8 +22,21 @@
             <LinearLayout
                 android:id="@+id/cards_container"
                 android:layout_width="wrap_content"
-                android:orientation="horizontal"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" />
         </HorizontalScrollView>
     </RelativeLayout>
-</Jetstream.UI.View.ScrollChildSwipeRefreshLayout>
+
+    <com.lsjwzh.widget.materialloadingprogressbar.CircleProgressBar
+        android:id="@+id/refresher"
+        android:layout_width="@dimen/destinations_fragment_progress_bar_width"
+        android:layout_height="@dimen/destinations_fragment_progress_bar_width"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        app:mlpb_arrow_height="5dp"
+        app:mlpb_arrow_width="8dp"
+        app:mlpb_background_color="@color/color_accent"
+        app:mlpb_enable_circle_background="true"
+        app:mlpb_progress_stoke_width="4dp"
+        app:mlpb_show_arrow="true" />
+</FrameLayout>

@@ -1,3 +1,5 @@
+using Com.Lsjwzh.Widget.Materialloadingprogressbar;
+
 namespace Jetstream.UI.Fragments
 {
   using System;
@@ -10,19 +12,18 @@ namespace Jetstream.UI.Fragments
   using Android.Gms.Maps.Utils.Clustering;
   using Android.OS;
   using Android.Support.V4.App;
-  using Android.Support.V4.Widget;
   using Android.Util;
   using Android.Views;
   using Android.Widget;
   using com.dbeattie;
   using DSoft.Messaging;
+  using JetStreamCommons;
   using Jetstream.Map;
   using Jetstream.Models;
   using Jetstream.UI.Activities;
   using Jetstream.UI.Anim;
-  using JetStreamCommons;
   using JetStreamCommons.Destinations;
-  using Squareup.Picasso;
+  using Square.Picasso;
 
   public class DestinationsOnMapFragment : Fragment, IOnMapReadyCallback, IActionClickListener, ClusterManager.IOnClusterItemClickListener
   {
@@ -30,7 +31,7 @@ namespace Jetstream.UI.Fragments
     ClusterManager clusterManager;
 
     LinearLayout cardsContainer;
-    SwipeRefreshLayout refresher;
+    CircleProgressBar refresher;
     MapView mapView;
 
     MessageBusEventHandler updateInstanceUrlEventHandler;
@@ -42,14 +43,13 @@ namespace Jetstream.UI.Fragments
     {
       var view = inflater.Inflate(Jetstream.Resource.Layout.fragment_map_destinations, container, false);
 
-      this.refresher = view.FindViewById<SwipeRefreshLayout>(Jetstream.Resource.Id.refresher);
+      this.refresher = view.FindViewById<CircleProgressBar>(Jetstream.Resource.Id.refresher);
       this.mapView = view.FindViewById<MapView>(Jetstream.Resource.Id.mapview);
       this.cardsContainer = view.FindViewById<LinearLayout>(Jetstream.Resource.Id.cards_container);
 
-      this.refresher.SetColorScheme(Android.Resource.Color.White);
-      this.refresher.SetProgressBackgroundColorSchemeResource(Jetstream.Resource.Color.color_accent);
-
-      this.refresher.SetProgressViewOffset(false, 0, (int)TypedValue.ApplyDimension(ComplexUnitType.Dip, 24, this.Resources.DisplayMetrics));
+      this.refresher.SetColorSchemeResources(Android.Resource.Color.White);
+      this.refresher.SetCircleBackgroundEnabled(true);
+      this.refresher.SetBackgroundColor(Resources.GetColor(Jetstream.Resource.Color.accent));
 
       this.mapView.OnCreate(savedInstanceState);
 
@@ -105,11 +105,11 @@ namespace Jetstream.UI.Fragments
     {
       try
       {
-        this.refresher.Refreshing = true;
+        this.refresher.Visibility = ViewStates.Visible;
 
         var loader = new DestinationsLoader(this.Activity.GetSession());
         var destinations = await loader.LoadOnlyDestinations();
-        this.refresher.Refreshing = false;
+        this.refresher.Visibility = ViewStates.Gone;
 
         var destWithLocation = this.FilterDestinationByLocation(destinations);
 
@@ -120,7 +120,7 @@ namespace Jetstream.UI.Fragments
       {
         Log.Error("Jetstream", this.Resources.GetString(Jetstream.Resource.String.error_log_text_failed_to_load_destinations) + exception.Message);
 
-        this.refresher.Refreshing = false;
+        this.refresher.Visibility = ViewStates.Gone;
 
         SnackbarManager.Show(
           Snackbar.With(this.Activity)
@@ -234,7 +234,7 @@ namespace Jetstream.UI.Fragments
           EventAction = (sender, evnt) =>
               this.Activity.RunOnUiThread(delegate
             {
-              if(this.refresher.Refreshing || this.IsHidden)
+              if(this.refresher.Visibility == ViewStates.Visible || this.IsHidden)
               {
                 return;
               }
@@ -254,7 +254,7 @@ namespace Jetstream.UI.Fragments
             {
               this.refreshOnHiddenChanged = this.IsHidden;
 
-              if(this.refresher.Refreshing || this.IsHidden)
+              if(this.refresher.Visibility == ViewStates.Visible || this.IsHidden)
               {
                 return;
               }
