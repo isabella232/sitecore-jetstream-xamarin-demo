@@ -4,7 +4,7 @@
   using System.Collections.Generic;
   using System.Linq;
   using Android.Graphics;
-  using Com.Mikepenz.Iconics.Typeface;
+  using Mikepenz.Iconics.Typeface;
 
   public class JetstreamIcons : Java.Lang.Object, ITypeface
   {

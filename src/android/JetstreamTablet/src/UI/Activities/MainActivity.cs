@@ -7,12 +7,12 @@
   using Android.Support.V7.App;
   using Android.Views;
   using Android.Widget;
-  using Com.Mikepenz.Google_material_typeface_library;
-  using Com.Mikepenz.Iconics;
-  using Com.Mikepenz.Materialdrawer;
-  using Com.Mikepenz.Materialdrawer.Accountswitcher;
-  using Com.Mikepenz.Materialdrawer.Model;
-  using Com.Mikepenz.Materialdrawer.Model.Interfaces;
+  using Mikepenz.Google_material_typeface_library;
+  using Mikepenz.Iconics;
+  using Mikepenz.MaterialDrawer;
+  using Mikepenz.MaterialDrawer.Accountswitcher;
+  using Mikepenz.MaterialDrawer.Models;
+  using Mikepenz.MaterialDrawer.Models.Interfaces;
   using DSoft.Messaging;
   using Jetstream.Font;
   using Jetstream.UI.Fragments;
@@ -176,7 +176,7 @@
     {
       var profile = new ProfileDrawerItem()
         .WithName(this.GetString(Resource.String.text_default_user))
-        .WithIcon(new IconicsDrawable(this, JetstreamIcons.Icon.Profile).Color(Color.White).ActionBarSize());
+        .WithIcon(new IconicsDrawable(this, JetstreamIcons.Icon.Profile).Color(Color.White).SizeDp(48));
 
       this.header = new AccountHeaderBuilder()
         .WithActivity(this)
