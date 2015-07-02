@@ -148,8 +148,11 @@
     <Reference Include="android-iconics-1.2.0">
       <HintPath>..\..\..\solutions\packages\Mikepenz.Android.Iconics.Xamarin.Binding.1.2.0\lib\MonoAndroid\android-iconics-1.2.0.dll</HintPath>
     </Reference>
-    <Reference Include="material-drawer-3.0.7">
+    <Reference Include="material-drawer-3.0">
       <HintPath>libs\material-drawer-3.0.7.dll</HintPath>
+    </Reference>
+    <Reference Include="material-drawer-3.0.9">
+      <HintPath>..\..\..\solutions\packages\Mikepenz.MaterialDrawer.Xamarin.Android.3.0.9\lib\MonoAndroid\material-drawer-3.0.9.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -227,7 +230,6 @@
     <AndroidResource Include="Resources\layout\view_destination_card.axml" />
     <AndroidResource Include="Resources\drawable\marker_group_placeholder.xml" />
     <None Include="libs\MaterialLoadingProgressBar-Xamarin.dll" />
-    <None Include="libs\material-drawer-3.0.7.dll" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\activity_main.axml">
