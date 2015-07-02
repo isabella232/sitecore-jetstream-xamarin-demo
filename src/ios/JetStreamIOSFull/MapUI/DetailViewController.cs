@@ -126,11 +126,8 @@ namespace JetStreamIOSFull.MapUI
 
       foreach(IDestination elem in this.destinations)
       {
-        if (elem.IsCoordinatesAvailable)
-        {
           DestinationAnnotation annotation = new DestinationAnnotation(elem, this.Endpoint.InstanceUrl);
           annotationsList.Add(annotation);
-        }
       }
 
       this.mapManager.SetAnnotationsForMap(this.map, annotationsList);
@@ -150,7 +147,7 @@ namespace JetStreamIOSFull.MapUI
         {
           try
           {
-            return await loader.LoadOnlyDestinations();
+            return await loader.LoadOnlyDestinations(true);
           }
           catch(Exception ex)
           {
