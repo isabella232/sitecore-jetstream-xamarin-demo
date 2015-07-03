@@ -191,6 +191,7 @@ namespace Jetstream.UI.Fragments
       intent.PutExtra(DestinationActivity.DestinationParamIntentKey, stringDest);
 
       this.StartActivity(intent);
+      this.Activity.OverridePendingTransition(Jetstream.Resource.Animation.slide_in_up, Jetstream.Resource.Animation.slide_in_up);
     }
 
     public bool OnClusterClick(ICluster cluster)
