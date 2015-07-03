@@ -33,7 +33,7 @@ namespace JetStreamCommons
       return await Task.Factory.StartNew(() => this.MatchRegionsCountriesAndDestinations(regionsAndCountries, destination));
     }
 
-    public async Task<List<IDestination>> LoadOnlyDestinations()
+    public async Task<List<IDestination>> LoadOnlyDestinations(bool onlyWithCorrectCoordinates = false)
     {
       string destinationsQuery = QueryHelpers.QueryToSearchAllCityItems();
 
@@ -44,29 +44,7 @@ namespace JetStreamCommons
 
       var destinations = destinationsResponce.Select(item => new Destination(item) as IDestination);
 
-      return destinations.ToList();
-    }
-
-    public async Task<List<IDestination>> LoadOnlyDestinations(bool onlyWithCorrectCoordinates)
-    {
-      List<IDestination> result = await this.LoadOnlyDestinations();
-
-      if (onlyWithCorrectCoordinates)
-      {
-        List<IDestination> filteredResult = new List<IDestination>();
-
-        foreach (IDestination elem in result)
-        {
-          if (elem.IsCoordinatesAvailable)
-          {
-            filteredResult.Add(elem);
-          }
-        }
-
-        return filteredResult;
-      }
-
-      return result;
+      return onlyWithCorrectCoordinates ? destinations.Where(item => item.IsCoordinatesAvailable).ToList() : destinations.ToList();
     }
 
     public async Task<List<IAttraction>> LoadAttractions(IDestination destination)
