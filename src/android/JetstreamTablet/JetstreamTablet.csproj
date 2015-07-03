@@ -230,6 +230,8 @@
     <AndroidResource Include="Resources\layout\view_destination_card.axml" />
     <AndroidResource Include="Resources\drawable\marker_group_placeholder.xml" />
     <None Include="libs\MaterialLoadingProgressBar-Xamarin.dll" />
+    <AndroidResource Include="Resources\anim\slide_in_up.xml" />
+    <AndroidResource Include="Resources\anim\slide_out_down.xml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\activity_main.axml">
@@ -285,5 +287,6 @@
   <ItemGroup />
   <ItemGroup>
     <Folder Include="src\UI\Activities\" />
+    <Folder Include="Resources\anim\" />
   </ItemGroup>
 </Project>

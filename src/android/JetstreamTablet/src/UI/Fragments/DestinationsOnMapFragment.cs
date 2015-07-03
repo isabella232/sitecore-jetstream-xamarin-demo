@@ -110,10 +110,14 @@ namespace Jetstream.UI.Fragments
         var destWithLocation = await loader.LoadOnlyDestinations(true);
         this.refresher.Visibility = ViewStates.Gone;
 
-        PicassoUtils.ClearCache(destWithLocation, this.Activity);
+//        Check wether fragment attached to the Activity. If yes prefrom UI changes.
+        if(this.IsAdded)
+        {
+          PicassoUtils.ClearCache(destWithLocation, this.Activity);
 
-        this.AddDestinationsItems(destWithLocation);
-        this.InitDestinationsCards(destWithLocation);
+          this.AddDestinationsItems(destWithLocation);
+          this.InitDestinationsCards(destWithLocation);  
+        }
       }
       catch (Exception exception)
       {
@@ -121,12 +125,15 @@ namespace Jetstream.UI.Fragments
 
         this.refresher.Visibility = ViewStates.Gone;
 
-        SnackbarManager.Show(
-          Snackbar.With(this.Activity)
+        if (this.IsAdded)
+        {
+          SnackbarManager.Show(
+            Snackbar.With(this.Activity)
             .ActionLabel(this.Resources.GetString(Jetstream.Resource.String.error_text_retry))
             .ActionColor(this.Resources.GetColor(Jetstream.Resource.Color.color_accent))
             .ActionListener(this)
-            .Text(this.Resources.GetString(Jetstream.Resource.String.error_text_fail_to_load_destinations)));
+            .Text(this.Resources.GetString(Jetstream.Resource.String.error_text_fail_to_load_destinations)));  
+        }
       }
     }
 
@@ -184,6 +191,7 @@ namespace Jetstream.UI.Fragments
       intent.PutExtra(DestinationActivity.DestinationParamIntentKey, stringDest);
 
       this.StartActivity(intent);
+      this.Activity.OverridePendingTransition(Jetstream.Resource.Animation.slide_in_up, Jetstream.Resource.Animation.slide_in_up);
     }
 
     public bool OnClusterClick(ICluster cluster)

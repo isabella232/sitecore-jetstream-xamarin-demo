@@ -165,12 +165,15 @@ namespace Jetstream.UI.Fragments
 
         AppLog.Logger.Error(this.Resources.GetString(Jetstream.Resource.String.error_text_fail_to_load_about), ex);
 
-        SnackbarManager.Show(
-          Snackbar.With(this.Activity)
+        if(this.IsAdded)
+        {
+          SnackbarManager.Show(
+            Snackbar.With(this.Activity)
           .ActionLabel(this.Resources.GetString(Jetstream.Resource.String.error_text_retry))
           .ActionColor(this.Resources.GetColor(Jetstream.Resource.Color.color_accent))
           .ActionListener(this)
           .Text(this.Resources.GetString(Jetstream.Resource.String.error_text_fail_to_load_about)));
+        }
       }
     }
 
