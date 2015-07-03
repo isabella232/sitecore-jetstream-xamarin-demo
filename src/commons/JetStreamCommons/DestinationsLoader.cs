@@ -47,6 +47,28 @@ namespace JetStreamCommons
       return destinations.ToList();
     }
 
+    public async Task<List<IDestination>> LoadOnlyDestinations(bool onlyWithCorrectCoordinates)
+    {
+      List<IDestination> result = await this.LoadOnlyDestinations();
+
+      if (onlyWithCorrectCoordinates)
+      {
+        List<IDestination> filteredResult = new List<IDestination>();
+
+        foreach (IDestination elem in result)
+        {
+          if (elem.IsCoordinatesAvailable)
+          {
+            filteredResult.Add(elem);
+          }
+        }
+
+        return filteredResult;
+      }
+
+      return result;
+    }
+
     public async Task<List<IAttraction>> LoadAttractions(IDestination destination)
     {
 

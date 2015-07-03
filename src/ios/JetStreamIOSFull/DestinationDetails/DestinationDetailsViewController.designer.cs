@@ -16,12 +16,6 @@ namespace JetStreamIOSFull.DestinationDetails
 		UIKit.UIButton BackButton { get; set; }
 
 		[Outlet]
-		UIKit.UIImageView DecorationImage { get; set; }
-
-		[Outlet]
-		UIKit.UITextView DestinationDescription { get; set; }
-
-		[Outlet]
 		UIKit.UITableView ImagesTableView { get; set; }
 
 		[Outlet]
@@ -29,6 +23,9 @@ namespace JetStreamIOSFull.DestinationDetails
 
 		[Outlet]
 		UIKit.UIImageView TopBarImage { get; set; }
+
+		[Outlet]
+		UIKit.UIWebView WebDestinationDescroption { get; set; }
 
 		[Action ("BackgroundViewTouched:")]
 		partial void BackgroundViewTouched (Foundation.NSObject sender);
@@ -40,14 +37,9 @@ namespace JetStreamIOSFull.DestinationDetails
 				BackButton = null;
 			}
 
-			if (DecorationImage != null) {
-				DecorationImage.Dispose ();
-				DecorationImage = null;
-			}
-
-			if (DestinationDescription != null) {
-				DestinationDescription.Dispose ();
-				DestinationDescription = null;
+			if (WebDestinationDescroption != null) {
+				WebDestinationDescroption.Dispose ();
+				WebDestinationDescroption = null;
 			}
 
 			if (ImagesTableView != null) {
