@@ -20,6 +20,9 @@ namespace Jetstream.UI.View
 
   public class DestinationView : Java.Lang.Object, IObservableScrollViewCallbacks, View.IOnClickListener, ITouchInterceptionListener, Palette.IPaletteAsyncListener
   {
+//    Maximum distance that will be handled while performing touch event.
+    private const float MaxDiffYAcceptable = 200;
+
     public Action OnBackButtonClicked { get; set; }
 
     private readonly DestinationActivity activity;
@@ -53,6 +56,8 @@ namespace Jetstream.UI.View
     private bool isGapChanging;
     private bool isGapHidden;
     private bool isReady;
+
+    private bool isFromToolbarTouch = false;
 
     public DestinationView(DestinationActivity activity, DestinationAndroidSpec destination)
     {
@@ -273,17 +278,66 @@ namespace Jetstream.UI.View
 
     public bool ShouldInterceptTouchEvent(MotionEvent ev, bool moving, float diffX, float diffY)
     {
-      return this.GetMinInterceptionLayoutY() < (int)ViewHelper.GetY(this.interceptionFrameLayout)
-        || (moving && this.scrollView.CurrentScrollY - diffY < 0);
+      if (ev.Action == MotionEventActions.Down)
+      {
+        this.isFromToolbarTouch = !IsPointInsideView(ev.RawX, ev.RawY, this.scrollView);
+      }
+
+      if (this.isFromToolbarTouch)
+      {
+        return false;
+      }
+
+      if (System.Math.Abs(diffY) < 0.1)
+      {
+        return false;
+      }
+
+      var layoutY = this.GetMinInterceptionLayoutY() < (int)ViewHelper.GetY(this.interceptionFrameLayout);
+      var movOrScroll = (moving && this.scrollView.CurrentScrollY - diffY < 0);
+
+      return layoutY || movOrScroll;
+    }
+
+    public bool IsPointInsideView(float x, float y, View view)
+    {
+      var location = new int[2];
+
+      view.GetLocationOnScreen(location);
+
+      int viewX = location[0];
+      int viewY = location[1];
+
+      //point is inside view bounds
+      if(( x > viewX && x < (viewX + view.Width)) && ( y > viewY && y < (viewY + view.Height))){
+        return true;
+      } else {
+        return false;
+      }
     }
 
     public void OnDownMotionEvent(MotionEvent ev)
     {
+      if (this.isFromToolbarTouch)
+      {
+        return;
+      }
+
       this.scrollYOnDownMotion = this.scrollView.CurrentScrollY;
     }
 
     public void OnMoveMotionEvent(MotionEvent ev, float diffX, float diffY)
     {
+      if (this.isFromToolbarTouch)
+      {
+        return;
+      }
+
+      if (System.Math.Abs(diffY - 0) < 0.1 || System.Math.Abs(diffY) > MaxDiffYAcceptable) 
+      {
+        return;
+      }
+
       float translationY = ViewHelper.GetTranslationY(this.interceptionFrameLayout) - this.scrollYOnDownMotion + diffY;
       float minTranslationY = this.GetMinInterceptionLayoutY();
       if (translationY < minTranslationY)
