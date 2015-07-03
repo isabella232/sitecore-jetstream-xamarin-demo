@@ -10,7 +10,6 @@ namespace Jetstream.UI.Fragments
   using Android.Gms.Maps.Utils.Clustering;
   using Android.OS;
   using Android.Support.V4.App;
-  using Android.Util;
   using Android.Views;
   using Android.Widget;
   using com.dbeattie;
@@ -108,10 +107,8 @@ namespace Jetstream.UI.Fragments
         this.refresher.Visibility = ViewStates.Visible;
 
         var loader = new DestinationsLoader(this.Activity.GetSession());
-        var destinations = await loader.LoadOnlyDestinations();
+        var destWithLocation = await loader.LoadOnlyDestinations(true);
         this.refresher.Visibility = ViewStates.Gone;
-
-        var destWithLocation = this.FilterDestinationByLocation(destinations);
 
         PicassoUtils.ClearCache(destWithLocation, this.Activity);
 
@@ -131,11 +128,6 @@ namespace Jetstream.UI.Fragments
             .ActionListener(this)
             .Text(this.Resources.GetString(Jetstream.Resource.String.error_text_fail_to_load_destinations)));
       }
-    }
-
-    private List<IDestination> FilterDestinationByLocation(List<IDestination> source)
-    {
-      return source.Where(destination => destination.IsCoordinatesAvailable).ToList();
     }
 
     private void InitDestinationsCards(List<IDestination> destinations)
