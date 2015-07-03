@@ -6,8 +6,6 @@
 	<false/>
 	<key>CFBundleDisplayName</key>
 	<string>JetStreamIOSFull</string>
-	<key>CFBundleIdentifier</key>
-	<string>com.sitecore</string>
 	<key>CFBundleShortVersionString</key>
 	<string>0.9</string>
 	<key>CFBundleVersion</key>
@@ -35,5 +33,9 @@
 	</array>
 	<key>XSAppIconAssets</key>
 	<string>Resources/Images.xcassets/AppIcons.appiconset</string>
+	<key>CFBundleIdentifier</key>
+	<string>sitecore.testapp.net</string>
+	<key>XSLaunchImageAssets</key>
+	<string>Resources/Images.xcassets/LaunchImage.launchimage</string>
 </dict>
 </plist>
