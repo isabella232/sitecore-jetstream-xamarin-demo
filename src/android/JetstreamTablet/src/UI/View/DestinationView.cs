@@ -384,19 +384,4 @@ namespace Jetstream.UI.View
     {
     }
   }
-
-  class AnimatorImpl : Java.Lang.Object, ValueAnimator.IAnimatorUpdateListener
-  {
-    private readonly Action<ValueAnimator> action;
-
-    public AnimatorImpl(Action<ValueAnimator> action)
-    {
-      this.action = action;
-    }
-
-    public void OnAnimationUpdate(ValueAnimator animation)
-    {
-      this.action.Invoke(animation);
-    }
-  }
 }
