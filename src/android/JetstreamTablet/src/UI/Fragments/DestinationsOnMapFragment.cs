@@ -27,6 +27,12 @@ namespace Jetstream.UI.Fragments
 
   public class DestinationsOnMapFragment : Fragment, IOnMapReadyCallback, IActionClickListener, ClusterManager.IOnClusterItemClickListener
   {
+    private readonly LatLngBounds EuropeBounds = LatLngBounds
+      .InvokeBuilder()
+      .Include(new LatLng(61.088913, -13.313578))
+      .Include(new LatLng(30.811438, 44.575028))
+      .Build();
+      
     GoogleMap map;
     ClusterManager clusterManager;
 
@@ -92,10 +98,7 @@ namespace Jetstream.UI.Fragments
 
     private void CenterMapOnEurope(object sender, GoogleMap.CameraChangeEventArgs cameraChangeEventArgs)
     {
-      // Hardcoded Europe position to center on.
-      var bounds = LatLngBounds.InvokeBuilder().Include(new LatLng(61.088913, -13.313578)).Include(new LatLng(30.811438, 44.575028)).Build();
-
-      this.map.MoveCamera(CameraUpdateFactory.NewLatLngBounds(bounds, 0));
+      this.map.MoveCamera(CameraUpdateFactory.NewLatLngBounds(EuropeBounds, 0));
 
       this.map.CameraChange -= this.CenterMapOnEurope;
       this.map.SetOnCameraChangeListener(this.clusterManager);
