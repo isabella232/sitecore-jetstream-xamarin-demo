@@ -19,8 +19,7 @@
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\solutions\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
-    <ReleaseVersion>0.9</ReleaseVersion>
-    <SynchReleaseVersion>false</SynchReleaseVersion>
+    <ReleaseVersion>1.0</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -206,18 +205,6 @@
     <AndroidResource Include="Resources\values\styles.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\drawable-hdpi\ic_about.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\ic_destinations.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\ic_flight_status.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\ic_online_checkin.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\ic_profile.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\ic_settings.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_about.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_destinations.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_flight_status.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_online_checkin.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_profile.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_settings.png" />
     <AndroidResource Include="Resources\drawable-hdpi\ic_jetstream_logo.png" />
     <AndroidResource Include="Resources\drawable-mdpi\ic_jetstream_logo.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\ic_jetstream_logo.png" />
