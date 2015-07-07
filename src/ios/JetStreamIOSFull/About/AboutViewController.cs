@@ -21,7 +21,7 @@ namespace JetStreamIOSFull.About
 
       this.TitleLabel.Text = "";
       this.WelcomeLabel.Text = "";
-      this.MaainTextField.Text = "";
+      this.MainTextField.Text = "";
 
 
       this.TopImageView.Image = this.Appearance.About.Background;
@@ -73,9 +73,9 @@ namespace JetStreamIOSFull.About
       this.WelcomeLabel.Text = info.SummaryPlainText;
 
       string clearedText = info.BodyPlainText.Replace(System.Environment.NewLine, " ");
-      this.MaainTextField.Text = clearedText;
-      this.MaainTextField.Font = this.Appearance.About.DescriptionFont;
-      this.MaainTextField.TextAlignment = UITextAlignment.Justified;
+      this.MainTextField.Text = clearedText;
+      this.MainTextField.Font = this.Appearance.About.DescriptionFont;
+      this.MainTextField.TextAlignment = UITextAlignment.Justified;
     }
      
 	}

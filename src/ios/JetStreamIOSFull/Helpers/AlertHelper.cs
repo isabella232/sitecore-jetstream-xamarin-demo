@@ -7,7 +7,7 @@ namespace JetStreamIOSFull.Helpers
 {
 	public class AlertHelper
 	{
-		public AlertHelper()
+    public AlertHelper()
 		{
 		}
 

@@ -13,7 +13,7 @@ namespace JetStreamIOSFull.About
 	partial class AboutViewController
 	{
 		[Outlet]
-		UIKit.UITextView MaainTextField { get; set; }
+		UIKit.UITextView MainTextField { get; set; }
 
 		[Outlet]
 		UIKit.UILabel TitleLabel { get; set; }
@@ -26,9 +26,9 @@ namespace JetStreamIOSFull.About
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (TopImageView != null) {
-				TopImageView.Dispose ();
-				TopImageView = null;
+			if (MainTextField != null) {
+				MainTextField.Dispose ();
+				MainTextField = null;
 			}
 
 			if (TitleLabel != null) {
@@ -36,14 +36,14 @@ namespace JetStreamIOSFull.About
 				TitleLabel = null;
 			}
 
+			if (TopImageView != null) {
+				TopImageView.Dispose ();
+				TopImageView = null;
+			}
+
 			if (WelcomeLabel != null) {
 				WelcomeLabel.Dispose ();
 				WelcomeLabel = null;
-			}
-
-			if (MaainTextField != null) {
-				MaainTextField.Dispose ();
-				MaainTextField = null;
 			}
 		}
 	}

@@ -422,7 +422,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="dT3-73-Ukf"/>
                     <connections>
-                        <outlet property="MaainTextField" destination="gK4-KE-Tb9" id="gam-ig-fkd"/>
+                        <outlet property="MainTextField" destination="gK4-KE-Tb9" id="I4z-F9-ijK"/>
                         <outlet property="TitleLabel" destination="349-Sf-XwJ" id="CCY-nB-15e"/>
                         <outlet property="TopImageView" destination="Myp-Q8-ra1" id="yB3-8c-zV9"/>
                         <outlet property="WelcomeLabel" destination="MwJ-nU-giq" id="wIs-SV-agQ"/>
