@@ -23,6 +23,7 @@ namespace Jetstream.UI.Fragments
   using Jetstream.Utils;
   using JetStreamCommons.Destinations;
   using Square.Picasso;
+  using System.Collections;
 
   public class DestinationsOnMapFragment : Fragment, IOnMapReadyCallback, IActionClickListener, ClusterManager.IOnClusterItemClickListener
   {
@@ -161,7 +162,10 @@ namespace Jetstream.UI.Fragments
         destNameTextView.Text = destination.DisplayName;
         destNameTextView.SetBackgroundColor(this.Resources.GetColor(Jetstream.Resource.Color.color_primary_light));
 
-        Picasso.With(this.Activity).Load(destination.ImageUrl(this.Activity.GetSession())).Into(destImageView);
+        using (var session = this.Activity.GetSession())
+        {
+          Picasso.With(this.Activity).Load(destination.ImageUrl(session)).Into(destImageView);
+        }
 
         cardView.Click += (sender, args) => this.StartDestinationActivity(dest);
 
@@ -178,8 +182,12 @@ namespace Jetstream.UI.Fragments
 
     private void AddDestinationsItems(List<IDestination> destinations)
     {
-      var clusterItems = destinations.Select(destination => new ClusterItem(destination, destination.ImageUrl(this.Activity.GetSession())))
-        .ToList();
+      ICollection clusterItems;
+      using (var session = this.Activity.GetSession())
+      {
+        clusterItems = destinations.Select(destination => new ClusterItem(destination, destination.ImageUrl(session)))
+          .ToList();
+      }
 
       this.map.Clear();
 
@@ -190,8 +198,11 @@ namespace Jetstream.UI.Fragments
 
     private void StartDestinationActivity(IDestination dest)
     {
-
-      var stringDest = string.Join(DestinationAndroidSpec.SplitSymbol.ToString(), dest.ImageUrl(this.Activity.GetSession()), dest.Overview, dest.DisplayName);
+      string stringDest = null;
+      using (var session = this.Activity.GetSession())
+      {
+        stringDest = string.Join(DestinationAndroidSpec.SplitSymbol.ToString(), dest.ImageUrl(session), dest.Overview, dest.DisplayName);
+      }
 
       var intent = new Intent(this.Activity, typeof(DestinationActivity));
       intent.PutExtra(DestinationActivity.DestinationParamIntentKey, stringDest);
