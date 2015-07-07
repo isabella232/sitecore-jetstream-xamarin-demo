@@ -11,6 +11,7 @@ namespace Jetstream.UI.Fragments
     private const string ImageUrl = "file:///android_asset/check_in_logo.jpg";
 
     private TextView checkInTitleTextView;
+    private TextView checkInBodyTextView;
     private ImageView checkInLogoImageView;
 
     public override void OnCreate(Bundle savedInstanceState)
@@ -31,6 +32,7 @@ namespace Jetstream.UI.Fragments
     private void InitViews(View root)
     {
       this.checkInTitleTextView = root.FindViewById<TextView>(Resource.Id.check_in_title_text);
+      this.checkInBodyTextView = root.FindViewById<TextView>(Resource.Id.check_in_body_text);
       this.checkInLogoImageView = root.FindViewById<ImageView>(Resource.Id.check_in_image);
 
       Picasso.With(this.Activity).Load(ImageUrl).Into(this.checkInLogoImageView);
@@ -41,6 +43,7 @@ namespace Jetstream.UI.Fragments
     private void InitTextFields()
     {
       this.checkInTitleTextView.Text = this.Resources.GetString(Resource.String.title_text_check_in);
+      this.checkInBodyTextView.Text = this.Resources.GetString(Resource.String.text_screen_placeholder);
     }
   }
 }
