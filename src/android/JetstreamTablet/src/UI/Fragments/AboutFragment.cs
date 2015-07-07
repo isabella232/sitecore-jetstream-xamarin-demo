@@ -147,7 +147,8 @@ namespace Jetstream.UI.Fragments
       {
         this.progressBar.Visibility = ViewStates.Visible;
 
-        using (var contentLoader = new ContentLoader(this.GetSession()))
+        using (var session = this.GetSession())
+        using (var contentLoader = new ContentLoader(session))
         {
           this.aboutItem = await contentLoader.LoadAboutInfo();
         }

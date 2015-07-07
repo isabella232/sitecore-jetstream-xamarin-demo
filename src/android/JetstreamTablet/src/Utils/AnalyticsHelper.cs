@@ -29,7 +29,7 @@ namespace Jetstream.Utils
       #if DEBUG
       Insights.Initialize(Insights.DebugModeKey, context);
       #else
-      Insights.Initialize("e61045d82e2d0a6adcbe404ce51e1fbc14efddb0", context);
+      Insights.Initialize("8148d1a71192f6c9ee9d584ca80713c566e6cb40", context);
       #endif
     }
   }

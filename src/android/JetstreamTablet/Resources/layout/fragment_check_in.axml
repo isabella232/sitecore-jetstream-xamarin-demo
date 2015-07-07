@@ -26,6 +26,10 @@
                 android:id="@+id/text_fields_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/about_text_fields_left"
+                android:paddingRight="@dimen/about_text_fields_right"
+                android:layout_marginLeft="@dimen/margin_standard"
+                android:layout_marginRight="@dimen/margin_standard"
                 android:orientation="vertical">
 
                 <TextView
@@ -33,10 +37,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="left"
-                    android:paddingLeft="@dimen/about_text_fields_left"
                     android:paddingTop="@dimen/margin_standard"
                     android:textColor="@color/color_primary"
                     android:textSize="40sp" />
+
+                 <TextView
+                    android:id="@+id/check_in_body_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:paddingTop="@dimen/margin_standard"
+                    android:textColor="@color/color_primary"
+                    android:textSize="18sp" />
 
             </LinearLayout>
         </LinearLayout>

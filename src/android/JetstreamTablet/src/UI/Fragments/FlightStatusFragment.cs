@@ -11,6 +11,7 @@ namespace Jetstream.UI.Fragments
     private const string ImageUrl = "file:///android_asset/flight_status_logo.png";
 
     private TextView flightStatusTitleTextView;
+    private TextView flightStatusBodyTextView;
     private ImageView flightStatusLogoImageView;
 
     public override void OnCreate(Bundle savedInstanceState)
@@ -30,8 +31,9 @@ namespace Jetstream.UI.Fragments
 
     private void InitViews(View root)
     {
-      this.flightStatusTitleTextView = root.FindViewById<TextView>(Resource.Id.check_in_title_text);
-      this.flightStatusLogoImageView = root.FindViewById<ImageView>(Resource.Id.check_in_image);
+      this.flightStatusTitleTextView = root.FindViewById<TextView>(Resource.Id.flight_status_title_text);
+      this.flightStatusBodyTextView = root.FindViewById<TextView>(Resource.Id.flight_status_body_text);
+      this.flightStatusLogoImageView = root.FindViewById<ImageView>(Resource.Id.flight_status_image);
 
       Picasso.With(this.Activity).Load(ImageUrl).Into(this.flightStatusLogoImageView);
 
@@ -41,6 +43,7 @@ namespace Jetstream.UI.Fragments
     private void InitTextFields()
     {
       this.flightStatusTitleTextView.Text = this.Resources.GetString(Resource.String.title_text_flight_status);
+      this.flightStatusBodyTextView.Text = this.Resources.GetString(Resource.String.text_screen_placeholder);
     }
   }
 }

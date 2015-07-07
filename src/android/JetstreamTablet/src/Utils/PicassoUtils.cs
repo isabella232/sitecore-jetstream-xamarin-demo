@@ -15,9 +15,12 @@
 
       if(destinations != null)
       {
-        foreach (var dest in destinations)
+        using (var session = activity.GetSession())
         {
-          picasso.Invalidate(dest.ImageUrl(activity.GetSession()));
+          foreach (var dest in destinations)
+          {
+            picasso.Invalidate(dest.ImageUrl(session));
+          }
         }
       }
 
