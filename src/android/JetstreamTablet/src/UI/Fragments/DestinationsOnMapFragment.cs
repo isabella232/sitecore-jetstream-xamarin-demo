@@ -106,8 +106,14 @@ namespace Jetstream.UI.Fragments
       {
         this.refresher.Visibility = ViewStates.Visible;
 
-        var loader = new DestinationsLoader(this.Activity.GetSession());
-        var destWithLocation = await loader.LoadOnlyDestinations(true);
+        var destWithLocation = new List<IDestination>();
+
+        using (var session = this.Activity.GetSession())
+        using (var loader = new DestinationsLoader(session))
+        {
+          destWithLocation = await loader.LoadOnlyDestinations(true);
+        }
+
         this.refresher.Visibility = ViewStates.Gone;
 
 //        Check wether fragment attached to the Activity. If yes prefrom UI changes.
@@ -125,7 +131,7 @@ namespace Jetstream.UI.Fragments
 
         this.refresher.Visibility = ViewStates.Gone;
 
-        if (this.IsAdded)
+        if(this.IsAdded)
         {
           SnackbarManager.Show(
             Snackbar.With(this.Activity)
