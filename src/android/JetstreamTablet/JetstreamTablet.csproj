@@ -179,6 +179,7 @@
     <Compile Include="src\UI\Fragments\FlightStatusFragment.cs" />
     <Compile Include="src\Utils\AnalyticsHelper.cs" />
     <Compile Include="src\Utils\PicassoUtils.cs" />
+    <Compile Include="src\UI\Fragments\BaseFragment.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

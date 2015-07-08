@@ -2,18 +2,16 @@ namespace Jetstream.UI.Fragments
 {
   using System;
   using Android.OS;
-  using Android.Support.V4.App;
   using Android.Views;
   using Android.Widget;
   using com.dbeattie;
   using Com.Lsjwzh.Widget.Materialloadingprogressbar;
-  using DSoft.Messaging;
   using JetStreamCommons;
   using JetStreamCommons.About;
   using Sitecore.MobileSDK;
   using Square.Picasso;
 
-  public class AboutFragment : Fragment, IActionClickListener
+  public class AboutFragment : BaseFragment, IActionClickListener
   {
     private const string ImageUrl = "file:///android_asset/about_logo.jpg";
 
@@ -27,11 +25,6 @@ namespace Jetstream.UI.Fragments
     private ImageView aboutLogoImageView;
 
     private IAboutPageInfo aboutItem;
-
-    MessageBusEventHandler refreshEventHandler;
-    MessageBusEventHandler updateInstanceUrlEventHandler;
-
-    bool refreshOnHiddenChanged = false;
 
     public override void OnCreate(Bundle savedInstanceState)
     {
@@ -48,14 +41,16 @@ namespace Jetstream.UI.Fragments
       return rootView;
     }
 
-    public override void OnHiddenChanged(bool hidden)
+    public override void OnRefreshed()
     {
-      base.OnHiddenChanged(hidden);
+      this.LoadAboutItem();
+    }
 
-      if(!hidden && this.refreshOnHiddenChanged)
+    protected override bool IsRefreshing
+    {
+      get
       {
-        this.refreshOnHiddenChanged = false;
-        this.LoadAboutItem();
+        return this.progressBar.Visibility == ViewStates.Visible;
       }
     }
 
@@ -70,61 +65,6 @@ namespace Jetstream.UI.Fragments
       {
         this.InitTextFields(this.aboutItem);
       }
-
-      if(this.refreshEventHandler == null)
-      {
-        this.refreshEventHandler = new MessageBusEventHandler()
-        {
-          EventId = EventIdsContainer.RefreshMenuActionClickedEvent,
-          EventAction = (sender, evnt) =>
-          {
-            if(this.IsHidden || this.IsRefreshing())
-            {
-              return;
-            }
-
-            this.Activity.RunOnUiThread(this.LoadAboutItem);
-          }
-        };
-      }
-
-      if(this.updateInstanceUrlEventHandler == null)
-      {
-        this.updateInstanceUrlEventHandler = new MessageBusEventHandler()
-        {
-          EventId = EventIdsContainer.SitecoreInstanceUrlUpdateEvent,
-          EventAction = (sender, evnt) =>
-          {
-            if(this.IsHidden)
-            {
-              this.refreshOnHiddenChanged = true;
-            }
-
-            if(this.IsHidden || this.IsRefreshing())
-            {
-              return;
-            }
-
-            this.Activity.RunOnUiThread(this.LoadAboutItem);
-          }
-        };
-      }
-
-      MessageBus.Default.Register(this.refreshEventHandler);
-      MessageBus.Default.Register(this.updateInstanceUrlEventHandler);
-    }
-
-    public override void OnDestroy()
-    {
-      base.OnDestroy();
-
-      MessageBus.Default.DeRegister(this.refreshEventHandler);
-      MessageBus.Default.DeRegister(this.updateInstanceUrlEventHandler);
-    }
-
-    public bool IsRefreshing()
-    {
-      return this.progressBar.Visibility == ViewStates.Visible;
     }
 
     private void InitViews(View root)
@@ -158,11 +98,11 @@ namespace Jetstream.UI.Fragments
           this.InitTextFields(this.aboutItem);
         }
 
-        this.progressBar.Visibility = ViewStates.Gone;
+        this.progressBar.Visibility = ViewStates.Invisible;
       }
       catch (Exception ex)
       {
-        this.progressBar.Visibility = ViewStates.Gone;
+        this.progressBar.Visibility = ViewStates.Invisible;
 
         AppLog.Logger.Error(this.Resources.GetString(Jetstream.Resource.String.error_text_fail_to_load_about), ex);
 
@@ -190,7 +130,6 @@ namespace Jetstream.UI.Fragments
 
     private void InitTextFields(IAboutPageInfo aboutItem)
     {
-      this.progressBar.Visibility = ViewStates.Gone;
       this.textFieldsContainer.Visibility = ViewStates.Visible;
 
       this.aboutTitleTextView.Text = aboutItem.TitlePlainText;
