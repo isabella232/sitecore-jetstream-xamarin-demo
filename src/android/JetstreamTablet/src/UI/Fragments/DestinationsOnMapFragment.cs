@@ -9,12 +9,10 @@ namespace Jetstream.UI.Fragments
   using Android.Gms.Maps.Model;
   using Android.Gms.Maps.Utils.Clustering;
   using Android.OS;
-  using Android.Support.V4.App;
   using Android.Views;
   using Android.Widget;
   using com.dbeattie;
   using Com.Lsjwzh.Widget.Materialloadingprogressbar;
-  using DSoft.Messaging;
   using JetStreamCommons;
   using Jetstream.Map;
   using Jetstream.Models;
@@ -25,7 +23,7 @@ namespace Jetstream.UI.Fragments
   using Square.Picasso;
   using System.Collections;
 
-  public class DestinationsOnMapFragment : Fragment, IOnMapReadyCallback, IActionClickListener, ClusterManager.IOnClusterItemClickListener
+  public class DestinationsOnMapFragment : BaseFragment, IOnMapReadyCallback, IActionClickListener, ClusterManager.IOnClusterItemClickListener
   {
     private readonly LatLngBounds EuropeBounds = LatLngBounds
       .InvokeBuilder()
@@ -39,11 +37,6 @@ namespace Jetstream.UI.Fragments
     LinearLayout cardsContainer;
     CircleProgressBar refresher;
     MapView mapView;
-
-    MessageBusEventHandler updateInstanceUrlEventHandler;
-    MessageBusEventHandler refreshEventHandler;
-
-    bool refreshOnHiddenChanged = false;
 
     public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
@@ -69,17 +62,6 @@ namespace Jetstream.UI.Fragments
       }
 
       return view;
-    }
-
-    public override void OnHiddenChanged(bool hidden)
-    {
-      base.OnHiddenChanged(hidden);
-
-      if(!hidden && this.refreshOnHiddenChanged)
-      {
-        this.refreshOnHiddenChanged = false;
-        this.LoadDestinations();
-      }
     }
 
     public void OnMapReady(GoogleMap googleMap)
@@ -110,23 +92,23 @@ namespace Jetstream.UI.Fragments
       {
         this.refresher.Visibility = ViewStates.Visible;
 
-        var destWithLocation = new List<IDestination>();
+        List<IDestination> destWithLocation;
 
         using (var session = this.Activity.GetSession())
-        using (var loader = new DestinationsLoader(session))
-        {
-          destWithLocation = await loader.LoadOnlyDestinations(true);
-        }
+          using (var loader = new DestinationsLoader(session))
+          {
+            destWithLocation = await loader.LoadOnlyDestinations(true);
+          }
 
         this.refresher.Visibility = ViewStates.Gone;
 
-//        Check wether fragment attached to the Activity. If yes prefrom UI changes.
-        if(this.IsAdded)
+        //        Check wether fragment attached to the Activity. If yes perfrom UI changes.
+        if (this.IsAdded)
         {
           PicassoUtils.ClearCache(destWithLocation, this.Activity);
 
           this.AddDestinationsItems(destWithLocation);
-          this.InitDestinationsCards(destWithLocation);  
+          this.InitDestinationsCards(destWithLocation);
         }
       }
       catch (Exception exception)
@@ -144,6 +126,19 @@ namespace Jetstream.UI.Fragments
             .ActionListener(this)
             .Text(this.Resources.GetString(Jetstream.Resource.String.error_text_fail_to_load_destinations)));  
         }
+      }
+    }
+
+    public override void OnRefreshed()
+    {
+      this.LoadDestinations();
+    }
+
+    protected override bool IsRefreshing
+    {
+      get
+      {
+        return this.refresher.Visibility == ViewStates.Visible;
       }
     }
 
@@ -247,56 +242,6 @@ namespace Jetstream.UI.Fragments
       {
         this.mapView.GetMapAsync(this);
       }
-
-      if(this.refreshEventHandler == null)
-      {
-        this.refreshEventHandler = new MessageBusEventHandler()
-        {
-          EventId = EventIdsContainer.RefreshMenuActionClickedEvent,
-          EventAction = (sender, evnt) =>
-              this.Activity.RunOnUiThread(delegate
-            {
-              if(this.refresher.Visibility == ViewStates.Visible || this.IsHidden)
-              {
-                return;
-              }
-
-              this.LoadDestinations();
-            })
-        };
-      }
-
-      if(this.updateInstanceUrlEventHandler == null)
-      {
-        this.updateInstanceUrlEventHandler = new MessageBusEventHandler()
-        {
-          EventId = EventIdsContainer.SitecoreInstanceUrlUpdateEvent,
-          EventAction = (sender, evnt) =>
-          this.Activity.RunOnUiThread(delegate
-            {
-              this.refreshOnHiddenChanged = this.IsHidden;
-
-              if(this.refresher.Visibility == ViewStates.Visible || this.IsHidden)
-              {
-                return;
-              }
-
-              this.LoadDestinations();
-            })
-        };
-      }
-
-      MessageBus.Default.Register(this.updateInstanceUrlEventHandler);
-      MessageBus.Default.Register(this.refreshEventHandler);
-    }
-
-    public override void OnDestroy()
-    {
-      base.OnDestroy();
-
-      this.mapView.OnDestroy();
-      MessageBus.Default.DeRegister(this.updateInstanceUrlEventHandler);
-      MessageBus.Default.DeRegister(this.refreshEventHandler);
     }
 
     public override void OnPause()
