@@ -70,7 +70,7 @@ namespace JetstreamAndroid.Adapters
       try
       {
         var session = Prefs.From(this.context).Session;
-        using (var restManager = new RestManager(session))
+        using (var restManager = new RestManager(session, new TimezoneProviderForAndroid()))
         {
           var airportsTask = restManager.SearchAllAirports();
           Task.WhenAll(airportsTask);

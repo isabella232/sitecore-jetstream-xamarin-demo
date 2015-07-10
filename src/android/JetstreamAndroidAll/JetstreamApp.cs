@@ -8,6 +8,7 @@ namespace JetstreamAndroid
   using JetStreamCommons.Flight;
   using Android.Content.Res;
   using JetStreamCommons.FlightSearch;
+  using JetstreamAndroid.Utils;
 
   [Application(Theme = "@android:style/Theme.Holo.Light")]
   public class JetstreamApp : Application
@@ -48,7 +49,7 @@ namespace JetstreamAndroid
     {
       if (this.restManager == null)
       {
-        this.restManager = new RestManager(Prefs.From(this).Session);
+        this.restManager = new RestManager(Prefs.From(this).Session, new TimezoneProviderForAndroid());
       }
 
       var loader = new FlightSearchLoader(this.restManager,

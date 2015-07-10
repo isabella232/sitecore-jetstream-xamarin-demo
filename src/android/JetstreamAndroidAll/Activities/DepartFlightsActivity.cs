@@ -10,7 +10,7 @@ namespace JetstreamAndroid.Activities
   {
     public override DateTime GetDateTime()
     {
-      return this.UserInput.ForwardFlightDepartureDate;
+      return (DateTime) this.UserInput.ForwardFlightDepartureDate;
     }
 
     public override void OnBackPressed()
