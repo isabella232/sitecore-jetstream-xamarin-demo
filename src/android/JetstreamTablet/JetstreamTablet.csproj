@@ -47,11 +47,6 @@
     <Debugger>Xamarin</Debugger>
     <DevInstrumentationEnabled>False</DevInstrumentationEnabled>
     <AndroidLinkMode>Full</AndroidLinkMode>
-    <AndroidKeyStore>True</AndroidKeyStore>
-    <AndroidSigningKeyStore>..\JetstreamAndroid\keystore\sitecore-jetstream.keystore</AndroidSigningKeyStore>
-    <AndroidSigningStorePass>sitecore</AndroidSigningStorePass>
-    <AndroidSigningKeyAlias>key</AndroidSigningKeyAlias>
-    <AndroidSigningKeyPass>sitecore</AndroidSigningKeyPass>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DBeattie.SnackbarSharp">
@@ -231,6 +226,7 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\Icon.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\Icon.png" />
   </ItemGroup>
+  <Import Project="..\..\..\scripts\android\keystore\Signing.targets" Condition="Exists('..\..\..\scripts\android\keystore\Signing.targets')" />
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <ItemGroup>
     <ProjectReference Include="..\..\commons\JetStreamCommons\JetStreamCommons.csproj">
