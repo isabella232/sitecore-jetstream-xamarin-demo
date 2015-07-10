@@ -1,11 +1,13 @@
-﻿namespace JetStreamCommons
+﻿using JetStreamCommons.Destinations;
+using Sitecore.MobileSDK.API.Request.Parameters;
+
+namespace JetStreamCommons
 {
   using System;
   using System.Collections.Generic;
-  using System.Diagnostics;
   using System.Linq;
   using System.Threading.Tasks;
-  using JetStreamCommons.Destionations;
+  using JetStreamCommons.Destinations;
   using JetStreamCommons.Helpers;
   using Sitecore.MobileSDK.API;
   using Sitecore.MobileSDK.API.Items;
@@ -23,25 +25,40 @@
     }
 
     #region Public API
-    public async Task<List<Region>> LoadAllDestionations()
+    public async Task<List<Region>> LoadAllDestinations()
     {
-      var destionations = await this.LoadOnlyDestionations();
+      var destination = await this.LoadOnlyDestinations();
       var regionsAndCountries = await this.LoadRegionsAndCountries();
 
-      return await Task.Factory.StartNew(() => this.MatchRegionsCountriesAndDestionations(regionsAndCountries, destionations));
+      return await Task.Factory.StartNew(() => this.MatchRegionsCountriesAndDestinations(regionsAndCountries, destination));
     }
 
-    public async Task<List<Destionation>> LoadOnlyDestionations()
+    public async Task<List<IDestination>> LoadOnlyDestinations(bool onlyWithCorrectCoordinates = false)
     {
-      string destionationsQuery = QueryHelpers.QueryToSearchAllCityItems();
+      string destinationsQuery = QueryHelpers.QueryToSearchAllCityItems();
 
-      var destinationsRequest = ItemWebApiRequestBuilder.ReadItemsRequestWithSitecoreQuery(destionationsQuery)
+      var destinationsRequest = ItemWebApiRequestBuilder.ReadItemsRequestWithSitecoreQuery(destinationsQuery)
         .Build();
 
-      var destionationsResponce = await this.session.ReadItemAsync(destinationsRequest);
-      var destionations = destionationsResponce.Select(item => new Destionation(item));
+      var destinationsResponce = await this.session.ReadItemAsync(destinationsRequest);
 
-      return destionations.ToList();
+      var destinations = destinationsResponce.Select(item => new Destination(item) as IDestination);
+
+      return onlyWithCorrectCoordinates ? destinations.Where(item => item.IsCoordinatesAvailable).ToList() : destinations.ToList();
+    }
+
+    public async Task<List<IAttraction>> LoadAttractions(IDestination destination)
+    {
+
+      var attractionsRequest = ItemWebApiRequestBuilder.ReadItemsRequestWithId(destination.Id)
+        .AddScope(ScopeType.Children)
+        .Build();
+
+      var atractionsResponce = await this.session.ReadItemAsync(attractionsRequest);
+
+      var atractions = atractionsResponce.Select(item => new Attraction(item) as IAttraction);
+
+      return atractions.ToList();
     }
 
     #endregion Public API
@@ -57,14 +74,14 @@
       return await this.session.ReadItemAsync(regionsAndCountriesRequest);
     }
 
-    private List<Region> MatchRegionsCountriesAndDestionations(ScItemsResponse regionsAndCountriesResponse, IEnumerable<Destionation> destionations)
+    private List<Region> MatchRegionsCountriesAndDestinations(ScItemsResponse regionsAndCountriesResponse, IEnumerable<IDestination> destionations)
     {
       //TODO: Please notice that sometimes countries can have nested country like United Kingdom -> England
       var countries = regionsAndCountriesResponse.Where((item, i) => item.Template.Equals(Country.TemplateName))
         .Select(country =>
         {
-          var countryDestionation = destionations.Where(dest => dest.CountryName.Equals(country.DisplayName));
-          return new Country(countryDestionation, country);
+          var countryDestination = destionations.Where(dest => dest.CountryName.Equals(country.DisplayName));
+          return new Country(countryDestination, country);
         });
 
       var regions = regionsAndCountriesResponse.Where(item => item.Template.Equals(Region.TemplateName))

@@ -32,7 +32,7 @@ namespace JetStreamCommons.FlightSearch
 
       DateTime pastDate = DateTime.Now;
 
-      DateTime departDateValue = flightInput.ForwardFlightDepartureDate;
+      DateTime departDateValue = flightInput.ForwardFlightDepartureDate.Value;
 
       if (pastDate.Date > departDateValue.Date)
       {

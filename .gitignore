@@ -39,3 +39,6 @@ UpgradeLog.htm
 packages
 *.exe
 *.dgml
+__pycache__/
+*.Cache
+keystore/

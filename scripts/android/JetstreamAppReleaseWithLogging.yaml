@@ -1,0 +1,23 @@
+---
+# Builds Jetstream app in Release mode with enebled logging.
+sln : 'solutions\JetstreamAndroidTablet.sln'
+nuget: 'solutions\.nuget\NuGet.exe'
+xamarin_component: 'solutions\xamarin-component\xamarin-component.exe'
+deployment_directory: 'deployment'
+tasks:
+    - clean_directory:
+        - directory: $(deployment_directory)
+    - restore_nuget_packages:
+        - nuget_exe : $(nuget)
+        - solution: $(sln)
+    - restore_xam_components:
+        - xam_exe: $(xamarin_component)
+        - solution: $(sln)
+    - msbuild_build_project:
+        - project: 'src\android\JetstreamTablet\JetstreamTablet.csproj'
+        - targets : 'Clean,SignAndroidPackage'
+        - configuration: 'Release;DefineConstants=DEBUG'
+    - copy_artifacts:
+        - from: 'src\android\JetstreamTablet\bin\Release\net.sitecore.jetstream-Signed.apk'
+        - to: '$(deployment_directory)\net.sitecore.jetstream-%(BUILD_NUMBER).apk'
+# finish

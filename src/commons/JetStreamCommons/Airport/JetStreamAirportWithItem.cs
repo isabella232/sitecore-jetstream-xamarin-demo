@@ -2,15 +2,17 @@
 {
   using System;
   using Sitecore.MobileSDK.API.Items;
+  using JetStreamCommons.Timezone;
 
 
-  public class JetStreamAirportWithItem : IJetStreamAirport
+  public class JetStreamAirportWithItem : IJetStreamAirportWithTimeZone
   {
     private ISitecoreItem item;
 
-    public JetStreamAirportWithItem(ISitecoreItem item)
+    public JetStreamAirportWithItem(ISitecoreItem item, ITimeZoneInfo timeZone)
     {
       this.item = item;
+      this.TimeZone = timeZone;
     }
 
     public string Country 
@@ -45,6 +47,14 @@
       }
     }
 
+    public string TimeZoneId 
+    { 
+      get
+      {
+        return this.item["Time Zone"].RawValue;
+      }
+    }
+
     public string Id 
     { 
       get
@@ -61,6 +71,11 @@
       }
     }
 
+    public ITimeZoneInfo TimeZone
+    { 
+      get; 
+      private set;
+    }
   }
 }
 

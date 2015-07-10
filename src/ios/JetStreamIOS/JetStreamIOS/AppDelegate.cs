@@ -4,6 +4,7 @@ using System.Linq;
 
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
+using System.Diagnostics;
 
 namespace JetStreamIOS
 {
@@ -20,7 +21,18 @@ namespace JetStreamIOS
       get;
       set;
     }
-    
+
+//    public override void FinishedLaunching(UIApplication application)
+//    {
+//      var timezones = TimeZoneInfo.GetSystemTimeZones();
+//      foreach (TimeZoneInfo singleTimezone in timezones)
+//      {
+//        // singleTimezone.StandardName ==> GMT / EST
+//
+//        Debug.WriteLine("Timezone : {0}| Name : {1}", singleTimezone.ToString(), singleTimezone.StandardName);
+//      }
+//    }
+
     // This method is invoked when the application is about to move from active to inactive state.
     // OpenGL applications should use this method to pause.
     public override void OnResignActivation(UIApplication application)

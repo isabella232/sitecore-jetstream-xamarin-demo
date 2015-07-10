@@ -210,7 +210,8 @@ namespace JetStreamIOS
       // @adk : on top of NSUserDefaults singleton
       InstanceSettings endpoint = new InstanceSettings();
       ISitecoreWebApiSession webApiSession = endpoint.GetSession();
-      using (RestManager jetStreamSession = new RestManager(webApiSession))
+      var timezoneProvider = new TimezoneProviderForIOS();
+      using (var jetStreamSession = new RestManager(webApiSession, timezoneProvider))
       {
         var loader = new FlightSearchLoader(
           jetStreamSession,

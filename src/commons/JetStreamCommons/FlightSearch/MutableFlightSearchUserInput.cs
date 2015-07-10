@@ -8,7 +8,7 @@
     public IJetStreamAirport DepartureAirport { get; set; }
     public IJetStreamAirport DestinationAirport { get; set; }
 
-    public DateTime ForwardFlightDepartureDate { get; set; }
+    public DateTime? ForwardFlightDepartureDate { get; set; }
     public DateTime? ReturnFlightDepartureDate { get; set; }
 
     public TicketClass TicketClass { get; set; }

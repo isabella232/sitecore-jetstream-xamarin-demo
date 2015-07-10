@@ -66,5 +66,5 @@
     <Compile Include="ActionSheetViewController.cs" />
     <Compile Include="ActionSheetDatePickerView.cs" />
   </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
 </Project>
