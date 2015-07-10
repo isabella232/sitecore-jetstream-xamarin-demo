@@ -41,3 +41,4 @@ packages
 *.dgml
 __pycache__/
 *.Cache
+keystore/
