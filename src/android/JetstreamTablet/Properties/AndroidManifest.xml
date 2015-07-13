@@ -16,10 +16,6 @@
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 	<!-- Google Maps for Android v2 needs this permission so that it may check the connection state as it must download data -->
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-	<!-- Permission to receive remote notifications from Google Play Services -->
-	<!-- Notice here that we have the package name of our application as a prefix on the permissions. -->
-	<uses-permission android:name="net.sitecore.jetstream.permission.MAPS_RECEIVE"/>
-	<permission android:name="net.sitecore.jetstream.permission.MAPS_RECEIVE" android:protectionLevel="signature"/>
 	<!-- These are optional, but recommended. They will allow Maps to use the My Location provider. -->
 	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
