@@ -12,8 +12,8 @@ Feature: Display destinations
 <h3>All destinations</h3>
 The initial screen of the app is organized as the world map. Jetstream destinations appear on the map as map markers that the user can tap on to view the details page of a specific destination.  
 *Screen:* Android / iOS  
-![alt text](/img/Feature_images/Destinations_MapWithCarousel_Android.jpg)
-![alt text](/img/Feature_images/Destinations_MapWithCarousel_iOS.jpg)  
+![alt text](img/Feature_images/Destinations_MapWithCarousel_Android.jpg)
+![alt text](img/Feature_images/Destinations_MapWithCarousel_iOS.jpg)  
 
   
 **Points of interest**  
@@ -24,8 +24,8 @@ The initial screen of the app is organized as the world map. Jetstream destinati
 
 <h3>Destinations carousel</h3>
 There is a destinations carousel at the bottom of the map.  
-![alt text](/img/Feature_images/Destinations_MapWithCarousel_Android.jpg)
-![alt text](/img/Feature_images/Destinations_MapWithCarousel_iOS.jpg)  
+![alt text](img/Feature_images/Destinations_MapWithCarousel_Android.jpg)
+![alt text](img/Feature_images/Destinations_MapWithCarousel_iOS.jpg)  
   
 **Points of interest**  
 1. Destination elements for carousel are loaded from the Jetstream instance.  
@@ -35,8 +35,8 @@ There is a destinations carousel at the bottom of the map.
 <h3>Destination details</h3>
 Destination details is opened on a separate screen.  
 *Screen:* Android / iOS  
-![alt text](/img/Feature_images/Destinations_Details_Android.jpg)
-![alt text](/img/Feature_images/Destinations_Details_iOS.jpg)  
+![alt text](img/Feature_images/Destinations_Details_Android.jpg)
+![alt text](img/Feature_images/Destinations_Details_iOS.jpg)  
   
 **Points of interest**  
 1. User can view an image of the destination, as well as information about it.  

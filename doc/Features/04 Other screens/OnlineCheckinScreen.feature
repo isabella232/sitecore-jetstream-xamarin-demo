@@ -9,8 +9,8 @@ Feature: Online checkin screen
 <h2>Description</h2>
 For the demo purposes only menu item is left without working functionality behind that.  
 *Screen:* Android / iOS  
-![alt text](/img/Feature_images/Check_in_Android.jpg)
-![alt text](/img/Feature_images/Check_in_iOS.jpg)  
+![alt text](img/Feature_images/Check_in_Android.jpg)
+![alt text](img/Feature_images/Check_in_iOS.jpg)  
 
 
 Scenario: Display Online checkin screen

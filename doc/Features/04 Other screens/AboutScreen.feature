@@ -9,8 +9,8 @@ Feature: About screen
 <h2>Description</h2>
 In the "About" section, user can view the Jetstream About information.  
 *Screen:* Android / iOS  
-![alt text](/img/Feature_images/About_Android.jpg)
-![alt text](/img/Feature_images/About_iOS.jpg)  
+![alt text](img/Feature_images/About_Android.jpg)
+![alt text](img/Feature_images/About_iOS.jpg)  
 
 **Points of interest**  
 1. The screen contains **Title**, **Summary** and **Body** that are loaded from the Jetstream About item.  
