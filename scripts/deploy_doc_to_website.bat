@@ -4,14 +4,14 @@ set project_version="2.0"
 set output_directory="generated_doc_webiste"
 set features_directory="doc\Features"
 set changes_file_name="changes.txt"
-set feature_images_directory="doc\Feature_images"
+set images_directory="doc\images"
 
 :: Generating website pages from feature files
 :: format 
 scripts\pickles\Pickles.exe -feature-directory=%features_directory% -output-directory=%output_directory% -df=DHTML -sn=%project_name% -sv=%project_version%
 
 :: Copying feature images from workspace into website /img folder.
-xcopy /e /i %feature_images_directory%\* %output_directory%\img\Feature_images
+xcopy /e /i %images_directory%\* %output_directory%\img\
 
 ::Cleaning website root except version file.
 :: I used powershell here because I can't imagine how to implement this with batch.
