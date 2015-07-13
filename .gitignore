@@ -21,7 +21,6 @@ build
 # JetBrains
 .idea
 
-
 # MS Visual Studio
 bin
 obj
@@ -44,4 +43,7 @@ packages
 JetStreamCommons/JetStreamCommons/bin/
 JetStreamIOS/JetStreamIOS/bin/
 *.userprefs
-StyleCop.Cache
+
+__pycache__/
+*.Cache
+keystore/
