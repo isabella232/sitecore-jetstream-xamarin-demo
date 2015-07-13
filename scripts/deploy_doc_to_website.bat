@@ -6,10 +6,12 @@ set features_directory="doc\Features"
 set changes_file_name="changes.txt"
 set feature_images_directory="doc\Feature_images"
 
-
 :: Generating website pages from feature files
 :: format 
 scripts\pickles\Pickles.exe -feature-directory=%features_directory% -output-directory=%output_directory% -df=DHTML -sn=%project_name% -sv=%project_version%
+
+:: Copying feature images from workspace into website /img folder.
+xcopy /e /i %feature_images_directory%\* %output_directory%\img\Feature_images
 
 ::Cleaning website root except version file.
 :: I used powershell here because I can't imagine how to implement this with batch.
@@ -17,9 +19,6 @@ powershell -noprofile -executionpolicy RemoteSigned -file scripts\clean_website_
 
 :: Copying website pages from workspace into website root.
 xcopy /e /i %output_directory% %website_root_directory%
-
-:: Copying feature images from workspace into website /img folder.
-xcopy /e /i %feature_images_directory%\* %website_root_directory%\img\Feature_images
 
 echo ------------------------^
 
