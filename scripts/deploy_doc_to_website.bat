@@ -1,6 +1,6 @@
 set website_root_directory="C:\dev\jetstream_doc"
 set project_name="Jetstream"
-set project_version="2.0"
+set project_version="1.0"
 set output_directory="generated_doc_webiste"
 set features_directory="doc\Features"
 set changes_file_name="changes.txt"
