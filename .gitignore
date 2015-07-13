@@ -44,3 +44,4 @@ packages
 JetStreamCommons/JetStreamCommons/bin/
 JetStreamIOS/JetStreamIOS/bin/
 *.userprefs
+StyleCop.Cache
