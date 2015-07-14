@@ -5,7 +5,7 @@ namespace Jetstream.Bitmap
   public static class BitmapUtils
   {
     private const int OuterCircleCenterShift = 4;
-    private const int OutBitmapSize = 20;
+    private const int OutBitmapSize = 35;
     private const int TextCircleShift = 5;
     private const float TextSize = 24;
 
