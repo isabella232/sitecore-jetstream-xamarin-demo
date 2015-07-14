@@ -18,3 +18,6 @@
 //DUMMY
 "CHECK_IN_PLACEHOLDER_TITLE" = "Check In";
 "FLIGHT_STATUS_PLACEHOLDER_TITLE" = "Flight Status";
+
+//SETTINGS
+"URL_TEXT_FIELD_PLACEHOLDER" = "http://sitecore.net";
