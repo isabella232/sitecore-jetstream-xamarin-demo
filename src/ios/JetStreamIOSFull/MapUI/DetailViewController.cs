@@ -110,10 +110,10 @@ namespace JetStreamIOSFull.MapUI
       }
       catch
       {
+        AlertHelper.ShowLocalizedAlertWithOkOption("NETWORK_ERROR_TITLE", "CANNOT_DOWNLOAD_DESTINATIONS_ERROR");
       }
       finally
       {
-        AlertHelper.ShowLocalizedAlertWithOkOption("NETWORK_ERROR_TITLE", "CANNOT_DOWNLOAD_DESTINATIONS_ERROR");
         UIApplication.SharedApplication.NetworkActivityIndicatorVisible = false;
         RefreshButton.Enabled = true;
       }
