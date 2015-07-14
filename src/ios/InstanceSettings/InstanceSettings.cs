@@ -97,7 +97,7 @@ namespace InstanceSettings
       { 
         if (this.instanceUrl == null) 
         {
-          this.instanceUrl = "http://jetstream800394rev150402.test24dk1.dk.sitecore.net/";
+          this.instanceUrl = "";
         }
 
         return this.instanceUrl;

@@ -113,6 +113,7 @@ namespace JetStreamIOSFull.MapUI
       }
       finally
       {
+        AlertHelper.ShowLocalizedAlertWithOkOption("NETWORK_ERROR_TITLE", "CANNOT_DOWNLOAD_DESTINATIONS_ERROR");
         UIApplication.SharedApplication.NetworkActivityIndicatorVisible = false;
         RefreshButton.Enabled = true;
       }
@@ -151,10 +152,9 @@ namespace JetStreamIOSFull.MapUI
           }
           catch(Exception ex)
           {
-            AlertHelper.ShowLocalizedAlertWithOkOption("NETWORK_ERROR_TITLE", "CANNOT_DOWNLOAD_DESTINATIONS_ERROR");
+            Console.WriteLine("DestinationsLoader exception");
             throw ex;
           }
-
         }
       }
     }

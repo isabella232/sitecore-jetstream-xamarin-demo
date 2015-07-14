@@ -31,6 +31,8 @@ namespace JetStreamIOSFull.Settings
       source.onUrlSelected += UrlFromHistorySelected;
 
       this.HistoryTableView.Source = source;
+
+      this.UrlTextField.Placeholder = NSBundle.MainBundle.LocalizedString("URL_TEXT_FIELD_PLACEHOLDER", null);
     }
 
     private void UrlFromHistorySelected(string url)
