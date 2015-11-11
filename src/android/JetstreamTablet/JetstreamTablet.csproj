@@ -88,41 +88,14 @@
     <Reference Include="NineOldAndroids">
       <HintPath>..\..\..\solutions\packages\Xamarin.NineOldAndroids.0.0.1\lib\MonoAndroid\NineOldAndroids.dll</HintPath>
     </Reference>
-    <Reference Include="DSoft.Messaging">
-      <HintPath>..\..\..\solutions\Components\messagebus-1.4\lib\android\DSoft.Messaging.dll</HintPath>
-    </Reference>
     <Reference Include="GoogleMapsUtility-0.3.4">
       <HintPath>libs\GoogleMapsUtility-0.3.4.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Android.Support.v4">
-      <HintPath>..\..\..\solutions\packages\Xamarin.Android.Support.v4.22.2.0.0\lib\MonoAndroid403\Xamarin.Android.Support.v4.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Android.Support.v7.RecyclerView">
-      <HintPath>..\..\..\solutions\packages\Xamarin.Android.Support.v7.RecyclerView.22.2.0.0\lib\MonoAndroid403\Xamarin.Android.Support.v7.RecyclerView.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Android.Support.v7.AppCompat">
-      <HintPath>..\..\..\solutions\packages\Xamarin.Android.Support.v7.AppCompat.22.2.0.0\lib\MonoAndroid403\Xamarin.Android.Support.v7.AppCompat.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Android.Support.v7.MediaRouter">
-      <HintPath>..\..\..\solutions\packages\Xamarin.Android.Support.v7.MediaRouter.22.2.0.0\lib\MonoAndroid403\Xamarin.Android.Support.v7.MediaRouter.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Android.Support.v7.CardView">
-      <HintPath>..\..\..\solutions\packages\Xamarin.Android.Support.v7.CardView.22.2.0.0\lib\MonoAndroid403\Xamarin.Android.Support.v7.CardView.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\..\solutions\packages\Newtonsoft.Json.7.0.1\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Xamarin.Insights">
-      <HintPath>..\..\..\solutions\packages\Xamarin.Insights.1.10.4.112\lib\MonoAndroid10\Xamarin.Insights.dll</HintPath>
-    </Reference>
     <Reference Include="MaterialLoadingProgressBar-Xamarin">
       <HintPath>libs\MaterialLoadingProgressBar-Xamarin.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.GooglePlayServices.Base">
-      <HintPath>..\..\..\solutions\packages\Xamarin.GooglePlayServices.Base.25.0.0.0\lib\MonoAndroid41\Xamarin.GooglePlayServices.Base.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.GooglePlayServices.Maps">
-      <HintPath>..\..\..\solutions\packages\Xamarin.GooglePlayServices.Maps.25.0.0.0\lib\MonoAndroid41\Xamarin.GooglePlayServices.Maps.dll</HintPath>
     </Reference>
     <Reference Include="Square.OkIO">
       <HintPath>..\..\..\solutions\packages\Square.OkIO.1.5.0.0\lib\MonoAndroid\Square.OkIO.dll</HintPath>
@@ -130,23 +103,50 @@
     <Reference Include="Square.Picasso">
       <HintPath>..\..\..\solutions\packages\Square.Picasso.2.5.2.1\lib\MonoAndroid\Square.Picasso.dll</HintPath>
     </Reference>
-    <Reference Include="Square.OkHttp">
-      <HintPath>..\..\..\solutions\packages\Square.OkHttp.2.4.0.2\lib\MonoAndroid\Square.OkHttp.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.GooglePlayServices.Location">
-      <HintPath>..\..\..\solutions\packages\Xamarin.GooglePlayServices.Location.25.0.0.0\lib\MonoAndroid41\Xamarin.GooglePlayServices.Location.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Android.Support.v7.Palette">
-      <HintPath>..\..\..\solutions\packages\Xamarin.Android.Support.v7.Palette.22.2.0.0\lib\MonoAndroid403\Xamarin.Android.Support.v7.Palette.dll</HintPath>
-    </Reference>
-    <Reference Include="android-iconics-1.2.0">
-      <HintPath>..\..\..\solutions\packages\Mikepenz.Android.Iconics.Xamarin.Binding.1.2.0\lib\MonoAndroid\android-iconics-1.2.0.dll</HintPath>
-    </Reference>
     <Reference Include="material-drawer-3.0">
       <HintPath>libs\material-drawer-3.0.7.dll</HintPath>
     </Reference>
-    <Reference Include="material-drawer-3.0.9">
-      <HintPath>..\..\..\solutions\packages\Mikepenz.MaterialDrawer.Xamarin.Android.3.0.9\lib\MonoAndroid\material-drawer-3.0.9.dll</HintPath>
+    <Reference Include="DSoft.Messaging">
+      <HintPath>..\..\..\Solutions\Components\messagebus-1.4\lib\android\DSoft.Messaging.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Insights">
+      <HintPath>..\..\..\Solutions\packages\Xamarin.Insights.1.11.1\lib\MonoAndroid10\Xamarin.Insights.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Android.Support.v4">
+      <HintPath>..\..\..\Solutions\packages\Xamarin.Android.Support.v4.23.0.1.1\lib\MonoAndroid403\Xamarin.Android.Support.v4.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.GooglePlayServices.Base">
+      <HintPath>..\..\..\Solutions\packages\Xamarin.GooglePlayServices.Base.26.0.0.0\lib\MonoAndroid41\Xamarin.GooglePlayServices.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.GooglePlayServices.Maps">
+      <HintPath>..\..\..\Solutions\packages\Xamarin.GooglePlayServices.Maps.26.0.0.0\lib\MonoAndroid41\Xamarin.GooglePlayServices.Maps.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.GooglePlayServices.Location">
+      <HintPath>..\..\..\Solutions\packages\Xamarin.GooglePlayServices.Location.26.0.0.0\lib\MonoAndroid41\Xamarin.GooglePlayServices.Location.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Android.Support.v7.Palette">
+      <HintPath>..\..\..\Solutions\packages\Xamarin.Android.Support.v7.Palette.23.0.1.1\lib\MonoAndroid403\Xamarin.Android.Support.v7.Palette.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Android.Support.v7.AppCompat">
+      <HintPath>..\..\..\Solutions\packages\Xamarin.Android.Support.v7.AppCompat.23.0.1.1\lib\MonoAndroid403\Xamarin.Android.Support.v7.AppCompat.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Android.Support.v7.MediaRouter">
+      <HintPath>..\..\..\Solutions\packages\Xamarin.Android.Support.v7.MediaRouter.23.0.1.1\lib\MonoAndroid403\Xamarin.Android.Support.v7.MediaRouter.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Android.Support.v7.CardView">
+      <HintPath>..\..\..\Solutions\packages\Xamarin.Android.Support.v7.CardView.23.0.1.1\lib\MonoAndroid403\Xamarin.Android.Support.v7.CardView.dll</HintPath>
+    </Reference>
+    <Reference Include="Square.OkHttp">
+      <HintPath>..\..\..\Solutions\packages\Square.OkHttp.2.4.0.3\lib\MonoAndroid\Square.OkHttp.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Android.Support.v7.RecyclerView">
+      <HintPath>..\..\..\Solutions\packages\Xamarin.Android.Support.v7.RecyclerView.23.0.1.1\lib\MonoAndroid403\Xamarin.Android.Support.v7.RecyclerView.dll</HintPath>
+    </Reference>
+    <Reference Include="material-drawer-3.1.2">
+      <HintPath>..\..\..\Solutions\packages\Mikepenz.MaterialDrawer.Xamarin.Android.3.1.2\lib\MonoAndroid\material-drawer-3.1.2.dll</HintPath>
+    </Reference>
+    <Reference Include="android-iconics-1.2.1">
+      <HintPath>..\..\..\Solutions\packages\Mikepenz.Android.Iconics.Xamarin.Binding.1.2.1\lib\MonoAndroid\android-iconics-1.2.1.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -254,19 +254,18 @@
     <AndroidResource Include="Resources\drawable\header.jpg" />
   </ItemGroup>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
-  </Target>
+  <Import Project="..\..\..\Solutions\packages\Xamarin.Insights.1.11.1\build\MonoAndroid10\Xamarin.Insights.targets" Condition="Exists('..\..\..\Solutions\packages\Xamarin.Insights.1.11.1\build\MonoAndroid10\Xamarin.Insights.targets')" />
   <ItemGroup />
   <ItemGroup>
-    <AndroidAsset Include="Assets\fonts\google_material_design.ttf" />
     <AndroidAsset Include="Assets\about_logo.jpg" />
     <AndroidAsset Include="Assets\fonts\jetstream_design.ttf" />
     <AndroidAsset Include="Assets\check_in_logo.jpg" />
     <AndroidAsset Include="Assets\flight_status_logo.png" />
+    <AndroidAsset Include="Assets\fonts\google_material_design.ttf" />
+    <AndroidAsset Include="Assets\fonts\fontawesome-webfont-4.3.0.ttf" />
+    <AndroidAsset Include="Assets\fonts\materialdesignicons-webfont.ttf" />
+    <AndroidAsset Include="Assets\fonts\meteocons.ttf" />
+    <AndroidAsset Include="Assets\fonts\octicons.ttf" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

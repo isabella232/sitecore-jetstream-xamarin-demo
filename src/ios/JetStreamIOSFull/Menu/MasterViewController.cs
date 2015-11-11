@@ -182,6 +182,7 @@ namespace JetStreamIOSFull.Menu
           controller.NavigationManager.NavigationItemSelected(menuItem.Type);
         }
       }
+
     }
   }
 }
