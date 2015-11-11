@@ -14,7 +14,7 @@ namespace Jetstream
     private const string InstanceUrlKey = "instance_url_key";
     private const string SavedInstanceUrlsKey = "saved_instance_urls_key";
 
-    public const string DefaultInstanceUrl = "http://jetstream800394rev150402.test24dk1.dk.sitecore.net/";
+    public const string DefaultInstanceUrl = "http://";
 
     private Prefs(ISharedPreferences sharedPreferences)
     {

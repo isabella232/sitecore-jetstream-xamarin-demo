@@ -42,6 +42,9 @@
     <IpaPackageName>JetStream</IpaPackageName>
     <BuildIpa>true</BuildIpa>
     <IpaMetadata>Info.plist</IpaMetadata>
+    <MtouchUseRefCounting>true</MtouchUseRefCounting>
+    <MtouchI18n>
+    </MtouchI18n>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>full</DebugType>
@@ -90,18 +93,6 @@
     <Reference Include="Sitecore.MobileSDK.PasswordProvider.Interface">
       <HintPath>..\..\..\Solutions\packages\Sitecore.MobileSDK.Xamarin.1.0.0\lib\portable-win+net4+sl5+wp8\Sitecore.MobileSDK.PasswordProvider.Interface.dll</HintPath>
     </Reference>
-    <Reference Include="SDWebImage">
-      <HintPath>..\..\..\Solutions\Components\sdwebimage-3.7.1.4\lib\ios-unified\SDWebImage.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Insights">
-      <HintPath>..\..\..\Solutions\packages\Xamarin.Insights.1.10.4.112\lib\Xamarin.iOS10\Xamarin.Insights.dll</HintPath>
-    </Reference>
-    <Reference Include="PLCrashReporterUnifiedBinding">
-      <HintPath>..\..\..\Solutions\packages\Xamarin.Insights.1.10.4.112\lib\Xamarin.iOS10\PLCrashReporterUnifiedBinding.dll</HintPath>
-    </Reference>
-    <Reference Include="Calabash">
-      <HintPath>..\..\..\Solutions\packages\Xamarin.TestCloud.Agent.0.14.1\lib\Xamarin.iOS10\Calabash.dll</HintPath>
-    </Reference>
     <Reference Include="crypto">
       <HintPath>..\..\..\Solutions\packages\Portable.BouncyCastle.1.7.0.2\lib\portable-net4+sl5+wp8+win8+wpa81+MonoTouch10+MonoAndroid10+xamarinmac20+xamarinios10\crypto.dll</HintPath>
     </Reference>
@@ -113,6 +104,18 @@
     </Reference>
     <Reference Include="System.Net.Http.Extensions">
       <HintPath>..\..\..\Solutions\packages\Microsoft.Net.Http.2.2.29\lib\Xamarin.iOS10\System.Net.Http.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Calabash">
+      <HintPath>..\..\..\Solutions\packages\Xamarin.TestCloud.Agent.0.16.2\lib\Xamarin.iOS10\Calabash.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Insights">
+      <HintPath>..\..\..\Solutions\packages\Xamarin.Insights.1.11.2\lib\Xamarin.iOS10\Xamarin.Insights.dll</HintPath>
+    </Reference>
+    <Reference Include="PLCrashReporterUnifiedBinding">
+      <HintPath>..\..\..\Solutions\packages\Xamarin.Insights.1.11.2\lib\Xamarin.iOS10\PLCrashReporterUnifiedBinding.dll</HintPath>
+    </Reference>
+    <Reference Include="SDWebImage">
+      <HintPath>..\..\..\Solutions\Components\sdwebimage-3.7.3.1\lib\ios-unified\SDWebImage.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -224,6 +227,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\..\..\Solutions\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\..\Solutions\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
+  <Import Project="..\..\..\Solutions\packages\Xamarin.Insights.1.11.2\build\Xamarin.iOS10\Xamarin.Insights.targets" Condition="Exists('..\..\..\Solutions\packages\Xamarin.Insights.1.11.2\build\Xamarin.iOS10\Xamarin.Insights.targets')" />
   <ItemGroup>
     <ProjectReference Include="..\InstanceSettings\InstanceSettings.csproj">
       <Project>{1F4E5EBD-FAB4-47C6-9403-F59D967DF74D}</Project>
@@ -249,12 +253,6 @@
     <Folder Include="NOTIMPLEMENTED\" />
     <Folder Include="About\" />
     <Folder Include="Helpers\Appearance\" />
-  </ItemGroup>
-  <ItemGroup>
-    <XamarinComponentReference Include="sdwebimage">
-      <Version>3.7.1.4</Version>
-      <Visible>False</Visible>
-    </XamarinComponentReference>
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\en.lproj\Localizable.strings" />
@@ -296,5 +294,11 @@
   <ItemGroup>
     <ITunesArtwork Include="iTunesArtwork%402x" />
     <ITunesArtwork Include="iTunesArtwork" />
+  </ItemGroup>
+  <ItemGroup>
+    <XamarinComponentReference Include="sdwebimage">
+      <Version>3.7.3.1</Version>
+      <Visible>False</Visible>
+    </XamarinComponentReference>
   </ItemGroup>
 </Project>

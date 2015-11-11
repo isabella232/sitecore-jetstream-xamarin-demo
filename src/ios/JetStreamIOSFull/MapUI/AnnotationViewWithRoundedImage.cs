@@ -83,10 +83,10 @@ namespace JetStreamIOSFull.MapUI
         manager.Download(
           url: imageUrl,
           options: SDWebImageOptions.RetryFailed | SDWebImageOptions.LowPriority,
-          progressHandler: (receivedSize, expectedSize) =>
+          progressBlock: (receivedSize, expectedSize) =>
           {
           },
-          completedHandler: (image, error, cacheType, finished, url) =>
+          completedBlock: (image, error, cacheType, finished, url) =>
           {
             float size = appearanceHelper.Map.DestinationIconSize;
             UIImage resizedImage = ImageHelper.ResizeImage(image, size, size);  

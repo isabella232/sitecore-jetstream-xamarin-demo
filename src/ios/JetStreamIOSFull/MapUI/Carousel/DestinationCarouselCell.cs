@@ -65,7 +65,10 @@ namespace JetStreamIOSFull
         url: new NSUrl (destination.ImageUrl),
         placeholder: null,
         options: SDWebImageOptions.RetryFailed | SDWebImageOptions.LowPriority,
-        completionHandler: (image, error, cacheType, imageUrl) =>{} );
+        completedBlock: (image, error, cacheType, imageUrl) =>{
+
+        Console.WriteLine("image downloaded");
+      } );
     }
 
     private void ShowEmptyCellWithAnimation()
