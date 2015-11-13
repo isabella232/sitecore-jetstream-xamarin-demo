@@ -9,6 +9,7 @@ using JetStreamIOSFull.Menu;
 
 namespace JetStreamIOSFull.Navigation
 {
+
   public partial class NavigationManagerViewController : BaseViewController
   {
     public UIBarButtonItem menuButton;
@@ -109,11 +110,13 @@ namespace JetStreamIOSFull.Navigation
 
     public void LoadNavigationFlows()
     {
-      this.MapFlow = (UINavigationController)this.Storyboard.InstantiateViewController("MapFlowInitialNavigationController");
-      this.SettingsFlow = (UINavigationController)this.Storyboard.InstantiateViewController("SettingsFlowInitialNavigationController");
-      this.AboutFlow = (UINavigationController)this.Storyboard.InstantiateViewController("AboutFlowInitialNavigationController");
-      this.FlightStatusFlow = (UINavigationController)this.Storyboard.InstantiateViewController("FlightStatusFlowInitialNavigationController");
-      this.OnlineCheckInFlow = (UINavigationController)this.Storyboard.InstantiateViewController("CheckInFlowInitialNavigationController");
+      UIStoryboard infoStoryboard = UIStoryboard.FromName("InfoControllers", null);
+
+      this.MapFlow = infoStoryboard.InstantiateViewController("MapFlowInitialNavigationController") as UINavigationController;
+      this.SettingsFlow = infoStoryboard.InstantiateViewController("SettingsFlowInitialNavigationController") as UINavigationController;
+      this.AboutFlow = infoStoryboard.InstantiateViewController("AboutFlowInitialNavigationController") as UINavigationController;
+      this.FlightStatusFlow = infoStoryboard.InstantiateViewController("FlightStatusFlowInitialNavigationController") as UINavigationController;
+      this.OnlineCheckInFlow = infoStoryboard.InstantiateViewController("CheckInFlowInitialNavigationController") as UINavigationController;
 
 
       this.InitializeFlow(this.MapFlow);
@@ -180,7 +183,7 @@ namespace JetStreamIOSFull.Navigation
       }
 
       this.View.AddSubview(NewFlow.View);
-      this.CurentActiveFlow = NewFlow;
+      this.CurentActiveFlow = NewFlow;      
       this.View.BringSubviewToFront(this.PanView);
     }
 

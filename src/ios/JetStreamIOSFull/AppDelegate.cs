@@ -26,9 +26,9 @@ namespace JetStreamIOSFull
       AnalyticsHelper.InitializeAnalytics();
 
       var splitViewController = (MainSplitViewController)Window.RootViewController;
-      splitViewController.PresentsWithGesture = false;
-      splitViewController.PreferredDisplayMode = UISplitViewControllerDisplayMode.PrimaryHidden;
-      splitViewController.Delegate = new SplitViewDelegate();
+//      splitViewController.PresentsWithGesture = false;
+//      splitViewController.PreferredDisplayMode = UISplitViewControllerDisplayMode.PrimaryHidden;
+//      splitViewController.Delegate = new SplitViewDelegate();
 
       application.SetStatusBarStyle(UIStatusBarStyle.LightContent, false);
 
@@ -66,17 +66,17 @@ namespace JetStreamIOSFull
       // Called when the application is about to terminate. Save data, if needed. See also DidEnterBackground.
     }
 
-    [Export("splitViewController:collapseSecondaryViewController:ontoPrimaryViewController:")]
-    public bool CollapseSecondViewController(UISplitViewController splitViewController, UIViewController secondaryViewController, UIViewController primaryViewController)
-    {
-      if (secondaryViewController.GetType() == typeof(UINavigationController) &&
-       ((UINavigationController)secondaryViewController).TopViewController.GetType() == typeof(DetailViewController))
-      {
-        // Return YES to indicate that we have handled the collapse by doing nothing; the secondary controller will be discarded.
-        return true;
-      }
-      return false;
-    }
+//    [Export("splitViewController:collapseSecondaryViewController:ontoPrimaryViewController:")]
+//    public bool CollapseSecondViewController(UISplitViewController splitViewController, UIViewController secondaryViewController, UIViewController primaryViewController)
+//    {
+//      if (secondaryViewController.GetType() == typeof(UINavigationController) &&
+//       ((UINavigationController)secondaryViewController).TopViewController.GetType() == typeof(DetailViewController))
+//      {
+//        // Return YES to indicate that we have handled the collapse by doing nothing; the secondary controller will be discarded.
+//        return true;
+//      }
+//      return false;
+//    }
   }
 }
 
