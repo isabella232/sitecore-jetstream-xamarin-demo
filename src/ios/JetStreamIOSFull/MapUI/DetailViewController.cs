@@ -16,12 +16,16 @@ using SDWebImage;
 using CoreGraphics;
 using JetStreamIOSFull.BaseVC;
 using JetStreamIOSFull.DestinationDetails;
+using ObjCRuntime;
 
 
 namespace JetStreamIOSFull.MapUI
 {
   public partial class DetailViewController : BaseViewController, IMKMapViewDelegate
   {
+    private static nfloat carouselLinkHeight = 40;
+    private bool caruselAnimationIsRunning = false;
+
     private readonly string DESTINATION_DETAIL_SEGUE_ID = "ShowDestinationDetails";
     private IEnumerable destinations;
     private MapManager mapManager;
@@ -54,7 +58,71 @@ namespace JetStreamIOSFull.MapUI
       this.InitializeMap();
 
       this.DetailsCarousel.BackgroundColor = UIColor.Clear;
-      this.DetailsCarousel.BackgroundView = new UIView (new CGRect (0, 0, 0, 0));
+      this.DetailsCarousel.BackgroundView = new UIView(new CGRect (0, 0, 0, 0));
+
+      this.RegisterCarouselSwipes();
+    }
+
+    private void RegisterCarouselSwipes()
+    {
+      UISwipeGestureRecognizer swipeUpGesture = new UISwipeGestureRecognizer(sw => 
+      {
+          this.showCarousel(true);
+      });
+      swipeUpGesture.Direction = UISwipeGestureRecognizerDirection.Up;
+      this.DetailsCarousel.AddGestureRecognizer(swipeUpGesture);
+
+      UISwipeGestureRecognizer swipeDownGesture = new UISwipeGestureRecognizer(sw => 
+      {
+        this.hideCarousel(true);
+      });
+      swipeDownGesture.Direction = UISwipeGestureRecognizerDirection.Down;
+      this.DetailsCarousel.AddGestureRecognizer(swipeDownGesture);
+    }
+
+    private void showCarousel(bool animated)
+    {
+      nfloat height = this.View.Bounds.Height - this.DetailsCarousel.Bounds.Height;
+      this.MoveCarouselToCoordiantes(height, animated);
+    }
+
+    private void hideCarousel(bool animated)
+    {
+      nfloat height = this.View.Bounds.Height - carouselLinkHeight;
+      this.MoveCarouselToCoordiantes(height, animated);
+    }
+
+    private void MoveCarouselToCoordiantes(nfloat height, bool animated)
+    {
+      if (this.caruselAnimationIsRunning == false)
+      {
+        if (animated)
+        {
+          this.caruselAnimationIsRunning = true;
+          UIView.BeginAnimations("slideAnimation");
+
+          UIView.SetAnimationDuration(0.7);
+          UIView.SetAnimationCurve(UIViewAnimationCurve.EaseInOut);
+ 
+          UIView.SetAnimationDelegate(this);
+          UIView.SetAnimationDidStopSelector(new Selector ("animationDidStop:finished:context:"));
+        }
+
+        CGRect frame = this.DetailsCarousel.Frame;
+        frame.Y = height;
+        this.DetailsCarousel.Frame = frame;
+
+        if (animated)
+        {
+          UIView.CommitAnimations();
+        }
+      }
+    }
+
+    [Export("animationDidStop:finished:context:")]
+    void SlideStopped (NSString animationID, NSNumber finished, NSObject context)
+    {
+      this.caruselAnimationIsRunning = false;
     }
 
     private void InitializeMap()

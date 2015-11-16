@@ -131,9 +131,10 @@
     <ImageAsset Include="Resources\Images.xcassets\LaunchImage.launchimage\splash_screen_iOS_2048x1536.png" />
   </ItemGroup>
   <ItemGroup>
-    <InterfaceDefinition Include="Main.storyboard" />
     <InterfaceDefinition Include="Resources\LaunchScreen.xib" />
     <InterfaceDefinition Include="InfoControllers.storyboard" />
+    <InterfaceDefinition Include="MainIPhone.storyboard" />
+    <InterfaceDefinition Include="MainIPad.storyboard" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />

@@ -20,6 +20,7 @@ namespace JetStreamIOSFull.Navigation
     private UINavigationController FlightStatusFlow;
     private UINavigationController OnlineCheckInFlow;
     private UINavigationController CurentActiveFlow;
+    private static UIStoryboard infoStoryboard = UIStoryboard.FromName("InfoControllers", null);
 
     private UIView overlayView = null;
     private bool canShowMenu = true;
@@ -110,21 +111,6 @@ namespace JetStreamIOSFull.Navigation
 
     public void LoadNavigationFlows()
     {
-      UIStoryboard infoStoryboard = UIStoryboard.FromName("InfoControllers", null);
-
-      this.MapFlow = infoStoryboard.InstantiateViewController("MapFlowInitialNavigationController") as UINavigationController;
-      this.SettingsFlow = infoStoryboard.InstantiateViewController("SettingsFlowInitialNavigationController") as UINavigationController;
-      this.AboutFlow = infoStoryboard.InstantiateViewController("AboutFlowInitialNavigationController") as UINavigationController;
-      this.FlightStatusFlow = infoStoryboard.InstantiateViewController("FlightStatusFlowInitialNavigationController") as UINavigationController;
-      this.OnlineCheckInFlow = infoStoryboard.InstantiateViewController("CheckInFlowInitialNavigationController") as UINavigationController;
-
-
-      this.InitializeFlow(this.MapFlow);
-      this.InitializeFlow(this.SettingsFlow);
-      this.InitializeFlow(this.AboutFlow);
-      this.InitializeFlow(this.FlightStatusFlow);
-      this.InitializeFlow(this.OnlineCheckInFlow);
-
       this.NavigateToTabAtIndex(MenuItemTypes.Destinations);
     }
 
@@ -137,45 +123,48 @@ namespace JetStreamIOSFull.Navigation
 
     private void NavigateToTabAtIndex(MenuItemTypes type)
     {
-      UINavigationController NewFlow = null;
+      string vcName = null;
 
       switch (type)
       {
       case MenuItemTypes.Destinations:
         {
-          NewFlow = this.MapFlow;
+          vcName = "MapFlowInitialNavigationController";
           break;
         }
       case MenuItemTypes.Settings:
         {
-          NewFlow = this.SettingsFlow;
+          vcName = "SettingsFlowInitialNavigationController";
           break;
         }
       case MenuItemTypes.About:
         {
-          NewFlow = this.AboutFlow;
+          vcName = "AboutFlowInitialNavigationController";
           break;
         }
       case MenuItemTypes.OnlineCheckin:
         {
-          NewFlow = this.OnlineCheckInFlow;
+          vcName = "CheckInFlowInitialNavigationController";
           break;
         }
       case MenuItemTypes.FlightStatus:
         {
-          NewFlow = this.FlightStatusFlow;
+          vcName = "FlightStatusFlowInitialNavigationController";
           break;
         }
       default:
         {
-          NewFlow = this.MapFlow;
+          vcName = "MapFlowInitialNavigationController";
           break;
         }
       }
 
+      UINavigationController NewFlow = infoStoryboard.InstantiateViewController(vcName) as UINavigationController;;
+      this.InitializeFlow(NewFlow);
+
       UIViewController vc = NewFlow.TopViewController;
       vc.NavigationItem.LeftBarButtonItem = this.MenuButton;
-      vc.NavigationItem.LeftItemsSupplementBackButton = false;
+      vc.NavigationItem.LeftItemsSupplementBackButton = true;
 
       if (this.CurentActiveFlow != null)
       {

@@ -44,6 +44,7 @@ namespace JetStreamIOSFull.BaseVC
         if (this.appearanceHelper == null)
         {
           throw new NullReferenceException("Appearance value must be initialized");
+
         }
 
         return this.appearanceHelper;

@@ -17,6 +17,8 @@ namespace JetStreamIOSFull.Menu
 
     private AppearanceHelper appearance;
     private DataSource dataSource;
+    private IMenuItem menuItem;
+    private List<IMenuItem> menuItems;
 
     public MasterViewController(IntPtr handle) : base(handle)
     {
@@ -63,30 +65,47 @@ namespace JetStreamIOSFull.Menu
 
     private void BuildMenu()
     {
-      List<IMenuItem> menuItems = new List<IMenuItem> ();
+      this.menuItems = new List<IMenuItem> ();
 
       string profile = NSBundle.MainBundle.LocalizedString("PROFILE_TITLE", null);
-      menuItems.Add(new MenuItem(profile, IconsHelper.MenuProfileIcon, MenuItemTypes.Profile));
+      this.menuItems.Add(new MenuItem(profile, IconsHelper.MenuProfileIcon, MenuItemTypes.Profile));
       string about = NSBundle.MainBundle.LocalizedString("ABOUT_TITLE", null);
-      menuItems.Add(new MenuItem(about, IconsHelper.MenuAboutIcon, MenuItemTypes.About));
+      this.menuItems.Add(new MenuItem(about, IconsHelper.MenuAboutIcon, MenuItemTypes.About));
       string destination = NSBundle.MainBundle.LocalizedString("DESTINATIONS_TITLE", null);
-      menuItems.Add(new MenuItem(destination, IconsHelper.MenuDestinationIcon, MenuItemTypes.Destinations));
+      this.menuItems.Add(new MenuItem(destination, IconsHelper.MenuDestinationIcon, MenuItemTypes.Destinations));
       string flight = NSBundle.MainBundle.LocalizedString("FLIGHT_STATUS_TITLE", null);
-      menuItems.Add(new MenuItem(flight, IconsHelper.MenuFlightStatusIcon, MenuItemTypes.FlightStatus));
+      this.menuItems.Add(new MenuItem(flight, IconsHelper.MenuFlightStatusIcon, MenuItemTypes.FlightStatus));
       string checkin = NSBundle.MainBundle.LocalizedString("ONLINE_CHECKIN_TITLE", null);
-      menuItems.Add(new MenuItem(checkin, IconsHelper.MenuOnlineCheckinIcon, MenuItemTypes.OnlineCheckin));
+      this.menuItems.Add(new MenuItem(checkin, IconsHelper.MenuOnlineCheckinIcon, MenuItemTypes.OnlineCheckin));
       string settings = NSBundle.MainBundle.LocalizedString("SETTINGS_TITLE", null);
-      menuItems.Add(new MenuItem(settings, IconsHelper.MenuSettingsIcon, MenuItemTypes.Settings));
+      this.menuItems.Add(new MenuItem(settings, IconsHelper.MenuSettingsIcon, MenuItemTypes.Settings));
 
-      this.dataSource = new DataSource (this, menuItems);
+      this.dataSource = new DataSource (this, this.menuItems);
       this.TableView.Source = this.dataSource;
     }
 
-    public override void DidReceiveMemoryWarning()
+    public override void PrepareForSegue(UIStoryboardSegue segue, NSObject sender)
     {
-      base.DidReceiveMemoryWarning();
-    }
+      UIDevice thisDevice = UIDevice.CurrentDevice;
 
+      if (thisDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Phone && segue.Identifier.Equals("showDetail"))
+      {
+        NavigationManagerViewController detailsVc = segue.DestinationViewController as NavigationManagerViewController;
+        if (detailsVc != null)
+        {
+          detailsVc.Appearance = NavigationManager.Appearance;
+          detailsVc.Endpoint = NavigationManager.Endpoint;
+
+          NSIndexPath indexPath = this.TableView.IndexPathForSelectedRow;
+            if (indexPath != null)  
+            {
+               this.menuItem = this.menuItems[indexPath.Row];
+               detailsVc.NavigationItemSelected(this.menuItem.Type);
+            }
+        }
+      }
+    }
+      
     class DataSource : UITableViewSource
     { 
       static readonly NSString MainCellIdentifier = new NSString ("MainCell");
@@ -122,7 +141,7 @@ namespace JetStreamIOSFull.Menu
 
         return 61;
       }
-        
+
       // Customize the appearance of table view cells.
       public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
       {
@@ -177,10 +196,23 @@ namespace JetStreamIOSFull.Menu
           UIBarButtonItem hideButton = this.controller.SplitViewController.DisplayModeButtonItem;
           UIApplication.SharedApplication.SendAction(hideButton.Action, hideButton.Target, null, null);
 
-          IMenuItem menuItem = this.objects [indexPath.Row];
+          controller.menuItem = this.objects [indexPath.Row];
 
-          controller.NavigationManager.NavigationItemSelected(menuItem.Type);
+          UIDevice thisDevice = UIDevice.CurrentDevice;
+          if (thisDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Pad)
+          {
+            controller.NavigationManager.NavigationItemSelected(controller.menuItem.Type);
+          }
         }
+
+//        UIDevice thisDevice = UIDevice.CurrentDevice;
+//        if (thisDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Phone)
+//        {
+//          MainSplitViewController splitController = this.controller.SplitViewController as MainSplitViewController;
+//          splitController.ToggleMasterView();
+//          splitController.PreferredDisplayMode = UISplitViewControllerDisplayMode.PrimaryHidden;
+//
+//        }
       }
 
     }

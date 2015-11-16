@@ -13,24 +13,32 @@ namespace JetStreamIOSFull
 
     public override void WillChangeDisplayMode(UISplitViewController svc, UISplitViewControllerDisplayMode displayMode)
     {
-      NavigationManagerViewController detailView = svc.ViewControllers[1] as NavigationManagerViewController;
-
-      if (detailView != null)
+      if (svc.ViewControllers.Length > 1 && svc.ViewControllers [1] is NavigationManagerViewController)
       {
+        NavigationManagerViewController detailView = svc.ViewControllers [1] as NavigationManagerViewController;
 
-        switch (displayMode)
+        if (detailView != null)
         {
-        case UISplitViewControllerDisplayMode.PrimaryOverlay:
-          detailView.ShowOverlay();
-          break;
-        case UISplitViewControllerDisplayMode.PrimaryHidden:
-          detailView.HideOverlay();
-          break;
-        default:
-          Console.WriteLine("NothingToDo");
-          break;
+
+          switch (displayMode)
+          {
+          case UISplitViewControllerDisplayMode.PrimaryOverlay:
+            detailView.ShowOverlay();
+            break;
+          case UISplitViewControllerDisplayMode.PrimaryHidden:
+            detailView.HideOverlay();
+            break;
+          default:
+            Console.WriteLine("NothingToDo");
+            break;
+          }
         }
       }
+    }
+
+    public override bool ShouldHideViewController(UISplitViewController svc, UIViewController viewController, UIInterfaceOrientation inOrientation)
+    {
+      return true;
     }
   }
 }

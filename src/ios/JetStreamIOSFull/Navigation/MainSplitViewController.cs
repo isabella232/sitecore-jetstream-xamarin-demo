@@ -20,6 +20,13 @@ namespace JetStreamIOSFull
       this.SetValueForKey(this.appearanceHelper.Menu.MenuWidth, key);
 		}
 
+    public void ToggleMasterView() {
+//      NavigationManagerViewController navigationManager = (NavigationManagerViewController)this.ViewControllers[1];
+//      navigationManager.ShowMasterPanel();
+//      UIBarButtonItem barButtonItem = this.DisplayModeButtonItem;
+//      UIApplication.SharedApplication.SendAction(barButtonItem.Action, barButtonItem.Target, null, null);
+    }
+
     public override void ViewDidLoad()
     {
       base.ViewDidLoad();
@@ -55,7 +62,20 @@ namespace JetStreamIOSFull
 
     private void InitializeMenu()
     {
-      MasterViewController menuController = (MasterViewController)this.ViewControllers[0];
+      MasterViewController menuController;
+
+      if (this.ViewControllers [0] is MasterViewController)
+      {
+        //iPad
+        menuController = this.ViewControllers [0] as MasterViewController; 
+      }
+      else
+      {
+        //iPhone
+        UINavigationController navController = this.ViewControllers [0] as UINavigationController; 
+        menuController = navController.ViewControllers [0] as MasterViewController; 
+      }
+
       menuController.Appearance = this.appearanceHelper;
     }
 	}
