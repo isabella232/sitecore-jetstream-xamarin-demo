@@ -14,11 +14,6 @@ namespace JetStreamIOSFull.Navigation
   {
     public UIBarButtonItem menuButton;
 
-    private UINavigationController MapFlow;
-    private UINavigationController SettingsFlow;
-    private UINavigationController AboutFlow;
-    private UINavigationController FlightStatusFlow;
-    private UINavigationController OnlineCheckInFlow;
     private UINavigationController CurentActiveFlow;
     private static UIStoryboard infoStoryboard = UIStoryboard.FromName("InfoControllers", null);
 

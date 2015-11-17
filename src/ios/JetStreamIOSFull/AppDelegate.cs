@@ -32,11 +32,14 @@ namespace JetStreamIOSFull
 
       application.SetStatusBarStyle(UIStatusBarStyle.LightContent, false);
 
-      //iphone
-      UINavigationController navigationController = splitViewController.ViewControllers[0] as UINavigationController;
-      navigationController.TopViewController.NavigationItem.LeftBarButtonItem = splitViewController.DisplayModeButtonItem;
-      splitViewController.Delegate = this;
 
+      UIDevice thisDevice = UIDevice.CurrentDevice;
+      if (thisDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Phone)
+      {
+        UINavigationController navigationController = splitViewController.ViewControllers [0] as UINavigationController;
+        navigationController.TopViewController.NavigationItem.LeftBarButtonItem = splitViewController.DisplayModeButtonItem;
+        splitViewController.Delegate = this;
+      }
 
       return true;
     }

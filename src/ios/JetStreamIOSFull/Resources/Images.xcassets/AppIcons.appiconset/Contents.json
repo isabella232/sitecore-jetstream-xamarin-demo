@@ -1,56 +1,67 @@
 {
   "images": [
     {
+      "filename": "logo_jetstream_vector3_29x29.png",
       "size": "29x29",
       "scale": "1x",
       "idiom": "iphone"
     },
     {
+      "filename": "logo_jetstream_vector3_58x58.png",
       "size": "29x29",
       "scale": "2x",
       "idiom": "iphone"
     },
     {
+      "filename": "logo_jetstream_vector3_87x87.png",
       "size": "29x29",
       "scale": "3x",
       "idiom": "iphone"
     },
     {
+      "filename": "logo_jetstream_vector3_80x80.png",
       "size": "40x40",
       "scale": "2x",
       "idiom": "iphone"
     },
     {
+      "filename": "logo_jetstream_vector3_120x120.png",
       "size": "40x40",
       "scale": "3x",
       "idiom": "iphone"
     },
     {
+      "filename": "logo_jetstream_vector3_57x57.png",
       "size": "57x57",
       "scale": "1x",
       "idiom": "iphone"
     },
     {
+      "filename": "logo_jetstream_vector3_114x114.png",
       "size": "57x57",
       "scale": "2x",
       "idiom": "iphone"
     },
     {
+      "filename": "logo_jetstream_vector3_120x120.png",
       "size": "60x60",
       "scale": "2x",
       "idiom": "iphone"
     },
     {
+      "filename": "logo_jetstream_vector3_180x180.png",
       "size": "60x60",
       "scale": "3x",
       "idiom": "iphone"
     },
     {
+      "filename": "logo_jetstream_vector3_29x29.png",
       "size": "29x29",
       "scale": "1x",
       "idiom": "ipad"
     },
     {
+      "filename": "logo_jetstream_vector3_58x58.png",
       "size": "29x29",
       "scale": "2x",
       "idiom": "ipad"

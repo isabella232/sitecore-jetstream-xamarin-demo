@@ -63,6 +63,13 @@ namespace JetStreamIOSFull.MapUI
       this.RegisterCarouselSwipes();
     }
 
+    public override void ViewWillAppear(bool animated)
+    {
+      base.ViewWillAppear(animated);
+
+      this.RefreshMap();
+    }
+
     private void RegisterCarouselSwipes()
     {
       UISwipeGestureRecognizer swipeUpGesture = new UISwipeGestureRecognizer(sw => 
@@ -135,13 +142,6 @@ namespace JetStreamIOSFull.MapUI
       this.map.SetRegion(region, false);
     }
 
-    public override void ViewDidAppear(bool animated)
-    {
-      base.ViewDidAppear(animated);
-
-      this.RefreshMap();
-    }
-
     partial void RefreshButtonTouched(Foundation.NSObject sender)
     {
       AnalyticsHelper.TrackRefreshButtonTouch();
@@ -168,7 +168,7 @@ namespace JetStreamIOSFull.MapUI
 
     private async void RefreshMap()
     {
-      RefreshButton.Enabled = false;
+      this.RefreshButton.Enabled = false;
       UIApplication.SharedApplication.NetworkActivityIndicatorVisible = true;
 
       try
@@ -183,7 +183,9 @@ namespace JetStreamIOSFull.MapUI
       finally
       {
         UIApplication.SharedApplication.NetworkActivityIndicatorVisible = false;
-        RefreshButton.Enabled = true;
+        this.RefreshButton.Enabled = true;
+
+       
       }
     }
 

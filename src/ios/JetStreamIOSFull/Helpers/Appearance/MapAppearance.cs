@@ -9,6 +9,7 @@ namespace JetStreamIOSFull.Apearance
   public class MapAppearance : BaseAppearance
   {
     private UIImage destinationPlaceholder;
+    private UIDevice thisDevice = UIDevice.CurrentDevice;
 
     public MapAppearance(IColorTheme colorsTheme) : base(colorsTheme)
     {
@@ -70,6 +71,11 @@ namespace JetStreamIOSFull.Apearance
     {
       get
       { 
+        if (this.thisDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Phone)
+        {
+          return 50;
+        }
+
         return 70;
       }
     }
@@ -114,6 +120,11 @@ namespace JetStreamIOSFull.Apearance
     {
       get
       { 
+        if (this.thisDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Phone)
+        {
+          return 15;
+        }
+
         return 30;
       }
     }
@@ -122,6 +133,11 @@ namespace JetStreamIOSFull.Apearance
     {
       get
       { 
+        if (this.thisDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Phone)
+        {
+          return 12;
+        }
+
         return 20;
       }
     }

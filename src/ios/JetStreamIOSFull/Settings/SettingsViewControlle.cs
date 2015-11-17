@@ -7,7 +7,7 @@ using JetStreamIOSFull.BaseVC;
 
 namespace JetStreamIOSFull.Settings
 {
-  public partial class SettingsViewControlle : BaseViewController
+  public partial class SettingsViewControlle : BaseViewController, IUITextFieldDelegate
 	{
     private NSObject keyboardDown;
     private HistoryManager historyManager = new HistoryManager();
@@ -33,6 +33,7 @@ namespace JetStreamIOSFull.Settings
       this.HistoryTableView.Source = source;
 
       this.UrlTextField.Placeholder = NSBundle.MainBundle.LocalizedString("URL_TEXT_FIELD_PLACEHOLDER", null);
+      this.UrlTextField.WeakDelegate = this;
     }
 
     private void UrlFromHistorySelected(string url)
@@ -68,9 +69,17 @@ namespace JetStreamIOSFull.Settings
       NSNotificationCenter.DefaultCenter.RemoveObserver (this.keyboardDown);
 
       this.Endpoint.InstanceUrl = this.UrlTextField.Text;
-      this.UrlTextField.BecomeFirstResponder();
+      this.UrlTextField.ResignFirstResponder();
 
       this.historyManager.AddUrlToHistory(this.UrlTextField.Text);
+    }
+
+    [Export("textFieldShouldReturn:")]
+    public bool ShouldReturn(UITextField textField)
+    {
+      this.UrlTextField.ResignFirstResponder();
+
+      return false;
     }
 	}
 }
