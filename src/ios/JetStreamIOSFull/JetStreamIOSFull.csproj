@@ -121,15 +121,8 @@
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\logo_jetstream_vector3_76x76.png" />
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\logo_jetstream_vector3_80x80.png" />
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\logo_jetstream_vector3_152x152.png" />
-    <ImageAsset Include="Resources\Images.xcassets\LaunchImage.launchimage\splash_screen_iOS_1024x768PT.png" />
-    <ImageAsset Include="Resources\Images.xcassets\LaunchImage.launchimage\splash_screen_iOS_2048x1536PT.png" />
     <ImageAsset Include="Resources\Images.xcassets\LaunchImage.launchimage\splash_screen_iOS_1024x768.png" />
     <ImageAsset Include="Resources\Images.xcassets\LaunchImage.launchimage\splash_screen_iOS_2048x1536.png" />
-    <ImageAsset Include="Resources\Images.xcassets\LaunchImage.launchimage\splash_screen_iOS_2208x1248.png" />
-    <ImageAsset Include="Resources\Images.xcassets\LaunchImage.launchimage\splash_screen_iOS_2208x1248PT.png" />
-    <ImageAsset Include="Resources\Images.xcassets\LaunchImage.launchimage\splash_screen_iOS_640x1136PT copy.png" />
-    <ImageAsset Include="Resources\Images.xcassets\LaunchImage.launchimage\splash_screen_iOS_640x960PT.png" />
-    <ImageAsset Include="Resources\Images.xcassets\LaunchImage.launchimage\splash_screen_iOS_750x1334PT.png" />
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\logo_jetstream_vector3_180x180.png" />
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\logo_jetstream_vector3_120x120.png" />
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\logo_jetstream_vector3_114x114.png" />
