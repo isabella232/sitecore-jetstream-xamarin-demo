@@ -20,6 +20,12 @@ namespace JetStreamIOSFull.Settings
 
 		[Outlet]
 		UIKit.UITextField UrlTextField { get; set; }
+
+		[Outlet]
+		UIKit.UIButton UseButton { get; set; }
+
+		[Action ("UseButtonTouched:")]
+		partial void UseButtonTouched (Foundation.NSObject sender);
 		
 		void ReleaseDesignerOutlets ()
 		{
@@ -28,14 +34,19 @@ namespace JetStreamIOSFull.Settings
 				BackgroundImageView = null;
 			}
 
+			if (HistoryTableView != null) {
+				HistoryTableView.Dispose ();
+				HistoryTableView = null;
+			}
+
 			if (UrlTextField != null) {
 				UrlTextField.Dispose ();
 				UrlTextField = null;
 			}
 
-			if (HistoryTableView != null) {
-				HistoryTableView.Dispose ();
-				HistoryTableView = null;
+			if (UseButton != null) {
+				UseButton.Dispose ();
+				UseButton = null;
 			}
 		}
 	}

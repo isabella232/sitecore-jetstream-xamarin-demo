@@ -21,6 +21,8 @@ namespace JetStreamIOSFull.Settings
     {
       base.ViewDidLoad();
 
+      this.UseButton.SetTitle("", UIControlState.Normal);
+
       this.Title = NSBundle.MainBundle.LocalizedString("SETTINGS_SCREEN_TITLE", null);
       this.BackgroundImageView.Image = this.Appearance.Settings.SettingsBackground;
 

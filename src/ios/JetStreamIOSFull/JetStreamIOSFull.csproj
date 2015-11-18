@@ -29,7 +29,6 @@
     </MtouchI18n>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
-    <DebugType>full</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\iPhone\Release</OutputPath>
     <ErrorReport>prompt</ErrorReport>
@@ -41,7 +40,6 @@
     <CodesignProvision>16bd6ab4-f66a-4538-a8b9-29e063548d4f</CodesignProvision>
     <IpaPackageName>JetStream</IpaPackageName>
     <BuildIpa>true</BuildIpa>
-    <IpaMetadata>Info.plist</IpaMetadata>
     <MtouchUseRefCounting>true</MtouchUseRefCounting>
     <MtouchI18n>
     </MtouchI18n>
@@ -73,8 +71,6 @@
     <MtouchUseRefCounting>true</MtouchUseRefCounting>
     <IpaPackageName>
     </IpaPackageName>
-    <MtouchI18n>
-    </MtouchI18n>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
