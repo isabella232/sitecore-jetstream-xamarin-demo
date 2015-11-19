@@ -1,1 +1,0 @@
-# sitecore-jetstream-xamarin-demo
