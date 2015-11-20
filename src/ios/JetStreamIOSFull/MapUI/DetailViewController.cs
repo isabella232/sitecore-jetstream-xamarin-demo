@@ -74,7 +74,17 @@ namespace JetStreamIOSFull.MapUI
     {
       base.ViewDidAppear(animated);
 
-      this.RealNavigationItem.SetRightBarButtonItem(this.RefreshButton, false);
+      UIDevice thisDevice = UIDevice.CurrentDevice;
+
+      if (thisDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Phone)
+      {
+        this.RealNavigationItem.SetRightBarButtonItem(this.RefreshButton, false);
+      }
+      else
+      {
+        this.NavigationItem.SetRightBarButtonItem(this.RefreshButton, false);
+      }
+
     }
 
     public override void ViewWillAppear(bool animated)
