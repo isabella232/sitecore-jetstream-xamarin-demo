@@ -55,12 +55,26 @@ namespace JetStreamIOSFull.MapUI
     {
       base.ViewDidLoad();
 
+      this.RefreshButton = new UIBarButtonItem (UIBarButtonSystemItem.Refresh
+        , (sender, args) =>
+      {
+        this.RefreshButtonTouched(this.RefreshButton);
+      });
+
       this.InitializeMap();
 
       this.DetailsCarousel.BackgroundColor = UIColor.Clear;
       this.DetailsCarousel.BackgroundView = new UIView(new CGRect (0, 0, 0, 0));
 
       this.RegisterCarouselSwipes();
+
+    }
+
+    public override void ViewDidAppear(bool animated)
+    {
+      base.ViewDidAppear(animated);
+
+      this.RealNavigationItem.SetRightBarButtonItem(this.RefreshButton, false);
     }
 
     public override void ViewWillAppear(bool animated)
@@ -141,7 +155,7 @@ namespace JetStreamIOSFull.MapUI
       MKCoordinateRegion region = this.Appearance.Map.InitialRegion;
       this.map.SetRegion(region, false);
     }
-
+      
     partial void RefreshButtonTouched(Foundation.NSObject sender)
     {
       AnalyticsHelper.TrackRefreshButtonTouch();
@@ -184,8 +198,6 @@ namespace JetStreamIOSFull.MapUI
       {
         UIApplication.SharedApplication.NetworkActivityIndicatorVisible = false;
         this.RefreshButton.Enabled = true;
-
-       
       }
     }
 

@@ -20,18 +20,12 @@ namespace JetStreamIOSFull
       this.SetValueForKey(this.appearanceHelper.Menu.MenuWidth, key);
 		}
 
-    public void ToggleMasterView() {
-//      NavigationManagerViewController navigationManager = (NavigationManagerViewController)this.ViewControllers[1];
-//      navigationManager.ShowMasterPanel();
-//      UIBarButtonItem barButtonItem = this.DisplayModeButtonItem;
-//      UIApplication.SharedApplication.SendAction(barButtonItem.Action, barButtonItem.Target, null, null);
-    }
-
     public override void ViewDidLoad()
     {
       base.ViewDidLoad();
-      Console.WriteLine("ViewDidLoad");
+
       this.SetupUI();
+
       this.InitializeNavigation();
       this.InitializeMenu();
     }

@@ -21,6 +21,9 @@ namespace JetStreamIOSFull.MapUI
 		[Outlet]
 		UIKit.UIBarButtonItem RefreshButton { get; set; }
 
+		[Outlet]
+		UIKit.UINavigationItem ThisNavigationItem { get; set; }
+
 		[Action ("RefreshButtonTouched:")]
 		partial void RefreshButtonTouched (Foundation.NSObject sender);
 		
@@ -39,6 +42,11 @@ namespace JetStreamIOSFull.MapUI
 			if (RefreshButton != null) {
 				RefreshButton.Dispose ();
 				RefreshButton = null;
+			}
+
+			if (ThisNavigationItem != null) {
+				ThisNavigationItem.Dispose ();
+				ThisNavigationItem = null;
 			}
 		}
 	}

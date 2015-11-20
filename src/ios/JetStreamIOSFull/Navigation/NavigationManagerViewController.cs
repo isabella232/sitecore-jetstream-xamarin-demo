@@ -6,6 +6,7 @@ using UIKit;
 using JetStreamIOSFull.Helpers;
 using JetStreamIOSFull.BaseVC;
 using JetStreamIOSFull.Menu;
+using JetStreamIOSFull.MapUI;
 
 namespace JetStreamIOSFull.Navigation
 {
@@ -125,6 +126,7 @@ namespace JetStreamIOSFull.Navigation
       case MenuItemTypes.Destinations:
         {
           vcName = "MapFlowInitialNavigationController";
+                
           break;
         }
       case MenuItemTypes.Settings:
@@ -157,10 +159,11 @@ namespace JetStreamIOSFull.Navigation
       UINavigationController NewFlow = infoStoryboard.InstantiateViewController(vcName) as UINavigationController;;
       this.InitializeFlow(NewFlow);
 
-      UIViewController vc = NewFlow.TopViewController;
+      BaseViewController vc = NewFlow.TopViewController as BaseViewController;
       vc.NavigationItem.LeftBarButtonItem = this.MenuButton;
       vc.NavigationItem.LeftItemsSupplementBackButton = true;
-
+      vc.RealNavigationItem = this.NavigationItem;
+     
       if (this.CurentActiveFlow != null)
       {
         this.CurentActiveFlow.View.RemoveFromSuperview();
@@ -169,6 +172,7 @@ namespace JetStreamIOSFull.Navigation
       this.View.AddSubview(NewFlow.View);
       this.CurentActiveFlow = NewFlow;      
       this.View.BringSubviewToFront(this.PanView);
+
     }
 
   }

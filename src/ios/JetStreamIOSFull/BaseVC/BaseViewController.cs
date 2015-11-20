@@ -10,6 +10,8 @@ namespace JetStreamIOSFull.BaseVC
     private AppearanceHelper appearanceHelper;
     private InstanceSettings.InstanceSettings endpoint;
 
+    public UINavigationItem RealNavigationItem;
+
     public BaseViewController(IntPtr handle) : base(handle)
     {
 
