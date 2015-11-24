@@ -21,9 +21,8 @@ namespace JetStreamIOSFull.Settings
     {
       base.ViewDidLoad();
 
-      this.UseButton.SetTitle("", UIControlState.Normal);
+      this.LocalizeUI();
 
-      this.Title = NSBundle.MainBundle.LocalizedString("SETTINGS_SCREEN_TITLE", null);
       this.BackgroundImageView.Image = this.Appearance.Settings.SettingsBackground;
 
       //Hack to hide separators for empty cells
@@ -34,8 +33,13 @@ namespace JetStreamIOSFull.Settings
 
       this.HistoryTableView.Source = source;
 
-      this.UrlTextField.Placeholder = NSBundle.MainBundle.LocalizedString("URL_TEXT_FIELD_PLACEHOLDER", null);
       this.UrlTextField.WeakDelegate = this;
+    }
+
+    private void LocalizeUI()
+    {
+      this.Title = NSBundle.MainBundle.LocalizedString("SETTINGS_SCREEN_TITLE", null);
+      this.UrlTextField.Placeholder = NSBundle.MainBundle.LocalizedString("URL_TEXT_FIELD_PLACEHOLDER", null);
     }
 
     private void UrlFromHistorySelected(string url)
