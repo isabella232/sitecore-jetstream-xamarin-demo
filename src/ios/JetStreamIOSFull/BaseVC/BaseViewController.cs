@@ -17,7 +17,7 @@ namespace JetStreamIOSFull.BaseVC
 
     }
 
-    public InstanceSettings.InstanceSettings Endpointå
+    public InstanceSettings.InstanceSettings Endpoint
     {
       get
       {
