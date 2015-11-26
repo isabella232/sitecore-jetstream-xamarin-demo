@@ -9,12 +9,18 @@ namespace JetStreamIOSFull.Settings
 {
   public partial class SettingsViewControlle : BaseViewController, IUITextFieldDelegate
 	{
+    private static string instanceSegueIdentifier = "ShowInstancePopover";
     private NSObject keyboardDown;
     private HistoryManager historyManager = new HistoryManager();
 
 		public SettingsViewControlle (IntPtr handle) : base (handle)
 		{
       
+    }
+
+    partial void UnwindToSettingsViewController(UIStoryboardSegue segue)
+    {
+      Console.WriteLine ("We've unwinded to Settings!");
     }
 
     public override void ViewDidLoad()
@@ -86,6 +92,19 @@ namespace JetStreamIOSFull.Settings
       this.UrlTextField.ResignFirstResponder();
 
       return false;
+    }
+
+    partial void UseButtonTouched (Foundation.NSObject sender)
+    {
+    }
+
+    public override void PrepareForSegue(UIStoryboardSegue segue, NSObject sender)
+    {
+      if (segue.Identifier.Equals(instanceSegueIdentifier))
+      {
+        UIViewController instanceVC = segue.DestinationViewController;
+        instanceVC.View.BackgroundColor = UIColor.Clear;
+      }
     }
 	}
 }

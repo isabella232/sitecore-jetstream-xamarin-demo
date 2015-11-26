@@ -24,6 +24,9 @@ namespace JetStreamIOSFull.Settings
 		[Outlet]
 		UIKit.UIButton UseButton { get; set; }
 
+		[Action ("UnwindToSettingsViewController:")]
+		partial void UnwindToSettingsViewController (UIKit.UIStoryboardSegue segue);
+
 		[Action ("UseButtonTouched:")]
 		partial void UseButtonTouched (Foundation.NSObject sender);
 		

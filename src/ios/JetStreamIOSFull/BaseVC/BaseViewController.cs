@@ -2,6 +2,7 @@
 using UIKit;
 using JetStreamIOSFull.Helpers;
 using CoreGraphics;
+using Foundation;
 
 namespace JetStreamIOSFull.BaseVC
 {
@@ -11,10 +12,27 @@ namespace JetStreamIOSFull.BaseVC
     private InstanceSettings.InstanceSettings endpoint;
 
     public UINavigationItem RealNavigationItem;
+    public UIViewController BaseVC;
+
+    private LoadingOverlay loadingOverlay;
 
     public BaseViewController(IntPtr handle) : base(handle)
     {
 
+    }
+
+    public void ShowLoader()
+    {
+      this.loadingOverlay = new LoadingOverlay (this.View.Bounds, NSBundle.MainBundle.LocalizedString ("Loading...", null));
+      View.Add (loadingOverlay);
+    }
+
+    public void HideLoader()
+    {
+      if (this.loadingOverlay != null)
+      {
+        this.loadingOverlay.Hide ();
+      }
     }
 
     public InstanceSettings.InstanceSettings Endpoint

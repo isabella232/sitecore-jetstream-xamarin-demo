@@ -163,7 +163,7 @@ namespace JetStreamIOSFull.Navigation
       vc.NavigationItem.LeftBarButtonItem = this.MenuButton;
       vc.NavigationItem.LeftItemsSupplementBackButton = true;
       vc.RealNavigationItem = this.NavigationItem;
-     
+      vc.BaseVC = this;
       if (this.CurentActiveFlow != null)
       {
         this.CurentActiveFlow.View.RemoveFromSuperview();

@@ -134,9 +134,9 @@
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.xib" />
-    <InterfaceDefinition Include="InfoControllers.storyboard" />
-    <InterfaceDefinition Include="MainIPhone.storyboard" />
-    <InterfaceDefinition Include="MainIPad.storyboard" />
+    <InterfaceDefinition Include="Storyboards\InfoControllers.storyboard" />
+    <InterfaceDefinition Include="Storyboards\MainIPad.storyboard" />
+    <InterfaceDefinition Include="Storyboards\MainIPhone.storyboard" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -228,18 +228,23 @@
       <DependentUpon>MainSplitViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="Navigation\SplitViewDelegate.cs" />
+    <Compile Include="Settings\InstanseViewController.cs" />
+    <Compile Include="Settings\InstanseViewController.designer.cs">
+      <DependentUpon>InstanseViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\LoadingOverlay.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\..\..\Solutions\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\..\Solutions\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
   <Import Project="..\..\..\Solutions\packages\Xamarin.Insights.1.11.2\build\Xamarin.iOS10\Xamarin.Insights.targets" Condition="Exists('..\..\..\Solutions\packages\Xamarin.Insights.1.11.2\build\Xamarin.iOS10\Xamarin.Insights.targets')" />
   <ItemGroup>
-    <ProjectReference Include="..\InstanceSettings\InstanceSettings.csproj">
-      <Project>{1F4E5EBD-FAB4-47C6-9403-F59D967DF74D}</Project>
-      <Name>InstanceSettings</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\commons\JetStreamCommons\JetStreamCommons.csproj">
       <Project>{040C24CF-4B83-4917-B837-ED8157960B5F}</Project>
       <Name>JetStreamCommons</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\InstanceSettings\InstanceSettings.csproj">
+      <Project>{1F4E5EBD-FAB4-47C6-9403-F59D967DF74D}</Project>
+      <Name>InstanceSettings</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -257,6 +262,7 @@
     <Folder Include="NOTIMPLEMENTED\" />
     <Folder Include="About\" />
     <Folder Include="Helpers\Appearance\" />
+    <Folder Include="Storyboards\" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\en.lproj\Localizable.strings" />
