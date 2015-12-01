@@ -23,16 +23,22 @@ namespace JetStreamIOSFull.BaseVC
 
     public void ShowLoader()
     {
-      this.loadingOverlay = new LoadingOverlay (this.View.Bounds, NSBundle.MainBundle.LocalizedString ("Loading...", null));
-      View.Add (loadingOverlay);
+      BeginInvokeOnMainThread(delegate
+      { 
+        this.loadingOverlay = new LoadingOverlay (this.View.Bounds, NSBundle.MainBundle.LocalizedString("Loading...", null));
+        View.Add (loadingOverlay);
+      });
     }
 
     public void HideLoader()
     {
-      if (this.loadingOverlay != null)
-      {
-        this.loadingOverlay.Hide ();
-      }
+      BeginInvokeOnMainThread(delegate
+      {     
+        if (this.loadingOverlay != null)
+        {
+          this.loadingOverlay.Hide ();
+        }
+      });
     }
 
     public InstanceSettings.InstanceSettings Endpoint

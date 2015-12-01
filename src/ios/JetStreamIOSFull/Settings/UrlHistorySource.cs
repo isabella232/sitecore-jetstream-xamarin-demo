@@ -1,18 +1,19 @@
 ﻿using System;
 using UIKit;
 using Foundation;
+using InstanceSettings;
 
 namespace JetStreamIOSFull.Settings
 {
   public class UrlHistorySource : UITableViewSource
   {
     private const string CELL_IDENTIFIER = "UrlHistoryCell";
-    private HistoryManager historyManager;
+    private InstancesManager historyManager;
 
-    public delegate void UrlSelected(string url);
+    public delegate void UrlSelected(InstanceSettings.InstanceSettings instance);
     public event UrlSelected onUrlSelected;
 
-    public UrlHistorySource(HistoryManager historyManager)
+    public UrlHistorySource(InstancesManager historyManager)
     {
       this.historyManager = historyManager;
     }
@@ -26,14 +27,10 @@ namespace JetStreamIOSFull.Settings
     {
       UITableViewCell cell = tableView.DequeueReusableCell(CELL_IDENTIFIER);
 
-      if (cell == null)
-      {
-        cell = new UITableViewCell(UITableViewCellStyle.Default, CELL_IDENTIFIER); 
-      }
+      InstanceSettings.InstanceSettings instance = this.historyManager.InstanceAtIndex(indexPath.Row);
 
-      string item = this.historyManager.UrlAtIndex((nuint)indexPath.Row);
-
-      cell.TextLabel.Text = item;
+      cell.TextLabel.Text = instance.InstanceUrl;
+      cell.DetailTextLabel.Text = instance.InstanceDataBase + " " + instance.InstanceLanguage + " " + instance.InstanceSite;
 
       return cell;
     }
@@ -52,7 +49,7 @@ namespace JetStreamIOSFull.Settings
     {
       if (onUrlSelected != null)
       {
-        onUrlSelected(this.historyManager.UrlAtIndex((nuint)indexPath.Row));
+        onUrlSelected(this.historyManager.InstanceAtIndex(indexPath.Row));
       }
     }
   }

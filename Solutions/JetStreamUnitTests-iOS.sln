@@ -1,0 +1,53 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JetStreamUnitTests-iOS", "..\Tests\JetStreamUnitTests-iOS\JetStreamUnitTests-iOS.csproj", "{37BFC21E-E030-4124-ADD7-11CB0D73AF83}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "JetStreamUnitTests", "..\Tests\JetStreamUnitTests\JetStreamUnitTests.shproj", "{6BE0BBFF-1E64-4B61-9615-73E5F3080B26}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{2407BDF9-7B1D-4C63-BC11-528F31BF8402}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JetStreamCommons", "..\JetStreamCommons\JetStreamCommons\JetStreamCommons.csproj", "{040C24CF-4B83-4917-B837-ED8157960B5F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|iPhoneSimulator = Debug|iPhoneSimulator
+		Release|iPhoneSimulator = Release|iPhoneSimulator
+		Debug|iPhone = Debug|iPhone
+		Release|iPhone = Release|iPhone
+		Ad-Hoc|iPhone = Ad-Hoc|iPhone
+		AppStore|iPhone = AppStore|iPhone
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{040C24CF-4B83-4917-B837-ED8157960B5F}.Ad-Hoc|iPhone.ActiveCfg = Release|Any CPU
+		{040C24CF-4B83-4917-B837-ED8157960B5F}.Ad-Hoc|iPhone.Build.0 = Release|Any CPU
+		{040C24CF-4B83-4917-B837-ED8157960B5F}.AppStore|iPhone.ActiveCfg = Release|Any CPU
+		{040C24CF-4B83-4917-B837-ED8157960B5F}.AppStore|iPhone.Build.0 = Release|Any CPU
+		{040C24CF-4B83-4917-B837-ED8157960B5F}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{040C24CF-4B83-4917-B837-ED8157960B5F}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{040C24CF-4B83-4917-B837-ED8157960B5F}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{040C24CF-4B83-4917-B837-ED8157960B5F}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{040C24CF-4B83-4917-B837-ED8157960B5F}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{040C24CF-4B83-4917-B837-ED8157960B5F}.Release|iPhone.Build.0 = Release|Any CPU
+		{040C24CF-4B83-4917-B837-ED8157960B5F}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{040C24CF-4B83-4917-B837-ED8157960B5F}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{37BFC21E-E030-4124-ADD7-11CB0D73AF83}.Ad-Hoc|iPhone.ActiveCfg = Ad-Hoc|iPhone
+		{37BFC21E-E030-4124-ADD7-11CB0D73AF83}.Ad-Hoc|iPhone.Build.0 = Ad-Hoc|iPhone
+		{37BFC21E-E030-4124-ADD7-11CB0D73AF83}.AppStore|iPhone.ActiveCfg = AppStore|iPhone
+		{37BFC21E-E030-4124-ADD7-11CB0D73AF83}.AppStore|iPhone.Build.0 = AppStore|iPhone
+		{37BFC21E-E030-4124-ADD7-11CB0D73AF83}.Debug|iPhone.ActiveCfg = Debug|iPhone
+		{37BFC21E-E030-4124-ADD7-11CB0D73AF83}.Debug|iPhone.Build.0 = Debug|iPhone
+		{37BFC21E-E030-4124-ADD7-11CB0D73AF83}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
+		{37BFC21E-E030-4124-ADD7-11CB0D73AF83}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
+		{37BFC21E-E030-4124-ADD7-11CB0D73AF83}.Release|iPhone.ActiveCfg = Release|iPhone
+		{37BFC21E-E030-4124-ADD7-11CB0D73AF83}.Release|iPhone.Build.0 = Release|iPhone
+		{37BFC21E-E030-4124-ADD7-11CB0D73AF83}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
+		{37BFC21E-E030-4124-ADD7-11CB0D73AF83}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{040C24CF-4B83-4917-B837-ED8157960B5F} = {2407BDF9-7B1D-4C63-BC11-528F31BF8402}
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = ..\Tests\JetStreamUnitTests-iOS\JetStreamUnitTests-iOS.csproj
+	EndGlobalSection
+EndGlobal

@@ -228,11 +228,11 @@
       <DependentUpon>MainSplitViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="Navigation\SplitViewDelegate.cs" />
-    <Compile Include="Settings\InstanseViewController.cs" />
-    <Compile Include="Settings\InstanseViewController.designer.cs">
-      <DependentUpon>InstanseViewController.cs</DependentUpon>
-    </Compile>
     <Compile Include="Helpers\LoadingOverlay.cs" />
+    <Compile Include="Settings\InstanceViewController.cs" />
+    <Compile Include="Settings\InstanceViewController.designer.cs">
+      <DependentUpon>InstanceViewController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\..\..\Solutions\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\..\Solutions\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />

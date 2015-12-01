@@ -4,6 +4,7 @@ using Foundation;
 using UIKit;
 using CoreGraphics;
 using JetStreamIOSFull.BaseVC;
+using InstanceSettings;
 
 namespace JetStreamIOSFull.Settings
 {
@@ -12,6 +13,8 @@ namespace JetStreamIOSFull.Settings
     private static string instanceSegueIdentifier = "ShowInstancePopover";
     private NSObject keyboardDown;
     private HistoryManager historyManager = new HistoryManager();
+
+    private InstancesManager instancesManager = new InstancesManager();
 
 		public SettingsViewControlle (IntPtr handle) : base (handle)
 		{
@@ -34,7 +37,7 @@ namespace JetStreamIOSFull.Settings
       //Hack to hide separators for empty cells
       this.HistoryTableView.TableFooterView = new UIView (new CGRect (0, 0, 0, 0));
 
-      UrlHistorySource source = new UrlHistorySource(this.historyManager);
+      UrlHistorySource source = new UrlHistorySource(this.instancesManager);
       source.onUrlSelected += UrlFromHistorySelected;
 
       this.HistoryTableView.Source = source;
@@ -48,9 +51,9 @@ namespace JetStreamIOSFull.Settings
       this.UrlTextField.Placeholder = NSBundle.MainBundle.LocalizedString("URL_TEXT_FIELD_PLACEHOLDER", null);
     }
 
-    private void UrlFromHistorySelected(string url)
+    private void UrlFromHistorySelected(InstanceSettings.InstanceSettings instance)
     {
-      this.UrlTextField.Text = url;
+      this.UrlTextField.Text = instance.InstanceUrl;
     }
 
     public override void ViewWillAppear(bool animated)
@@ -98,12 +101,18 @@ namespace JetStreamIOSFull.Settings
     {
     }
 
+    private void InstaneAdded(InstanceSettings.InstanceSettings instance)
+    {
+      this.instancesManager.AddInstance(instance);
+      this.HistoryTableView.ReloadData();
+    }
+
     public override void PrepareForSegue(UIStoryboardSegue segue, NSObject sender)
     {
       if (segue.Identifier.Equals(instanceSegueIdentifier))
       {
-        UIViewController instanceVC = segue.DestinationViewController;
-        instanceVC.View.BackgroundColor = UIColor.Clear;
+        InstanceViewController instanceVC = segue.DestinationViewController as InstanceViewController;
+        instanceVC.InstanceAddedEvent += this.InstaneAdded;
       }
     }
 	}
