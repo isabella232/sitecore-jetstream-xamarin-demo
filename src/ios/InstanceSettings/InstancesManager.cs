@@ -13,13 +13,15 @@ namespace InstanceSettings
 {
   public class InstancesManager
   {
-    private static NSString StorageKey = new NSString("InstancesManagerData");
+    private static string StorageKey = "InstancesManagerData";
+    private static string ActiveIndexKey = "InstancesActiveIndex";
     private List<InstanceSettings> storedInstances = null;
-
+    private int activeIndex = -1;
 
     public InstancesManager()
     {
       string storage = NSUserDefaults.StandardUserDefaults.StringForKey(StorageKey);
+      this.activeIndex = (int)(NSUserDefaults.StandardUserDefaults.IntForKey(ActiveIndexKey));
 
       if (storage != null)
       {
@@ -40,6 +42,25 @@ namespace InstanceSettings
       }
     }
 
+    public void SetInstanceActive(InstanceSettings instance)
+    {
+      this.ActiveIndex = this.storedInstances.IndexOf(instance);
+    }
+
+    public int ActiveIndex
+    {
+      get
+      {
+        return this.activeIndex;
+      }
+      set
+      {
+        this.activeIndex = value;
+        NSUserDefaults.StandardUserDefaults.SetInt(this.activeIndex, ActiveIndexKey);
+        NSUserDefaults.StandardUserDefaults.Synchronize();
+      }
+    }
+
     public InstanceSettings InstanceAtIndex(int index)
     {
       if (index > this.Count - 1)
@@ -48,6 +69,14 @@ namespace InstanceSettings
       }
 
       return this.storedInstances[index];
+    }
+
+    public InstanceSettings ActiveInstance
+    {
+      get
+      { 
+        return this.InstanceAtIndex(this.ActiveIndex);
+      }
     }
 
     public void AddInstance(InstanceSettings instance)

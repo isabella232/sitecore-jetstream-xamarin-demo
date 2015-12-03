@@ -101,8 +101,6 @@ namespace InstanceSettings
         return result;
     }
 
-
-
     public ISitecoreWebApiSession GetSession()
     {
       bool isAnonymousSession = string.IsNullOrWhiteSpace(this.InstanceLogin);

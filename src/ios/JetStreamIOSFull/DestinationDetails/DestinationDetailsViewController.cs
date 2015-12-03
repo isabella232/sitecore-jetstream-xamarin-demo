@@ -36,7 +36,7 @@ namespace JetStreamIOSFull.DestinationDetails
     {
       if (this.destination != null)
       {
-        using (var session = this.Endpoint.GetSession())
+        using (var session = this.InstancesManager.ActiveInstance.GetSession())
         {
           using (var loader = new DestinationsLoader (session))
           {
@@ -51,7 +51,7 @@ namespace JetStreamIOSFull.DestinationDetails
               return;
             }
               
-            this.ImagesTableView.Source = new DestinationImagesSource (attractions, this.destination, this.Endpoint);
+            this.ImagesTableView.Source = new DestinationImagesSource (attractions, this.destination, this.InstancesManager);
             this.ImagesTableView.ReloadData();
           }
         }

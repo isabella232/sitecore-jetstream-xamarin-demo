@@ -131,6 +131,13 @@
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\logo_jetstream_vector3_58x58.png" />
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\logo_jetstream_vector3_57x57.png" />
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\logo_jetstream_vector3_29x29.png" />
+    <ImageAsset Include="Resources\Images.xcassets\Settings\InstanceCheckmark.imageset\Contents.json" />
+    <ImageAsset Include="Resources\Images.xcassets\Settings\InstanceCheckmark.imageset\InstanceCheckmark.png" />
+    <ImageAsset Include="Resources\Images.xcassets\Settings\InstanceCheckmark.imageset\InstanceCheckmark%402x.png" />
+    <ImageAsset Include="Resources\Images.xcassets\Settings\InstanceCheckmark.imageset\LicenseInfo.txt" />
+    <ImageAsset Include="Resources\Images.xcassets\Settings\InstanceUnchecked.imageset\Contents.json" />
+    <ImageAsset Include="Resources\Images.xcassets\Image.imageset\InstanceUnchecked%402x.png" />
+    <ImageAsset Include="Resources\Images.xcassets\Image.imageset\InstanceUnchecked.png" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.xib" />
@@ -187,7 +194,6 @@
     <Compile Include="DestinationDetails\DestinationImageCell.designer.cs">
       <DependentUpon>DestinationImageCell.cs</DependentUpon>
     </Compile>
-    <Compile Include="Settings\HistoryManager.cs" />
     <Compile Include="Settings\UrlHistorySource.cs" />
     <Compile Include="MapUI\Carousel\CarouselDataSource.cs" />
     <Compile Include="MapUI\Carousel\DestinationCarouselCell.cs" />
@@ -233,6 +239,11 @@
     <Compile Include="Settings\InstanceViewController.designer.cs">
       <DependentUpon>InstanceViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="Settings\SettingsHandlers.cs" />
+    <Compile Include="Settings\HistoryTableCell.cs" />
+    <Compile Include="Settings\HistoryTableCell.designer.cs">
+      <DependentUpon>HistoryTableCell.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\..\..\Solutions\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\..\Solutions\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
@@ -263,6 +274,9 @@
     <Folder Include="About\" />
     <Folder Include="Helpers\Appearance\" />
     <Folder Include="Storyboards\" />
+    <Folder Include="Resources\Images.xcassets\Settings\" />
+    <Folder Include="Resources\Images.xcassets\Settings\InstanceCheckmark.imageset\" />
+    <Folder Include="Resources\Images.xcassets\Settings\InstanceUnchecked.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\en.lproj\Localizable.strings" />

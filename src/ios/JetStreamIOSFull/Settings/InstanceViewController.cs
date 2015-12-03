@@ -46,7 +46,20 @@ namespace JetStreamIOSFull
 
     private void LocalizeUI()
     {
-      
+      this.ApplyButton.SetTitle (NSBundle.MainBundle.LocalizedString("APPLY_BUTTON_TITLE", null), UIControlState.Normal);
+      this.CancelButton.SetTitle(NSBundle.MainBundle.LocalizedString("CANCEL_BUTTON_TITLE", null), UIControlState.Normal);
+
+      this.DatabaseLabel.Text    = NSBundle.MainBundle.LocalizedString("DATABASE_LABEL_TITLE", null);
+      this.InstanceUrlLabel.Text = NSBundle.MainBundle.LocalizedString("INSTANCE_URL_LABEL_TITLE", null);
+      this.LanguageLabel.Text    = NSBundle.MainBundle.LocalizedString("LANGUAGE_LABEL_TITLE", null);
+      this.LoginLabel.Text       = NSBundle.MainBundle.LocalizedString("LOGIN_LABEL_TITLE", null);
+      this.PasswordLabel.Text    = NSBundle.MainBundle.LocalizedString("PASSWORD_LABEL_TITLE", null);
+
+      this.PasswordTextField.Placeholder    = NSBundle.MainBundle.LocalizedString("PASSWORD_PLACEHOLDER_VALUE", null);
+      this.DatabaseTextField.Placeholder    = NSBundle.MainBundle.LocalizedString("DATABASE_PLACEHOLDER_VALUE", null);
+      this.InstanceUrlTextField.Placeholder = NSBundle.MainBundle.LocalizedString("INSTANCE_URL_PLACEHOLDER_VALUE", null);
+      this.LanguageTextField.Placeholder    = NSBundle.MainBundle.LocalizedString("LANGUAGE_PLACEHOLDER_VALUE", null);
+      this.LoginTextField.Placeholder       = NSBundle.MainBundle.LocalizedString("LOGIN_PLACEHOLDER_VALUE", null);
     }
 
     partial void ApplyButtonTouched (Foundation.NSObject sender)
@@ -99,7 +112,7 @@ namespace JetStreamIOSFull
 
     private void ShowCommoNetworkErrorAlert()
     {
-      AlertHelper.ShowLocalizedAlertWithOkOption("Message", "Can not connect tot he instance, please check instance url and settings");
+      AlertHelper.ShowLocalizedAlertWithOkOption("MESSAGE", "INSTANCE_UNAVAILABLE");
     }
 
     #region Keyboard Processing

@@ -7,6 +7,7 @@ using JetStreamIOSFull.Helpers;
 using JetStreamIOSFull.BaseVC;
 using JetStreamIOSFull.Menu;
 using JetStreamIOSFull.MapUI;
+using JetStreamIOSFull.Settings;
 
 namespace JetStreamIOSFull.Navigation
 {
@@ -114,7 +115,12 @@ namespace JetStreamIOSFull.Navigation
     {
       BaseViewController root = flow.TopViewController as BaseViewController;
       root.Appearance = this.Appearance;
-      root.Endpoint = this.Endpoint;
+      root.InstancesManager = this.InstancesManager;
+
+      root.NavigationItem.LeftBarButtonItem = this.MenuButton;
+      root.NavigationItem.LeftItemsSupplementBackButton = true;
+      root.RealNavigationItem = this.NavigationItem;
+      root.BaseVC = this;
     }
 
     private void NavigateToTabAtIndex(MenuItemTypes type)
@@ -156,14 +162,9 @@ namespace JetStreamIOSFull.Navigation
         }
       }
 
-      UINavigationController NewFlow = infoStoryboard.InstantiateViewController(vcName) as UINavigationController;;
+      UINavigationController NewFlow = infoStoryboard.InstantiateViewController(vcName) as UINavigationController;
       this.InitializeFlow(NewFlow);
 
-      BaseViewController vc = NewFlow.TopViewController as BaseViewController;
-      vc.NavigationItem.LeftBarButtonItem = this.MenuButton;
-      vc.NavigationItem.LeftItemsSupplementBackButton = true;
-      vc.RealNavigationItem = this.NavigationItem;
-      vc.BaseVC = this;
       if (this.CurentActiveFlow != null)
       {
         this.CurentActiveFlow.View.RemoveFromSuperview();
@@ -172,7 +173,6 @@ namespace JetStreamIOSFull.Navigation
       this.View.AddSubview(NewFlow.View);
       this.CurentActiveFlow = NewFlow;      
       this.View.BringSubviewToFront(this.PanView);
-
     }
 
   }

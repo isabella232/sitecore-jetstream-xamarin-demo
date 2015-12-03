@@ -8,26 +8,25 @@ namespace JetStreamIOSFull.Settings
   public class UrlHistorySource : UITableViewSource
   {
     private const string CELL_IDENTIFIER = "UrlHistoryCell";
-    private InstancesManager historyManager;
+    private InstancesManager instancesManager;
 
-    public delegate void UrlSelected(InstanceSettings.InstanceSettings instance);
-    public event UrlSelected onUrlSelected;
+    public event OnInstanceChangedHandler InstanceChangedEvent;
 
-    public UrlHistorySource(InstancesManager historyManager)
+    public UrlHistorySource(InstancesManager instancesManager)
     {
-      this.historyManager = historyManager;
+      this.instancesManager = instancesManager;
     }
 
     public override nint RowsInSection (UITableView tableview, nint section)
     {
-      return (nint)this.historyManager.Count;;
+      return (nint)this.instancesManager.Count;;
     }
 
     public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
     {
       UITableViewCell cell = tableView.DequeueReusableCell(CELL_IDENTIFIER);
 
-      InstanceSettings.InstanceSettings instance = this.historyManager.InstanceAtIndex(indexPath.Row);
+      InstanceSettings.InstanceSettings instance = this.instancesManager.InstanceAtIndex(indexPath.Row);
 
       cell.TextLabel.Text = instance.InstanceUrl;
       cell.DetailTextLabel.Text = instance.InstanceDataBase + " " + instance.InstanceLanguage + " " + instance.InstanceSite;
@@ -47,10 +46,12 @@ namespace JetStreamIOSFull.Settings
 
     public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
     {
-      if (onUrlSelected != null)
+      this.instancesManager.ActiveIndex = indexPath.Row;
+      if (this.InstanceChangedEvent != null)
       {
-        onUrlSelected(this.historyManager.InstanceAtIndex(indexPath.Row));
+        this.InstanceChangedEvent(this.instancesManager.ActiveInstance);
       }
     }
+
   }
 }

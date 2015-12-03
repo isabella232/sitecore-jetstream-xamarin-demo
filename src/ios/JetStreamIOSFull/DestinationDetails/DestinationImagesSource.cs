@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using JetStreamCommons.Destinations;
 using SDWebImage;
 using JetStreamCommons;
+using InstanceSettings;
 
 namespace JetStreamIOSFull.DestinationDetails
 {
@@ -12,14 +13,14 @@ namespace JetStreamIOSFull.DestinationDetails
   {
     List<IAttraction> tableItems;
     string CellIdentifier = "DestinationImageCellId";
-    private InstanceSettings.InstanceSettings endpoint;
+    private InstancesManager instancesManager;
 
     private IDestination baseDestination = null;
 
-    public DestinationImagesSource(List<IAttraction> items, IDestination destination, InstanceSettings.InstanceSettings endpoint)
+    public DestinationImagesSource(List<IAttraction> items, IDestination destination, InstancesManager instancesManager)
     {
       this.baseDestination = destination;
-      this.endpoint = endpoint;
+      this.instancesManager = instancesManager;
       this.tableItems = items;
     }
 
@@ -57,7 +58,7 @@ namespace JetStreamIOSFull.DestinationDetails
 
       try
       {
-        imagePath = SitecoreWebApiSessionExt.MediaDownloadUrl(this.endpoint.InstanceUrl, attraction.ImagePath);
+        imagePath = SitecoreWebApiSessionExt.MediaDownloadUrl(this.instancesManager.ActiveInstance.InstanceUrl, attraction.ImagePath);
         NSUrl imageUrl = new NSUrl(imagePath);
 
         cell.DestinationImageView.SetImage (

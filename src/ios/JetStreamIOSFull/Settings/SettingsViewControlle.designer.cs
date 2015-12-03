@@ -13,22 +13,16 @@ namespace JetStreamIOSFull.Settings
 	partial class SettingsViewControlle
 	{
 		[Outlet]
+		UIKit.UIButton AddButton { get; set; }
+
+		[Outlet]
 		UIKit.UIImageView BackgroundImageView { get; set; }
 
 		[Outlet]
 		UIKit.UITableView HistoryTableView { get; set; }
 
-		[Outlet]
-		UIKit.UITextField UrlTextField { get; set; }
-
-		[Outlet]
-		UIKit.UIButton UseButton { get; set; }
-
 		[Action ("UnwindToSettingsViewController:")]
 		partial void UnwindToSettingsViewController (UIKit.UIStoryboardSegue segue);
-
-		[Action ("UseButtonTouched:")]
-		partial void UseButtonTouched (Foundation.NSObject sender);
 		
 		void ReleaseDesignerOutlets ()
 		{
@@ -42,14 +36,9 @@ namespace JetStreamIOSFull.Settings
 				HistoryTableView = null;
 			}
 
-			if (UrlTextField != null) {
-				UrlTextField.Dispose ();
-				UrlTextField = null;
-			}
-
-			if (UseButton != null) {
-				UseButton.Dispose ();
-				UseButton = null;
+			if (AddButton != null) {
+				AddButton.Dispose ();
+				AddButton = null;
 			}
 		}
 	}

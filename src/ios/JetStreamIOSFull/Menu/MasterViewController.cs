@@ -94,7 +94,7 @@ namespace JetStreamIOSFull.Menu
         if (detailsVc != null)
         {
           detailsVc.Appearance = NavigationManager.Appearance;
-          detailsVc.Endpoint = NavigationManager.Endpoint;
+          detailsVc.InstancesManager = NavigationManager.InstancesManager;
 
           NSIndexPath indexPath = this.TableView.IndexPathForSelectedRow;
             if (indexPath != null)  

@@ -52,6 +52,22 @@ namespace JetStreamIOSFull.Helpers
         return UIImage.FromBundle("Images.xcassets/MenuIcons/OnlineCheckinIcon.png");
       }
     }
+
+    public static UIImage SelectedInstanceIcon
+    {
+      get
+      { 
+        return UIImage.FromBundle("InstanceCheckmark");
+      }
+    }
+
+    public static UIImage UnselectedInstanceIcon
+    {
+      get
+      { 
+        return UIImage.FromBundle("InstanceUnchecked");
+      }
+    }
   }
 }
 

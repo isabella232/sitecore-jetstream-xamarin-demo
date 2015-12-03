@@ -5,13 +5,14 @@ using UIKit;
 using JetStreamIOSFull.Helpers;
 using JetStreamIOSFull.Navigation;
 using JetStreamIOSFull.Menu;
+using InstanceSettings;
 
 namespace JetStreamIOSFull
 {
 	public partial class MainSplitViewController : UISplitViewController
 	{
     private AppearanceHelper appearanceHelper = new AppearanceHelper();
-    private InstanceSettings.InstanceSettings endpoint = new InstanceSettings.InstanceSettings();
+    private InstancesManager instancesManager = new InstancesManager();
 
 		public MainSplitViewController (IntPtr handle) : base (handle)
 		{
@@ -48,7 +49,7 @@ namespace JetStreamIOSFull
     {
       NavigationManagerViewController navigationManager = (NavigationManagerViewController)this.ViewControllers[1];
       navigationManager.Appearance = this.appearanceHelper;
-      navigationManager.Endpoint = this.endpoint;
+      navigationManager.InstancesManager = this.instancesManager;
 
       navigationManager.MenuButton = this.DisplayModeButtonItem;
       navigationManager.LoadNavigationFlows();

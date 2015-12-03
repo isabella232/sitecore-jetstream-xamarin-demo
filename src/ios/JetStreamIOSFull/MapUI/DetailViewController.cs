@@ -17,6 +17,7 @@ using CoreGraphics;
 using JetStreamIOSFull.BaseVC;
 using JetStreamIOSFull.DestinationDetails;
 using ObjCRuntime;
+using InstanceSettings;
 
 
 namespace JetStreamIOSFull.MapUI
@@ -44,7 +45,7 @@ namespace JetStreamIOSFull.MapUI
         DestinationDetailsViewController detailsVc = segue.DestinationViewController as DestinationDetailsViewController;
         if (detailsVc != null)
         {
-          detailsVc.Endpoint = this.Endpoint;
+          detailsVc.InstancesManager = this.InstancesManager;
           detailsVc.Appearance = this.Appearance;
           detailsVc.ShowDestinationDetails(this.currentSelectedDestination);
         }
@@ -67,7 +68,6 @@ namespace JetStreamIOSFull.MapUI
       this.DetailsCarousel.BackgroundView = new UIView(new CGRect (0, 0, 0, 0));
 
       this.RegisterCarouselSwipes();
-
     }
 
     public override void ViewDidAppear(bool animated)
@@ -85,20 +85,115 @@ namespace JetStreamIOSFull.MapUI
         this.NavigationItem.SetRightBarButtonItem(this.RefreshButton, false);
       }
 
+      this.RefreshMap();
     }
 
-    public override void ViewWillAppear(bool animated)
+    [Export("animationDidStop:finished:context:")]
+    void SlideStopped (NSString animationID, NSNumber finished, NSObject context)
     {
-      base.ViewWillAppear(animated);
+      this.caruselAnimationIsRunning = false;
+    }
+
+    partial void RefreshButtonTouched(Foundation.NSObject sender)
+    {
+      AnalyticsHelper.TrackRefreshButtonTouch();
+
+      SDWebImage.SDWebImageManager.SharedManager.ImageCache.ClearDisk();
+      SDWebImage.SDWebImageManager.SharedManager.ImageCache.CleanDisk();
+      SDWebImage.SDWebImageManager.SharedManager.ImageCache.ClearMemory();
 
       this.RefreshMap();
     }
+
+    private void ClearData()
+    {
+      this.map.RemoveAnnotations(this.map.Annotations);
+      this.DetailsCarousel.DataSource = null;
+      this.DetailsCarousel.ReloadData();
+    }
+     
+    #region Map
+
+    private void InitializeMap()
+    {
+      this.mapManager = new MapManager(this.Appearance);
+      this.mapManager.onDestinationSelected += this.DidSelectDestination;
+      this.map.Delegate = mapManager;
+
+      MKCoordinateRegion region = this.Appearance.Map.InitialRegion;
+      this.map.SetRegion(region, false);
+    }
+
+    private void DidSelectDestination(IDestination destination)
+    {
+      this.currentSelectedDestination = destination;
+      this.PerformSegue(DESTINATION_DETAIL_SEGUE_ID, this);
+    }
+
+    private async void RefreshMap()
+    {
+      this.ShowLoader();
+
+      if (RefreshButton != null)
+      {
+        this.RefreshButton.Enabled = false;
+      }
+
+      try
+      {
+        this.destinations = await this.DownloadAllDestinations();
+        this.ShowCurrentDestinationsOnMap();
+      }
+      catch
+      {
+        AlertHelper.ShowLocalizedAlertWithOkOption("NETWORK_ERROR_TITLE", "CANNOT_DOWNLOAD_DESTINATIONS_ERROR");
+      }
+      finally
+      {
+        if (RefreshButton != null)
+        {
+          this.RefreshButton.Enabled = true;
+        }
+        this.HideLoader();
+      }
+    }
+
+    private void ShowCurrentDestinationsOnMap()
+    {
+      this.mapManager.ResetMapState(this.map);
+
+      List<DestinationAnnotation> annotationsList = new List<DestinationAnnotation>();
+
+      foreach(IDestination elem in this.destinations)
+      {
+        DestinationAnnotation annotation = new DestinationAnnotation(elem, this.InstancesManager.ActiveInstance.InstanceUrl);
+          annotationsList.Add(annotation);
+      }
+
+      if (annotationsList.Count == 0)
+      {
+        AlertHelper.ShowLocalizedAlertWithOkOption("MESSAGE", "DESTINATIONS NOT FOUND");
+        return;
+      }
+
+      this.mapManager.SetAnnotationsForMap(this.map, annotationsList);
+
+      CarouselDataSource carouselSource = new CarouselDataSource (annotationsList);
+      carouselSource.onItemSelected += this.DidSelectDestination;
+
+      this.DetailsCarousel.Source = carouselSource;
+      this.DetailsCarousel.ReloadData();
+    }
+
+    #endregion Map
+
+    #region Carousel
 
     private void RegisterCarouselSwipes()
     {
       UISwipeGestureRecognizer swipeUpGesture = new UISwipeGestureRecognizer(sw => 
       {
-          this.showCarousel(true);
+        this.showCarousel(true);
       });
       swipeUpGesture.Direction = UISwipeGestureRecognizerDirection.Up;
       this.DetailsCarousel.AddGestureRecognizer(swipeUpGesture);
@@ -134,7 +229,7 @@ namespace JetStreamIOSFull.MapUI
 
           UIView.SetAnimationDuration(0.7);
           UIView.SetAnimationCurve(UIViewAnimationCurve.EaseInOut);
- 
+
           UIView.SetAnimationDelegate(this);
           UIView.SetAnimationDidStopSelector(new Selector ("animationDidStop:finished:context:"));
         }
@@ -150,91 +245,13 @@ namespace JetStreamIOSFull.MapUI
       }
     }
 
-    [Export("animationDidStop:finished:context:")]
-    void SlideStopped (NSString animationID, NSNumber finished, NSObject context)
-    {
-      this.caruselAnimationIsRunning = false;
-    }
+    #endregion Carousel
 
-    private void InitializeMap()
-    {
-      this.mapManager = new MapManager(this.Appearance);
-      this.mapManager.onDestinationSelected += this.DidSelectDestination;
-      this.map.Delegate = mapManager;
-
-      MKCoordinateRegion region = this.Appearance.Map.InitialRegion;
-      this.map.SetRegion(region, false);
-    }
-      
-    partial void RefreshButtonTouched(Foundation.NSObject sender)
-    {
-      AnalyticsHelper.TrackRefreshButtonTouch();
-
-      SDWebImage.SDWebImageManager.SharedManager.ImageCache.ClearDisk();
-      SDWebImage.SDWebImageManager.SharedManager.ImageCache.CleanDisk();
-      SDWebImage.SDWebImageManager.SharedManager.ImageCache.ClearMemory();
-
-      this.RefreshMap();
-    }
-
-    private void ClearData()
-    {
-      this.map.RemoveAnnotations(this.map.Annotations);
-      this.DetailsCarousel.DataSource = null;
-      this.DetailsCarousel.ReloadData();
-    }
-      
-    private void DidSelectDestination(IDestination destination)
-    {
-      this.currentSelectedDestination = destination;
-      this.PerformSegue(DESTINATION_DETAIL_SEGUE_ID, this);
-    }
-
-    private async void RefreshMap()
-    {
-      this.RefreshButton.Enabled = false;
-      UIApplication.SharedApplication.NetworkActivityIndicatorVisible = true;
-
-      try
-      {
-        this.destinations = await this.DownloadAllDestinations();
-        this.ShowCurrentDestinationsOnMap();
-      }
-      catch
-      {
-        AlertHelper.ShowLocalizedAlertWithOkOption("NETWORK_ERROR_TITLE", "CANNOT_DOWNLOAD_DESTINATIONS_ERROR");
-      }
-      finally
-      {
-        UIApplication.SharedApplication.NetworkActivityIndicatorVisible = false;
-        this.RefreshButton.Enabled = true;
-      }
-    }
-
-    private void ShowCurrentDestinationsOnMap()
-    {
-      this.mapManager.ResetMapState(this.map);
-
-      List<DestinationAnnotation> annotationsList = new List<DestinationAnnotation>();
-
-      foreach(IDestination elem in this.destinations)
-      {
-          DestinationAnnotation annotation = new DestinationAnnotation(elem, this.Endpoint.InstanceUrl);
-          annotationsList.Add(annotation);
-      }
-
-      this.mapManager.SetAnnotationsForMap(this.map, annotationsList);
-
-      CarouselDataSource carouselSource = new CarouselDataSource (annotationsList);
-      carouselSource.onItemSelected += this.DidSelectDestination;
-
-      this.DetailsCarousel.Source = carouselSource;
-      this.DetailsCarousel.ReloadData();
-    }
+    #region Network
 
     private async Task<IEnumerable> DownloadAllDestinations()
     {
-      using (var session = this.Endpoint.GetSession())
+      using (var session = this.InstancesManager.ActiveInstance.GetSession())
       {
         using (var loader = new DestinationsLoader (session))
         {
@@ -250,6 +267,9 @@ namespace JetStreamIOSFull.MapUI
         }
       }
     }
+
+    #endregion Network
+
   }
 }
 

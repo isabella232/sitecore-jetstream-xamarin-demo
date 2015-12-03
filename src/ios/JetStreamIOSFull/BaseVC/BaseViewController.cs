@@ -3,13 +3,14 @@ using UIKit;
 using JetStreamIOSFull.Helpers;
 using CoreGraphics;
 using Foundation;
+using InstanceSettings;
 
 namespace JetStreamIOSFull.BaseVC
 {
   public partial class BaseViewController  : UIViewController
   {
     private AppearanceHelper appearanceHelper;
-    private InstanceSettings.InstanceSettings endpoint;
+    private InstancesManager instanceManager;
 
     public UINavigationItem RealNavigationItem;
     public UIViewController BaseVC;
@@ -25,6 +26,7 @@ namespace JetStreamIOSFull.BaseVC
     {
       BeginInvokeOnMainThread(delegate
       { 
+        UIApplication.SharedApplication.NetworkActivityIndicatorVisible = true;
         this.loadingOverlay = new LoadingOverlay (this.View.Bounds, NSBundle.MainBundle.LocalizedString("Loading...", null));
         View.Add (loadingOverlay);
       });
@@ -33,7 +35,8 @@ namespace JetStreamIOSFull.BaseVC
     public void HideLoader()
     {
       BeginInvokeOnMainThread(delegate
-      {     
+      { 
+        UIApplication.SharedApplication.NetworkActivityIndicatorVisible = false;
         if (this.loadingOverlay != null)
         {
           this.loadingOverlay.Hide ();
@@ -41,20 +44,20 @@ namespace JetStreamIOSFull.BaseVC
       });
     }
 
-    public InstanceSettings.InstanceSettings Endpoint
+    public virtual InstancesManager InstancesManager
     {
       get
       {
-        if (this.endpoint == null)
+        if (this.instanceManager == null)
         {
           throw new NullReferenceException("Endpoint value must be initialized");
         }
 
-        return this.endpoint;
+        return this.instanceManager;
       }
       set
       { 
-        this.endpoint = value;
+        this.instanceManager = value;
       }
     }
 
