@@ -169,7 +169,7 @@ namespace InstanceSettings
     { 
       get
       { 
-        if (this.instanceSite == null) 
+        if (this.instanceSite == null || this.instanceSite == "") 
         {
           this.instanceSite = "/sitecore/shell";
         }
@@ -186,7 +186,7 @@ namespace InstanceSettings
     { 
       get
       { 
-        if (this.instanceDataBase == null) 
+        if (this.instanceDataBase == null || this.instanceDataBase == "") 
         {
           this.instanceDataBase = "master";
         }
@@ -203,9 +203,9 @@ namespace InstanceSettings
     { 
       get
       { 
-        if (this.instanceLanguage == null) 
+        if (this.instanceLanguage == null || this.instanceLanguage == "") 
         {
-          this.instanceLanguage = "";
+          this.instanceLanguage = "en";
         }
 
         return this.instanceLanguage;

@@ -14,11 +14,9 @@ namespace JetStreamIOSFull
 		{
 		}
 
-    public override void SetSelected(bool selected, bool animated)
+    public void SetChecked(bool isChecked)
     {
-//      base.SetSelected(selected, animated);
-
-      if (selected)
+      if (isChecked)
       {
         this.ImageView.Image = IconsHelper.SelectedInstanceIcon;
       }

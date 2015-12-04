@@ -20,18 +20,8 @@ namespace InstanceSettings
 
     public InstancesManager()
     {
-      string storage = NSUserDefaults.StandardUserDefaults.StringForKey(StorageKey);
       this.activeIndex = (int)(NSUserDefaults.StandardUserDefaults.IntForKey(ActiveIndexKey));
-
-      if (storage != null)
-      {
-        this.storedInstances = JsonConvert.DeserializeObject<List<InstanceSettings>>(storage);
-      }
-
-      if (this.storedInstances == null)
-      {
-        this.storedInstances = new List<InstanceSettings>();
-      }
+      this.storedInstances = this.RestoreInstancesFromStorage();
     }
 
     public int Count
@@ -44,6 +34,12 @@ namespace InstanceSettings
 
     public void SetInstanceActive(InstanceSettings instance)
     {
+      if (instance == null)
+      {
+        this.ActiveIndex = -1;
+        return;
+      }
+        
       this.ActiveIndex = this.storedInstances.IndexOf(instance);
     }
 
@@ -63,9 +59,9 @@ namespace InstanceSettings
 
     public InstanceSettings InstanceAtIndex(int index)
     {
-      if (index > this.Count - 1)
+      if (index > this.Count - 1 || index < 0)
       {
-        throw new System.IndexOutOfRangeException(); 
+        return null;
       }
 
       return this.storedInstances[index];
@@ -88,10 +84,42 @@ namespace InstanceSettings
 
       this.storedInstances.Add(instance);
 
-      string objects = JsonConvert.SerializeObject(this.storedInstances, Formatting.Indented);
+      this.SaveInstancesToStorage(this.storedInstances);
+    }
+      
+    public void DeleteInstanceAtIndex(int index)
+    {
+      InstanceSettings activeInstance = this.ActiveInstance;
+      this.storedInstances.RemoveAt(index);
+      this.SetInstanceActive(activeInstance);
+
+      this.SaveInstancesToStorage(this.storedInstances);
+    }
+
+    private void SaveInstancesToStorage(List<InstanceSettings> instances)
+    {
+      string objects = JsonConvert.SerializeObject(instances, Formatting.Indented);
 
       NSUserDefaults.StandardUserDefaults.SetString(objects, StorageKey);
       NSUserDefaults.StandardUserDefaults.Synchronize();
+    }
+
+    private List<InstanceSettings> RestoreInstancesFromStorage()
+    {
+      string storage = NSUserDefaults.StandardUserDefaults.StringForKey(StorageKey);
+      List<InstanceSettings> instances = null;
+
+      if (storage != null)
+      {
+        instances = JsonConvert.DeserializeObject<List<InstanceSettings>>(storage);
+      }
+
+      if (instances == null)
+      {
+        instances = new List<InstanceSettings>();
+      }
+
+      return instances;
     }
    
   }

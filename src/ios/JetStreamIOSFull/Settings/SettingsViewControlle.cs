@@ -30,24 +30,13 @@ namespace JetStreamIOSFull.Settings
 
       this.source = new UrlHistorySource(this.InstancesManager);
       this.HistoryTableView.Source = source;
+      this.HistoryTableView.ReloadData();
     }
 
     private void LocalizeUI()
     {
       this.AddButton.SetTitle (NSBundle.MainBundle.LocalizedString("ADD_INSTANCE_BUTTON_TITLE", null), UIControlState.Normal);
       this.Title = NSBundle.MainBundle.LocalizedString("SETTINGS_SCREEN_TITLE", null);
-    }
-
-    public override void ViewWillAppear(bool animated)
-    {
-      base.ViewWillAppear(animated);
-      this.HistoryTableView.ReloadData();
-
-      if (this.InstancesManager.Count > 0)
-      {
-        NSIndexPath indexPath = NSIndexPath.FromRowSection(this.InstancesManager.ActiveIndex, 0);
-        this.HistoryTableView.SelectRow(indexPath, true, UITableViewScrollPosition.Middle);
-      }
     }
 
     private void InstaneAdded(InstanceSettings.InstanceSettings instance)

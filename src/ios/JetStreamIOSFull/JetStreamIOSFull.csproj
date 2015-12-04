@@ -138,6 +138,8 @@
     <ImageAsset Include="Resources\Images.xcassets\Settings\InstanceUnchecked.imageset\Contents.json" />
     <ImageAsset Include="Resources\Images.xcassets\Image.imageset\InstanceUnchecked%402x.png" />
     <ImageAsset Include="Resources\Images.xcassets\Image.imageset\InstanceUnchecked.png" />
+    <ImageAsset Include="Resources\Images.xcassets\Settings\InstanceUnchecked.imageset\InstanceUnchecked%402x.png" />
+    <ImageAsset Include="Resources\Images.xcassets\Settings\InstanceUnchecked.imageset\InstanceUnchecked.png" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.xib" />
@@ -239,7 +241,6 @@
     <Compile Include="Settings\InstanceViewController.designer.cs">
       <DependentUpon>InstanceViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="Settings\SettingsHandlers.cs" />
     <Compile Include="Settings\HistoryTableCell.cs" />
     <Compile Include="Settings\HistoryTableCell.designer.cs">
       <DependentUpon>HistoryTableCell.cs</DependentUpon>
