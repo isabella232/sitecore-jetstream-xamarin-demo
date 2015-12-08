@@ -390,8 +390,8 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                     </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZTU-au-spT">
-                                        <rect key="frame" x="20" y="262" width="166" height="30"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZTU-au-spT">
+                                        <rect key="frame" x="20" y="249" width="166" height="33"/>
                                         <animations/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="126" id="C1g-Pw-7Vb"/>
@@ -463,8 +463,8 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                     </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h86-Ol-w5E">
-                                        <rect key="frame" x="200" y="262" width="180" height="30"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h86-Ol-w5E">
+                                        <rect key="frame" x="200" y="249" width="180" height="33"/>
                                         <animations/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="126" id="g4b-aP-jhC"/>
