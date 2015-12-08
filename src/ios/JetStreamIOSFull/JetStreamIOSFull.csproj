@@ -9,6 +9,7 @@
     <RootNamespace>JetStreamIOSFull</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
     <AssemblyName>JetStreamIOSFull</AssemblyName>
+    <XamarinInsightsApiKey>8148d1a71192f6c9ee9d584ca80713c566e6cb40</XamarinInsightsApiKey>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
     <DebugSymbols>true</DebugSymbols>
@@ -29,7 +30,6 @@
     </MtouchI18n>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
-    <DebugType>full</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\iPhone\Release</OutputPath>
     <ErrorReport>prompt</ErrorReport>
@@ -41,7 +41,6 @@
     <CodesignProvision>16bd6ab4-f66a-4538-a8b9-29e063548d4f</CodesignProvision>
     <IpaPackageName>JetStream</IpaPackageName>
     <BuildIpa>true</BuildIpa>
-    <IpaMetadata>Info.plist</IpaMetadata>
     <MtouchUseRefCounting>true</MtouchUseRefCounting>
     <MtouchI18n>
     </MtouchI18n>
@@ -73,8 +72,6 @@
     <MtouchUseRefCounting>true</MtouchUseRefCounting>
     <IpaPackageName>
     </IpaPackageName>
-    <MtouchI18n>
-    </MtouchI18n>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -93,9 +90,6 @@
     <Reference Include="Sitecore.MobileSDK.PasswordProvider.Interface">
       <HintPath>..\..\..\Solutions\packages\Sitecore.MobileSDK.Xamarin.1.0.0\lib\portable-win+net4+sl5+wp8\Sitecore.MobileSDK.PasswordProvider.Interface.dll</HintPath>
     </Reference>
-    <Reference Include="crypto">
-      <HintPath>..\..\..\Solutions\packages\Portable.BouncyCastle.1.7.0.2\lib\portable-net4+sl5+wp8+win8+wpa81+MonoTouch10+MonoAndroid10+xamarinmac20+xamarinios10\crypto.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\..\Solutions\packages\Newtonsoft.Json.7.0.1\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -104,9 +98,6 @@
     </Reference>
     <Reference Include="System.Net.Http.Extensions">
       <HintPath>..\..\..\Solutions\packages\Microsoft.Net.Http.2.2.29\lib\Xamarin.iOS10\System.Net.Http.Extensions.dll</HintPath>
-    </Reference>
-    <Reference Include="Calabash">
-      <HintPath>..\..\..\Solutions\packages\Xamarin.TestCloud.Agent.0.16.2\lib\Xamarin.iOS10\Calabash.dll</HintPath>
     </Reference>
     <Reference Include="Xamarin.Insights">
       <HintPath>..\..\..\Solutions\packages\Xamarin.Insights.1.11.2\lib\Xamarin.iOS10\Xamarin.Insights.dll</HintPath>
@@ -117,6 +108,12 @@
     <Reference Include="SDWebImage">
       <HintPath>..\..\..\Solutions\Components\sdwebimage-3.7.3.1\lib\ios-unified\SDWebImage.dll</HintPath>
     </Reference>
+    <Reference Include="Calabash">
+      <HintPath>..\..\..\Solutions\packages\Xamarin.TestCloud.Agent.0.16.4\lib\Xamarin.iOS10\Calabash.dll</HintPath>
+    </Reference>
+    <Reference Include="crypto">
+      <HintPath>..\..\..\Solutions\packages\Portable.BouncyCastle.1.8.0\lib\XamarinIos\crypto.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Contents.json" />
@@ -125,14 +122,30 @@
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\logo_jetstream_vector3_76x76.png" />
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\logo_jetstream_vector3_80x80.png" />
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\logo_jetstream_vector3_152x152.png" />
-    <ImageAsset Include="Resources\Images.xcassets\LaunchImage.launchimage\splash_screen_iOS_1024x768PT.png" />
-    <ImageAsset Include="Resources\Images.xcassets\LaunchImage.launchimage\splash_screen_iOS_2048x1536PT.png" />
     <ImageAsset Include="Resources\Images.xcassets\LaunchImage.launchimage\splash_screen_iOS_1024x768.png" />
     <ImageAsset Include="Resources\Images.xcassets\LaunchImage.launchimage\splash_screen_iOS_2048x1536.png" />
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\logo_jetstream_vector3_180x180.png" />
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\logo_jetstream_vector3_120x120.png" />
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\logo_jetstream_vector3_114x114.png" />
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\logo_jetstream_vector3_87x87.png" />
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\logo_jetstream_vector3_58x58.png" />
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\logo_jetstream_vector3_57x57.png" />
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\logo_jetstream_vector3_29x29.png" />
+    <ImageAsset Include="Resources\Images.xcassets\Settings\InstanceCheckmark.imageset\Contents.json" />
+    <ImageAsset Include="Resources\Images.xcassets\Settings\InstanceCheckmark.imageset\InstanceCheckmark.png" />
+    <ImageAsset Include="Resources\Images.xcassets\Settings\InstanceCheckmark.imageset\InstanceCheckmark%402x.png" />
+    <ImageAsset Include="Resources\Images.xcassets\Settings\InstanceCheckmark.imageset\LicenseInfo.txt" />
+    <ImageAsset Include="Resources\Images.xcassets\Settings\InstanceUnchecked.imageset\Contents.json" />
+    <ImageAsset Include="Resources\Images.xcassets\Image.imageset\InstanceUnchecked%402x.png" />
+    <ImageAsset Include="Resources\Images.xcassets\Image.imageset\InstanceUnchecked.png" />
+    <ImageAsset Include="Resources\Images.xcassets\Settings\InstanceUnchecked.imageset\InstanceUnchecked%402x.png" />
+    <ImageAsset Include="Resources\Images.xcassets\Settings\InstanceUnchecked.imageset\InstanceUnchecked.png" />
   </ItemGroup>
   <ItemGroup>
-    <InterfaceDefinition Include="Main.storyboard" />
     <InterfaceDefinition Include="Resources\LaunchScreen.xib" />
+    <InterfaceDefinition Include="Storyboards\InfoControllers.storyboard" />
+    <InterfaceDefinition Include="Storyboards\MainIPad.storyboard" />
+    <InterfaceDefinition Include="Storyboards\MainIPhone.storyboard" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -169,7 +182,6 @@
     <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Helpers\IconsHelper.cs" />
     <Compile Include="Menu\MenuTypes.cs" />
-    <Compile Include="SplitViewDelegate.cs" />
     <Compile Include="Menu\MainMenuProfileCell.cs" />
     <Compile Include="Menu\MainMenuProfileCell.designer.cs">
       <DependentUpon>MainMenuProfileCell.cs</DependentUpon>
@@ -184,7 +196,6 @@
     <Compile Include="DestinationDetails\DestinationImageCell.designer.cs">
       <DependentUpon>DestinationImageCell.cs</DependentUpon>
     </Compile>
-    <Compile Include="Settings\HistoryManager.cs" />
     <Compile Include="Settings\UrlHistorySource.cs" />
     <Compile Include="MapUI\Carousel\CarouselDataSource.cs" />
     <Compile Include="MapUI\Carousel\DestinationCarouselCell.cs" />
@@ -217,25 +228,35 @@
     <Compile Include="Helpers\ColorHelper.cs" />
     <Compile Include="Helpers\AppearanceHelper.cs" />
     <Compile Include="Helpers\Appearance\IColorTheme.cs" />
-    <Compile Include="MainSplitViewController.cs" />
-    <Compile Include="MainSplitViewController.designer.cs">
-      <DependentUpon>MainSplitViewController.cs</DependentUpon>
-    </Compile>
     <Compile Include="Helpers\Appearance\CheckInAppearance.cs" />
     <Compile Include="Helpers\Appearance\FlightStatusAppearance.cs" />
     <Compile Include="Helpers\AnalyticsHelper.cs" />
+    <Compile Include="Navigation\MainSplitViewController.cs" />
+    <Compile Include="Navigation\MainSplitViewController.designer.cs">
+      <DependentUpon>MainSplitViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Navigation\SplitViewDelegate.cs" />
+    <Compile Include="Helpers\LoadingOverlay.cs" />
+    <Compile Include="Settings\InstanceViewController.cs" />
+    <Compile Include="Settings\InstanceViewController.designer.cs">
+      <DependentUpon>InstanceViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Settings\HistoryTableCell.cs" />
+    <Compile Include="Settings\HistoryTableCell.designer.cs">
+      <DependentUpon>HistoryTableCell.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\..\..\Solutions\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\..\Solutions\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
   <Import Project="..\..\..\Solutions\packages\Xamarin.Insights.1.11.2\build\Xamarin.iOS10\Xamarin.Insights.targets" Condition="Exists('..\..\..\Solutions\packages\Xamarin.Insights.1.11.2\build\Xamarin.iOS10\Xamarin.Insights.targets')" />
   <ItemGroup>
-    <ProjectReference Include="..\InstanceSettings\InstanceSettings.csproj">
-      <Project>{1F4E5EBD-FAB4-47C6-9403-F59D967DF74D}</Project>
-      <Name>InstanceSettings</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\commons\JetStreamCommons\JetStreamCommons.csproj">
       <Project>{040C24CF-4B83-4917-B837-ED8157960B5F}</Project>
       <Name>JetStreamCommons</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\InstanceSettings\InstanceSettings.csproj">
+      <Project>{1F4E5EBD-FAB4-47C6-9403-F59D967DF74D}</Project>
+      <Name>InstanceSettings</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -253,6 +274,10 @@
     <Folder Include="NOTIMPLEMENTED\" />
     <Folder Include="About\" />
     <Folder Include="Helpers\Appearance\" />
+    <Folder Include="Storyboards\" />
+    <Folder Include="Resources\Images.xcassets\Settings\" />
+    <Folder Include="Resources\Images.xcassets\Settings\InstanceCheckmark.imageset\" />
+    <Folder Include="Resources\Images.xcassets\Settings\InstanceUnchecked.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\en.lproj\Localizable.strings" />
@@ -290,6 +315,8 @@
     <BundleResource Include="Resources\Images.xcassets\BackgroundTextures\Skiing%402x.jpg" />
     <BundleResource Include="Resources\Images.xcassets\splash_screen_iOS_1024x768.png" />
     <BundleResource Include="Resources\Images.xcassets\splash_screen_iOS_2048x1536.png" />
+    <BundleResource Include="Resources\Images.xcassets\JetStreamLogoPhone.png" />
+    <BundleResource Include="Resources\Images.xcassets\JetStreamLogoPhone%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <ITunesArtwork Include="iTunesArtwork%402x" />

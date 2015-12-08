@@ -36,11 +36,11 @@ namespace JetStreamIOSFull.About
 
     private async void LoadInfo()
     {
-      UIApplication.SharedApplication.NetworkActivityIndicatorVisible = true;
+      this.ShowLoader();
 
       try
       {
-        using (var session = this.Endpoint.GetSession())
+        using (var session = this.InstancesManager.ActiveInstance.GetSession())
         {
           using (var loader = new ContentLoader (session))
           {
@@ -63,7 +63,7 @@ namespace JetStreamIOSFull.About
       }
       finally
       {
-        UIApplication.SharedApplication.NetworkActivityIndicatorVisible = false;
+        this.HideLoader();
       }
     }
 

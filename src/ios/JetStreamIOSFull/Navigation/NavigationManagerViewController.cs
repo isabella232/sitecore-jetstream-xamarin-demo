@@ -6,19 +6,18 @@ using UIKit;
 using JetStreamIOSFull.Helpers;
 using JetStreamIOSFull.BaseVC;
 using JetStreamIOSFull.Menu;
+using JetStreamIOSFull.MapUI;
+using JetStreamIOSFull.Settings;
 
 namespace JetStreamIOSFull.Navigation
 {
+
   public partial class NavigationManagerViewController : BaseViewController
   {
     public UIBarButtonItem menuButton;
 
-    private UINavigationController MapFlow;
-    private UINavigationController SettingsFlow;
-    private UINavigationController AboutFlow;
-    private UINavigationController FlightStatusFlow;
-    private UINavigationController OnlineCheckInFlow;
     private UINavigationController CurentActiveFlow;
+    private static UIStoryboard infoStoryboard = UIStoryboard.FromName("InfoControllers", null);
 
     private UIView overlayView = null;
     private bool canShowMenu = true;
@@ -109,19 +108,6 @@ namespace JetStreamIOSFull.Navigation
 
     public void LoadNavigationFlows()
     {
-      this.MapFlow = (UINavigationController)this.Storyboard.InstantiateViewController("MapFlowInitialNavigationController");
-      this.SettingsFlow = (UINavigationController)this.Storyboard.InstantiateViewController("SettingsFlowInitialNavigationController");
-      this.AboutFlow = (UINavigationController)this.Storyboard.InstantiateViewController("AboutFlowInitialNavigationController");
-      this.FlightStatusFlow = (UINavigationController)this.Storyboard.InstantiateViewController("FlightStatusFlowInitialNavigationController");
-      this.OnlineCheckInFlow = (UINavigationController)this.Storyboard.InstantiateViewController("CheckInFlowInitialNavigationController");
-
-
-      this.InitializeFlow(this.MapFlow);
-      this.InitializeFlow(this.SettingsFlow);
-      this.InitializeFlow(this.AboutFlow);
-      this.InitializeFlow(this.FlightStatusFlow);
-      this.InitializeFlow(this.OnlineCheckInFlow);
-
       this.NavigateToTabAtIndex(MenuItemTypes.Destinations);
     }
 
@@ -129,50 +115,55 @@ namespace JetStreamIOSFull.Navigation
     {
       BaseViewController root = flow.TopViewController as BaseViewController;
       root.Appearance = this.Appearance;
-      root.Endpoint = this.Endpoint;
+      root.InstancesManager = this.InstancesManager;
+
+      root.NavigationItem.LeftBarButtonItem = this.MenuButton;
+      root.NavigationItem.LeftItemsSupplementBackButton = true;
+      root.RealNavigationItem = this.NavigationItem;
+      root.BaseVC = this;
     }
 
     private void NavigateToTabAtIndex(MenuItemTypes type)
     {
-      UINavigationController NewFlow = null;
+      string vcName = null;
 
       switch (type)
       {
       case MenuItemTypes.Destinations:
         {
-          NewFlow = this.MapFlow;
+          vcName = "MapFlowInitialNavigationController";
+                
           break;
         }
       case MenuItemTypes.Settings:
         {
-          NewFlow = this.SettingsFlow;
+          vcName = "SettingsFlowInitialNavigationController";
           break;
         }
       case MenuItemTypes.About:
         {
-          NewFlow = this.AboutFlow;
+          vcName = "AboutFlowInitialNavigationController";
           break;
         }
       case MenuItemTypes.OnlineCheckin:
         {
-          NewFlow = this.OnlineCheckInFlow;
+          vcName = "CheckInFlowInitialNavigationController";
           break;
         }
       case MenuItemTypes.FlightStatus:
         {
-          NewFlow = this.FlightStatusFlow;
+          vcName = "FlightStatusFlowInitialNavigationController";
           break;
         }
       default:
         {
-          NewFlow = this.MapFlow;
+          vcName = "MapFlowInitialNavigationController";
           break;
         }
       }
 
-      UIViewController vc = NewFlow.TopViewController;
-      vc.NavigationItem.LeftBarButtonItem = this.MenuButton;
-      vc.NavigationItem.LeftItemsSupplementBackButton = false;
+      UINavigationController NewFlow = infoStoryboard.InstantiateViewController(vcName) as UINavigationController;
+      this.InitializeFlow(NewFlow);
 
       if (this.CurentActiveFlow != null)
       {
@@ -180,7 +171,7 @@ namespace JetStreamIOSFull.Navigation
       }
 
       this.View.AddSubview(NewFlow.View);
-      this.CurentActiveFlow = NewFlow;
+      this.CurentActiveFlow = NewFlow;      
       this.View.BringSubviewToFront(this.PanView);
     }
 

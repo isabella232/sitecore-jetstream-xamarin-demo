@@ -16,12 +16,17 @@ using SDWebImage;
 using CoreGraphics;
 using JetStreamIOSFull.BaseVC;
 using JetStreamIOSFull.DestinationDetails;
+using ObjCRuntime;
+using InstanceSettings;
 
 
 namespace JetStreamIOSFull.MapUI
 {
   public partial class DetailViewController : BaseViewController, IMKMapViewDelegate
   {
+    private static nfloat carouselLinkHeight = 40;
+    private bool caruselAnimationIsRunning = false;
+
     private readonly string DESTINATION_DETAIL_SEGUE_ID = "ShowDestinationDetails";
     private IEnumerable destinations;
     private MapManager mapManager;
@@ -40,7 +45,7 @@ namespace JetStreamIOSFull.MapUI
         DestinationDetailsViewController detailsVc = segue.DestinationViewController as DestinationDetailsViewController;
         if (detailsVc != null)
         {
-          detailsVc.Endpoint = this.Endpoint;
+          detailsVc.InstancesManager = this.InstancesManager;
           detailsVc.Appearance = this.Appearance;
           detailsVc.ShowDestinationDetails(this.currentSelectedDestination);
         }
@@ -51,27 +56,42 @@ namespace JetStreamIOSFull.MapUI
     {
       base.ViewDidLoad();
 
+      this.RefreshButton = new UIBarButtonItem (UIBarButtonSystemItem.Refresh
+        , (sender, args) =>
+      {
+        this.RefreshButtonTouched(this.RefreshButton);
+      });
+
       this.InitializeMap();
 
       this.DetailsCarousel.BackgroundColor = UIColor.Clear;
-      this.DetailsCarousel.BackgroundView = new UIView (new CGRect (0, 0, 0, 0));
-    }
+      this.DetailsCarousel.BackgroundView = new UIView(new CGRect (0, 0, 0, 0));
 
-    private void InitializeMap()
-    {
-      this.mapManager = new MapManager(this.Appearance);
-      this.mapManager.onDestinationSelected += this.DidSelectDestination;
-      this.map.Delegate = mapManager;
-
-      MKCoordinateRegion region = this.Appearance.Map.InitialRegion;
-      this.map.SetRegion(region, false);
+      this.RegisterCarouselSwipes();
     }
 
     public override void ViewDidAppear(bool animated)
     {
       base.ViewDidAppear(animated);
 
+      UIDevice thisDevice = UIDevice.CurrentDevice;
+
+      if (thisDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Phone)
+      {
+        this.RealNavigationItem.SetRightBarButtonItem(this.RefreshButton, false);
+      }
+      else
+      {
+        this.NavigationItem.SetRightBarButtonItem(this.RefreshButton, false);
+      }
+
       this.RefreshMap();
+    }
+
+    [Export("animationDidStop:finished:context:")]
+    void SlideStopped (NSString animationID, NSNumber finished, NSObject context)
+    {
+      this.caruselAnimationIsRunning = false;
     }
 
     partial void RefreshButtonTouched(Foundation.NSObject sender)
@@ -91,7 +111,19 @@ namespace JetStreamIOSFull.MapUI
       this.DetailsCarousel.DataSource = null;
       this.DetailsCarousel.ReloadData();
     }
-      
+     
+    #region Map
+
+    private void InitializeMap()
+    {
+      this.mapManager = new MapManager(this.Appearance);
+      this.mapManager.onDestinationSelected += this.DidSelectDestination;
+      this.map.Delegate = mapManager;
+
+      MKCoordinateRegion region = this.Appearance.Map.InitialRegion;
+      this.map.SetRegion(region, false);
+    }
+
     private void DidSelectDestination(IDestination destination)
     {
       this.currentSelectedDestination = destination;
@@ -100,8 +132,12 @@ namespace JetStreamIOSFull.MapUI
 
     private async void RefreshMap()
     {
-      RefreshButton.Enabled = false;
-      UIApplication.SharedApplication.NetworkActivityIndicatorVisible = true;
+      this.ShowLoader();
+
+      if (RefreshButton != null)
+      {
+        this.RefreshButton.Enabled = false;
+      }
 
       try
       {
@@ -114,8 +150,11 @@ namespace JetStreamIOSFull.MapUI
       }
       finally
       {
-        UIApplication.SharedApplication.NetworkActivityIndicatorVisible = false;
-        RefreshButton.Enabled = true;
+        if (RefreshButton != null)
+        {
+          this.RefreshButton.Enabled = true;
+        }
+        this.HideLoader();
       }
     }
 
@@ -127,8 +166,14 @@ namespace JetStreamIOSFull.MapUI
 
       foreach(IDestination elem in this.destinations)
       {
-          DestinationAnnotation annotation = new DestinationAnnotation(elem, this.Endpoint.InstanceUrl);
+        DestinationAnnotation annotation = new DestinationAnnotation(elem, this.InstancesManager.ActiveInstance.InstanceUrl);
           annotationsList.Add(annotation);
+      }
+
+      if (annotationsList.Count == 0)
+      {
+        AlertHelper.ShowLocalizedAlertWithOkOption("MESSAGE", "DESTINATIONS NOT FOUND");
+        return;
       }
 
       this.mapManager.SetAnnotationsForMap(this.map, annotationsList);
@@ -140,9 +185,73 @@ namespace JetStreamIOSFull.MapUI
       this.DetailsCarousel.ReloadData();
     }
 
+    #endregion Map
+
+    #region Carousel
+
+    private void RegisterCarouselSwipes()
+    {
+      UISwipeGestureRecognizer swipeUpGesture = new UISwipeGestureRecognizer(sw => 
+      {
+        this.showCarousel(true);
+      });
+      swipeUpGesture.Direction = UISwipeGestureRecognizerDirection.Up;
+      this.DetailsCarousel.AddGestureRecognizer(swipeUpGesture);
+
+      UISwipeGestureRecognizer swipeDownGesture = new UISwipeGestureRecognizer(sw => 
+      {
+        this.hideCarousel(true);
+      });
+      swipeDownGesture.Direction = UISwipeGestureRecognizerDirection.Down;
+      this.DetailsCarousel.AddGestureRecognizer(swipeDownGesture);
+    }
+
+    private void showCarousel(bool animated)
+    {
+      nfloat height = this.View.Bounds.Height - this.DetailsCarousel.Bounds.Height;
+      this.MoveCarouselToCoordiantes(height, animated);
+    }
+
+    private void hideCarousel(bool animated)
+    {
+      nfloat height = this.View.Bounds.Height - carouselLinkHeight;
+      this.MoveCarouselToCoordiantes(height, animated);
+    }
+
+    private void MoveCarouselToCoordiantes(nfloat height, bool animated)
+    {
+      if (this.caruselAnimationIsRunning == false)
+      {
+        if (animated)
+        {
+          this.caruselAnimationIsRunning = true;
+          UIView.BeginAnimations("slideAnimation");
+
+          UIView.SetAnimationDuration(0.7);
+          UIView.SetAnimationCurve(UIViewAnimationCurve.EaseInOut);
+
+          UIView.SetAnimationDelegate(this);
+          UIView.SetAnimationDidStopSelector(new Selector ("animationDidStop:finished:context:"));
+        }
+
+        CGRect frame = this.DetailsCarousel.Frame;
+        frame.Y = height;
+        this.DetailsCarousel.Frame = frame;
+
+        if (animated)
+        {
+          UIView.CommitAnimations();
+        }
+      }
+    }
+
+    #endregion Carousel
+
+    #region Network
+
     private async Task<IEnumerable> DownloadAllDestinations()
     {
-      using (var session = this.Endpoint.GetSession())
+      using (var session = this.InstancesManager.ActiveInstance.GetSession())
       {
         using (var loader = new DestinationsLoader (session))
         {
@@ -158,6 +267,9 @@ namespace JetStreamIOSFull.MapUI
         }
       }
     }
+
+    #endregion Network
+
   }
 }
 
