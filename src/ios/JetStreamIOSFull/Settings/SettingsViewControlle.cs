@@ -4,13 +4,14 @@ using Foundation;
 using UIKit;
 using CoreGraphics;
 using JetStreamIOSFull.BaseVC;
+using InstanceSettings;
 
 namespace JetStreamIOSFull.Settings
 {
-  public partial class SettingsViewControlle : BaseViewController
+  public partial class SettingsViewControlle : BaseViewController, IUITextFieldDelegate
 	{
-    private NSObject keyboardDown;
-    private HistoryManager historyManager = new HistoryManager();
+    private static string instanceSegueIdentifier = "ShowInstancePopover";
+    private UrlHistorySource source;
 
 		public SettingsViewControlle (IntPtr handle) : base (handle)
 		{
@@ -20,57 +21,42 @@ namespace JetStreamIOSFull.Settings
     public override void ViewDidLoad()
     {
       base.ViewDidLoad();
+      this.LocalizeUI();
 
-      this.Title = NSBundle.MainBundle.LocalizedString("SETTINGS_SCREEN_TITLE", null);
       this.BackgroundImageView.Image = this.Appearance.Settings.SettingsBackground;
 
       //Hack to hide separators for empty cells
       this.HistoryTableView.TableFooterView = new UIView (new CGRect (0, 0, 0, 0));
 
-      UrlHistorySource source = new UrlHistorySource(this.historyManager);
-      source.onUrlSelected += UrlFromHistorySelected;
-
+      this.source = new UrlHistorySource(this.InstancesManager);
       this.HistoryTableView.Source = source;
-
-      this.UrlTextField.Placeholder = NSBundle.MainBundle.LocalizedString("URL_TEXT_FIELD_PLACEHOLDER", null);
-    }
-
-    private void UrlFromHistorySelected(string url)
-    {
-      this.UrlTextField.Text = url;
-    }
-
-    public override void ViewWillAppear(bool animated)
-    {
-      base.ViewWillAppear(animated);
-
-      this.keyboardDown = NSNotificationCenter.DefaultCenter.AddObserver(UIKeyboard.WillHideNotification, KeyBoardDownNotification);
-
-      this.UrlTextField.Text = this.Endpoint.InstanceUrl;
-     
-      //hack to append history with default url
-      if (this.historyManager.Count == 0 && this.UrlTextField.Text.Length > 0)
-      {
-        this.historyManager.AddUrlToHistory(this.UrlTextField.Text);
-      }
-
       this.HistoryTableView.ReloadData();
     }
 
-    private void KeyBoardDownNotification(NSNotification notification)
+    private void LocalizeUI()
     {
-      this.UrlTextField.ResignFirstResponder();
+      this.AddButton.SetTitle (NSBundle.MainBundle.LocalizedString("ADD_INSTANCE_BUTTON_TITLE", null), UIControlState.Normal);
+      this.Title = NSBundle.MainBundle.LocalizedString("SETTINGS_SCREEN_TITLE", null);
     }
 
-    public override void ViewWillDisappear(bool animated)
+    private void InstaneAdded(InstanceSettings.InstanceSettings instance)
     {
-      base.ViewWillDisappear(animated);
-      NSNotificationCenter.DefaultCenter.RemoveObserver (this.keyboardDown);
-
-      this.Endpoint.InstanceUrl = this.UrlTextField.Text;
-      this.UrlTextField.BecomeFirstResponder();
-
-      this.historyManager.AddUrlToHistory(this.UrlTextField.Text);
+      this.InstancesManager.AddInstance(instance);
+      this.HistoryTableView.ReloadData();
     }
+
+    public override void PrepareForSegue(UIStoryboardSegue segue, NSObject sender)
+    {
+      if (segue.Identifier.Equals(instanceSegueIdentifier))
+      {
+        InstanceViewController instanceVC = segue.DestinationViewController as InstanceViewController;
+        instanceVC.InstanceAddedEvent += this.InstaneAdded;
+      }
+    }
+
+    partial void UnwindToSettingsViewController(UIStoryboardSegue segue)
+    {
+    }
+
 	}
 }

@@ -1,42 +1,42 @@
 ﻿using Foundation;
+using System;
+
+using Sitecore.MobileSDK.API;
+using Sitecore.MobileSDK.API.Session;
+using Sitecore.MobileSDK.PasswordProvider.iOS;
+using Newtonsoft.Json;
 
 namespace InstanceSettings
 {
-  using System;
 
-  using Sitecore.MobileSDK.API;
-  using Sitecore.MobileSDK.API.Session;
-
-  using Sitecore.MobileSDK.PasswordProvider.iOS;
-
-
-  //TODO: NSUserDefaults is not secure enough for credentials.
-  //  Please use either of :
-  // * native iOS keychain
-  // * C# SecureString class
   public class InstanceSettings
   {
+    [JsonProperty]
     private string instanceUrl;
+    [JsonProperty]
     private string instanceLogin;
+    [JsonProperty]
     private string instancePassword;
+    [JsonProperty]
     private string instanceSite;
+    [JsonProperty]
     private string instanceDataBase;
+    [JsonProperty]
     private string instanceLanguage;
 
     public InstanceSettings()
     {
-      this.ReadValuesFromStorage();
     }
 
-    private void ReadValuesFromStorage()
+    [JsonConstructor]
+    public InstanceSettings(string instanceUrl, string instanceLogin, string instancePassword, string instanceSite, string instanceDataBase, string instanceLanguage)
     {
-      NSUserDefaults userDefaults = NSUserDefaults.StandardUserDefaults;
-      this.instanceUrl            = userDefaults.StringForKey("instanceUrl"     );
-      this.instanceLogin          = userDefaults.StringForKey("instanceLogin"   );
-      this.instancePassword       = userDefaults.StringForKey("instancePassword");
-      this.instanceSite           = userDefaults.StringForKey("instanceSite"    );
-      this.instanceDataBase       = userDefaults.StringForKey("instanceDataBase");
-      this.instanceLanguage       = userDefaults.StringForKey("instanceLanguage");
+      this.instanceUrl = instanceUrl;
+      this.instanceLogin = instanceLogin;
+      this.instancePassword = instancePassword;
+      this.instanceSite = instanceSite;
+      this.instanceDataBase = instanceDataBase;
+      this.instanceLanguage = instanceLanguage;
     }
 
     private ISitecoreWebApiSession GetAuthenticatedSession()
@@ -55,9 +55,39 @@ namespace InstanceSettings
           .DefaultDatabase(this.InstanceDataBase)
           .DefaultLanguage(this.InstanceLanguage)
           .BuildSession();
+        
+        return result;
+      }
+    }
+
+    public override bool Equals(System.Object obj)
+    {
+      if (obj is InstanceSettings)
+      {
+        InstanceSettings castedObj = obj as InstanceSettings;
+        bool result = this.InstanceUrl == castedObj.InstanceUrl;
+        result = result && this.InstanceLogin    == castedObj.InstanceLogin;
+        result = result && this.InstancePassword == castedObj.InstancePassword;
+        result = result && this.InstanceSite     == castedObj.InstanceSite;
+        result = result && this.InstanceDataBase == castedObj.InstanceDataBase;
+        result = result && this.InstanceLanguage == castedObj.InstanceLanguage;
 
         return result;
       }
+
+      return false;
+    }
+
+    public override int GetHashCode()
+    {
+      int hash = this.InstanceUrl.GetHashCode();
+      hash += this.InstanceLogin.GetHashCode();
+      hash += this.InstancePassword.GetHashCode();
+      hash += this.InstanceSite.GetHashCode();
+      hash += this.InstanceDataBase.GetHashCode();
+      hash += this.InstanceLanguage.GetHashCode();
+
+      return hash;
     }
 
     private ISitecoreWebApiSession GetAnonymousSession()
@@ -83,14 +113,7 @@ namespace InstanceSettings
         return this.GetAuthenticatedSession();
       }
     }
-
-    private void SaveValueToStorage(string value, string key)
-    {
-      NSUserDefaults userDefaults = NSUserDefaults.StandardUserDefaults;
-      userDefaults.SetString(value, key);
-      userDefaults.Synchronize();
-    }
-
+      
     public string InstanceUrl   
     { 
       get
@@ -105,8 +128,6 @@ namespace InstanceSettings
       set
       { 
         this.instanceUrl = value;
-       
-        this.SaveValueToStorage(value, "instanceUrl");
       }
     }
 
@@ -116,7 +137,7 @@ namespace InstanceSettings
       { 
         if (this.instanceLogin == null) 
         {
-          this.instanceLogin = "admin";
+          this.instanceLogin = "";
         }
 
         return this.instanceLogin;
@@ -124,7 +145,6 @@ namespace InstanceSettings
       set
       { 
         this.instanceLogin = value;
-        this.SaveValueToStorage (value, "instanceLogin");
       } 
     }
 
@@ -134,7 +154,7 @@ namespace InstanceSettings
       { 
         if (this.instancePassword == null) 
         {
-          this.instancePassword = "b";
+          this.instancePassword = "";
         }
 
         return this.instancePassword;
@@ -142,7 +162,6 @@ namespace InstanceSettings
       set
       { 
         this.instancePassword = value;
-        this.SaveValueToStorage(value, "instancePassword");
       } 
     }
 
@@ -150,7 +169,7 @@ namespace InstanceSettings
     { 
       get
       { 
-        if (this.instanceSite == null) 
+        if (this.instanceSite == null || this.instanceSite == "") 
         {
           this.instanceSite = "/sitecore/shell";
         }
@@ -160,7 +179,6 @@ namespace InstanceSettings
       set
       { 
         this.instanceSite = value;
-        this.SaveValueToStorage(value, "instanceSite");
       } 
     }
 
@@ -168,7 +186,7 @@ namespace InstanceSettings
     { 
       get
       { 
-        if (this.instanceDataBase == null) 
+        if (this.instanceDataBase == null || this.instanceDataBase == "") 
         {
           this.instanceDataBase = "master";
         }
@@ -178,7 +196,6 @@ namespace InstanceSettings
       set
       { 
         this.instanceDataBase = value;
-        this.SaveValueToStorage(value, "instanceDataBase");
       } 
     }
 
@@ -186,17 +203,16 @@ namespace InstanceSettings
     { 
       get
       { 
-//        if (this.instanceLanguage == null) 
-//        {
-//          this.instanceLanguage = "en";
-//        }
-//
+        if (this.instanceLanguage == null || this.instanceLanguage == "") 
+        {
+          this.instanceLanguage = "en";
+        }
+
         return this.instanceLanguage;
       }
       set
       { 
         this.instanceLanguage = value;
-        this.SaveValueToStorage(value, "instanceLanguage");
       } 
     }
   }

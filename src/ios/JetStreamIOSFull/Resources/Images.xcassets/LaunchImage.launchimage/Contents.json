@@ -48,7 +48,6 @@
       "minimum-system-version": "7.0",
       "orientation": "portrait",
       "extent": "full-screen",
-      "filename": "splash_screen_iOS_1024x768PT.png",
       "size": "768x1024",
       "scale": "1x",
       "idiom": "ipad"
@@ -57,7 +56,6 @@
       "minimum-system-version": "7.0",
       "orientation": "portrait",
       "extent": "full-screen",
-      "filename": "splash_screen_iOS_2048x1536PT.png",
       "size": "768x1024",
       "scale": "2x",
       "idiom": "ipad"

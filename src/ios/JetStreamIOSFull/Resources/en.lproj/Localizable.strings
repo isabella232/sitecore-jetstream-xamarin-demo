@@ -5,7 +5,9 @@
 "CANNOT_DOWNLOAD_ABOUT_ITEM_ERROR" = "About info is not available, please try later or connect with your site administrator";
 "DESTINATION_SCREEN_TITLE" = "Destinations";
 "SETTINGS_SCREEN_TITLE" = "Settings";
-"URL_HISTORY_SECTION_TITLE" = "Last visited URLs:";
+"URL_HISTORY_SECTION_TITLE" = "Available URLs:";
+"MESSAGE" = "Message";
+"DESTINATIONS NOT FOUND" = "Destinations not found on the server";
 
 //menu
 "PROFILE_TITLE" = "Profile";
@@ -20,4 +22,22 @@
 "FLIGHT_STATUS_PLACEHOLDER_TITLE" = "Flight Status";
 
 //SETTINGS
-"URL_TEXT_FIELD_PLACEHOLDER" = "http://sitecore.net";
+"ADD_INSTANCE_BUTTON_TITLE" = "Add Instance";
+"Loading..." = "Loading...";
+"INSTANCE_UNAVAILABLE" = "Can not connect to the instance, please check instance url and settings";
+
+//AddInstanceController
+"APPLY_BUTTON_TITLE" = "Apply";
+"CANCEL_BUTTON_TITLE" = "Cancel";
+
+"DATABASE_LABEL_TITLE" = "Database:";
+"INSTANCE_URL_LABEL_TITLE" = "Instance Url:";
+"LANGUAGE_LABEL_TITLE" = "Language:";
+"LOGIN_LABEL_TITLE" = "Login:";
+"PASSWORD_LABEL_TITLE" = "Password:";
+
+"PASSWORD_PLACEHOLDER_VALUE" = "password";
+"DATABASE_PLACEHOLDER_VALUE" = "web";
+"INSTANCE_URL_PLACEHOLDER_VALUE" = "http://sitecore.com";
+"LANGUAGE_PLACEHOLDER_VALUE" = "en";
+"LOGIN_PLACEHOLDER_VALUE" = "admin";

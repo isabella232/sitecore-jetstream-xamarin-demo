@@ -29,14 +29,14 @@ namespace JetStreamIOSFull.DestinationDetails
       this.TopBarImage.Image = this.Appearance.Common.NavigationBackgroundImage;
 
       UIImage image = UIImage.FromBundle("Images.xcassets/LeftArrow.png");
-      this.BackButton.SetImage(image.ImageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate), UIControlState.Normal);
+      this.BackButton.SetBackgroundImage(image.ImageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate), UIControlState.Normal);
    }
 
     private async void DownloadAttractions()
     {
       if (this.destination != null)
       {
-        using (var session = this.Endpoint.GetSession())
+        using (var session = this.InstancesManager.ActiveInstance.GetSession())
         {
           using (var loader = new DestinationsLoader (session))
           {
@@ -51,7 +51,7 @@ namespace JetStreamIOSFull.DestinationDetails
               return;
             }
               
-            this.ImagesTableView.Source = new DestinationImagesSource (attractions, this.destination, this.Endpoint);
+            this.ImagesTableView.Source = new DestinationImagesSource (attractions, this.destination, this.InstancesManager);
             this.ImagesTableView.ReloadData();
           }
         }
