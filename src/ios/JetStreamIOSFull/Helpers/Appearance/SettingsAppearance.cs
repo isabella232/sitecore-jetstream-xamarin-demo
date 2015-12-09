@@ -13,7 +13,7 @@ namespace JetStreamIOSFull.Apearance
     {
       get
       { 
-        return UIImage.FromBundle("Images.xcassets/BackgroundTextures/SettingsBackground.jpeg");
+        return UIImage.FromBundle("SettingsBackground");
       }
     }
   }
