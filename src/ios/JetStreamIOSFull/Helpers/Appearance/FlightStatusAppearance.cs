@@ -13,7 +13,7 @@ namespace JetStreamIOSFull.Apearance
     {
       get
       { 
-        return UIImage.FromBundle("Images.xcassets/BackgroundTextures/Palms.png");
+        return UIImage.FromBundle("Palms");
       }
     }
   }

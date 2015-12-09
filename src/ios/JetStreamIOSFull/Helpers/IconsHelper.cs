@@ -9,7 +9,7 @@ namespace JetStreamIOSFull.Helpers
     {
       get
       { 
-        return UIImage.FromBundle("Images.xcassets/MenuIcons/DestinationIcon.png");
+        return UIImage.FromBundle("DestinationIcon");
       }
     }
 
@@ -17,7 +17,7 @@ namespace JetStreamIOSFull.Helpers
     {
       get
       { 
-        return UIImage.FromBundle("Images.xcassets/MenuIcons/SettingsIcon.png");
+        return UIImage.FromBundle("SettingsIcon");
       }
     }
 
@@ -25,7 +25,7 @@ namespace JetStreamIOSFull.Helpers
     {
       get
       { 
-        return UIImage.FromBundle("Images.xcassets/MenuIcons/ProfileIcon.png");
+        return UIImage.FromBundle("ProfileIcon");
       }
     }
 
@@ -33,7 +33,7 @@ namespace JetStreamIOSFull.Helpers
     {
       get
       { 
-        return UIImage.FromBundle("Images.xcassets/MenuIcons/AboutIcon.png");
+        return UIImage.FromBundle("AboutIcon");
       }
     }
 
@@ -41,7 +41,7 @@ namespace JetStreamIOSFull.Helpers
     {
       get
       { 
-        return UIImage.FromBundle("Images.xcassets/MenuIcons/FlightStatusIcon.png");
+        return UIImage.FromBundle("FlightStatusIcon");
       }
     }
 
@@ -49,7 +49,7 @@ namespace JetStreamIOSFull.Helpers
     {
       get
       { 
-        return UIImage.FromBundle("Images.xcassets/MenuIcons/OnlineCheckinIcon.png");
+        return UIImage.FromBundle("OnlineCheckInIcon");
       }
     }
 

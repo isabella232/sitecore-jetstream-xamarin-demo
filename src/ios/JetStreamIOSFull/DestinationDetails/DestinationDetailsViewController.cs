@@ -28,7 +28,7 @@ namespace JetStreamIOSFull.DestinationDetails
 
       this.TopBarImage.Image = this.Appearance.Common.NavigationBackgroundImage;
 
-      UIImage image = UIImage.FromBundle("Images.xcassets/LeftArrow.png");
+      UIImage image = UIImage.FromBundle("LeftArrow");
       this.BackButton.SetBackgroundImage(image.ImageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate), UIControlState.Normal);
    }
 
