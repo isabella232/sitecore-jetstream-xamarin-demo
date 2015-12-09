@@ -13,7 +13,7 @@ namespace JetStreamIOSFull.Apearance
 
     public MapAppearance(IColorTheme colorsTheme) : base(colorsTheme)
     {
-      UIImage image = UIImage.FromBundle("Images.xcassets/DestinationPlaceholder.png");
+      UIImage image = UIImage.FromBundle("DestinationPlaceholder");
       UIImage resizedImage = ImageHelper.ResizeImage(image, this.DestinationIconSize, this.DestinationIconSize);  
       if (resizedImage != null)
       {

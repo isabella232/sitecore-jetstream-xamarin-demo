@@ -15,7 +15,7 @@ namespace JetStreamIOSFull.Apearance
     {
       get
       { 
-        return UIImage.FromBundle("Images.xcassets/BackgroundTextures/NavBarBackgroundDG.png");
+        return UIImage.FromBundle("NavBarBackgroundDG");
       }
     }
 
@@ -25,10 +25,10 @@ namespace JetStreamIOSFull.Apearance
       { 
         if (this.thisDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Phone)
         {
-          return UIImage.FromBundle("Images.xcassets/JetStreamLogoPhone.png");
+          return UIImage.FromBundle("JetStreamLogoPhone");
         }
 
-        return UIImage.FromBundle("Images.xcassets/JetStreamLogo.png");
+        return UIImage.FromBundle("JetStreamLogo");
       }
     }
 
