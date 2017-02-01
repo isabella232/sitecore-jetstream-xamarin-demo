@@ -19,10 +19,10 @@
     private ITimeZoneProvider timezoneProvider;
 
     #region IDisposable
-    private ISitecoreWebApiSession session;
-    private ISitecoreWebApiSession GetSession()
+    private ISitecoreSSCSession globalSession;
+    private ISitecoreSSCSession GetSession()
     {
-      return this.session;
+      return this.globalSession;
     }
 
     private bool disposed = false;
@@ -44,10 +44,10 @@
       // Free any other managed objects here.
       if (disposing)
       {
-        if (null != this.session)
+        if (null != this.globalSession)
         {
-          this.session.Dispose();
-          this.session = null;
+          this.globalSession.Dispose();
+          this.globalSession = null;
         }
       }
 
@@ -66,9 +66,9 @@
     }
     #endregion
 
-    public RestManager(ISitecoreWebApiSession sessionToConsume, ITimeZoneProvider timezoneProvider)
+    public RestManager(ISitecoreSSCSession sessionToConsume, ITimeZoneProvider timezoneProvider)
     {
-      this.session = sessionToConsume;
+      this.globalSession = sessionToConsume;
       this.timezoneProvider = timezoneProvider;
     }
 
@@ -76,13 +76,12 @@
     {
       var session = this.GetSession();
 
-      string testQuery = QueryHelpers.QueryToSearchAllAirports();
+      string testQuery = QueryHelpers.QueryItemIdToSearchAllAirports();
 
-      var request = ItemWebApiRequestBuilder.ReadItemsRequestWithSitecoreQuery(testQuery)
-        .Payload(PayloadType.Content)
+      var request = ItemSSCRequestBuilder.StoredQuerryRequest(testQuery)
         .Build();
 
-      ScItemsResponse responce = await session.ReadItemAsync(request);
+      ScItemsResponse responce = await session.RunStoredQuerryAsync(request);
 
 
       var result = new List<IJetStreamAirport>();
@@ -103,10 +102,9 @@
     {
       string timezoneItemId = airportItem["Time Zone"].RawValue;
 
-      var timezoneItemRequest = ItemWebApiRequestBuilder.ReadItemsRequestWithId(timezoneItemId)
-        .Payload(PayloadType.Content)
+      var timezoneItemRequest = ItemSSCRequestBuilder.ReadItemsRequestWithId(timezoneItemId)
         .Build();
-      ScItemsResponse timezoneResponse = await session.ReadItemAsync(timezoneItemRequest);
+      ScItemsResponse timezoneResponse = await globalSession.ReadItemAsync(timezoneItemRequest);
 
       ISitecoreItem timeZoneItem = timezoneResponse[0];
       ITimeZoneInfo timeZone = new TimeZoneInfoWithItem(timeZoneItem, this.timezoneProvider);
@@ -116,16 +114,17 @@
 
     private async Task<ScItemsResponse> SearchTicketsWithRequest(SearchFlightsRequest request)
     {
-      var session = this.GetSession();
+      return null;
+      //var session = this.GetSession();
 
-      string testQuery = QueryHelpers.QueryToSearchDepartFlightsWithRequest(request);
-      var readRequest = ItemWebApiRequestBuilder.ReadItemsRequestWithSitecoreQuery(testQuery)
-        .Payload(PayloadType.Content)
-        .Build();
+      //string testQuery = QueryHelpers.QueryToSearchDepartFlightsWithRequest(request);
+      //var readRequest = ItemSSCRequestBuilder.ReadItemsRequestWithSitecoreQuery(testQuery)
+      //  .Payload(PayloadType.Content)
+      //  .Build();
 
-      ScItemsResponse responce = await session.ReadItemAsync(readRequest);
+      //ScItemsResponse responce = await session.ReadItemAsync(readRequest);
 
-      return responce;
+      //return responce;
     }
 
     #region IFlightsLoader
@@ -159,8 +158,7 @@
     private async Task<IJetStreamAirportWithTimeZone> LoadAirportWithTimezoneByIdAsync(string airportId)
     {
       var session = this.GetSession();
-      var request = ItemWebApiRequestBuilder.ReadItemsRequestWithId(airportId)
-        .Payload(PayloadType.Content)
+      var request = ItemSSCRequestBuilder.ReadItemsRequestWithId(airportId)
         .Build();
 
       ScItemsResponse airportResponse = await session.ReadItemAsync(request);

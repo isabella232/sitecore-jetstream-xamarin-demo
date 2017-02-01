@@ -79,13 +79,13 @@ namespace JetStreamIOSFull
       
       try
       {
-        ISitecoreWebApiSession session = instanceSettings.GetSession();
+        ISitecoreSSCSession session = instanceSettings.GetSession();
 
         this.ShowLoader();
 
-        bool authenticated = await session.AuthenticateAsync();
+        var authenticatedResponse = await session.AuthenticateAsync();
 
-        if (authenticated)
+        if (authenticatedResponse.IsSuccessful)
         {
           if (this.InstanceAddedEvent != null)
           {

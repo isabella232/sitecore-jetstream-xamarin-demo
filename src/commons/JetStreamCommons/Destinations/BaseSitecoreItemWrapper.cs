@@ -45,11 +45,11 @@
       }
     }
 
-    public string LongId
+    public string TemplateId 
     {
-      get
+      get 
       {
-        return this.Wrapped.LongId;
+        return this.Wrapped.TemplateId;
       }
     }
 
@@ -58,14 +58,6 @@
       get
       {
         return this.Wrapped.Path;
-      }
-    }
-
-    public string Template
-    {
-      get
-      {
-        return this.Wrapped.Template;
       }
     }
 

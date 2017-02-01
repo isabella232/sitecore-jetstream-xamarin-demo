@@ -15,11 +15,11 @@ namespace JetStreamCommons
 
   public class ContentLoader : IDisposable
   {
-    private ISitecoreWebApiSession session;
+    private ISitecoreSSCSession session;
 
     private bool disposed = false;
 
-    public ContentLoader(ISitecoreWebApiSession session)
+    public ContentLoader(ISitecoreSSCSession session)
     {
       this.session = session;
     }
@@ -30,7 +30,7 @@ namespace JetStreamCommons
     public async Task<IAboutPageInfo> LoadAboutInfo()
     {
 
-      var request = ItemWebApiRequestBuilder.ReadItemsRequestWithPath("/sitecore/content/Home/About")
+      var request = ItemSSCRequestBuilder.ReadItemsRequestWithPath("/sitecore/content/Home/About")
         .Build();
 
       ScItemsResponse responce = await this.session.ReadItemAsync(request);

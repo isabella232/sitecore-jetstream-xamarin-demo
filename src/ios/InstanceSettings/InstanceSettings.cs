@@ -3,8 +3,8 @@ using System;
 
 using Sitecore.MobileSDK.API;
 using Sitecore.MobileSDK.API.Session;
-using Sitecore.MobileSDK.PasswordProvider.iOS;
 using Newtonsoft.Json;
+using Sitecore.MobileSDK.PasswordProvider;
 
 namespace InstanceSettings
 {
@@ -39,19 +39,20 @@ namespace InstanceSettings
       this.instanceLanguage = instanceLanguage;
     }
 
-    private ISitecoreWebApiSession GetAuthenticatedSession()
+    private ISitecoreSSCSession GetAuthenticatedSession()
     {
-      using 
+      using
         (
-          var credentials = 
-          new SecureStringPasswordProvider(
-            this.InstanceLogin, 
-            this.InstancePassword)
+          var credentials =
+           new ScUnsecuredCredentialsProvider(
+            this.instanceLogin,
+            this.instancePassword,
+            "sitecore"
+          )
         )
       {
-        var result = SitecoreWebApiSessionBuilder.AuthenticatedSessionWithHost(this.InstanceUrl)
+        var result = SitecoreSSCSessionBuilder.AuthenticatedSessionWithHost(this.instanceUrl)
           .Credentials(credentials)
-          .Site(this.InstanceSite)
           .DefaultDatabase(this.InstanceDataBase)
           .DefaultLanguage(this.InstanceLanguage)
           .BuildSession();
@@ -90,10 +91,9 @@ namespace InstanceSettings
       return hash;
     }
 
-    private ISitecoreWebApiSession GetAnonymousSession()
+    private ISitecoreSSCSession GetAnonymousSession()
     {
-        var result = SitecoreWebApiSessionBuilder.AnonymousSessionWithHost(this.InstanceUrl)
-          .Site(this.InstanceSite)
+        var result = SitecoreSSCSessionBuilder.AnonymousSessionWithHost(this.InstanceUrl)
           .DefaultDatabase(this.InstanceDataBase)
           .DefaultLanguage(this.InstanceLanguage)
           .BuildSession();
@@ -101,7 +101,7 @@ namespace InstanceSettings
         return result;
     }
 
-    public ISitecoreWebApiSession GetSession()
+    public ISitecoreSSCSession GetSession()
     {
       bool isAnonymousSession = string.IsNullOrWhiteSpace(this.InstanceLogin);
       if (isAnonymousSession)
@@ -171,7 +171,7 @@ namespace InstanceSettings
       { 
         if (this.instanceSite == null || this.instanceSite == "") 
         {
-          this.instanceSite = "/sitecore/shell";
+          this.instanceSite = "sitecore";
         }
 
         return this.instanceSite;

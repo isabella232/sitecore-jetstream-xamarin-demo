@@ -17,8 +17,8 @@ namespace JetStreamIOSFull
 		public MainSplitViewController (IntPtr handle) : base (handle)
 		{
       Console.WriteLine("MainSplitViewController");
-      NSString key = NSString.FromData("_masterColumnWidth",NSStringEncoding.ASCIIStringEncoding);
-      this.SetValueForKey(this.appearanceHelper.Menu.MenuWidth, key);
+      //NSString key = NSString.FromData("_masterColumnWidth",NSStringEncoding.ASCIIStringEncoding);
+      //this.SetValueForKey(this.appearanceHelper.Menu.MenuWidth, key);
 		}
 
     public override void ViewDidLoad()

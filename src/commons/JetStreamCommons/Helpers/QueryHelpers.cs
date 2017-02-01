@@ -4,17 +4,14 @@
 
   public static class QueryHelpers
   {
-    public static string QueryToSearchAllRegionsAndCountriesItems()
+    public static string QueryItemIdToSearchAllRegionsAndCountriesItems()
     {
-      // TODO: Can't query "Plan And Book" item. Investigate why!!!
-      return  "/sitecore/content/Home//*[@@templatename='Region Item' or @@templatename='Country Item']";
+      return  "5D08B344-1794-40C2-A0CE-E861A569B713";
     }
 
-    public static string QueryToSearchAllCityItems()
+    public static string QueryItemIdToSearchAllCityItems()
     {
-      // TODO: Can't query "Plan And Book" item. Investigate why!!!
-      // TODO: Theoretically we can receive here more than 100 items
-      return "/sitecore/content/Home//*[@@templatename='City Item']";
+      return "28A734E1-194F-487E-A15E-C071E171541A";
     }
 
     public static string QueryToSearchAirportsWithName(string name)
@@ -23,9 +20,9 @@
       return "/sitecore/content/Global/Airports//*[@@templatename='Airport' and (contains(@Airport Name, '" + name + "') or contains(@City, '" + name + "')]";
     }
 
-    public static string QueryToSearchAllAirports()
+    public static string QueryItemIdToSearchAllAirports()
     {
-      return "/sitecore/content/Global/Airports//*[@@templatename='Airport']";
+      return "A4FCD654-46E5-43A0-B80A-21EA3D9C3024";
     }
 
     public static string QueryToSearchDepartFlightsWithRequest(SearchFlightsRequest request)

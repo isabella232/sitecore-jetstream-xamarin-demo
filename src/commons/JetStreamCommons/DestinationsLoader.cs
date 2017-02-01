@@ -15,11 +15,11 @@ namespace JetStreamCommons
 
   public class DestinationsLoader : IDisposable
   {
-    private ISitecoreWebApiSession session;
+    private ISitecoreSSCSession session;
 
     private bool disposed = false;
 
-    public DestinationsLoader(ISitecoreWebApiSession session)
+    public DestinationsLoader(ISitecoreSSCSession session)
     {
       this.session = session;
     }
@@ -35,12 +35,12 @@ namespace JetStreamCommons
 
     public async Task<List<IDestination>> LoadOnlyDestinations(bool onlyWithCorrectCoordinates = false)
     {
-      string destinationsQuery = QueryHelpers.QueryToSearchAllCityItems();
+      string destinationsQueryItemId = QueryHelpers.QueryItemIdToSearchAllCityItems();
 
-      var destinationsRequest = ItemWebApiRequestBuilder.ReadItemsRequestWithSitecoreQuery(destinationsQuery)
-        .Build();
+      var destinationsRequest = ItemSSCRequestBuilder.StoredQuerryRequest(destinationsQueryItemId)
+                                                     .Build();
 
-      var destinationsResponce = await this.session.ReadItemAsync(destinationsRequest);
+      var destinationsResponce = await this.session.RunStoredQuerryAsync(destinationsRequest);
 
       var destinations = destinationsResponce.Select(item => new Destination(item) as IDestination);
 
@@ -50,11 +50,10 @@ namespace JetStreamCommons
     public async Task<List<IAttraction>> LoadAttractions(IDestination destination)
     {
 
-      var attractionsRequest = ItemWebApiRequestBuilder.ReadItemsRequestWithId(destination.Id)
-        .AddScope(ScopeType.Children)
+      var attractionsRequest = ItemSSCRequestBuilder.ReadChildrenRequestWithId(destination.Id)
         .Build();
 
-      var atractionsResponce = await this.session.ReadItemAsync(attractionsRequest);
+      var atractionsResponce = await this.session.ReadChildrenAsync(attractionsRequest);
 
       var atractions = atractionsResponce.Select(item => new Attraction(item) as IAttraction);
 
@@ -67,24 +66,24 @@ namespace JetStreamCommons
 
     private async Task<ScItemsResponse> LoadRegionsAndCountries()
     {
-      var regionsAndCountriesQuery = QueryHelpers.QueryToSearchAllRegionsAndCountriesItems();
-      var regionsAndCountriesRequest = ItemWebApiRequestBuilder.ReadItemsRequestWithSitecoreQuery(regionsAndCountriesQuery)
+      var regionsAndCountriesQuery = QueryHelpers.QueryItemIdToSearchAllRegionsAndCountriesItems();
+      var regionsAndCountriesRequest = ItemSSCRequestBuilder.StoredQuerryRequest(regionsAndCountriesQuery)
         .Build();
 
-      return await this.session.ReadItemAsync(regionsAndCountriesRequest);
+      return await this.session.RunStoredQuerryAsync(regionsAndCountriesRequest);
     }
 
     private List<Region> MatchRegionsCountriesAndDestinations(ScItemsResponse regionsAndCountriesResponse, IEnumerable<IDestination> destionations)
     {
       //TODO: Please notice that sometimes countries can have nested country like United Kingdom -> England
-      var countries = regionsAndCountriesResponse.Where((item, i) => item.Template.Equals(Country.TemplateName))
+      var countries = regionsAndCountriesResponse.Where((item, i) => item["TemplateName"].Equals(Country.TemplateName))
         .Select(country =>
         {
           var countryDestination = destionations.Where(dest => dest.CountryName.Equals(country.DisplayName));
           return new Country(countryDestination, country);
         });
 
-      var regions = regionsAndCountriesResponse.Where(item => item.Template.Equals(Region.TemplateName))
+      var regions = regionsAndCountriesResponse.Where(item => item["TemplateName"].Equals(Region.TemplateName))
         .Select(region =>
         {
           var regionCountries = countries.Where(item => region.DisplayName.Equals(item.RegionName));

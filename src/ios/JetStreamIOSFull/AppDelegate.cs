@@ -3,7 +3,7 @@ using Foundation;
 using Xamarin;
 using JetStreamIOSFull.MapUI;
 using JetStreamIOSFull.Helpers;
-
+using System.Net;
 
 namespace JetStreamIOSFull
 {
@@ -23,6 +23,12 @@ namespace JetStreamIOSFull
             
     public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
     {
+      #warning !!!!ignoring ssl certification!!!!
+      //ignoring ssl certification to test https request
+      ServicePointManager
+        .ServerCertificateValidationCallback +=
+          (sender, cert, chain, sslPolicyErrors) => true;
+      
       AnalyticsHelper.InitializeAnalytics();
 
       var splitViewController = (MainSplitViewController)Window.RootViewController;
