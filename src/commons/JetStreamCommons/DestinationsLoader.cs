@@ -1,6 +1,4 @@
-﻿using JetStreamCommons.Destinations;
-using Sitecore.MobileSDK.API.Request.Parameters;
-
+﻿
 namespace JetStreamCommons
 {
   using System;
@@ -15,6 +13,8 @@ namespace JetStreamCommons
 
   public class DestinationsLoader : IDisposable
   {
+    private const int DESTINATIONS_PER_PAGE = 500; //all items in one request
+
     private ISitecoreSSCSession session;
 
     private bool disposed = false;
@@ -37,7 +37,10 @@ namespace JetStreamCommons
     {
       string destinationsQueryItemId = QueryHelpers.QueryItemIdToSearchAllCityItems();
 
+      //care about extra pages
       var destinationsRequest = ItemSSCRequestBuilder.StoredQuerryRequest(destinationsQueryItemId)
+                                                     .PageNumber(0)
+                                                     .ItemsPerPage(DESTINATIONS_PER_PAGE)
                                                      .Build();
 
       var destinationsResponce = await this.session.RunStoredQuerryAsync(destinationsRequest);
@@ -49,9 +52,11 @@ namespace JetStreamCommons
 
     public async Task<List<IAttraction>> LoadAttractions(IDestination destination)
     {
-
+      //care about extra pages
       var attractionsRequest = ItemSSCRequestBuilder.ReadChildrenRequestWithId(destination.Id)
-        .Build();
+                                                    .PageNumber(0)
+                                                    .ItemsPerPage(DESTINATIONS_PER_PAGE)
+                                                    .Build();
 
       var atractionsResponce = await this.session.ReadChildrenAsync(attractionsRequest);
 
