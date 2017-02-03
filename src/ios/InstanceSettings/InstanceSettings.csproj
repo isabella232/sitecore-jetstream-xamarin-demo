@@ -45,14 +45,11 @@
     <Reference Include="System.Net.Http.Extensions">
       <HintPath>..\..\..\Solutions\packages\Microsoft.Net.Http.2.2.29\lib\Xamarin.iOS10\System.Net.Http.Extensions.dll</HintPath>
     </Reference>
-    <Reference Include="crypto">
-      <HintPath>..\..\..\Solutions\packages\Portable.BouncyCastle.1.8.0\lib\XamarinIos\crypto.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\..\Solutions\packages\Newtonsoft.Json.9.0.1\lib\portable-net45+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Sitecore.MobileSDK">
-      <HintPath>..\..\..\Solutions\packages\Sitecore.MobileSDK.SSC.1.1.1\lib\portable-win+net4+sl5+wp8\Sitecore.MobileSDK.dll</HintPath>
+      <HintPath>..\..\..\Solutions\packages\Sitecore.MobileSDK.SSC.1.1.2\lib\portable-win+net4+sl5+wp8\Sitecore.MobileSDK.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

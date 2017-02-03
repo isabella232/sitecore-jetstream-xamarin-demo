@@ -96,9 +96,6 @@
     <Reference Include="PLCrashReporterUnifiedBinding">
       <HintPath>..\..\..\Solutions\packages\Xamarin.Insights.1.11.2\lib\Xamarin.iOS10\PLCrashReporterUnifiedBinding.dll</HintPath>
     </Reference>
-    <Reference Include="crypto">
-      <HintPath>..\..\..\Solutions\packages\Portable.BouncyCastle.1.8.0\lib\XamarinIos\crypto.dll</HintPath>
-    </Reference>
     <Reference Include="SDWebImage">
       <HintPath>..\..\..\Solutions\packages\Xamarin.SDWebImage.3.7.5\lib\Xamarin.iOS\SDWebImage.dll</HintPath>
     </Reference>
@@ -106,7 +103,7 @@
       <HintPath>..\..\..\Solutions\packages\Newtonsoft.Json.9.0.1\lib\portable-net45+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Sitecore.MobileSDK">
-      <HintPath>..\..\..\Solutions\packages\Sitecore.MobileSDK.SSC.1.1.1\lib\portable-win+net4+sl5+wp8\Sitecore.MobileSDK.dll</HintPath>
+      <HintPath>..\..\..\Solutions\packages\Sitecore.MobileSDK.SSC.1.1.2\lib\portable-win+net4+sl5+wp8\Sitecore.MobileSDK.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
