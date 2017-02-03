@@ -1,12 +1,13 @@
-﻿using System;
-using UIKit;
-using System.Collections.Generic;
-using JetStreamCommons.Destinations;
-using Foundation;
-using JetStreamIOSFull.MapUI;
-
+﻿
 namespace JetStreamIOSFull
 {
+  using System;
+  using UIKit;
+  using System.Collections.Generic;
+  using JetStreamCommons.Destinations;
+  using Foundation;
+  using JetStreamIOSFull.MapUI;
+
   public class CarouselDataSource : UICollectionViewSource
   {
     private const string CELL_ID = "DestinationCell";
