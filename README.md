@@ -1,10 +1,13 @@
+
+
+
 Jestream Xamarin Demo App
 ===================
 
-Description here.
+SSC Note!
+-------------
 
-----------
-
+Install the "Jetstream mobile app package-1.0" first.
 
 Android Google Maps configuration
 -------------
