@@ -13,7 +13,7 @@ Android Google Maps configuration
 -------------
 To make google maps available on your device when you build Android application from sources you need to perform several steps.
 
-1) [Download](https://github.com/Sitecore/jetstream-xamarin-demo-app/raw/master/scripts/android/debug.keystore) our debug.keystore from repository.
+1) [Download](https://github.com/Sitecore/sitecore-jetstream-xamarin-demo/raw/master/scripts/android/debug.keystore) our debug.keystore from repository.
 
 2) In 
 
@@ -40,18 +40,18 @@ with
 - Open **JetstreamAndroidTablet.sln** solution from **solutions** folder.
 - From **JetstreamTablet** project's context menu in solutions pad select **Options**.  
 
-![OptionsMenu.png](https://github.com/Sitecore/sitecore-jetstream-xamarin-demo/tree/master/doc/images/Maps_Configuration/OptionsMenu.png)
+![OptionsMenu.png](https://raw.githubusercontent.com/Sitecore/sitecore-jetstream-xamarin-demo/master/doc/images/Maps_Configuration/OptionsMenu.png)
 
 - In **Build** menu select **Android Package Signing** item.  
 
-![AndroidPackageSigning.png](http://sitecore.github.io/jetstream-xamarin-demo-app/img/Maps_Configuration/AndroidPackageSigning.png)
+![AndroidPackageSigning.png](https://raw.githubusercontent.com/Sitecore/sitecore-jetstream-xamarin-demo/master/doc/images/Maps_Configuration/AndroidPackageSigning.png)
 
 - Select configuration **Debug**.  
 - Tick check box **Sign the .APK file using the following keystore details**.  
 - Browse for  **debug.keystore**  downloaded before for **Keystore** field.  
 - Fulfill options as on provided screenshot.
 
-![FulfillOptions.png](http://sitecore.github.io/jetstream-xamarin-demo-app/img/Maps_Configuration/FulfillOptions.png)
+![FulfillOptions.png](https://raw.githubusercontent.com/Sitecore/sitecore-jetstream-xamarin-demo/master/doc/images/Maps_Configuration/FulfillOptions.png)
 
 - Press **Ok** button and run project.
 
