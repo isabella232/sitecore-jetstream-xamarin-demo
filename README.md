@@ -40,7 +40,7 @@ with
 - Open **JetstreamAndroidTablet.sln** solution from **solutions** folder.
 - From **JetstreamTablet** project's context menu in solutions pad select **Options**.  
 
-![OptionsMenu.png](http://sitecore.github.io/jetstream-xamarin-demo-app/img/Maps_Configuration/OptionsMenu.png)
+![OptionsMenu.png](https://github.com/Sitecore/sitecore-jetstream-xamarin-demo/tree/master/doc/images/Maps_Configuration/OptionsMenu.png)
 
 - In **Build** menu select **Android Package Signing** item.  
 
