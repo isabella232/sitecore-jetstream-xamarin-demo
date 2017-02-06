@@ -36,7 +36,7 @@
     {
       get
       {
-        var session = SitecoreWebApiSessionBuilder.AnonymousSessionWithHost(Prefs.From(this).InstanceUrl)
+        var session = SitecoreSSCSessionBuilder.AnonymousSessionWithHost(Prefs.From(this).InstanceUrl)
                         .DefaultDatabase("web")
                         .BuildSession();
         return (ScApiSession)session;

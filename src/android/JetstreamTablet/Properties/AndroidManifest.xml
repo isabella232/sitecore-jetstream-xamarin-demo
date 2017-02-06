@@ -3,7 +3,7 @@
 	<supports-screens android:largeScreens="true" android:normalScreens="false" android:requiresSmallestWidthDp="600" android:smallScreens="false" android:xlargeScreens="true"/>
 	<uses-sdk android:minSdkVersion="14" android:targetSdkVersion="21"/>
 	<application android:icon="@drawable/icon" android:label="Jetstream">
-		<meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyDCbSr0J9m2pVrVXgEX_Hyw7ro-l8seprk"/>
+		<meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyCa3ojwnnEEf4YrTcxhf5LjNL999_6MObA"/>
 		<meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version"/>
 	</application>
 	<!-- Google Maps for Android v2 requires OpenGL ES v2 -->
